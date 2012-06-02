@@ -1,0 +1,6 @@
+# git ignore file
+packages/*
+_ReSharper.NSpec/*
+*.suo
+*.cache
+*.user
