@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec", "NSpec\NSpec.csproj", "{D52F70D6-7F9A-459C-8302-3F848C89C3C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSpec.Specs", "NSpec.Specs\NSpec.Specs.csproj", "{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D52F70D6-7F9A-459C-8302-3F848C89C3C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D52F70D6-7F9A-459C-8302-3F848C89C3C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D52F70D6-7F9A-459C-8302-3F848C89C3C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D52F70D6-7F9A-459C-8302-3F848C89C3C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
