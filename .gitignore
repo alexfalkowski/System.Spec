@@ -4,3 +4,7 @@ _ReSharper.NSpec/*
 *.suo
 *.cache
 *.user
+*.dll
+*.pdb
+*.FileListAbsolute.txt
+*.xml
