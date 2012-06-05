@@ -1,4 +1,5 @@
-# git ignore file
+bin
+obj
 packages/*
 _ReSharper.NSpec/*
 *.suo
