@@ -1,6 +1,6 @@
 ﻿namespace NSpec.Specs
 {
-    using System;
+    using System.Collections.ObjectModel;
 
     using FluentAssertions;
 
@@ -12,17 +12,13 @@
         [Test]
         public void ShouldGetMethodsFromAction()
         {
-            var specification = new Specification();
+            var list = new Collection<string>();
+            var specification = new TestSpecification(list);
 
-            Action action = () => specification.Describe("test");
-        }
+            specification.Execute();
 
-        private class Specification
-        {
-            public void Describe(string description)
-            {
-                
-            }
+            list.Should().ContainInOrder(
+                new[] { "describe 1", "before each", "it 1", "before each", "it 2" });
         }
     }
 }
