@@ -10,34 +10,12 @@ namespace NSpec
 
         public void It(string reason, Action action)
         {
-            this.ReaiseBeforeEach();
+            this.RaiseAction(this.BeforeEach);
 
             Console.WriteLine(reason);
             action();
 
-            this.RaiseAfterEach();
-        }
-
-        private static void RaiseAction(Action action)
-        {
-            if (action != null)
-            {
-                action();
-            }
-        }
-
-        private void RaiseAfterEach()
-        {
-            var afterEach = this.AfterEach;
-
-            RaiseAction(afterEach);
-        }
-
-        private void ReaiseBeforeEach()
-        {
-            var beforeEach = this.BeforeEach;
-
-            RaiseAction(beforeEach);
+            this.RaiseAction(this.AfterEach);
         }
     }
 }

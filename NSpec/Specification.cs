@@ -2,6 +2,6 @@ namespace NSpec
 {
     public abstract class Specification : ExampleGroup
     {
-        public abstract void Execute();
+        public abstract void Validate();
     }
 }

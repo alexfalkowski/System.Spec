@@ -23,7 +23,7 @@
         {
             var specification = new TestSpecificationWithJustDescribe(this.list);
 
-            specification.Execute();
+            specification.Validate();
 
             this.list.Should().HaveCount(1);
             this.list.First().Should().Be("describe 1");
@@ -34,7 +34,7 @@
         {
             var specification = new TestSpecificationWithNestedDescribe(this.list);
 
-            specification.Execute();
+            specification.Validate();
 
             this.list.Should().HaveCount(2);
             this.list[0].Should().Be("describe 1");
@@ -46,7 +46,7 @@
         {
             var specification = new TestSpecificationWithSingleIt(this.list);
 
-            specification.Execute();
+            specification.Validate();
 
             this.list.Should().HaveCount(2);
             this.list[0].Should().Be("describe 1");
@@ -58,7 +58,7 @@
         {
             var specification = new TestSpecificationWithSingleItWithBeforeEach(this.list);
 
-            specification.Execute();
+            specification.Validate();
 
             this.list.Should().HaveCount(3);
             this.list[0].Should().Be("describe 1");
@@ -71,7 +71,7 @@
         {
             var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach(this.list);
 
-            specification.Execute();
+            specification.Validate();
 
             this.list.Should().HaveCount(4);
             this.list[0].Should().Be("describe 1");
@@ -85,7 +85,7 @@
         {
             var specification = new TestSpecificationWithBeforeAllAndAfterAll(this.list);
 
-            specification.Execute();
+            specification.Validate();
 
             this.list.Should().HaveCount(6);
             this.list[0].Should().Be("before all");

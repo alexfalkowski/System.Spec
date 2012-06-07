@@ -9,7 +9,7 @@
         {
         }
 
-        public override void Execute()
+        public override void Validate()
         {
             this.Describe(
                 "describe 1",

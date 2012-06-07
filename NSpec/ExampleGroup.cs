@@ -4,12 +4,10 @@
 
     public class ExampleGroup
     {
-        public void Describe(string reason, Action beforeAll = null, Action<Example> example = null, Action afterAll = null)
+        public void Describe(
+            string reason, Action beforeAll = null, Action<Example> example = null, Action afterAll = null)
         {
-            if (beforeAll != null)
-            {
-                beforeAll();
-            }
+            this.RaiseAction(beforeAll);
 
             Console.WriteLine(reason);
 
@@ -18,9 +16,14 @@
                 example(new Example());
             }
 
-            if (afterAll != null)
+            this.RaiseAction(afterAll);
+        }
+
+        protected void RaiseAction(Action action)
+        {
+            if (action != null)
             {
-                afterAll();
+                action();
             }
         }
     }
