@@ -30,6 +30,18 @@
         }
 
         [Test]
+        public void ShouldValidateNestedDescribe()
+        {
+            var specification = new TestSpecificationWithNestedDescribe(this.list);
+
+            specification.Execute();
+
+            this.list.Should().HaveCount(2);
+            this.list[0].Should().Be("describe 1");
+            this.list[1].Should().Be("describe 2");
+        }
+
+        [Test]
         public void ShouldValidateSingleDescribeWithSingleIt()
         {
             var specification = new TestSpecificationWithSingleIt(this.list);

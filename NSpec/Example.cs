@@ -2,7 +2,7 @@ namespace NSpec
 {
     using System;
 
-    public class Example
+    public class Example : ExampleGroup
     {
         public Action BeforeEach { get; set; }
 
