@@ -13,11 +13,11 @@
         {
             this.Describe(
                 "describe 1",
-                context =>
+                example: describe =>
                     {
                         this.List.Add("describe 1");
 
-                        context.Describe("describe 2", example => this.List.Add("describe 2"));
+                        describe.Describe("describe 2", example: describe2 => this.List.Add("describe 2"));
                     });
         }
     }

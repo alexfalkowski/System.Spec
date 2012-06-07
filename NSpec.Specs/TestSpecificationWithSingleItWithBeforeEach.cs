@@ -14,18 +14,18 @@
         {
             this.Describe(
                 "describe 1",
-                context =>
-                {
-                    this.List.Add("describe 1");
-
-                    context.BeforeEach = () =>
+                example: describe =>
                     {
-                        Console.WriteLine("before each");
-                        this.List.Add("before each");
-                    };
+                        this.List.Add("describe 1");
 
-                    context.It("it 1", () => this.List.Add("it 1"));
-                });
+                        describe.BeforeEach = () =>
+                            {
+                                Console.WriteLine("before each");
+                                this.List.Add("before each");
+                            };
+
+                        describe.It("it 1", () => this.List.Add("it 1"));
+                    });
         }
     }
 }

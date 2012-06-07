@@ -11,7 +11,7 @@
 
         public override void Execute()
         {
-            this.Describe("describe 1", context => this.List.Add("describe 1"));
+            this.Describe("describe 1", example: describe => this.List.Add("describe 1"));
         }
     }
 }

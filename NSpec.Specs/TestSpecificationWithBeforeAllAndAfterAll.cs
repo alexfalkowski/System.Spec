@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
 
-    public class TestSpecificationWithSingleItWithBeforeEachAndAfterEach : TestSpecification
+    internal class TestSpecificationWithBeforeAllAndAfterAll : TestSpecification
     {
-        public TestSpecificationWithSingleItWithBeforeEachAndAfterEach(IList<string> list)
+        internal TestSpecificationWithBeforeAllAndAfterAll(IList<string> list)
             : base(list)
         {
         }
@@ -14,6 +14,12 @@
         {
             this.Describe(
                 "describe 1",
+                // ReSharper disable RedundantArgumentName
+                beforeAll: () =>
+                    {
+                        Console.WriteLine("before all");
+                        this.List.Add("before all");
+                    },
                 example: describe =>
                     {
                         this.List.Add("describe 1");
@@ -31,7 +37,13 @@
                             };
 
                         describe.It("it 1", () => this.List.Add("it 1"));
+                    },
+                afterAll: () =>
+                    {
+                        Console.WriteLine("after all");
+                        this.List.Add("after all");
                     });
+            // ReSharper restore RedundantArgumentName
         }
     }
 }

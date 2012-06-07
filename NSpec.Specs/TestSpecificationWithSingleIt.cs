@@ -13,12 +13,12 @@
         {
             this.Describe(
                 "describe 1",
-                context =>
-                {
-                    this.List.Add("describe 1");
+                example: describe =>
+                    {
+                        this.List.Add("describe 1");
 
-                    context.It("it 1", () => this.List.Add("it 1"));
-                });
+                        describe.It("it 1", () => this.List.Add("it 1"));
+                    });
         }
     }
 }

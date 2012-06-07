@@ -79,5 +79,21 @@
             this.list[2].Should().Be("it 1");
             this.list[3].Should().Be("after each");
         }
+
+        [Test]
+        public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
+        {
+            var specification = new TestSpecificationWithBeforeAllAndAfterAll(this.list);
+
+            specification.Execute();
+
+            this.list.Should().HaveCount(6);
+            this.list[0].Should().Be("before all");
+            this.list[1].Should().Be("describe 1");
+            this.list[2].Should().Be("before each");
+            this.list[3].Should().Be("it 1");
+            this.list[4].Should().Be("after each");
+            this.list[5].Should().Be("after all");
+        }
     }
 }
