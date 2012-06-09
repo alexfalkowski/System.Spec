@@ -1,5 +1,6 @@
 ﻿namespace NSpec.Specs
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Linq;
 
@@ -94,6 +95,26 @@
             this.list[3].Should().Be("it 1");
             this.list[4].Should().Be("after each");
             this.list[5].Should().Be("after all");
+        }
+
+        [Test]
+        public void ShouldValidateWithFluentAsserstions()
+        {
+            var sepcification = new TestSpecificationWithFluentAssertions();
+
+            Action action = sepcification.Validate;
+
+            action.ShouldThrow<Exception>();
+        }
+
+        [Test]
+        public void ShouldValidateWithNSubstitute()
+        {
+            var sepcification = new TestSpecificationWithNSubstitute();
+
+            Action action = sepcification.Validate;
+
+            action.ShouldThrow<Exception>();
         }
     }
 }
