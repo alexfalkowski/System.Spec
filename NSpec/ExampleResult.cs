@@ -20,7 +20,7 @@
 
         public bool Equals(ExampleResult other)
         {
-            return this.Status == other.Status;
+            return other != null && this.Status == other.Status;
         }
 
         public override bool Equals(object obj)

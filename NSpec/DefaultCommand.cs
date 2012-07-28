@@ -9,13 +9,21 @@ namespace NSpec
     {
         private readonly ISpecificationVisitor visitor;
 
-        public DefaultCommand(ISpecificationVisitor visitor)
+        private readonly IConsoleFormatter formatter;
+
+        public DefaultCommand(ISpecificationVisitor visitor, IConsoleFormatter formatter)
         {
             this.visitor = visitor;
+            this.formatter = formatter;
         }
 
         public IEnumerable<Type> GetSpecificationTypes(Assembly assembly)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException("assembly");
+            }
+
             return from type in assembly.GetTypes() where type.IsSubclassOf(typeof(Specification)) select type;
         }
 
@@ -25,6 +33,8 @@ namespace NSpec
             {
                 specification.Validate();
             }
+
+            this.formatter.WriteSummary(this.visitor);
         }
     }
 }

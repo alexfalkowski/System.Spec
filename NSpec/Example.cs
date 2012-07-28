@@ -1,6 +1,7 @@
 namespace NSpec
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     public class Example : ExampleGroup
     {
@@ -12,13 +13,19 @@ namespace NSpec
             this.visitor = visitor;
         }
 
-        public Action BeforeEach { private get; set; }
+        public Action BeforeEach { get; set; }
 
-        public Action AfterEach { private get; set; }
+        public Action AfterEach { get; set; }
 
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "It will be displayed to the user.")]
         public void It(string reason, Action action)
         {
-            this.RaiseAction(reason, this.BeforeEach, this.visitor.VisitItBeforeEach);
+            if (action == null)
+            {
+                throw new ArgumentNullException("action");
+            }
+
+            ExampleGroup.RaiseAction(reason, this.BeforeEach, this.visitor.VisitItBeforeEach);
 
             try
             {
@@ -30,7 +37,7 @@ namespace NSpec
                 this.visitor.VisitIt(reason, new ExampleResult { Exception = e, Status = ExampleResultStatus.Failure });
             }
 
-            this.RaiseAction(reason, this.AfterEach, this.visitor.VisitItAfterEach);
+            ExampleGroup.RaiseAction(reason, this.AfterEach, this.visitor.VisitItAfterEach);
         }
     }
 }

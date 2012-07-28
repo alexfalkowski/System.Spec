@@ -4,6 +4,8 @@
 
     using FluentAssertions;
 
+    using NSubstitute;
+
     using NUnit.Framework;
 
     [TestFixture]
@@ -13,11 +15,14 @@
 
         private ISpecificationVisitor specificationVisitor;
 
+        private IConsoleFormatter consoleFormatter;
+
         [SetUp]
         public void BeforeEach()
         {
-            this.specificationVisitor = new DefaultSpecificationVisitor();
-            this.command = new DefaultCommand(this.specificationVisitor);
+            this.consoleFormatter = Substitute.For<IConsoleFormatter>();
+            this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
+            this.command = new DefaultCommand(this.specificationVisitor, this.consoleFormatter);
         }
 
         [Test]
@@ -35,6 +40,9 @@
             this.command.ExecuteSpecifications(types);
             this.specificationVisitor.NumberOfExamples.Should().Be(6);
             this.specificationVisitor.NumberOfFailures.Should().Be(2);
+            this.consoleFormatter.Received(4).WriteSuccess();
+            this.consoleFormatter.Received(2).WriteError();
+            this.consoleFormatter.Received().WriteSummary(this.specificationVisitor);
         }
     }
 }

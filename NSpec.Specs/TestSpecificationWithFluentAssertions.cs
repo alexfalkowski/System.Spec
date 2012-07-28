@@ -13,7 +13,7 @@
         {
             this.Describe(
                 "trying to do an assertion using FluentAssertions",
-                example: describe => describe.It("should be true", () => false.Should().BeTrue()));
+                describe => describe.It("should be true", () => false.Should().BeTrue()));
         }        
     }
 }

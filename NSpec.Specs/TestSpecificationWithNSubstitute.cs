@@ -18,7 +18,7 @@
         {
             this.Describe(
                 "using NSustitute",
-                example: describe => describe.It(
+                describe => describe.It(
                     "call method",
                     () =>
                         {

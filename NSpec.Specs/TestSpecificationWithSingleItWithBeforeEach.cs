@@ -1,7 +1,5 @@
 ﻿namespace NSpec.Specs
 {
-    using System;
-
     public class TestSpecificationWithSingleItWithBeforeEach : Specification
     {
         public TestSpecificationWithSingleItWithBeforeEach(ISpecificationVisitor visitor)
@@ -13,13 +11,11 @@
         {
             this.Describe(
                 "describe 1",
-                example: describe =>
+                describe =>
                     {
-                        Console.WriteLine("describe 1");
+                        describe.BeforeEach = () => { };
 
-                        describe.BeforeEach = () => Console.WriteLine("before each");
-
-                        describe.It("it 1", () => Console.WriteLine("it 1"));
+                        describe.It("it 1", () => { });
                     });
         }
     }

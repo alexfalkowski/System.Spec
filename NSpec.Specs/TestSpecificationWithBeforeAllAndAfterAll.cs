@@ -1,7 +1,5 @@
 ﻿namespace NSpec.Specs
 {
-    using System;
-
     public class TestSpecificationWithBeforeAllAndAfterAll : Specification
     {
         public TestSpecificationWithBeforeAllAndAfterAll(ISpecificationVisitor visitor)
@@ -14,18 +12,16 @@
             this.Describe(
                 "describe 1",
                 // ReSharper disable RedundantArgumentName
-                beforeAll: () => Console.WriteLine("before all"),
+                beforeAll: () => { },
                 example: describe =>
                     {
-                        Console.WriteLine("describe 1");
+                        describe.BeforeEach = () => { };
 
-                        describe.BeforeEach = () => Console.WriteLine("before each");
+                        describe.AfterEach = () => { };
 
-                        describe.AfterEach = () => Console.WriteLine("after each");
-
-                        describe.It("it 1", () => Console.WriteLine("it 1"));
+                        describe.It("it 1", () => { });
                     },
-                afterAll: () => Console.WriteLine("after all"));
+                afterAll: () => { });
             // ReSharper restore RedundantArgumentName
         }
     }

@@ -1,6 +1,7 @@
 ﻿namespace NSpec
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     public class ExampleGroup
     {
@@ -11,10 +12,20 @@
             this.visitor = visitor;
         }
 
-        public void Describe(
-            string reason, Action beforeAll = null, Action<Example> example = null, Action afterAll = null)
+        public void Describe(string reason, Action<Example> example)
         {
-            this.RaiseAction(reason, beforeAll, this.visitor.VisitDescribeBeforeAll);
+            this.Describe(reason, null, example, null);
+        }
+
+        public void Describe(string reason, Action beforeAll, Action<Example> example)
+        {
+            this.Describe(reason, beforeAll, example, null);
+        }
+
+        public void Describe(
+            string reason, Action beforeAll, Action<Example> example, Action afterAll)
+        {
+            RaiseAction(reason, beforeAll, this.visitor.VisitDescribeBeforeAll);
 
             if (example != null)
             {
@@ -22,11 +33,17 @@
                 this.visitor.VisitDescribe(reason);
             }
 
-            this.RaiseAction(reason, afterAll, this.visitor.VisitDescribeAfterAll);
+            RaiseAction(reason, afterAll, this.visitor.VisitDescribeAfterAll);
         }
 
-        protected void RaiseAction(string reason, Action action, Action<string> visitorAction)
+        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "Better using an action.")]
+        protected static void RaiseAction(string reason, Action action, Action<string> visitorAction)
         {
+            if (visitorAction == null)
+            {
+                throw new ArgumentNullException("visitorAction");
+            }
+
             if (action == null)
             {
                 return;

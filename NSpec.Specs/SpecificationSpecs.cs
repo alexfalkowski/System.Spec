@@ -88,7 +88,7 @@
         }
 
         [Test]
-        public void ShouldValidateWithFluentAsserstions()
+        public void ShouldValidateWithFluentAssertions()
         {
             var specification = new TestSpecificationWithFluentAssertions(this.visitor);
 
