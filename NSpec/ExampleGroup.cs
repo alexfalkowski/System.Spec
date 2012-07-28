@@ -4,27 +4,36 @@
 
     public class ExampleGroup
     {
+        private readonly ISpecificationVisitor visitor;
+
+        public ExampleGroup(ISpecificationVisitor visitor)
+        {
+            this.visitor = visitor;
+        }
+
         public void Describe(
             string reason, Action beforeAll = null, Action<Example> example = null, Action afterAll = null)
         {
-            this.RaiseAction(beforeAll);
-
-            Console.WriteLine(reason);
+            this.RaiseAction(reason, beforeAll, this.visitor.VisitDescribeBeforeAll);
 
             if (example != null)
             {
-                example(new Example());
+                example(new Example(this.visitor));
+                this.visitor.VisitDescribe(reason);
             }
 
-            this.RaiseAction(afterAll);
+            this.RaiseAction(reason, afterAll, this.visitor.VisitDescribeAfterAll);
         }
 
-        protected void RaiseAction(Action action)
+        protected void RaiseAction(string reason, Action action, Action<string> visitorAction)
         {
-            if (action != null)
+            if (action == null)
             {
-                action();
+                return;
             }
+
+            action();
+            visitorAction(reason);
         }
     }
 }

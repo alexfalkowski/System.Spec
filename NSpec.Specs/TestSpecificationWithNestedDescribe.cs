@@ -1,11 +1,11 @@
 ﻿namespace NSpec.Specs
 {
-    using System.Collections.Generic;
+    using System;
 
-    internal class TestSpecificationWithNestedDescribe : TestSpecification
+    internal class TestSpecificationWithNestedDescribe : Specification
     {
-        internal TestSpecificationWithNestedDescribe(IList<string> list)
-            : base(list)
+        internal TestSpecificationWithNestedDescribe(ISpecificationVisitor visitor)
+            : base(visitor)
         {
         }
 
@@ -15,9 +15,9 @@
                 "describe 1",
                 example: describe =>
                     {
-                        this.List.Add("describe 1");
+                        Console.WriteLine("describe 1");
 
-                        describe.Describe("describe 2", example: describe2 => this.List.Add("describe 2"));
+                        describe.Describe("describe 2", example: describe2 => Console.WriteLine("describe 2"));
                     });
         }
     }

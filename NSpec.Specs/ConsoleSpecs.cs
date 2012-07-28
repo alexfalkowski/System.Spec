@@ -14,7 +14,7 @@
         {
             var command = new Command();
             var types = command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
-            types.Should().HaveCount(9);
+            types.Should().HaveCount(8);
         }
     }
 }

@@ -4,6 +4,11 @@
 
     public class TestSpecificationWithNSubstitute : Specification
     {
+        public TestSpecificationWithNSubstitute(ISpecificationVisitor visitor)
+            : base(visitor)
+        {
+        }
+
         private interface ITestInterface
         {
             void TestMethod();

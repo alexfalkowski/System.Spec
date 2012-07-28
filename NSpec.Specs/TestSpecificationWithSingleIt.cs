@@ -1,11 +1,11 @@
 ﻿namespace NSpec.Specs
 {
-    using System.Collections.Generic;
+    using System;
 
-    internal class TestSpecificationWithSingleIt : TestSpecification
+    internal class TestSpecificationWithSingleIt : Specification
     {
-        internal TestSpecificationWithSingleIt(IList<string> list)
-            : base(list)
+        internal TestSpecificationWithSingleIt(ISpecificationVisitor visitor)
+            : base(visitor)
         {
         }
 
@@ -15,9 +15,9 @@
                 "describe 1",
                 example: describe =>
                     {
-                        this.List.Add("describe 1");
+                        Console.WriteLine("describe 1");
 
-                        describe.It("it 1", () => this.List.Add("it 1"));
+                        describe.It("it 1", () => Console.WriteLine("it 1"));
                     });
         }
     }

@@ -1,106 +1,100 @@
 ﻿namespace NSpec.Specs
 {
     using System;
-    using System.Collections.ObjectModel;
-    using System.Linq;
 
     using FluentAssertions;
+
+    using NSubstitute;
 
     using NUnit.Framework;
 
     [TestFixture]
     public class SpecificationSpecs
     {
-        private Collection<string> list;
+        private ISpecificationVisitor visitor;
 
         [SetUp]
         public void BeforeEach()
         {
-            this.list = new Collection<string>();
+            this.visitor = Substitute.For<ISpecificationVisitor>();
         }
 
         [Test]
         public void ShouldValidateSingleDescribe()
         {
-            var specification = new TestSpecificationWithJustDescribe(this.list);
+            var specification = new TestSpecificationWithJustDescribe(this.visitor);
 
             specification.Validate();
 
-            this.list.Should().HaveCount(1);
-            this.list.First().Should().Be("describe 1");
+            this.visitor.Received().VisitDescribe("describe 1");
         }
 
         [Test]
         public void ShouldValidateNestedDescribe()
         {
-            var specification = new TestSpecificationWithNestedDescribe(this.list);
+            var specification = new TestSpecificationWithNestedDescribe(this.visitor);
 
             specification.Validate();
 
-            this.list.Should().HaveCount(2);
-            this.list[0].Should().Be("describe 1");
-            this.list[1].Should().Be("describe 2");
+            this.visitor.Received().VisitDescribe("describe 1");
+            this.visitor.Received().VisitDescribe("describe 2");
         }
 
         [Test]
         public void ShouldValidateSingleDescribeWithSingleIt()
         {
-            var specification = new TestSpecificationWithSingleIt(this.list);
+            var specification = new TestSpecificationWithSingleIt(this.visitor);
 
             specification.Validate();
 
-            this.list.Should().HaveCount(2);
-            this.list[0].Should().Be("describe 1");
-            this.list[1].Should().Be("it 1");
+            this.visitor.Received().VisitDescribe("describe 1");
+            this.visitor.Received().VisitIt("it 1");
         }
 
         [Test]
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEach()
         {
-            var specification = new TestSpecificationWithSingleItWithBeforeEach(this.list);
+            var specification = new TestSpecificationWithSingleItWithBeforeEach(this.visitor);
 
             specification.Validate();
 
-            this.list.Should().HaveCount(3);
-            this.list[0].Should().Be("describe 1");
-            this.list[1].Should().Be("before each");
-            this.list[2].Should().Be("it 1");
+            this.visitor.Received().VisitDescribe("describe 1");
+            this.visitor.Received().VisitItBeforeEach("it 1");
+            this.visitor.Received().VisitIt("it 1");
         }
 
         [Test]
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEachAndAfterEach()
         {
-            var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach(this.list);
+            var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach(this.visitor);
 
             specification.Validate();
 
-            this.list.Should().HaveCount(4);
-            this.list[0].Should().Be("describe 1");
-            this.list[1].Should().Be("before each");
-            this.list[2].Should().Be("it 1");
-            this.list[3].Should().Be("after each");
+            this.visitor.Received().VisitDescribe("describe 1");
+            this.visitor.Received().VisitItBeforeEach("it 1");
+            this.visitor.Received().VisitIt("it 1");
+            this.visitor.Received().VisitItAfterEach("it 1");
         }
 
         [Test]
         public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
         {
-            var specification = new TestSpecificationWithBeforeAllAndAfterAll(this.list);
+            var specification = new TestSpecificationWithBeforeAllAndAfterAll(this.visitor);
 
             specification.Validate();
 
-            this.list.Should().HaveCount(6);
-            this.list[0].Should().Be("before all");
-            this.list[1].Should().Be("describe 1");
-            this.list[2].Should().Be("before each");
-            this.list[3].Should().Be("it 1");
-            this.list[4].Should().Be("after each");
-            this.list[5].Should().Be("after all");
+            this.visitor.Received().VisitDescribeBeforeAll("describe 1");
+            this.visitor.Received().VisitDescribe("describe 1");
+            this.visitor.Received().VisitItBeforeEach("it 1");
+            this.visitor.Received().VisitIt("it 1");
+            this.visitor.Received().VisitItAfterEach("it 1");
+            this.visitor.Received().VisitDescribeAfterAll("describe 1");
         }
 
         [Test]
         public void ShouldValidateWithFluentAsserstions()
         {
-            var specification = new TestSpecificationWithFluentAssertions();
+            var specification = new TestSpecificationWithFluentAssertions(this.visitor);
 
             Action action = specification.Validate;
 
@@ -110,7 +104,7 @@
         [Test]
         public void ShouldValidateWithNSubstitute()
         {
-            var specification = new TestSpecificationWithNSubstitute();
+            var specification = new TestSpecificationWithNSubstitute(this.visitor);
 
             Action action = specification.Validate;
 

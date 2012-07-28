@@ -1,17 +1,17 @@
 ﻿namespace NSpec.Specs
 {
-    using System.Collections.Generic;
+    using System;
 
-    internal class TestSpecificationWithJustDescribe : TestSpecification
+    internal class TestSpecificationWithJustDescribe : Specification
     {
-        internal TestSpecificationWithJustDescribe(IList<string> list)
-            : base(list)
+        internal TestSpecificationWithJustDescribe(ISpecificationVisitor visitor)
+            : base(visitor)
         {
         }
 
         public override void Validate()
         {
-            this.Describe("describe 1", example: describe => this.List.Add("describe 1"));
+            this.Describe("describe 1", example: describe => Console.WriteLine("describe 1"));
         }
     }
 }

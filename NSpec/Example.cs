@@ -4,18 +4,26 @@ namespace NSpec
 
     public class Example : ExampleGroup
     {
+        private readonly ISpecificationVisitor visitor;
+
+        public Example(ISpecificationVisitor visitor)
+            : base(visitor)
+        {
+            this.visitor = visitor;
+        }
+
         public Action BeforeEach { get; set; }
 
         public Action AfterEach { get; set; }
 
         public void It(string reason, Action action)
         {
-            this.RaiseAction(this.BeforeEach);
+            this.RaiseAction(reason, this.BeforeEach, this.visitor.VisitItBeforeEach);
 
-            Console.WriteLine(reason);
             action();
+            this.visitor.VisitIt(reason);
 
-            this.RaiseAction(this.AfterEach);
+            this.RaiseAction(reason, this.AfterEach, this.visitor.VisitItAfterEach);
         }
     }
 }
