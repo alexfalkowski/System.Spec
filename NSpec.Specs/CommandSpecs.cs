@@ -57,7 +57,7 @@
             this.fileSystem.CurrentPath.Returns(TestPath);
             this.fileSystem.GetFilesWithExtension(TestPath, ".dll").Returns(new[] { location });
 
-            var assemblies = this.command.Assemblies;
+            var assemblies = this.command.GetAssemblies(TestPath);
             assemblies.Should().HaveCount(1);
         }
     }

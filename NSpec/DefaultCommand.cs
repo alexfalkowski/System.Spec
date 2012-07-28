@@ -22,23 +22,19 @@ namespace NSpec
             this.formatter = formatter;
         }
 
-        [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", 
-            MessageId = "System.Reflection.Assembly.LoadFile", 
-            Justification = "Need to load assemblies")]
-        public IEnumerable<Assembly> Assemblies
+        [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods",
+            MessageId = "System.Reflection.Assembly.LoadFile", Justification = "Need to load assemblies")]
+        public IEnumerable<Assembly> GetAssemblies(string path)
         {
-            get
+            var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), ".dll");
+            var collection = new Collection<Assembly>();
+
+            foreach (var file in files)
             {
-                var files = this.fileSystem.GetFilesWithExtension(this.fileSystem.CurrentPath, ".dll");
-                var collection = new Collection<Assembly>();
-
-                foreach (var file in files)
-                {
-                    collection.Add(Assembly.LoadFile(file));
-                }
-
-                return collection;
+                collection.Add(Assembly.LoadFile(file));
             }
+
+            return collection;
         }
 
         public IEnumerable<Type> GetSpecificationTypes(Assembly assembly)
@@ -59,6 +55,11 @@ namespace NSpec
             }
 
             this.formatter.WriteSummary(this.visitor);
+        }
+
+        private string GetPath(string path)
+        {
+            return string.IsNullOrWhiteSpace(path) ? this.fileSystem.CurrentPath : path;
         }
     }
 }

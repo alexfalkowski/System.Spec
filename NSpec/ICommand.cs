@@ -6,7 +6,7 @@ namespace NSpec
 
     public interface ICommand
     {
-        IEnumerable<Assembly> Assemblies { get; }
+        IEnumerable<Assembly> GetAssemblies(string path);
 
         IEnumerable<Type> GetSpecificationTypes(Assembly assembly);
 
