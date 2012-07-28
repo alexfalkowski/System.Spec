@@ -100,9 +100,9 @@
         [Test]
         public void ShouldValidateWithFluentAsserstions()
         {
-            var sepcification = new TestSpecificationWithFluentAssertions();
+            var specification = new TestSpecificationWithFluentAssertions();
 
-            Action action = sepcification.Validate;
+            Action action = specification.Validate;
 
             action.ShouldThrow<Exception>();
         }
@@ -110,9 +110,9 @@
         [Test]
         public void ShouldValidateWithNSubstitute()
         {
-            var sepcification = new TestSpecificationWithNSubstitute();
+            var specification = new TestSpecificationWithNSubstitute();
 
-            Action action = sepcification.Validate;
+            Action action = specification.Validate;
 
             action.ShouldThrow<Exception>();
         }
