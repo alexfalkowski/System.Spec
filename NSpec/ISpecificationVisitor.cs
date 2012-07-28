@@ -2,6 +2,10 @@
 {
     public interface ISpecificationVisitor
     {
+        int NumberOfExamples { get; }
+
+        int NumberOfFailures { get; }
+
         void VisitDescribe(string reason);
 
         void VisitDescribeBeforeAll(string reason);

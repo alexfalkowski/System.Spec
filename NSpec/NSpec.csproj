@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultCommand.cs" />
+    <Compile Include="DefaultSpecificationVisitor.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroup.cs" />
     <Compile Include="ExampleResult.cs" />

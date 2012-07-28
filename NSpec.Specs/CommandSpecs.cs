@@ -1,11 +1,8 @@
 ﻿namespace NSpec.Specs
 {
-    using System;
     using System.Reflection;
 
     using FluentAssertions;
-
-    using NSubstitute;
 
     using NUnit.Framework;
 
@@ -14,10 +11,13 @@
     {
         private ICommand command;
 
+        private ISpecificationVisitor specificationVisitor;
+
         [SetUp]
         public void BeforeEach()
         {
-            this.command = new DefaultCommand(Substitute.For<ISpecificationVisitor>());
+            this.specificationVisitor = new DefaultSpecificationVisitor();
+            this.command = new DefaultCommand(this.specificationVisitor);
         }
 
         [Test]
@@ -32,8 +32,9 @@
         {
             var types = this.command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
 
-            Action action = () => this.command.ExecuteSpecifications(types);
-            action.ShouldNotThrow();
+            this.command.ExecuteSpecifications(types);
+            this.specificationVisitor.NumberOfExamples.Should().Be(6);
+            this.specificationVisitor.NumberOfFailures.Should().Be(2);
         }
     }
 }
