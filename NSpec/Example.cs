@@ -12,16 +12,23 @@ namespace NSpec
             this.visitor = visitor;
         }
 
-        public Action BeforeEach { get; set; }
+        public Action BeforeEach { private get; set; }
 
-        public Action AfterEach { get; set; }
+        public Action AfterEach { private get; set; }
 
         public void It(string reason, Action action)
         {
             this.RaiseAction(reason, this.BeforeEach, this.visitor.VisitItBeforeEach);
 
-            action();
-            this.visitor.VisitIt(reason);
+            try
+            {
+                action();
+                this.visitor.VisitIt(reason, new ExampleResult { Status = ExampleResultStatus.Success });
+            }
+            catch (Exception e)
+            {
+                this.visitor.VisitIt(reason, new ExampleResult { Exception = e, Status = ExampleResultStatus.Failure });
+            }
 
             this.RaiseAction(reason, this.AfterEach, this.visitor.VisitItAfterEach);
         }

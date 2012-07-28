@@ -51,9 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command.cs" />
+    <Compile Include="DefaultCommand.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroup.cs" />
+    <Compile Include="ExampleResult.cs" />
+    <Compile Include="ExampleResultStatus.cs" />
+    <Compile Include="ICommand.cs" />
     <Compile Include="ISpecificationVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specification.cs" />

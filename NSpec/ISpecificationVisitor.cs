@@ -8,7 +8,7 @@
 
         void VisitDescribeAfterAll(string reason);
 
-        void VisitIt(string reason);
+        void VisitIt(string reason, ExampleResult result);
 
         void VisitItBeforeEach(string reason);
 

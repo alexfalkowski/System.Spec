@@ -2,9 +2,9 @@
 {
     using System;
 
-    internal class TestSpecificationWithBeforeAllAndAfterAll : Specification
+    public class TestSpecificationWithBeforeAllAndAfterAll : Specification
     {
-        internal TestSpecificationWithBeforeAllAndAfterAll(ISpecificationVisitor visitor)
+        public TestSpecificationWithBeforeAllAndAfterAll(ISpecificationVisitor visitor)
             : base(visitor)
         {
         }

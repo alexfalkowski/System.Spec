@@ -6,7 +6,7 @@
     {
         private readonly ISpecificationVisitor visitor;
 
-        public ExampleGroup(ISpecificationVisitor visitor)
+        protected ExampleGroup(ISpecificationVisitor visitor)
         {
             this.visitor = visitor;
         }

@@ -2,9 +2,9 @@
 {
     using System;
 
-    internal class TestSpecificationWithSingleIt : Specification
+    public class TestSpecificationWithSingleIt : Specification
     {
-        internal TestSpecificationWithSingleIt(ISpecificationVisitor visitor)
+        public TestSpecificationWithSingleIt(ISpecificationVisitor visitor)
             : base(visitor)
         {
         }

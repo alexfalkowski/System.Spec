@@ -2,9 +2,9 @@
 {
     using System;
 
-    internal class TestSpecificationWithJustDescribe : Specification
+    public class TestSpecificationWithJustDescribe : Specification
     {
-        internal TestSpecificationWithJustDescribe(ISpecificationVisitor visitor)
+        public TestSpecificationWithJustDescribe(ISpecificationVisitor visitor)
             : base(visitor)
         {
         }

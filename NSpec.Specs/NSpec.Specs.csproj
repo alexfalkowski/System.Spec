@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleSpecs.cs" />
+    <Compile Include="CommandSpecs.cs" />
     <Compile Include="TestSpecificationWithBeforeAllAndAfterAll.cs" />
     <Compile Include="TestSpecificationWithFluentAssertions.cs" />
     <Compile Include="TestSpecificationWithNestedDescribe.cs" />

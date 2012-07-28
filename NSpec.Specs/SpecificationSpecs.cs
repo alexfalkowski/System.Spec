@@ -1,9 +1,5 @@
 ﻿namespace NSpec.Specs
 {
-    using System;
-
-    using FluentAssertions;
-
     using NSubstitute;
 
     using NUnit.Framework;
@@ -48,7 +44,7 @@
             specification.Validate();
 
             this.visitor.Received().VisitDescribe("describe 1");
-            this.visitor.Received().VisitIt("it 1");
+            this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
         }
 
         [Test]
@@ -60,7 +56,7 @@
 
             this.visitor.Received().VisitDescribe("describe 1");
             this.visitor.Received().VisitItBeforeEach("it 1");
-            this.visitor.Received().VisitIt("it 1");
+            this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
         }
 
         [Test]
@@ -72,7 +68,7 @@
 
             this.visitor.Received().VisitDescribe("describe 1");
             this.visitor.Received().VisitItBeforeEach("it 1");
-            this.visitor.Received().VisitIt("it 1");
+            this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
             this.visitor.Received().VisitItAfterEach("it 1");
         }
 
@@ -86,7 +82,7 @@
             this.visitor.Received().VisitDescribeBeforeAll("describe 1");
             this.visitor.Received().VisitDescribe("describe 1");
             this.visitor.Received().VisitItBeforeEach("it 1");
-            this.visitor.Received().VisitIt("it 1");
+            this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
             this.visitor.Received().VisitItAfterEach("it 1");
             this.visitor.Received().VisitDescribeAfterAll("describe 1");
         }
@@ -96,9 +92,11 @@
         {
             var specification = new TestSpecificationWithFluentAssertions(this.visitor);
 
-            Action action = specification.Validate;
+            specification.Validate();
 
-            action.ShouldThrow<Exception>();
+            this.visitor.Received().VisitDescribe("trying to do an assertion using FluentAssertions");
+            this.visitor.Received().VisitIt(
+                "should be true", new ExampleResult { Status = ExampleResultStatus.Failure });
         }
 
         [Test]
@@ -106,9 +104,10 @@
         {
             var specification = new TestSpecificationWithNSubstitute(this.visitor);
 
-            Action action = specification.Validate;
+            specification.Validate();
 
-            action.ShouldThrow<Exception>();
+            this.visitor.Received().VisitDescribe("using NSustitute");
+            this.visitor.Received().VisitIt("call method", new ExampleResult { Status = ExampleResultStatus.Failure });
         }
     }
 }
