@@ -1,5 +1,6 @@
 ﻿namespace NSpec.Specs
 {
+    using System;
     using System.Reflection;
 
     using FluentAssertions;
@@ -17,12 +18,15 @@
 
         private IConsoleFormatter consoleFormatter;
 
+        private IFileSystem fileSystem;
+
         [SetUp]
         public void BeforeEach()
         {
+            this.fileSystem = Substitute.For<IFileSystem>();
             this.consoleFormatter = Substitute.For<IConsoleFormatter>();
             this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
-            this.command = new DefaultCommand(this.specificationVisitor, this.consoleFormatter);
+            this.command = new DefaultCommand(this.specificationVisitor, this.consoleFormatter, this.fileSystem);
         }
 
         [Test]
@@ -43,6 +47,18 @@
             this.consoleFormatter.Received(4).WriteSuccess();
             this.consoleFormatter.Received(2).WriteError();
             this.consoleFormatter.Received().WriteSummary(this.specificationVisitor);
+        }
+
+        [Test]
+        public void ShouldGetAssemblies()
+        {
+            var location = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            const string TestPath = "test";
+            this.fileSystem.CurrentPath.Returns(TestPath);
+            this.fileSystem.GetFilesWithExtension(TestPath, ".dll").Returns(new[] { location });
+
+            var assemblies = this.command.Assemblies;
+            assemblies.Should().HaveCount(1);
         }
     }
 }
