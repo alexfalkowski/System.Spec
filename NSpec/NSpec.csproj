@@ -77,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NSpec.snk" />
-    <None Include="NSpek.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -75,7 +75,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="NSpec.snk" />
-    <None Include="NSpek.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
