@@ -7,14 +7,15 @@
 
     using FluentAssertions;
 
+    using NSpec.Formatter;
+    using NSpec.Specs.Properties;
+
     using NUnit.Framework;
 
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "It happens in AfterEach")]
     [TestFixture]
     public class NestedConsoleFormatterSpecs
     {
-        private const string TestReason = "test";
-
         private StringWriter stringWriter;
 
         private IConsoleFormatter consoleFormatter;
@@ -37,26 +38,26 @@
         [Test]
         public void ShouldWriteSuccess()
         {
-            var result = new ExampleResult { Reason = TestReason, Status = ExampleResultStatus.Success };
-            this.consoleFormatter.WriteSuccess(TestReason, result);
+            var result = new ExampleResult { Reason = Resources.TestReason, Status = ExampleResultStatus.Success };
+            this.consoleFormatter.WriteSuccess(Resources.TestReason, result);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(StringHelper.Tab + TestReason + Environment.NewLine);
+            this.stringWriter.ToString().Should().Be(StringHelper.Tab + Resources.TestReason + Environment.NewLine);
         }
 
         [Test]
         public void ShouldWriteError()
         {
             this.consoleFormatter.WriteError(
-                TestReason,
+                Resources.TestReason,
                 new ExampleResult
                     {
-                        Reason = TestReason,
+                        Reason = Resources.TestReason,
                         Status = ExampleResultStatus.Error,
                         Exception = new InvalidOperationException("Test Exception")
                     });
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(
-                StringHelper.Tab + TestReason + " - System.InvalidOperationException: Test Exception\r\n");
+                StringHelper.Tab + Resources.TestReason + " - System.InvalidOperationException: Test Exception\r\n");
         }
 
         [Test]

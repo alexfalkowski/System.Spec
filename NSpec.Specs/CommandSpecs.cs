@@ -6,6 +6,8 @@
 
     using FluentAssertions;
 
+    using NSpec.Formatter;
+
     using NSubstitute;
 
     using NUnit.Framework;

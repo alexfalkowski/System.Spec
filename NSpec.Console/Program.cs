@@ -1,5 +1,7 @@
 ﻿namespace NSpec.Console
 {
+    using NSpec.Formatter;
+
     using PowerArgs;
 
     public static class Program

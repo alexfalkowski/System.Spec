@@ -7,14 +7,15 @@
 
     using FluentAssertions;
 
+    using NSpec.Formatter;
+    using NSpec.Specs.Properties;
+
     using NUnit.Framework;
 
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "It happens in AfterEach")]
     [TestFixture]
     public class ProgressConsoleFormatterSpecs
     {
-        private const string TestReason = "test";
-
         private StringWriter stringWriter;
 
         private IConsoleFormatter consoleFormatter;
@@ -37,7 +38,7 @@
         [Test]
         public void ShouldWriteSuccess()
         {
-            this.consoleFormatter.WriteSuccess(TestReason, new ExampleResult());
+            this.consoleFormatter.WriteSuccess(Resources.TestReason, new ExampleResult());
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(".");
         }
@@ -45,7 +46,7 @@
         [Test]
         public void ShouldWriteError()
         {
-            this.consoleFormatter.WriteError(TestReason, new ExampleResult());
+            this.consoleFormatter.WriteError(Resources.TestReason, new ExampleResult());
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be("F");
         }
@@ -55,11 +56,11 @@
         {
             var result = new ExampleResult
                 {
-                    Reason = TestReason,
+                    Reason = Resources.TestReason,
                     Exception = new InvalidOperationException("Test Exception"),
                     Status = ExampleResultStatus.Error
                 };
-            this.consoleFormatter.WriteError(TestReason, result);
+            this.consoleFormatter.WriteError(Resources.TestReason, result);
             this.consoleFormatter.WriteSummary(1000);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(

@@ -63,21 +63,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleFormatterBase.cs" />
-    <Compile Include="ConsoleFormatterType.cs" />
     <Compile Include="DefaultCommand.cs" />
-    <Compile Include="DefaultConsoleFormatterFactory.cs" />
-    <Compile Include="IConsoleFormatterFactory.cs" />
-    <Compile Include="NestedConsoleFormatter.cs" />
-    <Compile Include="ProgressConsoleFormatter.cs" />
     <Compile Include="DefaultFileSystem.cs" />
+    <Compile Include="Formatter\ConsoleFormatterBase.cs" />
+    <Compile Include="Formatter\ConsoleFormatterType.cs" />
+    <Compile Include="Formatter\DefaultConsoleFormatterFactory.cs" />
+    <Compile Include="Formatter\IConsoleFormatter.cs" />
+    <Compile Include="Formatter\IConsoleFormatterFactory.cs" />
+    <Compile Include="Formatter\NestedConsoleFormatter.cs" />
+    <Compile Include="Formatter\ProgressConsoleFormatter.cs" />
+    <Compile Include="Formatter\SilentConsoleFormatter.cs" />
     <Compile Include="DefaultSpecificationVisitor.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroup.cs" />
     <Compile Include="ExampleResult.cs" />
     <Compile Include="ExampleResultStatus.cs" />
     <Compile Include="ICommand.cs" />
-    <Compile Include="IConsoleFormatter.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="ISpecificationVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,7 +87,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SilentConsoleFormatter.cs" />
     <Compile Include="Specification.cs" />
     <Compile Include="StringHelper.cs" />
   </ItemGroup>
@@ -100,6 +100,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

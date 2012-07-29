@@ -1,5 +1,7 @@
 ﻿namespace NSpec.Console
 {
+    using NSpec.Formatter;
+
     using PowerArgs;
 
     // ReSharper disable ClassNeverInstantiated.Global

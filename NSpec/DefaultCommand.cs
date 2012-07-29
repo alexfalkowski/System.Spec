@@ -8,6 +8,8 @@ namespace NSpec
     using System.Linq;
     using System.Reflection;
 
+    using NSpec.Formatter;
+
     public class DefaultCommand : ICommand
     {
         private readonly ISpecificationVisitor visitor;

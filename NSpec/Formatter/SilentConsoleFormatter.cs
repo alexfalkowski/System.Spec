@@ -1,4 +1,4 @@
-namespace NSpec
+namespace NSpec.Formatter
 {
     public class SilentConsoleFormatter : ConsoleFormatterBase
     {

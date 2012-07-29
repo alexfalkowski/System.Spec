@@ -2,6 +2,8 @@ namespace NSpec
 {
     using System;
 
+    using NSpec.Formatter;
+
     public class DefaultSpecificationVisitor : ISpecificationVisitor
     {
         private readonly IConsoleFormatter formatter;

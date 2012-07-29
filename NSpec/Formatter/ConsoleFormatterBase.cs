@@ -1,4 +1,4 @@
-﻿namespace NSpec
+namespace NSpec.Formatter
 {
     using System;
     using System.Collections.Generic;

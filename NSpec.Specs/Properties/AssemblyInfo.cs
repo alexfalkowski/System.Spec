@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("NSpec.Specs")]
@@ -13,5 +14,6 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("c115f0c5-51af-44ac-a2d3-a7eead468bca")]
 [assembly: CLSCompliant(true)]
+[assembly: NeutralResourcesLanguage("en-AU")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

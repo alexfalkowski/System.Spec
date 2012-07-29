@@ -1,4 +1,4 @@
-﻿namespace NSpec
+namespace NSpec
 {
     using System.Collections.Generic;
 
