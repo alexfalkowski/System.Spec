@@ -4,11 +4,6 @@
 
     public class TestSpecificationWithNSubstitute : Specification
     {
-        public TestSpecificationWithNSubstitute(ISpecificationVisitor visitor)
-            : base(visitor)
-        {
-        }
-
         public override void Validate()
         {
             this.Describe(

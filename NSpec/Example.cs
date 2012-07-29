@@ -5,14 +5,6 @@ namespace NSpec
 
     public class Example : ExampleGroup
     {
-        private readonly ISpecificationVisitor visitor;
-
-        public Example(ISpecificationVisitor visitor)
-            : base(visitor)
-        {
-            this.visitor = visitor;
-        }
-
         public Action BeforeEach { get; set; }
 
         public Action AfterEach { get; set; }
@@ -25,11 +17,11 @@ namespace NSpec
                 throw new ArgumentNullException("action");
             }
 
-            ExampleGroup.RaiseAction(reason, this.BeforeEach, this.visitor.VisitItBeforeEach);
+            ExampleGroup.RaiseAction(reason, this.BeforeEach, this.Visitor.VisitItBeforeEach);
 
             try
             {
-                this.visitor.VisitIt(
+                this.Visitor.VisitIt(
                     reason, 
                     new ExampleResult
                         {
@@ -40,7 +32,7 @@ namespace NSpec
             }
             catch (Exception e)
             {
-                this.visitor.VisitIt(
+                this.Visitor.VisitIt(
                     reason, 
                     new ExampleResult
                         {
@@ -50,7 +42,7 @@ namespace NSpec
                         });
             }
 
-            ExampleGroup.RaiseAction(reason, this.AfterEach, this.visitor.VisitItAfterEach);
+            ExampleGroup.RaiseAction(reason, this.AfterEach, this.Visitor.VisitItAfterEach);
         }
     }
 }

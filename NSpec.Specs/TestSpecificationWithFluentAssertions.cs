@@ -4,11 +4,6 @@
 
     public class TestSpecificationWithFluentAssertions : Specification
     {
-        public TestSpecificationWithFluentAssertions(ISpecificationVisitor visitor)
-            : base(visitor)
-        {
-        }
-
         public override void Validate()
         {
             this.Describe(

@@ -2,11 +2,6 @@
 {
     public class TestSpecificationWithSingleItWithBeforeEachAndAfterEach : Specification
     {
-        public TestSpecificationWithSingleItWithBeforeEachAndAfterEach(ISpecificationVisitor visitor)
-            : base(visitor)
-        {
-        }
-
         public override void Validate()
         {
             this.Describe(

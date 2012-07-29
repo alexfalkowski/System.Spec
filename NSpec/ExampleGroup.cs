@@ -5,12 +5,7 @@
 
     public class ExampleGroup
     {
-        private readonly ISpecificationVisitor visitor;
-
-        protected ExampleGroup(ISpecificationVisitor visitor)
-        {
-            this.visitor = visitor;
-        }
+        public ISpecificationVisitor Visitor { get; set; }
 
         public void Describe(string reason, Action<Example> example)
         {
@@ -25,15 +20,15 @@
         public void Describe(
             string reason, Action beforeAll, Action<Example> example, Action afterAll)
         {
-            RaiseAction(reason, beforeAll, this.visitor.VisitDescribeBeforeAll);
+            RaiseAction(reason, beforeAll, this.Visitor.VisitDescribeBeforeAll);
 
             if (example != null)
             {
-                this.visitor.VisitDescribe(reason);
-                example(new Example(this.visitor));
+                this.Visitor.VisitDescribe(reason);
+                example(new Example { Visitor = this.Visitor });
             }
 
-            RaiseAction(reason, afterAll, this.visitor.VisitDescribeAfterAll);
+            RaiseAction(reason, afterAll, this.Visitor.VisitDescribeAfterAll);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "Better using an action.")]

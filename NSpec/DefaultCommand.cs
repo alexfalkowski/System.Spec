@@ -55,8 +55,9 @@ namespace NSpec
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            foreach (var specification in types.Select(type => (Specification)Activator.CreateInstance(type, this.visitor)))
+            foreach (var specification in types.Select(type => (Specification)Activator.CreateInstance(type)))
             {
+                specification.Visitor = this.visitor;
                 specification.Validate();
             }
 

@@ -2,11 +2,6 @@
 {
     public class TestSpecificationWithNestedDescribe : Specification
     {
-        public TestSpecificationWithNestedDescribe(ISpecificationVisitor visitor)
-            : base(visitor)
-        {
-        }
-
         public override void Validate()
         {
             this.Describe(

@@ -18,7 +18,7 @@
         [Test]
         public void ShouldValidateSingleDescribe()
         {
-            var specification = new TestSpecificationWithJustDescribe(this.visitor);
+            var specification = new TestSpecificationWithJustDescribe { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -28,7 +28,7 @@
         [Test]
         public void ShouldValidateNestedDescribe()
         {
-            var specification = new TestSpecificationWithNestedDescribe(this.visitor);
+            var specification = new TestSpecificationWithNestedDescribe { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -39,7 +39,7 @@
         [Test]
         public void ShouldValidateSingleDescribeWithSingleIt()
         {
-            var specification = new TestSpecificationWithSingleIt(this.visitor);
+            var specification = new TestSpecificationWithSingleIt { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -50,7 +50,7 @@
         [Test]
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEach()
         {
-            var specification = new TestSpecificationWithSingleItWithBeforeEach(this.visitor);
+            var specification = new TestSpecificationWithSingleItWithBeforeEach { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -62,7 +62,7 @@
         [Test]
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEachAndAfterEach()
         {
-            var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach(this.visitor);
+            var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -75,7 +75,7 @@
         [Test]
         public void ShouldValidateSpecificationWithBeforeAll()
         {
-            var specification = new TestSpecificationWithBeforeAll(this.visitor);
+            var specification = new TestSpecificationWithBeforeAll { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -89,7 +89,7 @@
         [Test]
         public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
         {
-            var specification = new TestSpecificationWithBeforeAllAndAfterAll(this.visitor);
+            var specification = new TestSpecificationWithBeforeAllAndAfterAll { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -104,7 +104,7 @@
         [Test]
         public void ShouldValidateWithFluentAssertions()
         {
-            var specification = new TestSpecificationWithFluentAssertions(this.visitor);
+            var specification = new TestSpecificationWithFluentAssertions { Visitor = this.visitor };
 
             specification.Validate();
 
@@ -116,7 +116,7 @@
         [Test]
         public void ShouldValidateWithNSubstitute()
         {
-            var specification = new TestSpecificationWithNSubstitute(this.visitor);
+            var specification = new TestSpecificationWithNSubstitute { Visitor = this.visitor };
 
             specification.Validate();
 

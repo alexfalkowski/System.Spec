@@ -6,7 +6,7 @@ NSpec is testing tool for the C# programming language.
 Usage
 -----
 
-NSpec uses the following frameworks to help it achieve the goal:
+NSpec uses the following frameworks to help it achieve the goal of a [BDD](http://en.wikipedia.org/wiki/Behavior-driven_development) framework:
 
 -	[NSubstitute](http://nsubstitute.github.com/) as the mocking framework
 - 	[FluentAssertions](http://fluentassertions.codeplex.com/) as the expected outcome framework
@@ -20,11 +20,6 @@ Below is an example specification in C#:
 
 	    public class ImportantSpecification : Specification
 	    {
-	        public ImportantSpecification(ISpecificationVisitor visitor)
-	            : base(visitor)
-	        {
-	        }
-
 	        public override void Validate()
 	        {
 	            Describe("A very cool specification", describe =>

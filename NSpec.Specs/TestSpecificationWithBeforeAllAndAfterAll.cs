@@ -2,11 +2,6 @@
 {
     public class TestSpecificationWithBeforeAllAndAfterAll : Specification
     {
-        public TestSpecificationWithBeforeAllAndAfterAll(ISpecificationVisitor visitor)
-            : base(visitor)
-        {
-        }
-
         public override void Validate()
         {
             this.Describe(
