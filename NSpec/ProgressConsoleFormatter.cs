@@ -2,6 +2,7 @@ namespace NSpec
 {
     using System;
     using System.Globalization;
+    using System.Linq;
 
     using NSpec.Properties;
 
@@ -29,10 +30,13 @@ namespace NSpec
         {
             var exampleResults = this.ErrorResults;
 
-            if (exampleResults.Count > 0)
+            if (exampleResults.Any() || this.SuccessResults.Any())
             {
                 Console.WriteLine(Environment.NewLine);
+            }
 
+            if (exampleResults.Count > 0)
+            {
                 for (var index = 0; index < exampleResults.Count; index++)
                 {
                     var example = exampleResults[index];

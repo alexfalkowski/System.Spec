@@ -4,6 +4,10 @@
     {
         Progress,
 
-        Nested
+        Nested,
+
+        // ReSharper disable UnusedMember.Global
+        Silent
+        // ReSharper restore UnusedMember.Global
     }
 }

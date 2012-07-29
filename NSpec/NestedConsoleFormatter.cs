@@ -2,6 +2,7 @@ namespace NSpec
 {
     using System;
     using System.Globalization;
+    using System.Linq;
 
     using NSpec.Properties;
 
@@ -39,6 +40,16 @@ namespace NSpec
                         example.Exception)));
 
             base.WriteError(reason, example);
+        }
+
+        public override int WriteSummary(long elapsedMilliseconds)
+        {
+            if (this.ErrorResults.Any() || this.SuccessResults.Any())
+            {
+                Console.WriteLine();
+            }
+
+            return base.WriteSummary(elapsedMilliseconds);
         }
 
         // Idea from http://blogs.msdn.com/b/abhinaba/archive/2006/01/05/509581.aspx

@@ -29,8 +29,8 @@
 
             if (example != null)
             {
-                example(new Example(this.visitor));
                 this.visitor.VisitDescribe(reason);
+                example(new Example(this.visitor));
             }
 
             RaiseAction(reason, afterAll, this.visitor.VisitDescribeAfterAll);

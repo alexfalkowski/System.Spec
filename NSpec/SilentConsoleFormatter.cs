@@ -1,22 +1,14 @@
 namespace NSpec
 {
-    public class SilentConsoleFormatter : IConsoleFormatter
+    public class SilentConsoleFormatter : ConsoleFormatterBase
     {
-        public void WriteInformation(string message)
+        public override void WriteInformation(string message)
         {
         }
 
-        public void WriteSuccess(string reason, ExampleResult example)
+        public override int WriteSummary(long elapsedMilliseconds)
         {
-        }
-
-        public void WriteError(string reason, ExampleResult example)
-        {
-        }
-
-        public int WriteSummary(long elapsedMilliseconds)
-        {
-            return 0;
+            return this.ErrorResults.Count;
         }
     }
 }

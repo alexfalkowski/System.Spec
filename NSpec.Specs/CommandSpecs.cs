@@ -45,7 +45,7 @@
             var result = this.command.ExecuteSpecifications(types);
 
             result.Should().Be(2);
-            this.consoleFormatter.Received(5).WriteSuccess(Arg.Any<string>(), Arg.Any<ExampleResult>());
+            this.consoleFormatter.Received(7).WriteSuccess(Arg.Any<string>(), Arg.Any<ExampleResult>());
             this.consoleFormatter.Received(2).WriteError(Arg.Any<string>(), Arg.Any<ExampleResult>());
             this.consoleFormatter.Received().WriteSummary(Arg.Any<long>());
         }

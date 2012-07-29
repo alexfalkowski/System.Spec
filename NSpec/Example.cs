@@ -29,7 +29,6 @@ namespace NSpec
 
             try
             {
-                action();
                 this.visitor.VisitIt(
                     reason, 
                     new ExampleResult
@@ -37,6 +36,7 @@ namespace NSpec
                             Reason = reason, 
                             Status = ExampleResultStatus.Success
                         });
+                action();
             }
             catch (Exception e)
             {
