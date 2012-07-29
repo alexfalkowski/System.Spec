@@ -60,7 +60,9 @@ namespace NSpec
 
             stopwatch.Stop();
 
-            this.formatter.WriteSummary(this.visitor, stopwatch.ElapsedMilliseconds);
+            this.formatter.WriteErrors(this.visitor.NumberOfFailures);
+            this.formatter.WriteSummary(
+                this.visitor.NumberOfExamples, this.visitor.NumberOfFailures.Count(), stopwatch.ElapsedMilliseconds);
         }
 
         private string GetPath(string path)

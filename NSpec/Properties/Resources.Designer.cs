@@ -61,6 +61,15 @@ namespace NSpec.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}) {1}.
+        /// </summary>
+        internal static string ConsoleFormatteErrorsMessage {
+            get {
+                return ResourceManager.GetString("ConsoleFormatteErrorsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finished in {0} seconds.
         /// </summary>
         internal static string ConsoleFormatterElapsedTimeMessage {

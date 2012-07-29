@@ -1,7 +1,9 @@
 namespace NSpec
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
 
     using NSpec.Properties;
 
@@ -19,13 +21,23 @@ namespace NSpec
             Console.Write(Resources.ConsoleFormatterErrorMessage);
         }
 
-        public void WriteSummary(ISpecificationVisitor visitor, long elapsedMilliseconds)
+        public void WriteErrors(IEnumerable<ExampleResult> examples)
         {
-            if (visitor == null)
-            {
-                throw new ArgumentNullException("visitor");
-            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            var arrayOfExamples = examples.ToArray();
 
+            for (var index = 0; index < arrayOfExamples.Count(); index++)
+            {
+                var example = arrayOfExamples[index];
+                var errorMessage = string.Format(
+                    CultureInfo.CurrentCulture, Resources.ConsoleFormatteErrorsMessage, index + 1, example.Exception);
+
+                Console.WriteLine(errorMessage);
+            }
+        }
+
+        public void WriteSummary(int numberOfExamples, int numberOfFailures, long elapsedMilliseconds)
+        {
             Console.ForegroundColor = ConsoleColor.White;
 
             var elapsdeTimeMessage = string.Format(
@@ -33,10 +45,7 @@ namespace NSpec
             Console.WriteLine(elapsdeTimeMessage);
 
             var summaryMessage = string.Format(
-                CultureInfo.CurrentCulture,
-                Resources.ConsoleFormatterSummaryMessage,
-                visitor.NumberOfExamples,
-                visitor.NumberOfFailures);
+                CultureInfo.CurrentCulture, Resources.ConsoleFormatterSummaryMessage, numberOfExamples, numberOfFailures);
             Console.WriteLine(summaryMessage);
         }
     }

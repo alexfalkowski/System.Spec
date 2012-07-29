@@ -43,10 +43,11 @@
 
             this.command.ExecuteSpecifications(types);
             this.specificationVisitor.NumberOfExamples.Should().Be(6);
-            this.specificationVisitor.NumberOfFailures.Should().Be(2);
+            this.specificationVisitor.NumberOfFailures.Should().HaveCount(2);
             this.consoleFormatter.Received(4).WriteSuccess();
             this.consoleFormatter.Received(2).WriteError();
-            this.consoleFormatter.Received().WriteSummary(this.specificationVisitor, Arg.Any<long>());
+            this.consoleFormatter.Received().WriteErrors(this.specificationVisitor.NumberOfFailures);
+            this.consoleFormatter.Received().WriteSummary(6, 2, Arg.Any<long>());
         }
 
         [Test]

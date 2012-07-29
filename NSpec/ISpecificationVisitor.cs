@@ -1,10 +1,12 @@
 ﻿namespace NSpec
 {
+    using System.Collections.Generic;
+
     public interface ISpecificationVisitor
     {
         int NumberOfExamples { get; }
 
-        int NumberOfFailures { get; }
+        IEnumerable<ExampleResult> NumberOfFailures { get; }
 
         void VisitDescribe(string reason);
 

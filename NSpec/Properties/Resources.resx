@@ -110,4 +110,7 @@
   <data name="ConsoleFormatterElapsedTimeMessage">
     <value xml:space="preserve">Finished in {0} seconds</value>
   </data>
+  <data name="ConsoleFormatteErrorsMessage">
+    <value xml:space="preserve">{0}) {1}</value>
+  </data>
 </root>

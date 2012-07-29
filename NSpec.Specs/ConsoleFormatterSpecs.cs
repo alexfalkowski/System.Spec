@@ -7,8 +7,6 @@
 
     using FluentAssertions;
 
-    using NSubstitute;
-
     using NUnit.Framework;
 
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "It happens in AfterEach")]
@@ -55,14 +53,24 @@
         [Test]
         public void ShouldWriteSummary()
         {
-            var visitor = Substitute.For<ISpecificationVisitor>();
-            visitor.NumberOfExamples.Returns(10);
-            visitor.NumberOfFailures.Returns(2);
-
-            this.consoleFormatter.WriteSummary(visitor, 1000);
+            this.consoleFormatter.WriteSummary(10, 2, 1000);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be("Finished in 1 seconds\r\n10 examples, 2 failures\r\n");
             Console.ForegroundColor.Should().Be(ConsoleColor.White);
+        }
+
+        [Test]
+        public void ShouldWriteErrors()
+        {
+            var result = new ExampleResult
+                {
+                    Exception = new InvalidOperationException("Test Exception"), 
+                    Status = ExampleResultStatus.Failure
+                };
+            this.consoleFormatter.WriteErrors(new[] { result });
+            this.stringWriter.Flush();
+            this.stringWriter.ToString().Should().Be("1) System.InvalidOperationException: Test Exception\r\n");
+            Console.ForegroundColor.Should().Be(ConsoleColor.Red);
         }
     }
 }
