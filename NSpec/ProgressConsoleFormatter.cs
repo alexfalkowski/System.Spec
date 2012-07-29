@@ -21,9 +21,14 @@ namespace NSpec
 
         public void WriteErrors(IEnumerable<ExampleResult> examples)
         {
-            Console.WriteLine(Environment.NewLine);
-
             var arrayOfExamples = examples.ToArray();
+
+            if (arrayOfExamples.Length <= 0)
+            {
+                return;
+            }
+
+            Console.WriteLine(Environment.NewLine);
 
             for (var index = 0; index < arrayOfExamples.Count(); index++)
             {
