@@ -10,8 +10,8 @@
         public override void Validate()
         {
             this.Describe(
-                "describe 1",
-                example: describe =>
+                "describe TestSpecificationWithSingleItWithBeforeEachAndAfterEach",
+                describe =>
                     {
                         describe.BeforeEach = () => { };
 

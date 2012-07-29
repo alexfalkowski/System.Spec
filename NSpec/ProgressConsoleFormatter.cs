@@ -1,59 +1,54 @@
 namespace NSpec
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
 
     using NSpec.Properties;
 
-    public class ProgressConsoleFormatter : IConsoleFormatter
+    public class ProgressConsoleFormatter : ConsoleFormatterBase
     {
-        public void WriteSuccess()
+        public override void WriteInformation(string message)
+        {
+        }
+
+        public override void WriteSuccess(string reason, ExampleResult example)
         {
             Console.Write(Resources.ConsoleFormatterSuccessMessage);
+
+            base.WriteSuccess(reason, example);
         }
 
-        public void WriteError()
+        public override void WriteError(string reason, ExampleResult example)
         {
             Console.Write(Resources.ConsoleFormatterErrorMessage);
+
+            base.WriteError(reason, example);
         }
 
-        public void WriteErrors(IEnumerable<ExampleResult> examples)
+        public override int WriteSummary(long elapsedMilliseconds)
         {
-            var arrayOfExamples = examples.ToArray();
+            var exampleResults = this.ErrorResults;
 
-            if (arrayOfExamples.Length <= 0)
+            if (exampleResults.Count > 0)
             {
-                return;
+                Console.WriteLine(Environment.NewLine);
+
+                for (var index = 0; index < exampleResults.Count; index++)
+                {
+                    var example = exampleResults[index];
+                    var errorMessage = string.Format(
+                        CultureInfo.CurrentCulture,
+                        Resources.ConsoleFormatteErrorsMessage,
+                        index + 1,
+                        example.Reason,
+                        example.Exception);
+
+                    Console.WriteLine(errorMessage);
+                    Console.WriteLine();
+                }
             }
 
-            Console.WriteLine(Environment.NewLine);
-
-            for (var index = 0; index < arrayOfExamples.Count(); index++)
-            {
-                var example = arrayOfExamples[index];
-                var errorMessage = string.Format(
-                    CultureInfo.CurrentCulture,
-                    Resources.ConsoleFormatteErrorsMessage,
-                    index + 1,
-                    example.Reason,
-                    example.Exception);
-
-                Console.WriteLine(errorMessage);
-                Console.WriteLine();
-            }
-        }
-
-        public void WriteSummary(int numberOfExamples, int numberOfFailures, long elapsedMilliseconds)
-        {
-            var elapsdeTimeMessage = string.Format(
-                CultureInfo.CurrentCulture, Resources.ConsoleFormatterElapsedTimeMessage, elapsedMilliseconds / 1000D);
-            Console.WriteLine(elapsdeTimeMessage);
-
-            var summaryMessage = string.Format(
-                CultureInfo.CurrentCulture, Resources.ConsoleFormatterSummaryMessage, numberOfExamples, numberOfFailures);
-            Console.WriteLine(summaryMessage);
+            return base.WriteSummary(elapsedMilliseconds);
         }
     }
 }

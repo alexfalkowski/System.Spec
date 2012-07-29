@@ -1,15 +1,13 @@
 ﻿namespace NSpec
 {
-    using System.Collections.Generic;
-
     public interface IConsoleFormatter
     {
-        void WriteSuccess();
+        void WriteInformation(string message);
 
-        void WriteError();
+        void WriteSuccess(string reason, ExampleResult example);
 
-        void WriteErrors(IEnumerable<ExampleResult> examples);
+        void WriteError(string reason, ExampleResult example);
 
-        void WriteSummary(int numberOfExamples, int numberOfFailures, long elapsedMilliseconds);
+        int WriteSummary(long elapsedMilliseconds);
     }
 }

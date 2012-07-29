@@ -36,7 +36,7 @@ namespace NSpec
             catch (Exception e)
             {
                 this.visitor.VisitIt(
-                    reason, new ExampleResult { Reason = reason, Exception = e, Status = ExampleResultStatus.Failure });
+                    reason, new ExampleResult { Reason = reason, Exception = e, Status = ExampleResultStatus.Error });
             }
 
             ExampleGroup.RaiseAction(reason, this.AfterEach, this.visitor.VisitItAfterEach);

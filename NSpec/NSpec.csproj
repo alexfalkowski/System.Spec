@@ -63,10 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleFormatterBase.cs" />
     <Compile Include="ConsoleFormatterType.cs" />
     <Compile Include="DefaultCommand.cs" />
     <Compile Include="DefaultConsoleFormatterFactory.cs" />
     <Compile Include="IConsoleFormatterFactory.cs" />
+    <Compile Include="NestedConsoleFormatter.cs" />
     <Compile Include="ProgressConsoleFormatter.cs" />
     <Compile Include="DefaultFileSystem.cs" />
     <Compile Include="DefaultSpecificationVisitor.cs" />

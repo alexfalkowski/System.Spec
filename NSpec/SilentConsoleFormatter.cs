@@ -1,23 +1,22 @@
 namespace NSpec
 {
-    using System.Collections.Generic;
-
     public class SilentConsoleFormatter : IConsoleFormatter
     {
-        public void WriteSuccess()
+        public void WriteInformation(string message)
         {
         }
 
-        public void WriteError()
+        public void WriteSuccess(string reason, ExampleResult example)
         {
         }
 
-        public void WriteErrors(IEnumerable<ExampleResult> examples)
+        public void WriteError(string reason, ExampleResult example)
         {
         }
 
-        public void WriteSummary(int numberOfExamples, int numberOfFailures, long elapsedMilliseconds)
+        public int WriteSummary(long elapsedMilliseconds)
         {
+            return 0;
         }
     }
 }

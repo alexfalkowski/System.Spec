@@ -64,9 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandSpecs.cs" />
-    <Compile Include="ConsoleFormatterSpecs.cs" />
+    <Compile Include="NestedConsoleFormatterSpecs.cs" />
+    <Compile Include="ProgressConsoleFormatterSpecs.cs" />
     <Compile Include="FileSystemSpecs.cs" />
     <Compile Include="ITestInterface.cs" />
+    <Compile Include="SpecificationVisitorSpecs.cs" />
     <Compile Include="TestSpecificationWithBeforeAllAndAfterAll.cs" />
     <Compile Include="TestSpecificationWithFluentAssertions.cs" />
     <Compile Include="TestSpecificationWithNestedDescribe.cs" />

@@ -11,8 +11,10 @@
 
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "It happens in AfterEach")]
     [TestFixture]
-    public class ConsoleFormatterSpecs
+    public class ProgressConsoleFormatterSpecs
     {
+        private const string TestReason = "test";
+
         private StringWriter stringWriter;
 
         private IConsoleFormatter consoleFormatter;
@@ -35,7 +37,7 @@
         [Test]
         public void ShouldWriteSuccess()
         {
-            this.consoleFormatter.WriteSuccess();
+            this.consoleFormatter.WriteSuccess(TestReason, new ExampleResult());
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(".");
         }
@@ -43,7 +45,7 @@
         [Test]
         public void ShouldWriteError()
         {
-            this.consoleFormatter.WriteError();
+            this.consoleFormatter.WriteError(TestReason, new ExampleResult());
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be("F");
         }
@@ -51,23 +53,17 @@
         [Test]
         public void ShouldWriteSummary()
         {
-            this.consoleFormatter.WriteSummary(10, 2, 1000);
-            this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be("Finished in 1 seconds\r\n10 examples, 2 failures\r\n");
-        }
-
-        [Test]
-        public void ShouldWriteErrors()
-        {
             var result = new ExampleResult
                 {
-                    Reason = "it 1",
-                    Exception = new InvalidOperationException("Test Exception"), 
-                    Status = ExampleResultStatus.Failure
+                    Reason = TestReason,
+                    Exception = new InvalidOperationException("Test Exception"),
+                    Status = ExampleResultStatus.Error
                 };
-            this.consoleFormatter.WriteErrors(new[] { result });
+            this.consoleFormatter.WriteError(TestReason, result);
+            this.consoleFormatter.WriteSummary(1000);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be("\r\n\r\n1) it 1 - System.InvalidOperationException: Test Exception\r\n\r\n");
+            this.stringWriter.ToString().Should().Be(
+                "F\r\n\r\n1) test - System.InvalidOperationException: Test Exception\r\n\r\nFinished in 1 seconds\r\n1 examples, 1 failures\r\n");
         }
     }
 }

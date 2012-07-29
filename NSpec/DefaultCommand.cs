@@ -60,12 +60,7 @@ namespace NSpec
 
             stopwatch.Stop();
 
-            this.formatter.WriteErrors(this.visitor.NumberOfFailures);
-            var numberOfFailures = this.visitor.NumberOfFailures.Count();
-            this.formatter.WriteSummary(
-                this.visitor.NumberOfExamples, numberOfFailures, stopwatch.ElapsedMilliseconds);
-
-            return numberOfFailures;
+            return this.formatter.WriteSummary(stopwatch.ElapsedMilliseconds);
         }
 
         public int ExecuteSpecificationsInPath(string path)

@@ -26,6 +26,7 @@
         {
             this.fileSystem = Substitute.For<IFileSystem>();
             this.consoleFormatter = Substitute.For<IConsoleFormatter>();
+            this.consoleFormatter.WriteSummary(Arg.Any<long>()).Returns(2);
             this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
             this.command = new DefaultCommand(this.specificationVisitor, this.consoleFormatter, this.fileSystem);
         }
@@ -41,15 +42,12 @@
         public void ShouldExecuteAllSpecifications()
         {
             var types = this.command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
-
             var result = this.command.ExecuteSpecifications(types);
+
             result.Should().Be(2);
-            this.specificationVisitor.NumberOfExamples.Should().Be(6);
-            this.specificationVisitor.NumberOfFailures.Should().HaveCount(2);
-            this.consoleFormatter.Received(4).WriteSuccess();
-            this.consoleFormatter.Received(2).WriteError();
-            this.consoleFormatter.Received().WriteErrors(this.specificationVisitor.NumberOfFailures);
-            this.consoleFormatter.Received().WriteSummary(6, 2, Arg.Any<long>());
+            this.consoleFormatter.Received(4).WriteSuccess(Arg.Any<string>(), Arg.Any<ExampleResult>());
+            this.consoleFormatter.Received(2).WriteError(Arg.Any<string>(), Arg.Any<ExampleResult>());
+            this.consoleFormatter.Received().WriteSummary(Arg.Any<long>());
         }
 
         [Test]
@@ -71,7 +69,7 @@
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             var result = this.command.ExecuteSpecificationsInPath(location);
-            result.Should().BeGreaterThan(0);
+            result.Should().Be(2);
         }
     }
 }

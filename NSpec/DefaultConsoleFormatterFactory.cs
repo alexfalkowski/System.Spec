@@ -9,6 +9,11 @@ namespace NSpec
                 return new ProgressConsoleFormatter();
             }
 
+            if (type == ConsoleFormatterType.Nested)
+            {
+                return new NestedConsoleFormatter();
+            }
+
             return new SilentConsoleFormatter();
         }
     }

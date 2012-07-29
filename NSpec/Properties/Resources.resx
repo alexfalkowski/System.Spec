@@ -132,4 +132,7 @@
   <data name="ConsoleFormatteErrorsMessage" xml:space="preserve">
     <value>{0}) {1} - {2}</value>
   </data>
+  <data name="NestedConsoleFormatterErrorMessage" xml:space="preserve">
+    <value>{0} - {1}</value>
+  </data>
 </root>

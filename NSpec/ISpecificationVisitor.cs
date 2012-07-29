@@ -1,13 +1,7 @@
 ﻿namespace NSpec
 {
-    using System.Collections.Generic;
-
     public interface ISpecificationVisitor
     {
-        int NumberOfExamples { get; }
-
-        IEnumerable<ExampleResult> NumberOfFailures { get; }
-
         void VisitDescribe(string reason);
 
         void VisitDescribeBeforeAll(string reason);

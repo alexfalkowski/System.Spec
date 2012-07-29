@@ -104,5 +104,14 @@ namespace NSpec.Properties {
                 return ResourceManager.GetString("ConsoleFormatterSummaryMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} - {1}.
+        /// </summary>
+        internal static string NestedConsoleFormatterErrorMessage {
+            get {
+                return ResourceManager.GetString("NestedConsoleFormatterErrorMessage", resourceCulture);
+            }
+        }
     }
 }

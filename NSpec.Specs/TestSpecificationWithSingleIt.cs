@@ -10,7 +10,7 @@
         public override void Validate()
         {
             this.Describe(
-                "describe 1", describe => describe.It("it 1", () => { }));
+                "describe TestSpecificationWithSingleIt", describe => describe.It("it 1", () => { }));
         }
     }
 }

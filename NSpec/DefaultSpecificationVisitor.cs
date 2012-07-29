@@ -1,32 +1,19 @@
 namespace NSpec
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
 
     public class DefaultSpecificationVisitor : ISpecificationVisitor
     {
         private readonly IConsoleFormatter formatter;
-
-        private readonly IList<ExampleResult> numberOfFailures = new Collection<ExampleResult>();
 
         public DefaultSpecificationVisitor(IConsoleFormatter formatter)
         {
             this.formatter = formatter;
         }
 
-        public int NumberOfExamples { get; private set; }
-
-        public IEnumerable<ExampleResult> NumberOfFailures
-        {
-            get
-            {
-                return this.numberOfFailures;
-            }
-        }
-
         public void VisitDescribe(string reason)
         {
+            this.formatter.WriteInformation(reason);
         }
 
         public void VisitDescribeBeforeAll(string reason)
@@ -44,16 +31,13 @@ namespace NSpec
                 throw new ArgumentNullException("result");
             }
 
-            this.NumberOfExamples++;
-
-            if (result.Status == ExampleResultStatus.Failure)
+            if (result.Status == ExampleResultStatus.Error)
             {
-                this.numberOfFailures.Add(result);
-                this.formatter.WriteError();
+                this.formatter.WriteError(reason, result);
             }
             else
             {
-                this.formatter.WriteSuccess();
+                this.formatter.WriteSuccess(reason, result);
             }
         }
 

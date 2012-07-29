@@ -9,7 +9,7 @@
 
         public override void Validate()
         {
-            this.Describe("describe 1", describe => { });
+            this.Describe("describe TestSpecificationWithJustDescribe", describe => { });
         }
     }
 }
