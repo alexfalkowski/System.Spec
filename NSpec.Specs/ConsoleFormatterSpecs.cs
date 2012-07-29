@@ -23,7 +23,7 @@
             this.stringWriter = new StringWriter(CultureInfo.CurrentCulture);
             Console.SetOut(this.stringWriter);
 
-            this.consoleFormatter = new DefaultConsoleFormatter();
+            this.consoleFormatter = new ProgressConsoleFormatter();
         }
 
         [TearDown]

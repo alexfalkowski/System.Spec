@@ -7,7 +7,8 @@
         public static int Main(string[] args)
         {
             var arguments = Args.Parse<Arguments>(args);
-            IConsoleFormatter consoleFormatter = new DefaultConsoleFormatter();
+            IConsoleFormatterFactory formatterFactory = new DefaultConsoleFormatterFactory();
+            IConsoleFormatter consoleFormatter = formatterFactory.CreateConsoleFormatter(arguments.Format);
             ISpecificationVisitor specificationVisitor = new DefaultSpecificationVisitor(consoleFormatter);
             IFileSystem fileSystem = new DefaultFileSystem();
             ICommand command = new DefaultCommand(specificationVisitor, consoleFormatter, fileSystem);

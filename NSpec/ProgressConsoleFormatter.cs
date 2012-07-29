@@ -7,7 +7,7 @@ namespace NSpec
 
     using NSpec.Properties;
 
-    public class DefaultConsoleFormatter : IConsoleFormatter
+    public class ProgressConsoleFormatter : IConsoleFormatter
     {
         public void WriteSuccess()
         {

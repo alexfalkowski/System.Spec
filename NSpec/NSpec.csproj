@@ -63,8 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleFormatterType.cs" />
     <Compile Include="DefaultCommand.cs" />
-    <Compile Include="DefaultConsoleFormatter.cs" />
+    <Compile Include="DefaultConsoleFormatterFactory.cs" />
+    <Compile Include="IConsoleFormatterFactory.cs" />
+    <Compile Include="ProgressConsoleFormatter.cs" />
     <Compile Include="DefaultFileSystem.cs" />
     <Compile Include="DefaultSpecificationVisitor.cs" />
     <Compile Include="Example.cs" />
@@ -81,6 +84,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SilentConsoleFormatter.cs" />
     <Compile Include="Specification.cs" />
   </ItemGroup>
   <ItemGroup>
