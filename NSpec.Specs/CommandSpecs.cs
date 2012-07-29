@@ -35,7 +35,7 @@
         public void ShouldFindSpecificationsInCurrentlyRunningDll()
         {
             var types = this.command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
-            types.Should().HaveCount(8);
+            types.Should().HaveCount(9);
         }
 
         [Test]
@@ -45,7 +45,7 @@
             var result = this.command.ExecuteSpecifications(types);
 
             result.Should().Be(2);
-            this.consoleFormatter.Received(4).WriteSuccess(Arg.Any<string>(), Arg.Any<ExampleResult>());
+            this.consoleFormatter.Received(5).WriteSuccess(Arg.Any<string>(), Arg.Any<ExampleResult>());
             this.consoleFormatter.Received(2).WriteError(Arg.Any<string>(), Arg.Any<ExampleResult>());
             this.consoleFormatter.Received().WriteSummary(Arg.Any<long>());
         }

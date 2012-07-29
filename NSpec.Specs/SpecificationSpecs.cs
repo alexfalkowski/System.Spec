@@ -73,6 +73,20 @@
         }
 
         [Test]
+        public void ShouldValidateSpecificationWithBeforeAll()
+        {
+            var specification = new TestSpecificationWithBeforeAll(this.visitor);
+
+            specification.Validate();
+
+            this.visitor.Received().VisitDescribeBeforeAll("describe TestSpecificationWithBeforeAll");
+            this.visitor.Received().VisitDescribe("describe TestSpecificationWithBeforeAll");
+            this.visitor.Received().VisitItBeforeEach("it 1");
+            this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
+            this.visitor.Received().VisitItAfterEach("it 1");
+        }
+
+        [Test]
         public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
         {
             var specification = new TestSpecificationWithBeforeAllAndAfterAll(this.visitor);
