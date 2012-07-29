@@ -8,8 +8,6 @@ namespace NSpec
 
     public class NestedConsoleFormatter : ConsoleFormatterBase
     {
-        private const string Tab = "\t";
-
         public override void WriteInformation(string message)
         {
             WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(message));
@@ -17,7 +15,7 @@ namespace NSpec
 
         public override void WriteSuccess(string reason, ExampleResult example)
         {
-            WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(Tab + reason));
+            WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(StringHelper.Tab + reason));
 
             base.WriteSuccess(reason, example);
         }
@@ -35,7 +33,7 @@ namespace NSpec
                 Console.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        Tab + Resources.NestedConsoleFormatterErrorMessage,
+                        StringHelper.Tab + Resources.NestedConsoleFormatterErrorMessage,
                         reason,
                         example.Exception)));
 

@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="SilentConsoleFormatter.cs" />
     <Compile Include="Specification.cs" />
+    <Compile Include="StringHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NSpec.snk" />

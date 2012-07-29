@@ -15,8 +15,6 @@
     {
         private const string TestReason = "test";
 
-        private const string Tab = "\t";
-
         private StringWriter stringWriter;
 
         private IConsoleFormatter consoleFormatter;
@@ -42,7 +40,7 @@
             var result = new ExampleResult { Reason = TestReason, Status = ExampleResultStatus.Success };
             this.consoleFormatter.WriteSuccess(TestReason, result);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(Tab + TestReason + Environment.NewLine);
+            this.stringWriter.ToString().Should().Be(StringHelper.Tab + TestReason + Environment.NewLine);
         }
 
         [Test]
@@ -58,7 +56,7 @@
                     });
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(
-                Tab + TestReason + " - System.InvalidOperationException: Test Exception\r\n");
+                StringHelper.Tab + TestReason + " - System.InvalidOperationException: Test Exception\r\n");
         }
 
         [Test]
