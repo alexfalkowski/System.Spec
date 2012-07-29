@@ -46,7 +46,7 @@
             this.specificationVisitor.NumberOfFailures.Should().Be(2);
             this.consoleFormatter.Received(4).WriteSuccess();
             this.consoleFormatter.Received(2).WriteError();
-            this.consoleFormatter.Received().WriteSummary(this.specificationVisitor);
+            this.consoleFormatter.Received().WriteSummary(this.specificationVisitor, Arg.Any<long>());
         }
 
         [Test]

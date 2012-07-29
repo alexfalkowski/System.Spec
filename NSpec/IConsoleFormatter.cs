@@ -6,6 +6,6 @@
 
         void WriteError();
 
-        void WriteSummary(ISpecificationVisitor visitor);
+        void WriteSummary(ISpecificationVisitor visitor, long elapsedMilliseconds);
     }
 }

@@ -59,9 +59,9 @@
             visitor.NumberOfExamples.Returns(10);
             visitor.NumberOfFailures.Returns(2);
 
-            this.consoleFormatter.WriteSummary(visitor);
+            this.consoleFormatter.WriteSummary(visitor, 1000);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be("10 examples, 2 failures");
+            this.stringWriter.ToString().Should().Be("Finished in 1 seconds\r\n10 examples, 2 failures\r\n");
             Console.ForegroundColor.Should().Be(ConsoleColor.White);
         }
     }

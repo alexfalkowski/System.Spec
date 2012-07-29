@@ -19,7 +19,7 @@ namespace NSpec
             Console.Write(Resources.ConsoleFormatterErrorMessage);
         }
 
-        public void WriteSummary(ISpecificationVisitor visitor)
+        public void WriteSummary(ISpecificationVisitor visitor, long elapsedMilliseconds)
         {
             if (visitor == null)
             {
@@ -27,12 +27,17 @@ namespace NSpec
             }
 
             Console.ForegroundColor = ConsoleColor.White;
-            var message = string.Format(
+
+            var elapsdeTimeMessage = string.Format(
+                CultureInfo.CurrentCulture, Resources.ConsoleFormatterElapsedTimeMessage, elapsedMilliseconds / 1000L);
+            Console.WriteLine(elapsdeTimeMessage);
+
+            var summaryMessage = string.Format(
                 CultureInfo.CurrentCulture,
                 Resources.ConsoleFormatterSummaryMessage,
                 visitor.NumberOfExamples,
                 visitor.NumberOfFailures);
-            Console.Write(message);
+            Console.WriteLine(summaryMessage);
         }
     }
 }

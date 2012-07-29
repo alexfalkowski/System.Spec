@@ -107,4 +107,7 @@
   <data name="ConsoleFormatterSummaryMessage">
     <value xml:space="preserve">{0} examples, {1} failures</value>
   </data>
+  <data name="ConsoleFormatterElapsedTimeMessage">
+    <value xml:space="preserve">Finished in {0} seconds</value>
+  </data>
 </root>

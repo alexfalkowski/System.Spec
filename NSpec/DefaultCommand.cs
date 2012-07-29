@@ -3,6 +3,7 @@ namespace NSpec
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
@@ -49,12 +50,17 @@ namespace NSpec
 
         public void ExecuteSpecifications(IEnumerable<Type> types)
         {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             foreach (var specification in types.Select(type => (Specification)Activator.CreateInstance(type, this.visitor)))
             {
                 specification.Validate();
             }
 
-            this.formatter.WriteSummary(this.visitor);
+            stopwatch.Stop();
+
+            this.formatter.WriteSummary(this.visitor, stopwatch.ElapsedMilliseconds);
         }
 
         private string GetPath(string path)
