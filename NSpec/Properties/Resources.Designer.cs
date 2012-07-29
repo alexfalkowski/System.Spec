@@ -61,7 +61,7 @@ namespace NSpec.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}) {1}.
+        ///   Looks up a localized string similar to {0}) {1} - {2}.
         /// </summary>
         internal static string ConsoleFormatteErrorsMessage {
             get {

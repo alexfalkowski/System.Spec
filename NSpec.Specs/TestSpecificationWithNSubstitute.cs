@@ -9,11 +9,6 @@
         {
         }
 
-        private interface ITestInterface
-        {
-            void TestMethod();
-        }
-
         public override void Validate()
         {
             this.Describe(

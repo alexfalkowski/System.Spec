@@ -1,6 +1,7 @@
 ﻿namespace NSpec.Specs
 {
     using System;
+    using System.IO;
     using System.Reflection;
 
     using FluentAssertions;
@@ -41,7 +42,8 @@
         {
             var types = this.command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
 
-            this.command.ExecuteSpecifications(types);
+            var result = this.command.ExecuteSpecifications(types);
+            result.Should().Be(2);
             this.specificationVisitor.NumberOfExamples.Should().Be(6);
             this.specificationVisitor.NumberOfFailures.Should().HaveCount(2);
             this.consoleFormatter.Received(4).WriteSuccess();
@@ -60,6 +62,16 @@
 
             var assemblies = this.command.GetAssemblies(TestPath);
             assemblies.Should().HaveCount(1);
+        }
+
+        [Test]
+        public void ShouldExecuteAllSpecificationsInPath()
+        {
+            this.command = new DefaultCommand(this.specificationVisitor, this.consoleFormatter, new DefaultFileSystem());
+
+            var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            var result = this.command.ExecuteSpecificationsInPath(location);
+            result.Should().BeGreaterThan(0);
         }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="CommandSpecs.cs" />
     <Compile Include="ConsoleFormatterSpecs.cs" />
     <Compile Include="FileSystemSpecs.cs" />
+    <Compile Include="ITestInterface.cs" />
     <Compile Include="TestSpecificationWithBeforeAllAndAfterAll.cs" />
     <Compile Include="TestSpecificationWithFluentAssertions.cs" />
     <Compile Include="TestSpecificationWithNestedDescribe.cs" />
@@ -82,10 +83,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSpec.Console\NSpec.Console.csproj">
-      <Project>{EBAB25A5-EC6E-4705-8550-983B74740828}</Project>
-      <Name>NSpec.Console</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NSpec\NSpec.csproj">
       <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
       <Name>NSpec</Name>

@@ -30,11 +30,13 @@ namespace NSpec
             try
             {
                 action();
-                this.visitor.VisitIt(reason, new ExampleResult { Status = ExampleResultStatus.Success });
+                this.visitor.VisitIt(
+                    reason, new ExampleResult { Reason = reason, Status = ExampleResultStatus.Success });
             }
             catch (Exception e)
             {
-                this.visitor.VisitIt(reason, new ExampleResult { Exception = e, Status = ExampleResultStatus.Failure });
+                this.visitor.VisitIt(
+                    reason, new ExampleResult { Reason = reason, Exception = e, Status = ExampleResultStatus.Failure });
             }
 
             ExampleGroup.RaiseAction(reason, this.AfterEach, this.visitor.VisitItAfterEach);

@@ -38,7 +38,6 @@
             this.consoleFormatter.WriteSuccess();
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(".");
-            Console.ForegroundColor.Should().Be(ConsoleColor.Green);
         }
 
         [Test]
@@ -47,7 +46,6 @@
             this.consoleFormatter.WriteError();
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be("F");
-            Console.ForegroundColor.Should().Be(ConsoleColor.Red);
         }
 
         [Test]
@@ -56,7 +54,6 @@
             this.consoleFormatter.WriteSummary(10, 2, 1000);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be("Finished in 1 seconds\r\n10 examples, 2 failures\r\n");
-            Console.ForegroundColor.Should().Be(ConsoleColor.White);
         }
 
         [Test]
@@ -64,13 +61,13 @@
         {
             var result = new ExampleResult
                 {
+                    Reason = "it 1",
                     Exception = new InvalidOperationException("Test Exception"), 
                     Status = ExampleResultStatus.Failure
                 };
             this.consoleFormatter.WriteErrors(new[] { result });
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be("1) System.InvalidOperationException: Test Exception\r\n");
-            Console.ForegroundColor.Should().Be(ConsoleColor.Red);
+            this.stringWriter.ToString().Should().Be("\r\n\r\n1) it 1 - System.InvalidOperationException: Test Exception\r\n\r\n");
         }
     }
 }

@@ -11,37 +11,39 @@ namespace NSpec
     {
         public void WriteSuccess()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(Resources.ConsoleFormatterSuccessMessage);
         }
 
         public void WriteError()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(Resources.ConsoleFormatterErrorMessage);
         }
 
         public void WriteErrors(IEnumerable<ExampleResult> examples)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(Environment.NewLine);
+
             var arrayOfExamples = examples.ToArray();
 
             for (var index = 0; index < arrayOfExamples.Count(); index++)
             {
                 var example = arrayOfExamples[index];
                 var errorMessage = string.Format(
-                    CultureInfo.CurrentCulture, Resources.ConsoleFormatteErrorsMessage, index + 1, example.Exception);
+                    CultureInfo.CurrentCulture,
+                    Resources.ConsoleFormatteErrorsMessage,
+                    index + 1,
+                    example.Reason,
+                    example.Exception);
 
                 Console.WriteLine(errorMessage);
+                Console.WriteLine();
             }
         }
 
         public void WriteSummary(int numberOfExamples, int numberOfFailures, long elapsedMilliseconds)
         {
-            Console.ForegroundColor = ConsoleColor.White;
-
             var elapsdeTimeMessage = string.Format(
-                CultureInfo.CurrentCulture, Resources.ConsoleFormatterElapsedTimeMessage, elapsedMilliseconds / 1000L);
+                CultureInfo.CurrentCulture, Resources.ConsoleFormatterElapsedTimeMessage, elapsedMilliseconds / 1000D);
             Console.WriteLine(elapsdeTimeMessage);
 
             var summaryMessage = string.Format(

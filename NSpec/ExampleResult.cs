@@ -4,6 +4,8 @@
 
     public class ExampleResult : IEquatable<ExampleResult>
     {
+        public string Reason { get; set; }
+
         public ExampleResultStatus Status { get; set; }
 
         public Exception Exception { get; set; }

@@ -48,7 +48,7 @@ namespace NSpec
             return from type in assembly.GetTypes() where type.IsSubclassOf(typeof(Specification)) select type;
         }
 
-        public void ExecuteSpecifications(IEnumerable<Type> types)
+        public int ExecuteSpecifications(IEnumerable<Type> types)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -61,8 +61,23 @@ namespace NSpec
             stopwatch.Stop();
 
             this.formatter.WriteErrors(this.visitor.NumberOfFailures);
+            var numberOfFailures = this.visitor.NumberOfFailures.Count();
             this.formatter.WriteSummary(
-                this.visitor.NumberOfExamples, this.visitor.NumberOfFailures.Count(), stopwatch.ElapsedMilliseconds);
+                this.visitor.NumberOfExamples, numberOfFailures, stopwatch.ElapsedMilliseconds);
+
+            return numberOfFailures;
+        }
+
+        public int ExecuteSpecificationsInPath(string path)
+        {
+            var assemblies = this.GetAssemblies(path);
+            var types = new List<Type>();
+            foreach (var specificationTypes in assemblies.Select(this.GetSpecificationTypes))
+            {
+                types.AddRange(specificationTypes);
+            }
+
+            return this.ExecuteSpecifications(types);
         }
 
         private string GetPath(string path)

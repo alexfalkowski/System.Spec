@@ -10,6 +10,8 @@ namespace NSpec
 
         IEnumerable<Type> GetSpecificationTypes(Assembly assembly);
 
-        void ExecuteSpecifications(IEnumerable<Type> types);
+        int ExecuteSpecifications(IEnumerable<Type> types);
+
+        int ExecuteSpecificationsInPath(string path);
     }
 }
