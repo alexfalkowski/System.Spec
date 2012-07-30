@@ -32,7 +32,7 @@
         }
 
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "Better using an action.")]
-        protected static void RaiseAction(string reason, Action action, Action<string> visitorAction)
+        internal static void RaiseAction(string reason, Action action, Action<string> visitorAction)
         {
             if (visitorAction == null)
             {
