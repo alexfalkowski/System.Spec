@@ -1,11 +1,14 @@
 ﻿namespace NSpec
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
     public class ExampleGroup
     {
         public ISpecificationVisitor Visitor { get; set; }
+
+        public IActionStrategy Strategy { get; set; }
+
+        public IActionStrategy ExampleStrategy { get; set; }
 
         public void Describe(string reason, Action<Example> example)
         {
@@ -20,32 +23,21 @@
         public void Describe(
             string reason, Action beforeAll, Action<Example> example, Action afterAll)
         {
-            RaiseAction(reason, beforeAll, this.Visitor.VisitDescribeBeforeAll);
+            this.Visitor.VisitDescribeBeforeAll(reason);
+            this.Strategy.ExecuteAction(beforeAll);
 
-            if (example != null)
-            {
-                this.Visitor.VisitDescribe(reason);
-                example(new Example { Visitor = this.Visitor });
-            }
+            this.Visitor.VisitDescribe(reason);
+            this.Strategy.ExecuteAction(
+                example,
+                new Example
+                    {
+                        Visitor = this.Visitor, 
+                        Strategy = this.Strategy, 
+                        ExampleStrategy = this.ExampleStrategy
+                    });
 
-            RaiseAction(reason, afterAll, this.Visitor.VisitDescribeAfterAll);
-        }
-
-        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "Better using an action.")]
-        internal static void RaiseAction(string reason, Action action, Action<string> visitorAction)
-        {
-            if (visitorAction == null)
-            {
-                throw new ArgumentNullException("visitorAction");
-            }
-
-            if (action == null)
-            {
-                return;
-            }
-
-            action();
-            visitorAction(reason);
+            this.Visitor.VisitDescribeAfterAll(reason);
+            this.Strategy.ExecuteAction(afterAll);
         }
     }
 }

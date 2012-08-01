@@ -9,16 +9,20 @@
     {
         private ISpecificationVisitor visitor;
 
+        private IActionStrategy strategy;
+
         [SetUp]
         public void BeforeEach()
         {
             this.visitor = Substitute.For<ISpecificationVisitor>();
+            this.strategy = new DefaultActionStrategy();
         }
 
         [Test]
         public void ShouldValidateSingleDescribe()
         {
-            var specification = new TestSpecificationWithJustDescribe { Visitor = this.visitor };
+            var specification = new TestSpecificationWithJustDescribe
+                { Visitor = this.visitor, Strategy = this.strategy };
 
             specification.Validate();
 
@@ -28,7 +32,8 @@
         [Test]
         public void ShouldValidateNestedDescribe()
         {
-            var specification = new TestSpecificationWithNestedDescribe { Visitor = this.visitor };
+            var specification = new TestSpecificationWithNestedDescribe
+                { Visitor = this.visitor, Strategy = this.strategy };
 
             specification.Validate();
 
@@ -39,7 +44,8 @@
         [Test]
         public void ShouldValidateSingleDescribeWithSingleIt()
         {
-            var specification = new TestSpecificationWithSingleIt { Visitor = this.visitor };
+            var specification = new TestSpecificationWithSingleIt
+                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -50,7 +56,8 @@
         [Test]
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEach()
         {
-            var specification = new TestSpecificationWithSingleItWithBeforeEach { Visitor = this.visitor };
+            var specification = new TestSpecificationWithSingleItWithBeforeEach
+                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -62,7 +69,8 @@
         [Test]
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEachAndAfterEach()
         {
-            var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach { Visitor = this.visitor };
+            var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach
+                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -75,7 +83,8 @@
         [Test]
         public void ShouldValidateSpecificationWithBeforeAll()
         {
-            var specification = new TestSpecificationWithBeforeAll { Visitor = this.visitor };
+            var specification = new TestSpecificationWithBeforeAll
+                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -89,7 +98,8 @@
         [Test]
         public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
         {
-            var specification = new TestSpecificationWithBeforeAllAndAfterAll { Visitor = this.visitor };
+            var specification = new TestSpecificationWithBeforeAllAndAfterAll
+                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -104,7 +114,8 @@
         [Test]
         public void ShouldValidateWithFluentAssertions()
         {
-            var specification = new TestSpecificationWithFluentAssertions { Visitor = this.visitor };
+            var specification = new TestSpecificationWithFluentAssertions
+                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -116,7 +127,8 @@
         [Test]
         public void ShouldValidateWithNSubstitute()
         {
-            var specification = new TestSpecificationWithNSubstitute { Visitor = this.visitor };
+            var specification = new TestSpecificationWithNSubstitute
+                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 

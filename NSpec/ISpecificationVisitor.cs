@@ -1,5 +1,7 @@
 ﻿namespace NSpec
 {
+    using System;
+
     public interface ISpecificationVisitor
     {
         void VisitDescribe(string reason);

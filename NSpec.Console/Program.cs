@@ -13,7 +13,12 @@
             IConsoleFormatter consoleFormatter = formatterFactory.CreateConsoleFormatter(arguments.Format);
             ISpecificationVisitor specificationVisitor = new DefaultSpecificationVisitor(consoleFormatter);
             IFileSystem fileSystem = new DefaultFileSystem();
-            ICommand command = new DefaultCommand(specificationVisitor, consoleFormatter, fileSystem);
+            IActionStrategy strategy = new DefaultActionStrategy();
+            IActionStrategy exampleStratergy = arguments.DryRun
+                                           ? (IActionStrategy)new NullActionStrategy()
+                                           : new DefaultActionStrategy();
+            ICommand command = new DefaultCommand(
+                specificationVisitor, strategy, exampleStratergy, consoleFormatter, fileSystem);
 
             return command.ExecuteSpecificationsInPath(arguments.Example);
         }

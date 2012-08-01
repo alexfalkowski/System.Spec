@@ -23,14 +23,18 @@
 
         private IFileSystem fileSystem;
 
+        private IActionStrategy strategy;
+
         [SetUp]
         public void BeforeEach()
         {
             this.fileSystem = Substitute.For<IFileSystem>();
+            this.strategy = new DefaultActionStrategy();
             this.consoleFormatter = Substitute.For<IConsoleFormatter>();
             this.consoleFormatter.WriteSummary(Arg.Any<long>()).Returns(2);
             this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
-            this.command = new DefaultCommand(this.specificationVisitor, this.consoleFormatter, this.fileSystem);
+            this.command = new DefaultCommand(
+                this.specificationVisitor, this.strategy, this.strategy, this.consoleFormatter, this.fileSystem);
         }
 
         [Test]
@@ -67,7 +71,8 @@
         [Test]
         public void ShouldExecuteAllSpecificationsInPath()
         {
-            this.command = new DefaultCommand(this.specificationVisitor, this.consoleFormatter, new DefaultFileSystem());
+            this.command = new DefaultCommand(
+                this.specificationVisitor, this.strategy, this.strategy, this.consoleFormatter, new DefaultFileSystem());
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             var result = this.command.ExecuteSpecificationsInPath(location);

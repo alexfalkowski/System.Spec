@@ -12,12 +12,8 @@ namespace NSpec
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "It will be displayed to the user.")]
         public void It(string reason, Action action)
         {
-            if (action == null)
-            {
-                throw new ArgumentNullException("action");
-            }
-
-            ExampleGroup.RaiseAction(reason, this.BeforeEach, this.Visitor.VisitItBeforeEach);
+            this.Visitor.VisitItBeforeEach(reason);
+            this.ExampleStrategy.ExecuteAction(this.BeforeEach);
 
             try
             {
@@ -28,7 +24,7 @@ namespace NSpec
                             Reason = reason, 
                             Status = ExampleResultStatus.Success
                         });
-                action();
+                this.ExampleStrategy.ExecuteAction(action);
             }
             catch (Exception e)
             {
@@ -42,7 +38,8 @@ namespace NSpec
                         });
             }
 
-            ExampleGroup.RaiseAction(reason, this.AfterEach, this.Visitor.VisitItAfterEach);
+            this.Visitor.VisitItAfterEach(reason);
+            this.ExampleStrategy.ExecuteAction(this.AfterEach);
         }
     }
 }

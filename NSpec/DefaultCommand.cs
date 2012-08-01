@@ -18,9 +18,20 @@ namespace NSpec
 
         private readonly IFileSystem fileSystem;
 
-        public DefaultCommand(ISpecificationVisitor visitor, IConsoleFormatter formatter, IFileSystem fileSystem)
+        private readonly IActionStrategy strategy;
+
+        private readonly IActionStrategy exampleStrategy;
+
+        public DefaultCommand(
+            ISpecificationVisitor visitor,
+            IActionStrategy strategy,
+            IActionStrategy exampleStrategy,
+            IConsoleFormatter formatter,
+            IFileSystem fileSystem)
         {
             this.fileSystem = fileSystem;
+            this.strategy = strategy;
+            this.exampleStrategy = exampleStrategy;
             this.visitor = visitor;
             this.formatter = formatter;
         }
@@ -58,6 +69,8 @@ namespace NSpec
             foreach (var specification in types.Select(type => (Specification)Activator.CreateInstance(type)))
             {
                 specification.Visitor = this.visitor;
+                specification.Strategy = this.strategy;
+                specification.ExampleStrategy = this.exampleStrategy;
                 specification.Validate();
             }
 
