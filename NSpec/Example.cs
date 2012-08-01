@@ -14,29 +14,19 @@ namespace NSpec
         {
             this.Visitor.VisitItBeforeEach(reason);
             this.ExampleStrategy.ExecuteAction(this.BeforeEach);
+            ExampleResult result;
 
             try
             {
-                this.Visitor.VisitIt(
-                    reason, 
-                    new ExampleResult
-                        {
-                            Reason = reason, 
-                            Status = ExampleResultStatus.Success
-                        });
                 this.ExampleStrategy.ExecuteAction(action);
+                result = new ExampleResult { Reason = reason, Status = ExampleResultStatus.Success };
             }
             catch (Exception e)
             {
-                this.Visitor.VisitIt(
-                    reason, 
-                    new ExampleResult
-                        {
-                            Reason = reason, 
-                            Exception = e, 
-                            Status = ExampleResultStatus.Error
-                        });
+                result = new ExampleResult { Reason = reason, Exception = e, Status = ExampleResultStatus.Error };
             }
+
+            this.Visitor.VisitIt(reason, result);
 
             this.Visitor.VisitItAfterEach(reason);
             this.ExampleStrategy.ExecuteAction(this.AfterEach);
