@@ -19,7 +19,7 @@
         public bool DryRun { get; set; }
 
         [ArgShortcut("h")]
-        [ArgDescription("Provides help.")]
+        [ArgDescription("You're looking at it.")]
         public bool Help { get; set; }
     }
 }

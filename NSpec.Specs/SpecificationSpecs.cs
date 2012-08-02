@@ -22,7 +22,7 @@
         public void ShouldValidateSingleDescribe()
         {
             var specification = new TestSpecificationWithJustDescribe
-                { Visitor = this.visitor, Strategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy };
 
             specification.Validate();
 
@@ -33,7 +33,7 @@
         public void ShouldValidateNestedDescribe()
         {
             var specification = new TestSpecificationWithNestedDescribe
-                { Visitor = this.visitor, Strategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy };
 
             specification.Validate();
 
@@ -45,7 +45,7 @@
         public void ShouldValidateSingleDescribeWithSingleIt()
         {
             var specification = new TestSpecificationWithSingleIt
-                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -57,7 +57,7 @@
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEach()
         {
             var specification = new TestSpecificationWithSingleItWithBeforeEach
-                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -70,7 +70,7 @@
         public void ShouldValidateSingleDescribeWithSingleItAndBeforeEachAndAfterEach()
         {
             var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach
-                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -84,7 +84,7 @@
         public void ShouldValidateSpecificationWithBeforeAll()
         {
             var specification = new TestSpecificationWithBeforeAll
-                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -99,7 +99,7 @@
         public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
         {
             var specification = new TestSpecificationWithBeforeAllAndAfterAll
-                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -115,7 +115,7 @@
         public void ShouldValidateWithFluentAssertions()
         {
             var specification = new TestSpecificationWithFluentAssertions
-                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 
@@ -128,7 +128,7 @@
         public void ShouldValidateWithNSubstitute()
         {
             var specification = new TestSpecificationWithNSubstitute
-                { Visitor = this.visitor, Strategy = this.strategy, ExampleStrategy = this.strategy };
+                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
 
             specification.Validate();
 

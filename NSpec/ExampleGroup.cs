@@ -18,20 +18,20 @@
             string reason, Action beforeAll, Action<Example> example, Action afterAll)
         {
             this.Visitor.VisitDescribeBeforeAll(reason);
-            this.Strategy.ExecuteAction(beforeAll);
+            this.ExampleGroupStrategy.ExecuteAction(beforeAll);
 
             this.Visitor.VisitDescribe(reason);
-            this.Strategy.ExecuteAction(
+            this.ExampleGroupStrategy.ExecuteAction(
                 example,
                 new Example
                     {
                         Visitor = this.Visitor,
-                        Strategy = this.Strategy,
+                        ExampleGroupStrategy = this.ExampleGroupStrategy,
                         ExampleStrategy = this.ExampleStrategy, 
                     });
 
             this.Visitor.VisitDescribeAfterAll(reason);
-            this.Strategy.ExecuteAction(afterAll);
+            this.ExampleGroupStrategy.ExecuteAction(afterAll);
         }
     }
 }

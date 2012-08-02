@@ -1,5 +1,7 @@
 ﻿namespace NSpec.Console
 {
+    using System;
+
     using NSpec.Formatter;
 
     using PowerArgs;
@@ -8,19 +10,34 @@
     {
         public static int Main(string[] args)
         {
-            var arguments = Args.Parse<Arguments>(args);
-            IConsoleFormatterFactory formatterFactory = new DefaultConsoleFormatterFactory();
-            IConsoleFormatter consoleFormatter = formatterFactory.CreateConsoleFormatter(arguments.Format);
-            ISpecificationVisitor specificationVisitor = new DefaultSpecificationVisitor(consoleFormatter);
-            IFileSystem fileSystem = new DefaultFileSystem();
-            IActionStrategy strategy = new DefaultActionStrategy();
-            IActionStrategy exampleStratergy = arguments.DryRun
-                                           ? (IActionStrategy)new NullActionStrategy()
-                                           : new DefaultActionStrategy();
-            ICommand command = new DefaultCommand(
-                specificationVisitor, strategy, exampleStratergy, consoleFormatter, fileSystem);
+            try
+            {
+                var arguments = Args.Parse<Arguments>(args);
 
-            return command.ExecuteSpecificationsInPath(arguments.Example);
+                if (arguments.Help)
+                {
+                    Console.WriteLine(ArgUsage.GetUsage<Arguments>());
+                    return 0;
+                }
+
+                IConsoleFormatterFactory formatterFactory = new DefaultConsoleFormatterFactory();
+                IConsoleFormatter consoleFormatter = formatterFactory.CreateConsoleFormatter(arguments.Format);
+                ISpecificationVisitor specificationVisitor = new DefaultSpecificationVisitor(consoleFormatter);
+                IFileSystem fileSystem = new DefaultFileSystem();
+                IActionStrategy exampleGroupStrategy = new DefaultActionStrategy();
+                IActionStrategy exampleStratergy = arguments.DryRun
+                                               ? (IActionStrategy)new NullActionStrategy()
+                                               : new DefaultActionStrategy();
+                ICommand command = new DefaultCommand(
+                    specificationVisitor, exampleGroupStrategy, exampleStratergy, consoleFormatter, fileSystem);
+
+                return command.ExecuteSpecificationsInPath(arguments.Example);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(ArgUsage.GetUsage<Arguments>());
+                return 1;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         public ISpecificationVisitor Visitor { get; set; }
 
-        public IActionStrategy Strategy { get; set; }
+        public IActionStrategy ExampleGroupStrategy { get; set; }
 
         public IActionStrategy ExampleStrategy { get; set; }
     }
