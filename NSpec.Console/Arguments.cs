@@ -17,5 +17,9 @@
         [ArgShortcut("d")]
         [ArgDescription("Invokes formatters without executing the examples.")]
         public bool DryRun { get; set; }
+
+        [ArgShortcut("h")]
+        [ArgDescription("Provides help.")]
+        public bool Help { get; set; }
     }
 }

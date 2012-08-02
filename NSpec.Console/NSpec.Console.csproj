@@ -55,7 +55,7 @@
     <StartupObject>NSpec.Console.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>NSpec.snk</AssemblyOriginatorKeyFile>

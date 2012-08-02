@@ -2,14 +2,8 @@
 {
     using System;
 
-    public class ExampleGroup
+    public class ExampleGroup : ExampleBase
     {
-        public ISpecificationVisitor Visitor { get; set; }
-
-        public IActionStrategy Strategy { get; set; }
-
-        public IActionStrategy ExampleStrategy { get; set; }
-
         public void Describe(string reason, Action<Example> example)
         {
             this.Describe(reason, null, example, null);
@@ -31,9 +25,9 @@
                 example,
                 new Example
                     {
-                        Visitor = this.Visitor, 
-                        Strategy = this.Strategy, 
-                        ExampleStrategy = this.ExampleStrategy
+                        Visitor = this.Visitor,
+                        Strategy = this.Strategy,
+                        ExampleStrategy = this.ExampleStrategy, 
                     });
 
             this.Visitor.VisitDescribeAfterAll(reason);

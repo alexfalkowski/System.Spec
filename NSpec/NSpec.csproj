@@ -67,6 +67,7 @@
     <Compile Include="DefaultActionStrategy.cs" />
     <Compile Include="DefaultCommand.cs" />
     <Compile Include="DefaultFileSystem.cs" />
+    <Compile Include="ExampleBase.cs" />
     <Compile Include="Formatter\ConsoleFormatterBase.cs" />
     <Compile Include="Formatter\ConsoleFormatterType.cs" />
     <Compile Include="Formatter\DefaultConsoleFormatterFactory.cs" />
