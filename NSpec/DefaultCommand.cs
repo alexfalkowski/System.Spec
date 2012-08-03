@@ -37,7 +37,7 @@ namespace NSpec
         }
 
         [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods",
-            MessageId = "System.Reflection.Assembly.LoadFile", Justification = "Need to load assemblies")]
+            MessageId = "System.Reflection.Assembly.LoadFrom", Justification = "Need to load assemblies")]
         public IEnumerable<Assembly> GetAssemblies(string path)
         {
             var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), ".dll");
@@ -45,7 +45,7 @@ namespace NSpec
 
             foreach (var file in files)
             {
-                collection.Add(Assembly.LoadFile(file));
+                collection.Add(Assembly.LoadFrom(file));
             }
 
             return collection;
