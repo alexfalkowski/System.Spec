@@ -57,7 +57,7 @@
                     });
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(
-                StringHelper.Tab + Resources.TestReason + " - System.InvalidOperationException: Test Exception\r\n");
+                StringHelper.Tab + Resources.TestReason + " - System.InvalidOperationException: Test Exception" + Environment.NewLine);
         }
 
         [Test]
@@ -65,7 +65,7 @@
         {
             this.consoleFormatter.WriteSummary(1000);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be("Finished in 1 seconds\r\n0 examples, 0 failures\r\n");
+            this.stringWriter.ToString().Should().Be("Finished in 1 seconds" + Environment.NewLine + "0 examples, 0 failures" + Environment.NewLine);
         }
     }
 }

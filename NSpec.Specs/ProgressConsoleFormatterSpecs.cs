@@ -64,7 +64,7 @@
             this.consoleFormatter.WriteSummary(1000);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(
-                "F\r\n\r\n1) test - System.InvalidOperationException: Test Exception\r\n\r\nFinished in 1 seconds\r\n1 examples, 1 failures\r\n");
+				"F" + Environment.NewLine + Environment.NewLine + "1) test - System.InvalidOperationException: Test Exception" + Environment.NewLine + Environment.NewLine + "Finished in 1 seconds" + Environment.NewLine + "1 examples, 1 failures"+ Environment.NewLine);
         }
     }
 }
