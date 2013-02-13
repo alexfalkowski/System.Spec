@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+NUNIT_CONSOLE_PATH="$PWD/packages/NUnit.2.5.10.11092/tools/nunit-console.exe"
+
+exec mono --runtime=v4.0 $NUNIT_CONSOLE_PATH "$@"
