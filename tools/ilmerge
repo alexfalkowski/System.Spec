@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-NUNIT_CONSOLE_PATH="$PWD/packages/ilmerge.2.12.0803/ILMerge.exe"
-
-exec mono --runtime=v4.0 $NUNIT_CONSOLE_PATH "$@"

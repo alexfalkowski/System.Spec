@@ -52,6 +52,15 @@ assemblyinfo :nspec_console_assembly_info do |asm|
   asm.output_file = 'NSpec.Console/AssemblyInfo.cs'
 end
 
+desc 'Merge the NSpec assembly'
+exec :merge_nspec do |command|
+  merged_folder = 'artifacts/merged'
+  FileUtils.mkdir(merged_folder) unless File.directory?(merged_folder)
+  assemblies = %w(artifacts/FluentAssertions.dll artifacts/NSubstitute.dll artifacts/nunit.framework.dll)
+  command.command = 'tools/ilrepack'
+  command.parameters "/out:artifacts/merged/NSpec.dll #{assemblies.join(' ')}"
+end
+
 desc 'Create the nuspec'
 nuspec :nuget_spec do |nuspec|
   nuspec.id = 'NSpec'
