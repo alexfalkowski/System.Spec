@@ -52,14 +52,28 @@ assemblyinfo :nspec_console_assembly_info do |asm|
   asm.output_file = 'NSpec.Console/AssemblyInfo.cs'
 end
 
-desc 'Merge the NSpec assembly'
-exec :merge_nspec do |command|
+task :create_merge_folder do
   merged_folder = 'artifacts/merged'
-  FileUtils.mkdir(merged_folder) unless File.directory?(merged_folder)
-  assemblies = %w(artifacts/FluentAssertions.dll artifacts/NSubstitute.dll artifacts/nunit.framework.dll)
-  command.command = 'tools/ilrepack'
-  command.parameters "/out:artifacts/merged/NSpec.dll #{assemblies.join(' ')}"
+  FileUtils.rm_rf(merged_folder)
+  FileUtils.mkdir(merged_folder)
 end
+
+desc 'Merge the NSpec assembly'
+exec :merge_nspec => :create_merge_folder do |command|
+  assemblies = %w(artifacts/NSpec.dll artifacts/FluentAssertions.dll artifacts/NSubstitute.dll artifacts/nunit.framework.dll)
+  command.command = 'tools/ilrepack'
+  command.parameters "/target:library /targetplatform:v4 /out:artifacts/merged/NSpec.dll #{assemblies.join(' ')}"
+end
+
+desc 'Merge the NSpec console'
+exec :merge_nspec_console => :create_merge_folder do |command|
+  assemblies = %w(artifacts/nspec.exe artifacts/NSpec.dll artifacts/FluentAssertions.dll artifacts/NSubstitute.dll artifacts/nunit.framework.dll artifacts/PowerArgs.dll)
+  command.command = 'tools/ilrepack'
+  command.parameters "/target:winexe /targetplatform:v4 /out:artifacts/merged/nspec.exe #{assemblies.join(' ')}"
+end
+
+desc 'Merge the the product'
+task :merge => [:merge_nspec, :merge_nspec_console]
 
 desc 'Create the nuspec'
 nuspec :nuget_spec do |nuspec|
@@ -73,7 +87,10 @@ nuspec :nuget_spec do |nuspec|
   nuspec.iconUrl = 'http://2.bp.blogspot.com/-u9nKVHQrC9E/T8g6ecVm-tI/AAAAAAAAA9Q/Sn9SDRcZyyc/s1600/RSpec_logo-07.PNG'
   nuspec.working_directory = 'artifacts'
   nuspec.output_file = 'NSpec.nuspec'
-  nuspec.file 'NSpec.dll', 'lib/net40'
+  nuspec.file 'merged/NSpec.dll', 'lib/net40'
+  nuspec.file 'merged/nspec.exe', 'tools'
+  nuspec.file 'merged/nspec.exe.config', 'tools'
+  nuspec.file 'nspec', 'tools'
 end
 
 desc 'Create the nuget package'
