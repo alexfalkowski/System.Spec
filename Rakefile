@@ -90,7 +90,7 @@ nuspec :nuget_spec do |nuspec|
   nuspec.file 'merged/NSpec.dll', 'lib/net40'
   nuspec.file 'merged/nspec.exe', 'tools'
   nuspec.file 'merged/nspec.exe.config', 'tools'
-  nuspec.file 'nspec', 'tools'
+  nuspec.file 'nspec.sh', 'tools'
 end
 
 desc 'Create the nuget package'

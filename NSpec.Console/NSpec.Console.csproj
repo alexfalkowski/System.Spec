@@ -90,7 +90,7 @@
     <None Include="app.config" />
     <None Include="NSpec.snk" />
     <None Include="packages.config" />
-    <None Include="nspec">
+    <None Include="nspec.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
