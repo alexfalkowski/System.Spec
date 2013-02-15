@@ -1,4 +1,4 @@
-﻿namespace NSpec.Specs
+﻿namespace System.Spec.Specs
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -7,8 +7,8 @@
 
     using FluentAssertions;
 
-    using NSpec.Formatter;
-    using NSpec.Specs.Properties;
+	using System.Spec.Formatter;
+	using System.Spec.Specs.Properties;
 
     using NUnit.Framework;
 

@@ -1,4 +1,4 @@
-namespace NSpec.Formatter
+namespace System.Spec.Formatter
 {
     public class DefaultConsoleFormatterFactory : IConsoleFormatterFactory
     {

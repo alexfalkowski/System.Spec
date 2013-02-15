@@ -1,10 +1,10 @@
-namespace NSpec.Formatter
+namespace System.Spec.Formatter
 {
     using System;
     using System.Globalization;
     using System.Linq;
 
-    using NSpec.Properties;
+	using System.Spec.Properties;
 
     public class ProgressConsoleFormatter : ConsoleFormatterBase
     {

@@ -1,4 +1,4 @@
-﻿namespace NSpec.Specs
+﻿namespace System.Spec.Specs
 {
     using System;
     using System.IO;
@@ -6,7 +6,7 @@
 
     using FluentAssertions;
 
-    using NSpec.Formatter;
+	using System.Spec.Formatter;
 
     using NSubstitute;
 

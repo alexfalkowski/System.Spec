@@ -1,8 +1,8 @@
-﻿namespace NSpec.Console
+﻿namespace System.Spec.Console
 {
     using System;
 
-    using NSpec.Formatter;
+	using System.Spec.Formatter;
 
     using PowerArgs;
 

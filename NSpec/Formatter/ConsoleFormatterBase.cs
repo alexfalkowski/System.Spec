@@ -1,11 +1,11 @@
-namespace NSpec.Formatter
+namespace System.Spec.Formatter
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
 
-    using NSpec.Properties;
+    using System.Spec.Properties;
 
     public abstract class ConsoleFormatterBase : IConsoleFormatter
     {

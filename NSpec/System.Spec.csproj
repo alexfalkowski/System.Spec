@@ -2,20 +2,19 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EBAB25A5-EC6E-4705-8550-983B74740828}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NSpec.Console</RootNamespace>
-    <AssemblyName>nspec</AssemblyName>
+    <RootNamespace>System.Spec</RootNamespace>
+    <AssemblyName>System.Spec</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
@@ -23,38 +22,23 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\NSpec.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Debug\</OutputPath>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\NSpec.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <DebugType>none</DebugType>
-    <WarningLevel>4</WarningLevel>
-    <Optimize>False</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\NSpec.ruleset</CodeAnalysisRuleSet>
-    <Optimize>True</Optimize>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-    <DebugType>none</DebugType>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>NSpec.Console.Program</StartupObject>
+    <SignAssembly>True</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>NSpec.snk</AssemblyOriginatorKeyFile>
@@ -73,33 +57,55 @@
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.4.2.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="PowerArgs">
-      <HintPath>..\packages\PowerArgs.1.1.11.0\lib\net40\PowerArgs.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="DefaultActionStrategy.cs" />
+    <Compile Include="DefaultCommand.cs" />
+    <Compile Include="DefaultFileSystem.cs" />
+    <Compile Include="ExampleBase.cs" />
+    <Compile Include="Formatter\ConsoleFormatterBase.cs" />
+    <Compile Include="Formatter\ConsoleFormatterType.cs" />
+    <Compile Include="Formatter\DefaultConsoleFormatterFactory.cs" />
+    <Compile Include="Formatter\IConsoleFormatter.cs" />
+    <Compile Include="Formatter\IConsoleFormatterFactory.cs" />
+    <Compile Include="Formatter\NestedConsoleFormatter.cs" />
+    <Compile Include="Formatter\ProgressConsoleFormatter.cs" />
+    <Compile Include="Formatter\SilentConsoleFormatter.cs" />
+    <Compile Include="DefaultSpecificationVisitor.cs" />
+    <Compile Include="Example.cs" />
+    <Compile Include="ExampleGroup.cs" />
+    <Compile Include="ExampleResult.cs" />
+    <Compile Include="ExampleResultStatus.cs" />
+    <Compile Include="IActionStrategy.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="IFileSystem.cs" />
+    <Compile Include="ISpecificationVisitor.cs" />
+    <Compile Include="NullActionStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Specification.cs" />
+    <Compile Include="StringHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="NSpec.snk" />
     <None Include="packages.config" />
-    <None Include="nspec.sh">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSpec\NSpec.csproj">
-      <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
-      <Name>NSpec</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <LogicalName>NSpec.Properties.Resources.resources</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

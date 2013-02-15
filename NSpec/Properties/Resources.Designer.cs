@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NSpec.Properties {
+namespace System.Spec.Properties {
     using System;
     
     

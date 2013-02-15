@@ -1,4 +1,4 @@
-﻿namespace NSpec.Specs
+﻿namespace System.Spec.Specs
 {
     public class TestSpecificationWithJustDescribe : Specification
     {

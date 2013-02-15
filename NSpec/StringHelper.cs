@@ -1,4 +1,4 @@
-﻿namespace NSpec
+﻿namespace System.Spec
 {
     public static class StringHelper
     {

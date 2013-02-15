@@ -1,8 +1,8 @@
-namespace NSpec
+namespace System.Spec
 {
     using System;
 
-    using NSpec.Formatter;
+	using System.Spec.Formatter;
 
     public class DefaultSpecificationVisitor : ISpecificationVisitor
     {

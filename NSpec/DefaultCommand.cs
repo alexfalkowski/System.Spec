@@ -1,4 +1,4 @@
-namespace NSpec
+namespace System.Spec
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace NSpec
     using System.Linq;
     using System.Reflection;
 
-    using NSpec.Formatter;
+    using System.Spec.Formatter;
 
     public class DefaultCommand : ICommand
     {
