@@ -90,12 +90,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSpec\System.Spec.csproj">
-      <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
-      <Name>System.Spec</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -110,4 +104,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\System.Spec\System.Spec.csproj">
+      <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
+      <Name>System.Spec</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

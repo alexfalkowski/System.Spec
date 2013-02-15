@@ -97,12 +97,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NSpec\System.Spec.csproj">
-      <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
-      <Name>System.Spec</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -111,4 +105,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\System.Spec\System.Spec.csproj">
+      <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
+      <Name>System.Spec</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

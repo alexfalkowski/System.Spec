@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec", "NSpec\System.Spec.csproj", "{D52F70D6-7F9A-459C-8302-3F848C89C3C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec", "System.Spec\System.Spec.csproj", "{D52F70D6-7F9A-459C-8302-3F848C89C3C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Specs", "NSpec.Specs\System.Spec.Specs.csproj", "{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Specs", "System.Spec.Specs\System.Spec.Specs.csproj", "{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Console", "NSpec.Console\System.Spec.Console.csproj", "{EBAB25A5-EC6E-4705-8550-983B74740828}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Console", "System.Spec.Console\System.Spec.Console.csproj", "{EBAB25A5-EC6E-4705-8550-983B74740828}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
