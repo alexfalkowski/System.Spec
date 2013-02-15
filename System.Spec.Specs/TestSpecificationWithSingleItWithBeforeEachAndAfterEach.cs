@@ -1,19 +1,19 @@
 ﻿namespace System.Spec.Specs
 {
-    public class TestSpecificationWithSingleItWithBeforeEachAndAfterEach : Specification
-    {
-        public override void Validate()
-        {
-            this.Describe(
+	public class TestSpecificationWithSingleItWithBeforeEachAndAfterEach : Specification
+	{
+		public override void Validate()
+		{
+			this.Describe(
                 "describe TestSpecificationWithSingleItWithBeforeEachAndAfterEach",
                 describe =>
-                    {
-                        describe.BeforeEach = () => { };
+			{
+				describe.BeforeEach = () => { };
 
-                        describe.AfterEach = () => { };
+				describe.AfterEach = () => { };
 
-                        describe.It("it 1", () => { });
-                    });
-        }
-    }
+				describe.It("it 1", () => { });
+			});
+		}
+	}
 }

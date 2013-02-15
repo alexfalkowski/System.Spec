@@ -2,24 +2,24 @@
 {
 	using System.Spec.Formatter;
 
-    using PowerArgs;
+	using PowerArgs;
 
-    public class Arguments
-    {
-        [ArgShortcut("e")]
-        [ArgDescription("Execute example(s) in the specified path.")]
-        public string Example { get; set; }
+	public class Arguments
+	{
+		[ArgShortcut("e")]
+		[ArgDescription("Execute example(s) in the specified path.")]
+		public string Example { get; set; }
 
-        [ArgShortcut("f")]
-        [ArgDescription("Specifies what format to use for output.")]
-        public ConsoleFormatterType Format { get; set; }
+		[ArgShortcut("f")]
+		[ArgDescription("Specifies what format to use for output.")]
+		public ConsoleFormatterType Format { get; set; }
 
-        [ArgShortcut("d")]
-        [ArgDescription("Invokes formatters without executing the examples.")]
-        public bool DryRun { get; set; }
+		[ArgShortcut("d")]
+		[ArgDescription("Invokes formatters without executing the examples.")]
+		public bool DryRun { get; set; }
 
-        [ArgShortcut("h")]
-        [ArgDescription("You're looking at it.")]
-        public bool Help { get; set; }
-    }
+		[ArgShortcut("h")]
+		[ArgDescription("You're looking at it.")]
+		public bool Help { get; set; }
+	}
 }

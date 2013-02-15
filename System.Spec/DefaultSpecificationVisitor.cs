@@ -4,51 +4,47 @@ namespace System.Spec
 
 	using System.Spec.Formatter;
 
-    public class DefaultSpecificationVisitor : ISpecificationVisitor
-    {
-        private readonly IConsoleFormatter formatter;
+	public class DefaultSpecificationVisitor : ISpecificationVisitor
+	{
+		private readonly IConsoleFormatter formatter;
 
-        public DefaultSpecificationVisitor(IConsoleFormatter formatter)
-        {
-            this.formatter = formatter;
-        }
+		public DefaultSpecificationVisitor(IConsoleFormatter formatter)
+		{
+			this.formatter = formatter;
+		}
 
-        public void VisitDescribe(string reason)
-        {
-            this.formatter.WriteInformation(reason);
-        }
+		public void VisitDescribe(string reason)
+		{
+			this.formatter.WriteInformation(reason);
+		}
 
-        public void VisitDescribeBeforeAll(string reason)
-        {
-        }
+		public void VisitDescribeBeforeAll(string reason)
+		{
+		}
 
-        public void VisitDescribeAfterAll(string reason)
-        {
-        }
+		public void VisitDescribeAfterAll(string reason)
+		{
+		}
 
-        public void VisitIt(string reason, ExampleResult result)
-        {
-            if (result == null)
-            {
-                throw new ArgumentNullException("result");
-            }
+		public void VisitIt(string reason, ExampleResult result)
+		{
+			if (result == null) {
+				throw new ArgumentNullException("result");
+			}
 
-            if (result.Status == ExampleResultStatus.Error)
-            {
-                this.formatter.WriteError(reason, result);
-            }
-            else
-            {
-                this.formatter.WriteSuccess(reason, result);
-            }
-        }
+			if (result.Status == ExampleResultStatus.Error) {
+				this.formatter.WriteError(reason, result);
+			} else {
+				this.formatter.WriteSuccess(reason, result);
+			}
+		}
 
-        public void VisitItBeforeEach(string reason)
-        {
-        }
+		public void VisitItBeforeEach(string reason)
+		{
+		}
 
-        public void VisitItAfterEach(string reason)
-        {
-        }
-    }
+		public void VisitItAfterEach(string reason)
+		{
+		}
+	}
 }

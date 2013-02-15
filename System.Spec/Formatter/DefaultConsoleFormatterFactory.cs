@@ -1,20 +1,18 @@
 namespace System.Spec.Formatter
 {
-    public class DefaultConsoleFormatterFactory : IConsoleFormatterFactory
-    {
-        public IConsoleFormatter CreateConsoleFormatter(ConsoleFormatterType type)
-        {
-            if (type == ConsoleFormatterType.Progress)
-            {
-                return new ProgressConsoleFormatter();
-            }
+	public class DefaultConsoleFormatterFactory : IConsoleFormatterFactory
+	{
+		public IConsoleFormatter CreateConsoleFormatter(ConsoleFormatterType type)
+		{
+			if (type == ConsoleFormatterType.Progress) {
+				return new ProgressConsoleFormatter();
+			}
 
-            if (type == ConsoleFormatterType.Nested)
-            {
-                return new NestedConsoleFormatter();
-            }
+			if (type == ConsoleFormatterType.Nested) {
+				return new NestedConsoleFormatter();
+			}
 
-            return new SilentConsoleFormatter();
-        }
-    }
+			return new SilentConsoleFormatter();
+		}
+	}
 }

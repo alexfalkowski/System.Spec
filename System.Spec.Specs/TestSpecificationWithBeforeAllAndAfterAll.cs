@@ -1,23 +1,20 @@
 ﻿namespace System.Spec.Specs
 {
-    public class TestSpecificationWithBeforeAllAndAfterAll : Specification
-    {
-        public override void Validate()
-        {
-            this.Describe(
-                "describe TestSpecificationWithBeforeAllAndAfterAll",
-                // ReSharper disable RedundantArgumentName
+	public class TestSpecificationWithBeforeAllAndAfterAll : Specification
+	{
+		public override void Validate()
+		{
+			this.Describe("describe TestSpecificationWithBeforeAllAndAfterAll",
                 beforeAll: () => { },
                 example: describe =>
-                    {
-                        describe.BeforeEach = () => { };
+			{
+				describe.BeforeEach = () => { };
 
-                        describe.AfterEach = () => { };
+				describe.AfterEach = () => { };
 
-                        describe.It("it 1", () => { });
-                    },
+				describe.It("it 1", () => { });
+			},
                 afterAll: () => { });
-            // ReSharper restore RedundantArgumentName
-        }
-    }
+		}
+	}
 }
