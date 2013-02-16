@@ -1,19 +1,11 @@
-﻿using System;
+using System;
 using System.Reflection;
-using System.Resources;
 using System.Runtime.InteropServices;
+[assembly: AssemblyTitle("System.Spec")]
+[assembly: AssemblyDescription("System.Spec is testing tool for the C# programming language.")]
+[assembly: AssemblyCompany("alex.falkowski")]
+[assembly: AssemblyProduct("System.Spec")]
+[assembly: AssemblyCopyright("2013")]
+[assembly: AssemblyVersion("1.1.1")]
 
-[assembly: AssemblyTitle("NSpec")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NSpec")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: ComVisible(false)]
-[assembly: Guid("002fd3f1-6b28-4943-aefa-a28afbeffc13")]
-[assembly: CLSCompliant(true)]
-[assembly: NeutralResourcesLanguage("en-AU")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: CLSCompliantAttribute(false)]

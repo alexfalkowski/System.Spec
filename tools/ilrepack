@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-ILREPACK_PATH="$PWD/packages/ILRepack.1.21.3/lib/ILRepack.exe"
-
-exec mono --runtime=v4.0 $ILREPACK_PATH "$@"

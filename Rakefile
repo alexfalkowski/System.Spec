@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '1.0.1'
+VERSION = '1.1.1'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 desc 'Get all the referenced packages'
@@ -38,7 +38,9 @@ assemblyinfo :spec_assembly_info do |asm|
   asm.title = 'System.Spec'
   asm.description = 'System.Spec is testing tool for the C# programming language.'
   asm.copyright = Time.now.strftime('%Y')
-  asm.output_file = 'System.Spec/AssemblyInfo.cs'
+  asm.namespaces 'System'
+  asm.custom_attributes :CLSCompliantAttribute => false
+  asm.output_file = 'System.Spec/Properties/AssemblyInfo.cs'
 end
 
 desc 'Version the System.Spec console'
@@ -49,31 +51,10 @@ assemblyinfo :spec_console_assembly_info do |asm|
   asm.title = 'System.Spec.Console'
   asm.description = 'System.Spec is testing tool for the C# programming language.'
   asm.copyright = Time.now.strftime('%Y')
-  asm.output_file = 'System.Spec.Console/AssemblyInfo.cs'
+  asm.namespaces 'System'
+  asm.custom_attributes :CLSCompliantAttribute => false
+  asm.output_file = 'System.Spec.Console/Properties/AssemblyInfo.cs'
 end
-
-task :create_merge_folder do
-  merged_folder = 'artifacts/merged'
-  FileUtils.rm_rf(merged_folder)
-  FileUtils.mkdir(merged_folder)
-end
-
-desc 'Merge the System.Spec assembly'
-exec :merge_spec => :create_merge_folder do |command|
-  assemblies = %w(artifacts/System.Spec.dll artifacts/FluentAssertions.dll artifacts/NSubstitute.dll artifacts/nunit.framework.dll)
-  command.command = 'tools/ilrepack'
-  command.parameters "/target:library /targetplatform:v4 /out:artifacts/merged/System.Spec.dll #{assemblies.join(' ')}"
-end
-
-desc 'Merge the System.Spec console'
-exec :merge_spec_console => :create_merge_folder do |command|
-  assemblies = %w(artifacts/spec.exe artifacts/System.Spec.dll artifacts/FluentAssertions.dll artifacts/NSubstitute.dll artifacts/nunit.framework.dll artifacts/PowerArgs.dll)
-  command.command = 'tools/ilrepack'
-  command.parameters "/target:winexe /targetplatform:v4 /out:artifacts/merged/spec.exe #{assemblies.join(' ')}"
-end
-
-desc 'Merge the the product'
-task :merge => [:merge_spec, :merge_spec_console]
 
 desc 'Create the nuspec'
 nuspec :nuget_spec do |nuspec|
@@ -87,10 +68,14 @@ nuspec :nuget_spec do |nuspec|
   nuspec.iconUrl = 'http://2.bp.blogspot.com/-u9nKVHQrC9E/T8g6ecVm-tI/AAAAAAAAA9Q/Sn9SDRcZyyc/s1600/RSpec_logo-07.PNG'
   nuspec.working_directory = 'artifacts'
   nuspec.output_file = 'System.Spec.nuspec'
-  nuspec.file 'merged/System.Spec.dll', 'lib/net40'
-  nuspec.file 'merged/spec.exe', 'tools'
-  nuspec.file 'merged/spec.exe.config', 'tools'
-  nuspec.file 'spec.sh', 'tools'
+  nuspec.file 'System.Spec.dll', 'lib/net40'
+  nuspec.file 'spec.exe', 'lib/net40'
+  nuspec.file 'spec.exe.config', 'lib/net40'
+  nuspec.file 'spec.sh', 'lib/net40'
+  nuspec.dependency 'NSubstitute', '1.4.2.0'
+  nuspec.dependency 'NUnit', '2.5.10.11092'
+  nuspec.dependency 'FluentAssertions', '1.7.1.1'
+  nuspec.dependency 'PowerArgs', '1.1.11.0'
 end
 
 desc 'Create the nuget package'
