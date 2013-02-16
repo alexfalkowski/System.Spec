@@ -1,12 +1,12 @@
-NSpec
-=====
+System.Spec
+===========
 
-NSpec is testing tool for the C# programming language.
+System.Spec is testing tool for the C# programming language.
 
 Usage
 -----
 
-NSpec uses the following frameworks to help it achieve the goal of a [BDD](http://en.wikipedia.org/wiki/Behavior-driven_development) framework:
+System.Spec uses the following frameworks to help it achieve the goal of a [BDD](http://en.wikipedia.org/wiki/Behavior-driven_development) framework:
 
 -	[NSubstitute](http://nsubstitute.github.com/) as the mocking framework
 - 	[FluentAssertions](http://fluentassertions.codeplex.com/) as the expected outcome framework
@@ -37,7 +37,7 @@ Below is an example specification in C#:
 
 To execute your specifications execute the following:
 	
-	.\nspec.exe -e C:\Projects\OSS\NSpec\NSpec.Specs\bin\Debug
+	.\spec.exe -e C:\Projects\OSS\System.Spec\System.Spec.Specs\bin\Debug
 
 The default output will display the following example:
 
@@ -50,9 +50,9 @@ The default output will display the following example:
 	ons\Releases\1.7.0\FluentAssertions.Net35\Verification.cs:line 158
 	   at FluentAssertions.Assertions.BooleanAssertions.BeTrue(String reason, Object[] reasonArgs) in c:\Workspaces\FluentAs
 	sertions\Releases\1.7.0\FluentAssertions.Net35\Assertions\BooleanAssertions.cs:line 75
-	   at NSpec.Specs.TestSpecificationWithFluentAssertions.<Validate>b__1() in C:\Projects\OSS\NSpec\NSpec.Specs\TestSpecif
+	   at System.Spec.Specs.TestSpecificationWithFluentAssertions.<Validate>b__1() in C:\Projects\OSS\System.Spec\System.Spec.Specs\TestSpecif
 	icationWithFluentAssertions.cs:line 16
-	   at NSpec.Example.It(String reason, Action action)
+	   at System.Spec.Example.It(String reason, Action action)
 
 	2) call method - NSubstitute.Exceptions.ReceivedCallsException: Expected to receive a call matching:
 	        TestMethod()
@@ -66,9 +66,9 @@ The default output will display the following example:
 	   at NSubstitute.Routing.Route.Handle(ICall call)
 	   at NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor.Intercept(IInvocation invocation)
 	   at Castle.DynamicProxy.AbstractInvocation.Proceed()
-	   at NSpec.Specs.TestSpecificationWithNSubstitute.<Validate>b__1() in C:\Projects\OSS\NSpec\NSpec.Specs\TestSpecificati
+	   at System.Spec.Specs.TestSpecificationWithNSubstitute.<Validate>b__1() in C:\Projects\OSS\System.Spec\System.Spec.Specs\TestSpecificati
 	onWithNSubstitute.cs:line 22
-	   at NSpec.Example.It(String reason, Action action)
+	   at System.Spec.Example.It(String reason, Action action)
 
 	Finished in 0.397 seconds
 	6 examples, 2 failures
