@@ -22,15 +22,12 @@ Below is an example specification in C#:
 	    {
 	        public override void Validate()
 	        {
-	            Describe("A very cool specification", describe =>
-	                {
-	                    describe.It("should do something that is good", () =>
-	                        {
-	                            var testInterface = Substitute.For<ITestInterface>();
-
-	                            testInterface.Received().TestMethod();
-	                        });
-	                });
+	            Describe("A very cool specification", describe => {
+                    describe.It("should do something that is good", () => {
+                        var testInterface = Substitute.For<ITestInterface>();
+                        testInterface.Received().TestMethod();
+                    });
+                });
 	        }
 	    }
 	}
