@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '1.2.0'
+VERSION = '1.2.1'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 desc 'Get all the referenced packages'
