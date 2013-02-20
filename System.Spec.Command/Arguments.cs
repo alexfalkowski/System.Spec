@@ -16,25 +16,28 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Console
+namespace System.Spec.Command
 {
-	using System;
-	
 	using System.Spec.Formatter;
-	using System.Spec.Command;
-	
+
 	using PowerArgs;
-	
-	public static class Program
+
+	public class Arguments
 	{
-		public static int Main(string[] args)
-		{
-			var arguments = Args.Parse<Arguments>(args);
-			var command = new SpecCommand(arguments, 
-			                          new DefaultConsoleFormatterFactory(), 
-			                          new DefaultFileSystem(), 
-			                          new DefaultActionStrategy());
-			return command.Perform();
-		}
+		[ArgShortcut("e")]
+		[ArgDescription("Execute example(s) in the specified path.")]
+		public string Example { get; set; }
+
+		[ArgShortcut("f")]
+		[ArgDescription("Specifies what format to use for output.")]
+		public ConsoleFormatterType Format { get; set; }
+
+		[ArgShortcut("d")]
+		[ArgDescription("Invokes formatters without executing the examples.")]
+		public bool DryRun { get; set; }
+
+		[ArgShortcut("h")]
+		[ArgDescription("You're looking at it.")]
+		public bool Help { get; set; }
 	}
 }

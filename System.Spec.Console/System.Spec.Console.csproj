@@ -84,11 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Command.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -110,6 +108,10 @@
     <ProjectReference Include="..\System.Spec\System.Spec.csproj">
       <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
       <Name>System.Spec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Spec.Command\System.Spec.Command.csproj">
+      <Project>{83AFB279-5FA1-4240-8509-16FBA4A40B96}</Project>
+      <Name>System.Spec.Command</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

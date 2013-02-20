@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Specs", "System
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Console", "System.Spec.Console\System.Spec.Console.csproj", "{EBAB25A5-EC6E-4705-8550-983B74740828}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Command", "System.Spec.Command\System.Spec.Command.csproj", "{83AFB279-5FA1-4240-8509-16FBA4A40B96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,22 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|x64.Build.0 = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Debug|x86.Build.0 = Debug|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|x64.ActiveCfg = Release|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|x64.Build.0 = Release|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|x86.ActiveCfg = Release|Any CPU
+		{83AFB279-5FA1-4240-8509-16FBA4A40B96}.Release|x86.Build.0 = Release|Any CPU
 		{D52F70D6-7F9A-459C-8302-3F848C89C3C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D52F70D6-7F9A-459C-8302-3F848C89C3C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52F70D6-7F9A-459C-8302-3F848C89C3C0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -66,7 +84,7 @@ Global
 		{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = NSpec\System.Spec.csproj
+		StartupItem = System.Spec\System.Spec.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = Hierarchical

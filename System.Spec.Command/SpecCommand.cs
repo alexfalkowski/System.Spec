@@ -16,7 +16,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Console
+namespace System.Spec.Command
 {
 	using System;
 
@@ -26,14 +26,14 @@ namespace System.Spec.Console
 	
 	using PowerArgs;
 	
-	public class Command
+	public class SpecCommand
 	{
 		private Arguments arguments;
 		private IConsoleFormatterFactory formatterFactory;
 		private IFileSystem fileSystem;
 		private IActionStrategy exampleGroupStrategy;
 		
-		public Command(Arguments arguments, 
+		public SpecCommand(Arguments arguments, 
 		               IConsoleFormatterFactory formatterFactory, 
 		               IFileSystem fileSystem, 
 		               IActionStrategy exampleGroupStrategy)
