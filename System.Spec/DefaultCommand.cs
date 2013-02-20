@@ -36,7 +36,7 @@ namespace System.Spec
             MessageId = "System.Reflection.Assembly.LoadFrom", Justification = "Need to load assemblies")]
 		public IEnumerable<Assembly> GetAssemblies(string path)
 		{
-			var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), ".dll");
+			var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), "Specs.dll");
 			var collection = new Collection<Assembly>();
 
 			foreach (var file in files) {
@@ -52,7 +52,11 @@ namespace System.Spec
 				throw new ArgumentNullException("assembly");
 			}
 
-			return from type in assembly.GetTypes() where type.IsSubclassOf(typeof(Specification)) select type;
+			try {
+				return from type in assembly.GetTypes() where type.IsSubclassOf(typeof(Specification)) select type;
+			} catch {
+				return Enumerable.Empty<Type>();
+			}
 		}
 
 		public int ExecuteSpecifications(IEnumerable<Type> types)

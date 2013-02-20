@@ -58,7 +58,7 @@
 			var location = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
 			const string TestPath = "test";
 			this.fileSystem.CurrentPath.Returns(TestPath);
-			this.fileSystem.GetFilesWithExtension(TestPath, ".dll").Returns(new[] { location });
+			this.fileSystem.GetFilesWithExtension(TestPath, "Specs.dll").Returns(new[] { location });
 
 			var assemblies = this.command.GetAssemblies(TestPath);
 			assemblies.Should().HaveCount(1);

@@ -69,3 +69,8 @@ The default output will display the following example:
 
 	Finished in 0.397 seconds
 	6 examples, 2 failures
+
+Convention
+----------
+
+System.Spec expects that you name your DLL's with the suffix Specs.dll. This is so that System.Spec does not load all of the assemblies in your path.
