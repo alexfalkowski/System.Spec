@@ -9,6 +9,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>System.Spec.Command</RootNamespace>
     <AssemblyName>System.Spec.Command</AssemblyName>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>System.Spec.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -38,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="System.Spec.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\System.Spec\System.Spec.csproj">

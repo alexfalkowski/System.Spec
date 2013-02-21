@@ -41,7 +41,7 @@
     <SignAssembly>True</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>NSpec.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>System.Spec.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
@@ -94,8 +94,8 @@
     <Compile Include="StringHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NSpec.snk" />
     <None Include="packages.config" />
+    <None Include="System.Spec.snk" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
