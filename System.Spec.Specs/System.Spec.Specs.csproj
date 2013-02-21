@@ -84,6 +84,7 @@
     <Compile Include="TestSpecificationWithSingleIt.cs" />
     <Compile Include="TestSpecificationWithSingleItWithBeforeEach.cs" />
     <Compile Include="TestSpecificationWithSingleItWithBeforeEachAndAfterEach.cs" />
+    <Compile Include="SummarySpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

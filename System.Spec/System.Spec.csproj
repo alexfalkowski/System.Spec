@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="Specification.cs" />
     <Compile Include="StringHelper.cs" />
+    <Compile Include="Results.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

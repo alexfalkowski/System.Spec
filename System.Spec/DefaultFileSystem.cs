@@ -17,5 +17,10 @@ namespace System.Spec
 			return from file in Directory.EnumerateFiles(path, "*" + extension, SearchOption.AllDirectories) 
                    select file;
 		}
+
+        public FileStream OpenWrite(string path)
+        {
+            return File.OpenWrite(path);
+        }
 	}
 }

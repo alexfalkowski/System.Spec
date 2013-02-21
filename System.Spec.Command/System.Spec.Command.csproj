@@ -52,6 +52,5 @@
     <Compile Include="Arguments.cs" />
     <Compile Include="SpecCommand.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Results.cs" />
   </ItemGroup>
 </Project>

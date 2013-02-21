@@ -19,7 +19,6 @@
 namespace System.Spec.Command
 {
 	using System;
-
 	using System.Globalization;
 	
 	using System.Spec.Formatter;
@@ -60,7 +59,10 @@ namespace System.Spec.Command
 				ICommand command = new DefaultCommand(
 					specificationVisitor, exampleGroupStrategy, exampleStratergy, consoleFormatter, fileSystem);
 				
-				return command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
+				var value = command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
+                consoleFormatter.WriteSummaryToStream(this.fileSystem.OpenWrite("test-results.xml"));
+
+                return value;
 			} catch (ArgException) {
 				Console.WriteLine(ArgUsage.GetUsage<Arguments>());
 				return 1;
