@@ -6,12 +6,12 @@ namespace System.Spec
 
     public interface ICommand
     {
-        IEnumerable<Assembly> GetAssemblies(string path, string search = StringHelper.SpecsSearch);
+        IEnumerable<Assembly> GetAssemblies(string path, string search);
 
         IEnumerable<Type> GetSpecificationTypes(Assembly assembly);
 
         int ExecuteSpecifications(IEnumerable<Type> types);
 
-        int ExecuteSpecificationsInPath(string path);
+        int ExecuteSpecificationsInPath(string path, string search);
     }
 }

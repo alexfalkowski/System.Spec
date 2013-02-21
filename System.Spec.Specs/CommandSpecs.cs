@@ -53,16 +53,28 @@
 		}
 
 		[Test]
-		public void ShouldGetAssemblies()
+		public void ShouldGetAssembliesWithDefaultSearch()
 		{
 			var location = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
 			const string TestPath = "test";
 			this.fileSystem.CurrentPath.Returns(TestPath);
 			this.fileSystem.GetFilesWithExtension(TestPath, "Specs.dll").Returns(new[] { location });
 
-			var assemblies = this.command.GetAssemblies(TestPath);
+            var assemblies = this.command.GetAssemblies(TestPath, StringHelper.SpecsSearch);
 			assemblies.Should().HaveCount(1);
 		}
+
+        [Test]
+        public void ShouldGetAssembliesWithCustomSearch()
+        {
+            var location = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
+            const string TestPath = "test";
+            this.fileSystem.CurrentPath.Returns(TestPath);
+            this.fileSystem.GetFilesWithExtension(TestPath, "Spec.Specs.dll").Returns(new[] { location });
+            
+            var assemblies = this.command.GetAssemblies(TestPath, "Spec.Specs");
+            assemblies.Should().HaveCount(1);
+        }
 
 		[Test]
 		public void ShouldExecuteAllSpecificationsInPath()
@@ -71,7 +83,7 @@
                 this.specificationVisitor, this.strategy, this.strategy, this.consoleFormatter, new DefaultFileSystem());
 
 			var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-			var result = this.command.ExecuteSpecificationsInPath(location);
+            var result = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
 			result.Should().Be(2);
 		}
 	}

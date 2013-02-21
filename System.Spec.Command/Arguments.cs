@@ -28,6 +28,11 @@ namespace System.Spec.Command
 		[ArgDescription("Execute example(s) in the specified path.")]
 		public string Example { get; set; }
 
+        [ArgShortcut("s")]
+        [ArgDescription("The search path to use for the spec assemblies. The default is Specs")]
+        [DefaultValue(StringHelper.SpecsSearch)]
+        public string Search { get; set; }
+
 		[ArgShortcut("f")]
 		[ArgDescription("Specifies what format to use for output.")]
 		public ConsoleFormatterType Format { get; set; }

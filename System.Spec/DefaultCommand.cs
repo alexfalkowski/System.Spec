@@ -35,7 +35,7 @@ namespace System.Spec
 
         [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods",
             MessageId = "System.Reflection.Assembly.LoadFrom", Justification = "Need to load assemblies")]
-        public IEnumerable<Assembly> GetAssemblies(string path, string search = StringHelper.SpecsSearch)
+        public IEnumerable<Assembly> GetAssemblies(string path, string search)
         {
             var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), 
                                                               string.Format(CultureInfo.CurrentCulture, "{0}.dll", search));
@@ -78,9 +78,9 @@ namespace System.Spec
             return this.formatter.WriteSummary(stopwatch.ElapsedMilliseconds);
         }
 
-        public int ExecuteSpecificationsInPath(string path)
+        public int ExecuteSpecificationsInPath(string path, string search)
         {
-            var assemblies = this.GetAssemblies(path);
+            var assemblies = this.GetAssemblies(path, search);
             var types = new List<Type>();
             foreach (var specificationTypes in assemblies.Select(this.GetSpecificationTypes)) {
                 types.AddRange(specificationTypes);

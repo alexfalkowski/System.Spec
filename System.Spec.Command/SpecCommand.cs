@@ -60,7 +60,7 @@ namespace System.Spec.Command
 				ICommand command = new DefaultCommand(
 					specificationVisitor, exampleGroupStrategy, exampleStratergy, consoleFormatter, fileSystem);
 				
-				return command.ExecuteSpecificationsInPath(arguments.Example);
+				return command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
 			} catch (ArgException) {
 				Console.WriteLine(ArgUsage.GetUsage<Arguments>());
 				return 1;

@@ -18,6 +18,7 @@ xbuild :build => :assembly_info do |build|
   build.properties = { :configuration => :Release, :OutputPath => ARTIFACTS_PATH }
   build.targets :Rebuild
   build.verbosity = 'quiet'
+  build.parameters '/nologo'
 end
 
 desc 'Run the specs'
@@ -25,6 +26,7 @@ nunit :specs => :build do |nunit|
   nunit.command = 'tools/nunit-console'
   nunit.options '-noshadow'
   nunit.assemblies 'artifacts/System.Spec.Specs.dll'
+  nunit.parameters '-nologo'
 end
 
 desc 'Version the product'
