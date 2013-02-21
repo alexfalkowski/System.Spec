@@ -6,7 +6,7 @@ namespace System.Spec
 
     public interface ICommand
     {
-        IEnumerable<Assembly> GetAssemblies(string path);
+        IEnumerable<Assembly> GetAssemblies(string path, string search = StringHelper.SpecsSearch);
 
         IEnumerable<Type> GetSpecificationTypes(Assembly assembly);
 
