@@ -94,6 +94,8 @@
     <Compile Include="StopwatchHelper.cs" />
     <Compile Include="IRunner.cs" />
     <Compile Include="DefaultRunner.cs" />
+    <Compile Include="ExampleGroupResult.cs" />
+    <Compile Include="ExampleGroupResultCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

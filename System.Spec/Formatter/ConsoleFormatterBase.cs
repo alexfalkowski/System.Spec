@@ -22,8 +22,8 @@ namespace System.Spec.Formatter
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
-    using System.Linq;
     using System.IO;
+    using System.Linq;
     using System.Xml.Serialization;
 
     using NUnit.Framework;
@@ -32,37 +32,33 @@ namespace System.Spec.Formatter
 
     public abstract class ConsoleFormatterBase : IConsoleFormatter
     {
-        private readonly IList<ExampleResult> errorResults = new Collection<ExampleResult>();
-        private readonly IList<ExampleResult> successResults = new Collection<ExampleResult>();
+        private readonly ExampleGroupResultCollection exampleResults = new ExampleGroupResultCollection();
 
-        protected IList<ExampleResult> ErrorResults {
+        protected ExampleGroupResultCollection ExampleResults {
             get {
-                return this.errorResults;
-            }
-        }
-
-        protected IList<ExampleResult> SuccessResults {
-            get {
-                return this.successResults;
+                return this.exampleResults;
             }
         }
 
         public bool HasErrors {
             get {
-                return this.errorResults.Any();
+                return this.exampleResults.HasErrors;
             }
         }
 
-        public abstract void WriteInformation(string message);
+        public virtual void WriteInformation(string message)
+        {
+            this.exampleResults.Add(new ExampleGroupResult { Name = message });
+        }
 
         public virtual void WriteSuccess(string reason, ExampleResult example)
         {
-            this.SuccessResults.Add(example);
+            this.exampleResults.Last().SuccessResults.Add(example);
         }
 
         public virtual void WriteError(string reason, ExampleResult example)
         {
-            this.ErrorResults.Add(example);
+            this.exampleResults.Last().ErrorResults.Add(example);
         }
 
         public virtual void WriteSummary(long elapsedMilliseconds)
@@ -71,16 +67,16 @@ namespace System.Spec.Formatter
                 CultureInfo.CurrentCulture, Resources.ConsoleFormatterElapsedTimeMessage, elapsedMilliseconds / 1000D);
             Console.WriteLine(elapsdeTimeMessage);
 
-            var errorCount = this.ErrorResults.Count;
+            var errorCount = this.exampleResults.AllErrors.Count();
             var summaryMessage = string.Format(
                 CultureInfo.CurrentCulture,
                 Resources.ConsoleFormatterSummaryMessage,
-                this.SuccessResults.Count + errorCount,
+                this.exampleResults.AllSuccess.Count() + errorCount,
                 errorCount);
             Console.WriteLine(summaryMessage);
         }
 
-        public void WriteSummaryToStream(Stream stream, long elapsedMilliseconds)
+        public virtual void WriteSummaryToStream(Stream stream, long elapsedMilliseconds)
         {
             var testsuite = new testsuiteType();
             var resultType = new resultType {

@@ -16,13 +16,28 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-namespace System.Spec.Formatter
+namespace System.Spec
 {
-    public class SilentConsoleFormatter : ConsoleFormatterBase
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+
+    public class ExampleGroupResult
     {
-        public override void WriteSummary(long elapsedMilliseconds)
-        {
+        private readonly IList<ExampleResult> errorResults = new Collection<ExampleResult>();
+        private readonly IList<ExampleResult> successResults = new Collection<ExampleResult>();
+
+        public string Name { get; set; }
+        
+        public IList<ExampleResult> ErrorResults {
+            get {
+                return this.errorResults;
+            }
+        }
+        
+        public IList<ExampleResult> SuccessResults {
+            get {
+                return this.successResults;
+            }
         }
     }
 }

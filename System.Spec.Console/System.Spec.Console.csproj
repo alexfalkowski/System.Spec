@@ -77,11 +77,11 @@
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.4.2.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
-    <Reference Include="PowerArgs">
-      <HintPath>..\packages\PowerArgs.1.1.11.0\lib\net40\PowerArgs.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PowerArgs">
+      <HintPath>..\packages\PowerArgs.1.1.14.0\lib\net40\PowerArgs.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

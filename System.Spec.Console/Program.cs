@@ -29,8 +29,7 @@ namespace System.Spec.Console
 	{
 		public static int Main(string[] args)
 		{
-			var arguments = Args.Parse<Arguments>(args);
-			var command = new SpecCommand(arguments, 
+			var command = new SpecCommand(args, 
 			                          new DefaultConsoleFormatterFactory(), 
 			                          new DefaultFileSystem(), 
 			                          new DefaultActionStrategy());

@@ -26,6 +26,7 @@
 			Console.SetOut(this.stringWriter);
 
 			this.consoleFormatter = new ProgressConsoleFormatter();
+            this.consoleFormatter.WriteInformation(Resources.TestReason);
 		}
 
 		[TearDown]

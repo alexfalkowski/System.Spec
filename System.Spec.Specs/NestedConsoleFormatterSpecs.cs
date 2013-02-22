@@ -27,6 +27,7 @@
             Console.SetOut(this.stringWriter);
 
             this.consoleFormatter = new NestedConsoleFormatter();
+            this.consoleFormatter.WriteInformation(Resources.TestReason);
         }
 
         [TearDown]
@@ -41,7 +42,7 @@
             var result = new ExampleResult { Reason = Resources.TestReason, Status = ExampleResultStatus.Success };
             this.consoleFormatter.WriteSuccess(Resources.TestReason, result);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(StringHelper.Tab + Resources.TestReason + Environment.NewLine);
+            this.stringWriter.ToString().Should().Be(Resources.TestReason + Environment.NewLine + StringHelper.Tab + Resources.TestReason + Environment.NewLine);
         }
 
         [Test]
@@ -57,7 +58,7 @@
                     });
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(
-                StringHelper.Tab + Resources.TestReason + " - System.InvalidOperationException: Test Exception" + Environment.NewLine);
+                Resources.TestReason + Environment.NewLine + StringHelper.Tab + Resources.TestReason + " - System.InvalidOperationException: Test Exception" + Environment.NewLine);
         }
 
         [Test]
@@ -65,7 +66,7 @@
         {
             this.consoleFormatter.WriteSummary(1000);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be("Finished in 1 seconds" + Environment.NewLine + "0 examples, 0 failures" + Environment.NewLine);
+            this.stringWriter.ToString().Should().Be(Resources.TestReason + Environment.NewLine + "Finished in 1 seconds" + Environment.NewLine + "0 examples, 0 failures" + Environment.NewLine);
         }
     }
 }

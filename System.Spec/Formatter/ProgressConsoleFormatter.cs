@@ -16,59 +16,56 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 namespace System.Spec.Formatter
 {
     using System;
-	using System.Globalization;
-	using System.Linq;
+    using System.Globalization;
+    using System.Linq;
 
-	using System.Spec.Properties;
+    using System.Spec.Properties;
 
-	public class ProgressConsoleFormatter : ConsoleFormatterBase
-	{
-		public override void WriteInformation(string message)
-		{
-		}
+    public class ProgressConsoleFormatter : ConsoleFormatterBase
+    {
+        public override void WriteSuccess(string reason, ExampleResult example)
+        {
+            Console.Write(Resources.ConsoleFormatterSuccessMessage);
 
-		public override void WriteSuccess(string reason, ExampleResult example)
-		{
-			Console.Write(Resources.ConsoleFormatterSuccessMessage);
+            base.WriteSuccess(reason, example);
+        }
 
-			base.WriteSuccess(reason, example);
-		}
+        public override void WriteError(string reason, ExampleResult example)
+        {
+            Console.Write(Resources.ConsoleFormatterErrorMessage);
 
-		public override void WriteError(string reason, ExampleResult example)
-		{
-			Console.Write(Resources.ConsoleFormatterErrorMessage);
+            base.WriteError(reason, example);
+        }
 
-			base.WriteError(reason, example);
-		}
+        public override void WriteSummary(long elapsedMilliseconds)
+        {
+            var exampleResults = this.ExampleResults;
 
-		public override void WriteSummary(long elapsedMilliseconds)
-		{
-			var exampleResults = this.ErrorResults;
+            if (exampleResults.HasErrors || exampleResults.HasSuccess) {
+                Console.WriteLine(Environment.NewLine);
+            }
 
-			if (exampleResults.Any() || this.SuccessResults.Any()) {
-				Console.WriteLine(Environment.NewLine);
-			}
+            var errorResults = exampleResults.AllErrors.ToList();
 
-			if (exampleResults.Count > 0) {
-				for (var index = 0; index < exampleResults.Count; index++) {
-					var example = exampleResults [index];
-					var errorMessage = string.Format(
+            if (errorResults.Count > 0) {
+                for (var index = 0; index < errorResults.Count; index++) {
+                    var example = errorResults [index];
+                    var errorMessage = string.Format(
                         CultureInfo.CurrentCulture,
                         Resources.ConsoleFormatteErrorsMessage,
                         index + 1,
                         example.Reason,
                         example.Exception);
 
-					Console.WriteLine(errorMessage);
-					Console.WriteLine();
-				}
-			}
+                    Console.WriteLine(errorMessage);
+                    Console.WriteLine();
+                }
+            }
 
-			base.WriteSummary(elapsedMilliseconds);
-		}
-	}
+            base.WriteSummary(elapsedMilliseconds);
+        }
+    }
 }

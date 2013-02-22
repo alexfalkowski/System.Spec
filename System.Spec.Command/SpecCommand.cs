@@ -28,17 +28,17 @@ namespace System.Spec.Command
     
     public class SpecCommand
     {
-        private Arguments arguments;
+        private string[] args;
         private IConsoleFormatterFactory formatterFactory;
         private IFileSystem fileSystem;
         private IActionStrategy exampleGroupStrategy;
         
-        public SpecCommand(Arguments arguments, 
-                       IConsoleFormatterFactory formatterFactory, 
-                       IFileSystem fileSystem, 
-                       IActionStrategy exampleGroupStrategy)
+        public SpecCommand(string[] args, 
+            IConsoleFormatterFactory formatterFactory, 
+            IFileSystem fileSystem, 
+            IActionStrategy exampleGroupStrategy)
         {
-            this.arguments = arguments;
+            this.args = args;
             this.formatterFactory = formatterFactory;
             this.fileSystem = fileSystem;
             this.exampleGroupStrategy = exampleGroupStrategy;
@@ -47,7 +47,8 @@ namespace System.Spec.Command
         public int Perform()
         {
             try {
-                if (this.arguments.Help) {
+                var arguments = Args.Parse<Arguments>(args);
+                if (arguments.Help) {
                     Console.WriteLine(ArgUsage.GetUsage<Arguments>());
                     return 0;
                 }
@@ -78,4 +79,3 @@ namespace System.Spec.Command
         }
     }
 }
-
