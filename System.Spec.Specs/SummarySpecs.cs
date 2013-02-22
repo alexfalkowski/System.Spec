@@ -21,6 +21,7 @@ using System;
 namespace System.Spec.Specs
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Reflection;
     using System.Xml;
@@ -111,6 +112,13 @@ namespace System.Spec.Specs
         public void ShouldHaveDomain()
         {
             this.resultType.environment.userdomain.Should().Be(Environment.UserDomainName);
+        }
+
+        [Test]
+        public void ShouldHaveCurrentCulture()
+        {
+            this.resultType.cultureinfo.currentculture.Should().Be(CultureInfo.CurrentCulture.ToString());
+            this.resultType.cultureinfo.currentuiculture.Should().Be(CultureInfo.CurrentCulture.ToString());
         }
     }
 }

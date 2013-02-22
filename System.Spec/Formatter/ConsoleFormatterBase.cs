@@ -86,7 +86,12 @@ namespace System.Spec.Formatter
                     platform = Enum.GetName(typeof(PlatformID), Environment.OSVersion.Platform),
                     user = Environment.UserName,
                     userdomain = Environment.UserDomainName
-                } 
+                },
+
+                cultureinfo = new cultureinfoType {
+                    currentculture = CultureInfo.CurrentCulture.ToString(),
+                    currentuiculture = CultureInfo.CurrentUICulture.ToString()
+                }
             };
 
             var serializer = new XmlSerializer(typeof(resultType));

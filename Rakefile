@@ -90,6 +90,7 @@ nuspec :nuget_spec do |nuspec|
   nuspec.file 'nunit.framework.dll', 'lib/net40'
 
   nuspec.file 'System.Spec.dll', 'tools'
+  nuspec.file 'System.Spec.Command.dll', 'tools'
   nuspec.file 'spec.exe', 'tools'
   nuspec.file 'spec.exe.config', 'tools'
   nuspec.file 'spec.sh', 'tools'
