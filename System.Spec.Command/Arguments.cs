@@ -29,7 +29,7 @@ namespace System.Spec.Command
 		public string Example { get; set; }
 
         [ArgShortcut("s")]
-        [ArgDescription("The search path to use for the spec assemblies. The default is Specs")]
+        [ArgDescription("The search path to use for the spec assemblies. The default is Specs.")]
         [DefaultValue(StringHelper.SpecsSearch)]
         public string Search { get; set; }
 
