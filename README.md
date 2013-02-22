@@ -74,3 +74,17 @@ Convention
 ----------
 
 System.Spec expects that you name your DLL's with the suffix Specs.dll. This is so that System.Spec does not load all of the assemblies in your path. You can override this with the -s switch.
+
+Options
+-------
+
+The command spec has the following options:
+
+    Usage: spec options
+
+       OPTION          TYPE                   ORDER   DESCRIPTION
+       -example (-e)   String                         Execute example(s) in the specified path.
+       -search (-s)    String                         The search path to use for the spec assemblies. The default is Specs.
+       -format (-f)    ConsoleFormatterType           Specifies what format to use for output.
+       -dryrun (-d)    Switch                         Invokes formatters without executing the examples.
+       -help (-h)      Switch                         You're looking at it.
