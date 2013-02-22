@@ -57,7 +57,7 @@ namespace System.Spec.Command
                 IActionStrategy exampleStratergy = arguments.DryRun
                     ? (IActionStrategy)new NullActionStrategy()
                         : new DefaultActionStrategy();
-                ICommand command = new DefaultCommand(
+                IRunner command = new DefaultRunner(
                     specificationVisitor, exampleGroupStrategy, exampleStratergy, fileSystem);
                 
                 var elapsedTime = StopwatchHelper.ExecuteTimedAction(() => {

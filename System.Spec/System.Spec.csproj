@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultActionStrategy.cs" />
-    <Compile Include="DefaultCommand.cs" />
     <Compile Include="DefaultFileSystem.cs" />
     <Compile Include="ExampleBase.cs" />
     <Compile Include="Formatter\ConsoleFormatterBase.cs" />
@@ -80,7 +79,6 @@
     <Compile Include="ExampleResult.cs" />
     <Compile Include="ExampleResultStatus.cs" />
     <Compile Include="IActionStrategy.cs" />
-    <Compile Include="ICommand.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="ISpecificationVisitor.cs" />
     <Compile Include="NullActionStrategy.cs" />
@@ -94,6 +92,8 @@
     <Compile Include="StringHelper.cs" />
     <Compile Include="Formatter\Results.cs" />
     <Compile Include="StopwatchHelper.cs" />
+    <Compile Include="IRunner.cs" />
+    <Compile Include="DefaultRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

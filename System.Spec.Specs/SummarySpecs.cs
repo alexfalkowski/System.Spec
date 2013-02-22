@@ -38,7 +38,7 @@ namespace System.Spec.Specs
     [TestFixture]
     public class SummarySpecs
     {
-        private ICommand command;
+        private IRunner command;
         private ISpecificationVisitor specificationVisitor;
         private IConsoleFormatter consoleFormatter;
         private IFileSystem fileSystem;
@@ -52,7 +52,7 @@ namespace System.Spec.Specs
             this.strategy = new DefaultActionStrategy();
             this.consoleFormatter = new SilentConsoleFormatter();
             this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
-            this.command = new DefaultCommand(
+            this.command = new DefaultRunner(
                 this.specificationVisitor, this.strategy, this.strategy, this.fileSystem);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);

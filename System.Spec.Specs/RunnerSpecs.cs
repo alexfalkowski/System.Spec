@@ -1,4 +1,4 @@
-﻿// Author:
+// Author:
 //       alex.falkowski <alexrfalkowski@gmail.com>
 //
 //  Copyright (c) 2013 alex.falkowski
@@ -33,9 +33,9 @@ namespace System.Spec.Specs
 	using NUnit.Framework;
 
 	[TestFixture]
-	public class CommandSpecs
+	public class RunnerSpecs
 	{
-		private ICommand command;
+		private IRunner command;
 		private ISpecificationVisitor specificationVisitor;
 		private IConsoleFormatter consoleFormatter;
 		private IFileSystem fileSystem;
@@ -48,7 +48,7 @@ namespace System.Spec.Specs
 			this.strategy = new DefaultActionStrategy();
 			this.consoleFormatter = Substitute.For<IConsoleFormatter>();
 			this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
-			this.command = new DefaultCommand(
+			this.command = new DefaultRunner(
                 this.specificationVisitor, this.strategy, this.strategy, this.fileSystem);
 		}
 
@@ -86,7 +86,7 @@ namespace System.Spec.Specs
 		[Test]
 		public void ShouldExecuteAllSpecificationsInPath()
 		{
-			this.command = new DefaultCommand(
+			this.command = new DefaultRunner(
                 this.specificationVisitor, this.strategy, this.strategy, new DefaultFileSystem());
 
 			var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);

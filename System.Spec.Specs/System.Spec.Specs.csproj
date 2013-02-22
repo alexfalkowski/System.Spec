@@ -62,7 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandSpecs.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +84,7 @@
     <Compile Include="TestSpecificationWithSingleItWithBeforeEach.cs" />
     <Compile Include="TestSpecificationWithSingleItWithBeforeEachAndAfterEach.cs" />
     <Compile Include="SummarySpecs.cs" />
+    <Compile Include="RunnerSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

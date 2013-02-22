@@ -29,14 +29,14 @@ namespace System.Spec
 
     using System.Spec.Formatter;
 
-    public class DefaultCommand : ICommand
+    public class DefaultRunner : IRunner
     {
         private readonly ISpecificationVisitor visitor;
         private readonly IFileSystem fileSystem;
         private readonly IActionStrategy exampleGroupStrategy;
         private readonly IActionStrategy exampleStrategy;
 
-        public DefaultCommand(
+        public DefaultRunner(
             ISpecificationVisitor visitor,
             IActionStrategy exampleGroupStrategy,
             IActionStrategy exampleStrategy,

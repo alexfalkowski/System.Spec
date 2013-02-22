@@ -22,7 +22,7 @@ namespace System.Spec
     using System.Collections.Generic;
     using System.Reflection;
 
-    public interface ICommand
+    public interface IRunner
     {
         IEnumerable<Assembly> GetAssemblies(string path, string search);
 
