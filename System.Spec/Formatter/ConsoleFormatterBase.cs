@@ -22,6 +22,7 @@ namespace System.Spec.Formatter
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
+    using System.Linq;
     using System.IO;
     using System.Xml.Serialization;
 
@@ -46,6 +47,12 @@ namespace System.Spec.Formatter
             }
         }
 
+        public bool HasErrors {
+            get {
+                return this.errorResults.Any();
+            }
+        }
+
         public abstract void WriteInformation(string message);
 
         public virtual void WriteSuccess(string reason, ExampleResult example)
@@ -58,7 +65,7 @@ namespace System.Spec.Formatter
             this.ErrorResults.Add(example);
         }
 
-        public virtual int WriteSummary(long elapsedMilliseconds)
+        public virtual void WriteSummary(long elapsedMilliseconds)
         {
             var elapsdeTimeMessage = string.Format(
                 CultureInfo.CurrentCulture, Resources.ConsoleFormatterElapsedTimeMessage, elapsedMilliseconds / 1000D);
@@ -71,12 +78,11 @@ namespace System.Spec.Formatter
                 this.SuccessResults.Count + errorCount,
                 errorCount);
             Console.WriteLine(summaryMessage);
-
-            return errorCount;
         }
 
-        public void WriteSummaryToStream(Stream stream)
+        public void WriteSummaryToStream(Stream stream, long elapsedMilliseconds)
         {
+            var testsuite = new testsuiteType();
             var resultType = new resultType {
                 environment = new environmentType {
                     nunitversion = typeof(TestAttribute).Assembly.GetName().Version.ToString(),
@@ -91,8 +97,14 @@ namespace System.Spec.Formatter
                 cultureinfo = new cultureinfoType {
                     currentculture = CultureInfo.CurrentCulture.ToString(),
                     currentuiculture = CultureInfo.CurrentUICulture.ToString()
-                }
+                },
+
+                testsuite = testsuite
             };
+
+            testsuite.executed = bool.TrueString;
+            testsuite.result = this.HasErrors ? "Failure" : "Success";
+            testsuite.time = (elapsedMilliseconds / 1000D).ToString();
 
             var serializer = new XmlSerializer(typeof(resultType));
             serializer.Serialize(stream, resultType);

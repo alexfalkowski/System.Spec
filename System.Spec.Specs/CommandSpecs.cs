@@ -1,4 +1,22 @@
-﻿namespace System.Spec.Specs
+﻿// Author:
+//       alex.falkowski <alexrfalkowski@gmail.com>
+//
+//  Copyright (c) 2013 alex.falkowski
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace System.Spec.Specs
 {
     using System;
 	using System.IO;
@@ -29,10 +47,9 @@
 			this.fileSystem = Substitute.For<IFileSystem>();
 			this.strategy = new DefaultActionStrategy();
 			this.consoleFormatter = Substitute.For<IConsoleFormatter>();
-			this.consoleFormatter.WriteSummary(Arg.Any<long>()).Returns(2);
 			this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
 			this.command = new DefaultCommand(
-                this.specificationVisitor, this.strategy, this.strategy, this.consoleFormatter, this.fileSystem);
+                this.specificationVisitor, this.strategy, this.strategy, this.fileSystem);
 		}
 
 		[Test]
@@ -40,18 +57,6 @@
 		{
 			var types = this.command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
 			types.Should().HaveCount(9);
-		}
-
-		[Test]
-		public void ShouldExecuteAllSpecifications()
-		{
-			var types = this.command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
-			var result = this.command.ExecuteSpecifications(types);
-
-			result.Should().Be(2);
-			this.consoleFormatter.Received(5).WriteSuccess(Arg.Any<string>(), Arg.Any<ExampleResult>());
-			this.consoleFormatter.Received(2).WriteError(Arg.Any<string>(), Arg.Any<ExampleResult>());
-			this.consoleFormatter.Received().WriteSummary(Arg.Any<long>());
 		}
 
 		[Test]
@@ -82,11 +87,10 @@
 		public void ShouldExecuteAllSpecificationsInPath()
 		{
 			this.command = new DefaultCommand(
-                this.specificationVisitor, this.strategy, this.strategy, this.consoleFormatter, new DefaultFileSystem());
+                this.specificationVisitor, this.strategy, this.strategy, new DefaultFileSystem());
 
 			var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            var result = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
-			result.Should().Be(2);
+            this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
 		}
 	}
 }

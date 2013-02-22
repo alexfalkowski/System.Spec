@@ -53,14 +53,13 @@ namespace System.Spec.Specs
             this.consoleFormatter = new SilentConsoleFormatter();
             this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
             this.command = new DefaultCommand(
-                this.specificationVisitor, this.strategy, this.strategy, this.consoleFormatter, this.fileSystem);
+                this.specificationVisitor, this.strategy, this.strategy, this.fileSystem);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            var result = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
-            result.Should().Be(2);
+            this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
             
             using (var stream = new MemoryStream()) {
-                this.consoleFormatter.WriteSummaryToStream(stream);
+                this.consoleFormatter.WriteSummaryToStream(stream, 10);
                 stream.Seek(0, SeekOrigin.Begin);
 
                 var serializer = new XmlSerializer(typeof(resultType));
@@ -120,6 +119,23 @@ namespace System.Spec.Specs
             this.resultType.cultureinfo.currentculture.Should().Be(CultureInfo.CurrentCulture.ToString());
             this.resultType.cultureinfo.currentuiculture.Should().Be(CultureInfo.CurrentCulture.ToString());
         }
+
+        [Test]
+        public void ShouldHaveExcecuted()
+        {
+            this.resultType.testsuite.executed.Should().Be(bool.TrueString);
+        }
+
+        [Test]
+        public void ShouldHaveFailure()
+        {
+            this.resultType.testsuite.result.Should().Be("Failure");
+        }
+
+        [Test]
+        public void ShouldHaveTime()
+        {
+            double.Parse(this.resultType.testsuite.time).Should().BeGreaterThan(0.0);
+        }
     }
 }
-

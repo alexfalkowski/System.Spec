@@ -18,59 +18,64 @@
 
 namespace System.Spec.Command
 {
-	using System;
-	using System.Globalization;
-	
-	using System.Spec.Formatter;
-	
-	using PowerArgs;
-	
-	public class SpecCommand
-	{
-		private Arguments arguments;
-		private IConsoleFormatterFactory formatterFactory;
-		private IFileSystem fileSystem;
-		private IActionStrategy exampleGroupStrategy;
-		
-		public SpecCommand(Arguments arguments, 
-		               IConsoleFormatterFactory formatterFactory, 
-		               IFileSystem fileSystem, 
-		               IActionStrategy exampleGroupStrategy)
-		{
-			this.arguments = arguments;
-			this.formatterFactory = formatterFactory;
-			this.fileSystem = fileSystem;
-			this.exampleGroupStrategy = exampleGroupStrategy;
-		}
-		
-		public int Perform()
-		{
-			try {
-				if (this.arguments.Help) {
-					Console.WriteLine(ArgUsage.GetUsage<Arguments>());
-					return 0;
-				}
-				
-				IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format);
-				ISpecificationVisitor specificationVisitor = new DefaultSpecificationVisitor(consoleFormatter);
-				IActionStrategy exampleStratergy = arguments.DryRun
-					? (IActionStrategy)new NullActionStrategy()
-						: new DefaultActionStrategy();
-				ICommand command = new DefaultCommand(
-					specificationVisitor, exampleGroupStrategy, exampleStratergy, consoleFormatter, fileSystem);
-				
-				var value = command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
-                consoleFormatter.WriteSummaryToStream(this.fileSystem.OpenWrite("test-results.xml"));
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    
+    using System.Spec.Formatter;
+    
+    using PowerArgs;
+    
+    public class SpecCommand
+    {
+        private Arguments arguments;
+        private IConsoleFormatterFactory formatterFactory;
+        private IFileSystem fileSystem;
+        private IActionStrategy exampleGroupStrategy;
+        
+        public SpecCommand(Arguments arguments, 
+                       IConsoleFormatterFactory formatterFactory, 
+                       IFileSystem fileSystem, 
+                       IActionStrategy exampleGroupStrategy)
+        {
+            this.arguments = arguments;
+            this.formatterFactory = formatterFactory;
+            this.fileSystem = fileSystem;
+            this.exampleGroupStrategy = exampleGroupStrategy;
+        }
+        
+        public int Perform()
+        {
+            try {
+                if (this.arguments.Help) {
+                    Console.WriteLine(ArgUsage.GetUsage<Arguments>());
+                    return 0;
+                }
+                
+                IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format);
+                ISpecificationVisitor specificationVisitor = new DefaultSpecificationVisitor(consoleFormatter);
+                IActionStrategy exampleStratergy = arguments.DryRun
+                    ? (IActionStrategy)new NullActionStrategy()
+                        : new DefaultActionStrategy();
+                ICommand command = new DefaultCommand(
+                    specificationVisitor, exampleGroupStrategy, exampleStratergy, fileSystem);
+                
+                var elapsedTime = StopwatchHelper.ExecuteTimedAction(() => {
+                    command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
+                });
 
-                return value;
-			} catch (ArgException) {
-				Console.WriteLine(ArgUsage.GetUsage<Arguments>());
-				return 1;
-			} catch (Exception e) {
-				Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e));
-				return 1;
-			}
-		}
-	}
+                consoleFormatter.WriteSummary(elapsedTime);
+                consoleFormatter.WriteSummaryToStream(this.fileSystem.OpenWrite("test-results.xml"), elapsedTime);
+
+                return consoleFormatter.HasErrors ? 1 : 0;
+            } catch (ArgException) {
+                Console.WriteLine(ArgUsage.GetUsage<Arguments>());
+                return 1;
+            } catch (Exception e) {
+                Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e));
+                return 1;
+            }
+        }
+    }
 }
 

@@ -16,23 +16,23 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-namespace System.Spec.Formatter
+namespace System.Spec
 {
-    using System.IO;
+    using System;
+    using System.Diagnostics;
 
-    public interface IConsoleFormatter
+    public static class StopwatchHelper
     {
-        bool HasErrors { get; }
+        public static long ExecuteTimedAction(Action action)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
-        void WriteInformation(string message);
+            action();
 
-        void WriteSuccess(string reason, ExampleResult example);
-
-        void WriteError(string reason, ExampleResult example);
-
-        void WriteSummary(long elapsedMilliseconds);
-
-        void WriteSummaryToStream(Stream stream, long elapsedMilliseconds);
+            stopwatch.Stop();
+            
+            return stopwatch.ElapsedMilliseconds;
+        }
     }
 }

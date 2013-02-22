@@ -39,13 +39,13 @@ namespace System.Spec.Formatter
 			base.WriteError(reason, example);
 		}
 
-		public override int WriteSummary(long elapsedMilliseconds)
+		public override void WriteSummary(long elapsedMilliseconds)
 		{
 			if (this.ErrorResults.Any() || this.SuccessResults.Any()) {
 				Console.WriteLine();
 			}
 
-			return base.WriteSummary(elapsedMilliseconds);
+			base.WriteSummary(elapsedMilliseconds);
 		}
 
 		// Idea from http://blogs.msdn.com/b/abhinaba/archive/2006/01/05/509581.aspx

@@ -93,6 +93,7 @@
     <Compile Include="Specification.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="Formatter\Results.cs" />
+    <Compile Include="StopwatchHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
