@@ -73,4 +73,4 @@ The default output will display the following example:
 Convention
 ----------
 
-System.Spec expects that you name your DLL's with the suffix Specs.dll. This is so that System.Spec does not load all of the assemblies in your path.
+System.Spec expects that you name your DLL's with the suffix Specs.dll. This is so that System.Spec does not load all of the assemblies in your path. You can override this with the -s switch.
