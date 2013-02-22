@@ -10,6 +10,8 @@
 
 		public Exception Exception { get; set; }
 
+        public long ElapsedTime { get; set; }
+
 		public static bool operator ==(ExampleResult left, ExampleResult right)
 		{
 			return object.Equals(left, right);

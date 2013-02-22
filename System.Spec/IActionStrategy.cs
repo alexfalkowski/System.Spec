@@ -4,8 +4,8 @@
 
     public interface IActionStrategy
     {
-        void ExecuteAction(Action action);
+        long ExecuteAction(Action action);
 
-        void ExecuteAction<T>(Action<T> action, T value);
+        long ExecuteAction<T>(Action<T> action, T value);
     }
 }

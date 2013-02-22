@@ -4,12 +4,14 @@ namespace System.Spec
 
     public class NullActionStrategy : IActionStrategy
     {
-        public void ExecuteAction(Action action)
+        public long ExecuteAction(Action action)
         {
+            return 0;
         }
 
-        public void ExecuteAction<T>(Action<T> action, T value)
+        public long ExecuteAction<T>(Action<T> action, T value)
         {
+            return 0;
         }
     }
 }

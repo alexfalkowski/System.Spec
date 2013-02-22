@@ -1,25 +1,40 @@
 namespace System.Spec
 {
     using System;
+    using System.Diagnostics;
 
 	public class DefaultActionStrategy : IActionStrategy
 	{
-		public void ExecuteAction(Action action)
+		public long ExecuteAction(Action action)
 		{
 			if (action == null) {
-				return;
+				return 0;
 			}
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
 			action();
+
+            stopwatch.Stop();
+            
+            return stopwatch.ElapsedMilliseconds;
 		}
 
-		public void ExecuteAction<T>(Action<T> action, T value)
+		public long ExecuteAction<T>(Action<T> action, T value)
 		{
 			if (action == null) {
-				return;
+				return 0;
 			}
 
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
 			action(value);
+
+            stopwatch.Stop();
+
+            return stopwatch.ElapsedMilliseconds;
 		}
 	}
 }
