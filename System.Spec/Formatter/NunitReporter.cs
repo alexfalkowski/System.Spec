@@ -76,30 +76,30 @@ namespace System.Spec.Formatter
             
                 foreach (var error in result.ErrorResults) {
                     var failure = new failureType {
-                    message = this.CreateCDataSection(error.Exception.Message),
-                    stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
-                };
-                
+                            message = this.CreateCDataSection(error.Exception.Message),
+                            stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
+                        };
+                        
                     var @case = new testcaseType { 
-                    name = error.Reason, 
-                    executed = bool.TrueString, 
-                    success = bool.FalseString,
-                    asserts = "0",
-                    time = (error.ElapsedTime / 1000D).ToString(),
-                    Item = failure
-                };
-                
+                            name = error.Reason, 
+                            executed = bool.TrueString, 
+                            success = bool.FalseString,
+                            asserts = "0",
+                            time = (error.ElapsedTime / 1000D).ToString(),
+                            Item = failure
+                        };
+                        
                     cases.Add(@case);
                 }
             
                 foreach (var success in result.SuccessResults) {
                     var @case = new testcaseType { 
-                    name = success.Reason, 
-                    executed = bool.TrueString, 
-                    success = bool.TrueString,
-                    asserts = "0",
-                    time = (success.ElapsedTime / 1000D).ToString()
-                };
+                        name = success.Reason, 
+                        executed = bool.TrueString, 
+                        success = bool.TrueString,
+                        asserts = "0",
+                        time = (success.ElapsedTime / 1000D).ToString()
+                    };
                 
                     cases.Add(@case);
                 }
