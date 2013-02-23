@@ -33,6 +33,11 @@ namespace System.Spec.Command
         [DefaultValue(StringHelper.SpecsSearch)]
         public string Search { get; set; }
 
+        [ArgShortcut("o")]
+        [ArgDescription("The output path of the test results. The default is test-results.xml.")]
+        [DefaultValue("test-results.xml")]
+        public string Output { get; set; }
+
 		[ArgShortcut("f")]
 		[ArgDescription("Specifies what format to use for output.")]
 		public ConsoleFormatterType Format { get; set; }

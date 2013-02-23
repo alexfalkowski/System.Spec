@@ -66,7 +66,7 @@ namespace System.Spec.Command
                 });
 
                 consoleFormatter.WriteSummary(elapsedTime);
-                consoleFormatter.WriteSummaryToStream(this.fileSystem.OpenWrite("test-results.xml"), elapsedTime);
+                consoleFormatter.WriteSummaryToStream(this.fileSystem.OpenWrite(arguments.Output), elapsedTime);
 
                 return consoleFormatter.HasErrors ? 1 : 0;
             } catch (ArgException) {
