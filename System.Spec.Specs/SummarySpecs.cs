@@ -137,5 +137,13 @@ namespace System.Spec.Specs
         {
             double.Parse(this.resultType.testsuite.time).Should().BeGreaterThan(0.0);
         }
+
+        [Test]
+        public void ShouldHaveResults()
+        {
+            var results = this.resultType.testsuite.results;
+            results.Should().NotBeNull();
+            results.Should().HaveCount(10);
+        }
     }
 }

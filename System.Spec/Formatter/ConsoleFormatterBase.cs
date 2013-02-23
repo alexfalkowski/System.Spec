@@ -24,6 +24,7 @@ namespace System.Spec.Formatter
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Xml;
     using System.Xml.Serialization;
 
     using NUnit.Framework;
@@ -78,32 +79,8 @@ namespace System.Spec.Formatter
 
         public virtual void WriteSummaryToStream(Stream stream, long elapsedMilliseconds)
         {
-            var testsuite = new testsuiteType();
-            var resultType = new resultType {
-                environment = new environmentType {
-                    nunitversion = typeof(TestAttribute).Assembly.GetName().Version.ToString(),
-                    clrversion = Environment.Version.ToString(),
-                    osversion = Environment.OSVersion.VersionString,
-                    machinename = Environment.MachineName,
-                    platform = Enum.GetName(typeof(PlatformID), Environment.OSVersion.Platform),
-                    user = Environment.UserName,
-                    userdomain = Environment.UserDomainName
-                },
-
-                cultureinfo = new cultureinfoType {
-                    currentculture = CultureInfo.CurrentCulture.ToString(),
-                    currentuiculture = CultureInfo.CurrentUICulture.ToString()
-                },
-
-                testsuite = testsuite
-            };
-
-            testsuite.executed = bool.TrueString;
-            testsuite.result = this.HasErrors ? "Failure" : "Success";
-            testsuite.time = (elapsedMilliseconds / 1000D).ToString();
-
-            var serializer = new XmlSerializer(typeof(resultType));
-            serializer.Serialize(stream, resultType);
+            var reporter = new NunitReporter(this.HasErrors, this.ExampleResults);
+            reporter.Write(stream, elapsedMilliseconds);
         }
     }
 }

@@ -16,43 +16,30 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Formatter {
-    
-    
+namespace System.Spec.Formatter
+{
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlRootAttribute("test-results", Namespace="", IsNullable=false)]
-    public partial class resultType {
+    public partial class resultType
+    {
         
         private string nameField;
-        
         private decimal totalField;
-        
         private decimal errorsField;
-        
         private decimal failuresField;
-        
         private decimal inconclusiveField;
-        
         private decimal notrunField;
-        
         private decimal ignoredField;
-        
         private decimal skippedField;
-        
         private decimal invalidField;
-        
         private string dateField;
-        
         private string timeField;
-        
         private environmentType environmentField;
-        
         private cultureinfoType cultureinfoField;
-        
         private testsuiteType testsuiteField;
         
         /// <remarks/>
@@ -214,22 +201,16 @@ namespace System.Spec.Formatter {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class environmentType {
+    public partial class environmentType
+    {
         
         private string nunitversionField;
-        
         private string clrversionField;
-        
         private string osversionField;
-        
         private string platformField;
-        
         private string cwdField;
-        
         private string machinenameField;
-        
         private string userField;
-        
         private string userdomainField;
         
         /// <remarks/>
@@ -327,10 +308,10 @@ namespace System.Spec.Formatter {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute("culture-infoType")]
-    public partial class cultureinfoType {
+    public partial class cultureinfoType
+    {
         
         private string currentcultureField;
-        
         private string currentuicultureField;
         
         /// <remarks/>
@@ -362,30 +343,20 @@ namespace System.Spec.Formatter {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute("test-suiteType")]
-    public partial class testsuiteType {
+    public partial class testsuiteType
+    {
         
         private string typeField;
-        
         private string nameField1;
-        
         private string descriptionField;
-        
         private string successField;
-        
         private string timeField1;
-        
         private string executedField;
-        
         private string assertsField;
-        
         private string resultField;
-        
         private categoryType[] categoriesField;
-        
         private propertyType[] propertiesField;
-        
         private object itemField;
-        
         private object[] resultsField;
         
         /// <remarks/>
@@ -528,7 +499,8 @@ namespace System.Spec.Formatter {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class categoryType {
+    public partial class categoryType
+    {
         
         private string nameField2;
         
@@ -549,10 +521,10 @@ namespace System.Spec.Formatter {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class propertyType {
+    public partial class propertyType
+    {
         
         private string nameField3;
-        
         private string valueField;
         
         /// <remarks/>
@@ -583,30 +555,31 @@ namespace System.Spec.Formatter {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class failureType {
-        
+    public partial class failureType
+    {
         private string messageField;
-        
         private string stacktraceField;
         
         /// <remarks/>
-        public string message {
+        public System.Xml.XmlCDataSection message {
             get {
-                return this.messageField;
+                var document = new System.Xml.XmlDocument();
+                return document.CreateCDataSection(this.messageField);
             }
             set {
-                this.messageField = value;
+                this.messageField = value.Value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("stack-trace")]
-        public string stacktrace {
+        public System.Xml.XmlCDataSection stacktrace {
             get {
-                return this.stacktraceField;
+                var document = new System.Xml.XmlDocument();
+                return document.CreateCDataSection(this.stacktraceField);
             }
             set {
-                this.stacktraceField = value;
+                this.stacktraceField = value.Value;
             }
         }
     }
@@ -616,8 +589,8 @@ namespace System.Spec.Formatter {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class reasonType {
-        
+    public partial class reasonType
+    {
         private string messageField1;
         
         /// <remarks/>
@@ -637,26 +610,18 @@ namespace System.Spec.Formatter {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute("test-caseType")]
-    public partial class testcaseType {
+    public partial class testcaseType
+    {
         
         private string nameField4;
-        
         private string descriptionField1;
-        
         private string successField1;
-        
         private string timeField2;
-        
         private string executedField1;
-        
         private string assertsField1;
-        
         private string resultField1;
-        
         private categoryType[] categoriesField1;
-        
         private propertyType[] propertiesField1;
-        
         private object itemField1;
         
         /// <remarks/>
