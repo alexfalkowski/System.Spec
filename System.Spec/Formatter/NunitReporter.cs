@@ -44,7 +44,17 @@ namespace System.Spec.Formatter
 
         public void Write(Stream stream, long elapsedMilliseconds)
         {
-            var testsuite = new testsuiteType();
+            var testsuite = new testsuiteType {
+                name = "Specifications",
+                type = "Assembly",
+                executed = bool.TrueString,
+                result = hasErrors ? "Failure" : "Success",
+                asserts = "0",
+                time = (elapsedMilliseconds / 1000D).ToString(),
+            };
+
+            var errorCount = this.exampleResults.AllErrors.Count();
+
             var resultType = new resultType {
                 environment = new environmentType {
                     nunitversion = typeof(TestAttribute).Assembly.GetName().Version.ToString(),
@@ -61,33 +71,47 @@ namespace System.Spec.Formatter
                     currentuiculture = CultureInfo.CurrentUICulture.ToString()
                 },
                 
-                testsuite = testsuite
+                testsuite = testsuite,
+                errors = errorCount,
+                total = this.exampleResults.AllSuccess.Count() + errorCount,
+                name = "Results",
+                date = DateTime.Now.ToString("yyyy-MM-dd"),
+                time = DateTime.Now.ToString("H:mm:ss")
             };
-        
-            testsuite.executed = bool.TrueString;
-            testsuite.result = hasErrors ? "Failure" : "Success";
-            testsuite.time = (elapsedMilliseconds / 1000D).ToString();
-        
+
             var types = new Collection<testsuiteType>();
         
             foreach (var result in this.exampleResults) {
-                var type = new testsuiteType { name = result.Name, type = "TestFixture" };
+                var query = from error in result.ErrorResults
+                            from success in result.SuccessResults
+                            select error.ElapsedTime + success.ElapsedTime;
+                var hasResultErrors = result.ErrorResults.Any();
+                var type = new testsuiteType { 
+                    name = result.Name, 
+                    type = "TestFixture",
+                    result = hasResultErrors ? "Failure" : "Success",
+                    executed = bool.TrueString,
+                    time = query.Sum().ToString(),
+                    asserts = "0",
+                    success = hasResultErrors ? bool.FalseString : bool.TrueString
+                };
                 var cases = new Collection<testcaseType>();
             
                 foreach (var error in result.ErrorResults) {
                     var failure = new failureType {
-                            message = this.CreateCDataSection(error.Exception.Message),
-                            stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
-                        };
+                        message = this.CreateCDataSection(error.Exception.Message),
+                        stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
+                    };
                         
                     var @case = new testcaseType { 
-                            name = error.Reason, 
-                            executed = bool.TrueString, 
-                            success = bool.FalseString,
-                            asserts = "0",
-                            time = (error.ElapsedTime / 1000D).ToString(),
-                            Item = failure
-                        };
+                        name = error.Reason, 
+                        executed = bool.TrueString, 
+                        success = bool.FalseString,
+                        result = "Failure",
+                        asserts = "0",
+                        time = (error.ElapsedTime / 1000D).ToString(),
+                        Item = failure
+                    };
                         
                     cases.Add(@case);
                 }
@@ -97,6 +121,7 @@ namespace System.Spec.Formatter
                         name = success.Reason, 
                         executed = bool.TrueString, 
                         success = bool.TrueString,
+                        result = "Success",
                         asserts = "0",
                         time = (success.ElapsedTime / 1000D).ToString()
                     };

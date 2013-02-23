@@ -26,7 +26,6 @@ namespace System.Spec.Formatter
     [System.Xml.Serialization.XmlRootAttribute("test-results", Namespace="", IsNullable=false)]
     public partial class resultType
     {
-        
         private string nameField;
         private decimal totalField;
         private decimal errorsField;
@@ -345,7 +344,6 @@ namespace System.Spec.Formatter
     [System.Xml.Serialization.XmlTypeAttribute("test-suiteType")]
     public partial class testsuiteType
     {
-        
         private string typeField;
         private string nameField1;
         private string descriptionField;
