@@ -23,6 +23,7 @@ namespace System.Spec.Specs
     using System;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Xml;
     using System.Xml.Serialization;
@@ -144,6 +145,28 @@ namespace System.Spec.Specs
             var results = this.resultType.testsuite.results;
             results.Should().NotBeNull();
             results.Should().HaveCount(10);
+        }
+
+        [Test]
+        public void ShouldHaveErrors()
+        {
+            var results = this.resultType.testsuite.results.AsEnumerable();
+            var query = from testsuiteType type in results
+                        where type.result == "Failure"
+                        select type;
+            query.Should().HaveCount(2);
+            query.Should().Contain(result => int.Parse(result.time) >= 0);
+        }
+
+        [Test]
+        public void ShouldHaveSuccess()
+        {
+            var results = this.resultType.testsuite.results.AsEnumerable();
+            var query = from testsuiteType type in results
+                where type.result == "Success"
+                    select type;
+            query.Should().HaveCount(8);
+            query.Should().Contain(result => int.Parse(result.time) >= 0);
         }
     }
 }

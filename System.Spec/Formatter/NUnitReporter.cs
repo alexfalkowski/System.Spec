@@ -31,12 +31,12 @@ namespace System.Spec.Formatter
     
     using System.Spec.Properties;
 
-    public class NunitReporter : IReporter
+    public class NUnitReporter : IReporter
     {
         private bool hasErrors;
         private ExampleGroupResultCollection exampleResults;
 
-        public NunitReporter(bool hasErrors, ExampleGroupResultCollection exampleResults)
+        public NUnitReporter(bool hasErrors, ExampleGroupResultCollection exampleResults)
         {
             this.hasErrors = hasErrors;
             this.exampleResults = exampleResults;

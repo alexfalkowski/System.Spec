@@ -95,10 +95,10 @@
     <Compile Include="ExampleGroupResult.cs" />
     <Compile Include="ExampleGroupResultCollection.cs" />
     <Compile Include="Formatter\IReporter.cs" />
-    <Compile Include="Formatter\NunitReporter.cs" />
     <Compile Include="Formatter\Results.cs" />
     <Compile Include="ActionResult.cs" />
     <Compile Include="ResultStatus.cs" />
+    <Compile Include="Formatter\NUnitReporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
