@@ -1,4 +1,4 @@
-﻿namespace System.Spec.Specs
+namespace System.Spec.Specs
 {
     using NSubstitute;
 
@@ -49,7 +49,7 @@
 			specification.Validate();
 
 			this.visitor.Received().VisitDescribe("describe TestSpecificationWithSingleIt");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
+			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
 		}
 
 		[Test]
@@ -62,7 +62,7 @@
 
 			this.visitor.Received().VisitDescribe("describe TestSpecificationWithSingleItWithBeforeEach");
 			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
+			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
 		}
 
 		[Test]
@@ -75,7 +75,7 @@
 
 			this.visitor.Received().VisitDescribe("describe TestSpecificationWithSingleItWithBeforeEachAndAfterEach");
 			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
+			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
 			this.visitor.Received().VisitItAfterEach("it 1");
 		}
 
@@ -90,7 +90,7 @@
 			this.visitor.Received().VisitDescribeBeforeAll("describe TestSpecificationWithBeforeAll");
 			this.visitor.Received().VisitDescribe("describe TestSpecificationWithBeforeAll");
 			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
+			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
 			this.visitor.Received().VisitItAfterEach("it 1");
 		}
 
@@ -105,7 +105,7 @@
 			this.visitor.Received().VisitDescribeBeforeAll("describe TestSpecificationWithBeforeAllAndAfterAll");
 			this.visitor.Received().VisitDescribe("describe TestSpecificationWithBeforeAllAndAfterAll");
 			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ExampleResultStatus.Success });
+			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
 			this.visitor.Received().VisitItAfterEach("it 1");
 			this.visitor.Received().VisitDescribeAfterAll("describe TestSpecificationWithBeforeAllAndAfterAll");
 		}
@@ -120,7 +120,7 @@
 
 			this.visitor.Received().VisitDescribe("trying to do an assertion using FluentAssertions");
 			this.visitor.Received().VisitIt(
-                "should be true", new ExampleResult { Status = ExampleResultStatus.Error });
+                "should be true", new ExampleResult { Status = ResultStatus.Error });
 		}
 
 		[Test]
@@ -132,7 +132,7 @@
 			specification.Validate();
 
 			this.visitor.Received().VisitDescribe("using NSustitute");
-			this.visitor.Received().VisitIt("call method", new ExampleResult { Status = ExampleResultStatus.Error });
+			this.visitor.Received().VisitIt("call method", new ExampleResult { Status = ResultStatus.Error });
 		}
 	}
 }

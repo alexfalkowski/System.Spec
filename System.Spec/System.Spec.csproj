@@ -77,7 +77,6 @@
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroup.cs" />
     <Compile Include="ExampleResult.cs" />
-    <Compile Include="ExampleResultStatus.cs" />
     <Compile Include="IActionStrategy.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="ISpecificationVisitor.cs" />
@@ -98,6 +97,8 @@
     <Compile Include="Formatter\IReporter.cs" />
     <Compile Include="Formatter\NunitReporter.cs" />
     <Compile Include="Formatter\Results.cs" />
+    <Compile Include="ActionResult.cs" />
+    <Compile Include="ResultStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

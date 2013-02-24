@@ -45,5 +45,16 @@ namespace System.Spec
                 action(value);
             });
         }
+
+        public ActionResult ExecuteActionWithResult(Action action)
+        {
+            if (action == null) {
+                return new ActionResult {Status = ResultStatus.Error };
+            }
+            
+            return StopwatchHelper.ExecuteTimedActionWithResult(() => {
+                action();
+            });
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace System.Spec.Specs
+namespace System.Spec.Specs
 {
     using System;
 	using System.Diagnostics.CodeAnalysis;
@@ -58,7 +58,7 @@
                 {
                     Reason = Resources.TestReason,
                     Exception = new InvalidOperationException("Test Exception"),
-                    Status = ExampleResultStatus.Error
+                    Status = ResultStatus.Error
                 };
 			this.consoleFormatter.WriteError(Resources.TestReason, result);
 			this.consoleFormatter.WriteSummary(1000);

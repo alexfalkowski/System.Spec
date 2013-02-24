@@ -1,4 +1,4 @@
-﻿namespace System.Spec.Specs
+namespace System.Spec.Specs
 {
 	using System.Spec.Formatter;
 	using System.Spec.Specs.Properties;
@@ -31,7 +31,7 @@
 		[Test]
 		public void ShouldVisitItWithFailure()
 		{
-			var result = new ExampleResult { Status = ExampleResultStatus.Error };
+			var result = new ExampleResult { Status = ResultStatus.Error };
 			this.visitor.VisitIt(Resources.TestReason, result);
 			this.formatter.Received().WriteError(Resources.TestReason, result);
 		}

@@ -1,7 +1,6 @@
 namespace System.Spec
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
     public class Example : ExampleGroup
     {
@@ -9,23 +8,18 @@ namespace System.Spec
 
         public Action AfterEach { get; set; }
 
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "It will be displayed to the user.")]
         public void It(string reason, Action action)
         {
             this.Visitor.VisitItBeforeEach(reason);
             this.ExampleStrategy.ExecuteAction(this.BeforeEach);
-            ExampleResult result;
 
-            try {
-                var elapsedTime = this.ExampleStrategy.ExecuteAction(action);
-                result = new ExampleResult { 
-                    Reason = reason, 
-                    Status = ExampleResultStatus.Success, 
-                    ElapsedTime = elapsedTime 
-                };
-            } catch (Exception e) {
-                result = new ExampleResult { Reason = reason, Exception = e, Status = ExampleResultStatus.Error };
-            }
+            var actionResult = this.ExampleStrategy.ExecuteActionWithResult(action);
+            var result = new ExampleResult { 
+                Reason = reason,
+                Status = actionResult.Status,
+                Exception = actionResult.Exception,
+                ElapsedTime = actionResult.ElapsedTime 
+            };
 
             this.Visitor.VisitIt(reason, result);
 

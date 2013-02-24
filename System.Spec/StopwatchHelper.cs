@@ -34,5 +34,26 @@ namespace System.Spec
             
             return stopwatch.ElapsedMilliseconds;
         }
+
+        public static ActionResult ExecuteTimedActionWithResult(Action action)
+        {
+            var stopwatch = new Stopwatch();
+            var result = new ActionResult();
+
+            try {
+                stopwatch.Start();
+                action();
+                result.Status = ResultStatus.Success;
+            } catch (Exception e) {
+                result.Status = ResultStatus.Error;
+                result.Exception = e;
+            } finally {
+                stopwatch.Stop();
+            }
+
+            result.ElapsedTime = stopwatch.ElapsedMilliseconds;
+
+            return result;
+        }
     }
 }

@@ -13,5 +13,10 @@ namespace System.Spec
         {
             return 0;
         }
+
+        public ActionResult ExecuteActionWithResult(Action action)
+        {
+            return new ActionResult {Status = ResultStatus.Success };
+        }
     }
 }

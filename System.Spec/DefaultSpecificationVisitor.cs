@@ -32,7 +32,7 @@ namespace System.Spec
 				throw new ArgumentNullException("result");
 			}
 
-			if (result.Status == ExampleResultStatus.Error) {
+			if (result.Status == ResultStatus.Error) {
 				this.formatter.WriteError(reason, result);
 			} else {
 				this.formatter.WriteSuccess(reason, result);

@@ -1,4 +1,4 @@
-﻿namespace System.Spec.Specs
+namespace System.Spec.Specs
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -39,7 +39,7 @@
         [Test]
         public void ShouldWriteSuccess()
         {
-            var result = new ExampleResult { Reason = Resources.TestReason, Status = ExampleResultStatus.Success };
+            var result = new ExampleResult { Reason = Resources.TestReason, Status = ResultStatus.Success };
             this.consoleFormatter.WriteSuccess(Resources.TestReason, result);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(Resources.TestReason + Environment.NewLine + StringHelper.Tab + Resources.TestReason + Environment.NewLine);
@@ -53,7 +53,7 @@
                 new ExampleResult
                     {
                         Reason = Resources.TestReason,
-                        Status = ExampleResultStatus.Error,
+                        Status = ResultStatus.Error,
                         Exception = new InvalidOperationException("Test Exception")
                     });
             this.stringWriter.Flush();
