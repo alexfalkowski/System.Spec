@@ -24,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <AssemblyName>spec</AssemblyName>
     <AssemblyOriginatorKeyFile>System.Spec.snk</AssemblyOriginatorKeyFile>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -35,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
     <AssemblyName>spec</AssemblyName>
     <AssemblyOriginatorKeyFile>System.Spec.snk</AssemblyOriginatorKeyFile>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
