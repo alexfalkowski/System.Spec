@@ -50,7 +50,7 @@ namespace System.Spec.Formatter
                 executed = bool.TrueString,
                 result = hasErrors ? "Failure" : "Success",
                 asserts = "0",
-                time = (elapsedMilliseconds / 1000D).ToString(),
+                time = ConvertToSeconds(elapsedMilliseconds).ToString(),
             };
 
             var errorCount = this.exampleResults.AllErrors.Count();
@@ -82,16 +82,18 @@ namespace System.Spec.Formatter
             var types = new Collection<testsuiteType>();
         
             foreach (var result in this.exampleResults) {
-                var query = from error in result.ErrorResults
-                            from success in result.SuccessResults
-                            select error.ElapsedTime + success.ElapsedTime;
+                var successElapsedTimeQuery = from success in result.SuccessResults
+                                              select success.ElapsedTime;
+                var errorElapsedTimeQuery = from error in result.ErrorResults
+                                            select error.ElapsedTime;
+                var totalTime = successElapsedTimeQuery.Sum() + errorElapsedTimeQuery.Sum();
                 var hasResultErrors = result.ErrorResults.Any();
                 var type = new testsuiteType { 
                     name = result.Name, 
                     type = "TestFixture",
                     result = hasResultErrors ? "Failure" : "Success",
                     executed = bool.TrueString,
-                    time = query.Sum().ToString(),
+                    time = ConvertToSeconds(totalTime).ToString(),
                     asserts = "0",
                     success = hasResultErrors ? bool.FalseString : bool.TrueString
                 };
@@ -109,7 +111,7 @@ namespace System.Spec.Formatter
                         success = bool.FalseString,
                         result = "Failure",
                         asserts = "0",
-                        time = (error.ElapsedTime / 1000D).ToString(),
+                        time = ConvertToSeconds(error.ElapsedTime).ToString(),
                         Item = failure
                     };
                         
@@ -123,7 +125,7 @@ namespace System.Spec.Formatter
                         success = bool.TrueString,
                         result = "Success",
                         asserts = "0",
-                        time = (success.ElapsedTime / 1000D).ToString()
+                        time = ConvertToSeconds(success.ElapsedTime).ToString()
                     };
                 
                     cases.Add(@case);
@@ -137,6 +139,11 @@ namespace System.Spec.Formatter
         
             var serializer = new XmlSerializer(typeof(resultType));
             serializer.Serialize(stream, resultType);
+        }
+
+        private double ConvertToSeconds(double elapsedTime)
+        {
+            return elapsedTime / 1000D;
         }
     
         private XmlCDataSection CreateCDataSection(string value)

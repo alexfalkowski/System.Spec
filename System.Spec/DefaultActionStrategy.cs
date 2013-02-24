@@ -16,7 +16,6 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 namespace System.Spec
 {
     using System;
@@ -24,26 +23,22 @@ namespace System.Spec
 
     public class DefaultActionStrategy : IActionStrategy
     {
-        public long ExecuteAction(Action action)
+        public void ExecuteAction(Action action)
         {
             if (action == null) {
-                return 0;
+                return;
             }
 
-            return StopwatchHelper.ExecuteTimedAction(() => {
-                action();
-            });
+            action();
         }
 
-        public long ExecuteAction<T>(Action<T> action, T value)
+        public void ExecuteAction<T>(Action<T> action, T value)
         {
             if (action == null) {
-                return 0;
+                return;
             }
 
-            return StopwatchHelper.ExecuteTimedAction(() => {
-                action(value);
-            });
+            action(value);
         }
 
         public ActionResult ExecuteActionWithResult(Action action)
