@@ -40,7 +40,6 @@ namespace System.Spec.Specs
     public class SummarySpecs
     {
         private IRunner command;
-        private ISpecificationVisitor specificationVisitor;
         private IConsoleFormatter consoleFormatter;
         private IFileSystem fileSystem;
         private IActionStrategy strategy;
@@ -52,9 +51,7 @@ namespace System.Spec.Specs
             this.fileSystem = new DefaultFileSystem();
             this.strategy = new DefaultActionStrategy();
             this.consoleFormatter = new SilentConsoleFormatter();
-            this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
-            this.command = new DefaultRunner(
-                this.specificationVisitor, this.strategy, this.strategy, this.fileSystem);
+            this.command = new DefaultRunner(this.strategy, this.fileSystem);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);

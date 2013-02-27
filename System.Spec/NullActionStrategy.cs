@@ -22,14 +22,6 @@ namespace System.Spec
 
     public class NullActionStrategy : IActionStrategy
     {
-        public void ExecuteAction(Action action)
-        {
-        }
-
-        public void ExecuteAction<T>(Action<T> action, T value)
-        {
-        }
-
         public ActionResult ExecuteActionWithResult(Action action)
         {
             return new ActionResult { Status = ResultStatus.Success };

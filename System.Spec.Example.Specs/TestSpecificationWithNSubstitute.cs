@@ -6,18 +6,15 @@
 
 	public class TestSpecificationWithNSubstitute : Specification
 	{
-		public override void Validate()
+        protected override void Define()
 		{
-			this.Describe(
-                "using NSustitute",
-                describe => describe.It(
-                    "call method",
-                    () =>
-			{
-				var testInterface = Substitute.For<ITestInterface>();
-
-				testInterface.Received().TestMethod();
-			}));
+            Describe("using NSustitute", () => {             
+                It("call method", () => {
+                    var testInterface = Substitute.For<ITestInterface>();
+                    
+                    testInterface.Received().TestMethod();
+                });
+            });
 		}
 	}
 }

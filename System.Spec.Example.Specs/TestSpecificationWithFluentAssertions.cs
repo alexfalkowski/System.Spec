@@ -5,11 +5,13 @@
 
     public class TestSpecificationWithFluentAssertions : Specification
     {
-        public override void Validate()
+        protected override void Define()
         {
-            this.Describe(
-                "trying to do an assertion using FluentAssertions",
-                describe => describe.It("should be true", () => false.Should().BeTrue()));
+            Describe("trying to do an assertion using FluentAssertions", () => {     
+                It("should be true", () => {
+                    false.Should().BeTrue();
+                });
+            });
         }        
     }
 }

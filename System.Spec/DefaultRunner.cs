@@ -31,21 +31,16 @@ namespace System.Spec
 
     public class DefaultRunner : IRunner
     {
-        private readonly ISpecificationVisitor visitor;
         private readonly IFileSystem fileSystem;
-        private readonly IActionStrategy exampleGroupStrategy;
-        private readonly IActionStrategy exampleStrategy;
+
+        private readonly ExpressionRunner runner;
 
         public DefaultRunner(
-            ISpecificationVisitor visitor,
-            IActionStrategy exampleGroupStrategy,
             IActionStrategy exampleStrategy,
             IFileSystem fileSystem)
         {
             this.fileSystem = fileSystem;
-            this.exampleGroupStrategy = exampleGroupStrategy;
-            this.exampleStrategy = exampleStrategy;
-            this.visitor = visitor;
+            this.runner = new ExpressionRunner(exampleStrategy);
         }
 
         [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods",
@@ -79,10 +74,8 @@ namespace System.Spec
         public void ExecuteSpecifications(IEnumerable<Type> types)
         {
             foreach (var specification in types.Select(type => (Specification)Activator.CreateInstance(type))) {
-                specification.Visitor = this.visitor;
-                specification.ExampleGroupStrategy = this.exampleGroupStrategy;
-                specification.ExampleStrategy = this.exampleStrategy;
-                specification.Validate();
+                var expression = specification.BuildExpression();
+                this.runner.Execute(expression);
             }
         }
 

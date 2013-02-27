@@ -31,17 +31,17 @@ namespace System.Spec.Command
         private string[] args;
         private IConsoleFormatterFactory formatterFactory;
         private IFileSystem fileSystem;
-        private IActionStrategy exampleGroupStrategy;
+        private IActionStrategy exampleStratergy;
         
         public SpecCommand(string[] args, 
             IConsoleFormatterFactory formatterFactory, 
             IFileSystem fileSystem, 
-            IActionStrategy exampleGroupStrategy)
+            IActionStrategy exampleStratergy)
         {
             this.args = args;
             this.formatterFactory = formatterFactory;
             this.fileSystem = fileSystem;
-            this.exampleGroupStrategy = exampleGroupStrategy;
+            this.exampleStratergy = exampleStratergy;
         }
         
         public int Perform()
@@ -54,12 +54,7 @@ namespace System.Spec.Command
                 }
                 
                 IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format);
-                ISpecificationVisitor specificationVisitor = new DefaultSpecificationVisitor(consoleFormatter);
-                IActionStrategy exampleStratergy = arguments.DryRun
-                    ? (IActionStrategy)new NullActionStrategy()
-                        : new DefaultActionStrategy();
-                IRunner command = new DefaultRunner(
-                    specificationVisitor, exampleGroupStrategy, exampleStratergy, fileSystem);
+                IRunner command = new DefaultRunner(this.exampleStratergy, fileSystem);
                 
                 var elapsedTime = StopwatchHelper.ExecuteTimedAction(() => {
                     command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);

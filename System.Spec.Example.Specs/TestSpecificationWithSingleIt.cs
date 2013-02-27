@@ -4,10 +4,12 @@
 
 	public class TestSpecificationWithSingleIt : Specification
 	{
-		public override void Validate()
+        protected override void Define()
 		{
-			this.Describe(
-                "describe TestSpecificationWithSingleIt", describe => describe.It("it 1", () => { }));
+            Describe("describe TestSpecificationWithSingleIt", () => {              
+                It("it 1", () => {
+                });
+            });
 		}
 	}
 }

@@ -1,30 +1,33 @@
+// Author:
+//       alex.falkowski <alexrfalkowski@gmail.com>
+//
+//  Copyright (c) 2013 alex.falkowski
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace System.Spec
 {
     using System;
 
-    public class Example : ExampleGroup
+    public class Example
     {
+        public string Reason { get; set; }
+        
+        public Action Action { get; set; }
+
         public Action BeforeEach { get; set; }
 
         public Action AfterEach { get; set; }
-
-        public void It(string reason, Action action)
-        {
-            this.Visitor.VisitItBeforeEach(reason);
-            this.ExampleStrategy.ExecuteAction(this.BeforeEach);
-
-            var actionResult = this.ExampleStrategy.ExecuteActionWithResult(action);
-            var result = new ExampleResult { 
-                Reason = reason,
-                Status = actionResult.Status,
-                Exception = actionResult.Exception,
-                ElapsedTime = actionResult.ElapsedTime 
-            };
-
-            this.Visitor.VisitIt(reason, result);
-
-            this.Visitor.VisitItAfterEach(reason);
-            this.ExampleStrategy.ExecuteAction(this.AfterEach);
-        }
     }
 }

@@ -4,11 +4,12 @@
 
 	public class TestSpecificationWithNestedDescribe : Specification
 	{
-		public override void Validate()
+        protected override void Define()
 		{
-			this.Describe(
-                "describe TestSpecificationWithNestedDescribe1",
-                describe => describe.Describe("describe TestSpecificationWithNestedDescribe2", describe2 => { }));
+            Describe("describe TestSpecificationWithNestedDescribe1", () => {
+                Describe("describe TestSpecificationWithNestedDescribe2", () => {     
+                });
+            });
 		}
 	}
 }

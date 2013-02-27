@@ -1,140 +1,138 @@
+// Author:
+//       alex.falkowski <alexrfalkowski@gmail.com>
+//
+//  Copyright (c) 2013 alex.falkowski
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace System.Spec.Specs
 {
+    using System.Linq;
     using System.Spec.Example.Specs;
+
+    using FluentAssertions;
 
     using NSubstitute;
 
-	using NUnit.Framework;
+    using NUnit.Framework;
 
-	[TestFixture]
-	public class SpecificationSpecs
-	{
-		private ISpecificationVisitor visitor;
-		private IActionStrategy strategy;
+    [TestFixture]
+    public class SpecificationSpecs
+    {
+        [Test]
+        public void ShouldValidateSingleDescribe()
+        {
+            var specification = new TestSpecificationWithJustDescribe();
+            var result = specification.BuildExpression();
 
-		[SetUp]
-		public void BeforeEach()
-		{
-			this.visitor = Substitute.For<ISpecificationVisitor>();
-			this.strategy = new DefaultActionStrategy();
-		}
+            result.Examples.Should().HaveCount(1);
+        }
 
-		[Test]
-		public void ShouldValidateSingleDescribe()
-		{
-			var specification = new TestSpecificationWithJustDescribe
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy };
+        [Test]
+        public void ShouldValidateNestedDescribe()
+        {
+            var specification = new TestSpecificationWithNestedDescribe();
+            var result = specification.BuildExpression();
 
-			specification.Validate();
+            result.Examples.Should().HaveCount(2);
+        }
 
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithJustDescribe");
-		}
+        [Test]
+        public void ShouldValidateSingleDescribeWithSingleIt()
+        {
+            var specification = new TestSpecificationWithSingleIt();
+            var result = specification.BuildExpression();
 
-		[Test]
-		public void ShouldValidateNestedDescribe()
-		{
-			var specification = new TestSpecificationWithNestedDescribe
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy };
+            result.Examples.Should().HaveCount(1);
+            var example = result.Examples.First();
+            example.Examples.Should().HaveCount(1);
+        }
 
-			specification.Validate();
+        [Test]
+        public void ShouldValidateSingleDescribeWithSingleItAndBeforeEach()
+        {
+            var specification = new TestSpecificationWithSingleItWithBeforeEach();
+            var result = specification.BuildExpression();
 
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithNestedDescribe1");
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithNestedDescribe2");
-		}
+            result.Examples.Should().HaveCount(1);
+            var example = result.Examples.First();
+            example.Examples.Should().HaveCount(1);
+            example.BeforeEach.Should().NotBeNull();
+        }
 
-		[Test]
-		public void ShouldValidateSingleDescribeWithSingleIt()
-		{
-			var specification = new TestSpecificationWithSingleIt
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
+        [Test]
+        public void ShouldValidateSingleDescribeWithSingleItAndBeforeEachAndAfterEach()
+        {
+            var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach();
+            var result = specification.BuildExpression();
+           
+            result.Examples.Should().HaveCount(1);
+            var example = result.Examples.First();
+            example.Examples.Should().HaveCount(1);
+            example.BeforeEach.Should().NotBeNull();
+            example.AfterEach.Should().NotBeNull();
+        }
 
-			specification.Validate();
+        [Test]
+        public void ShouldValidateSpecificationWithBeforeAll()
+        {
+            var specification = new TestSpecificationWithBeforeAll();
+            var result = specification.BuildExpression();
 
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithSingleIt");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
-		}
+            result.Examples.Should().HaveCount(1);
+            var example = result.Examples.First();
+            example.Examples.Should().HaveCount(1);
+            example.BeforeEach.Should().NotBeNull();
+            example.AfterEach.Should().NotBeNull();
+            example.BeforeAll.Should().NotBeNull();
+        }
 
-		[Test]
-		public void ShouldValidateSingleDescribeWithSingleItAndBeforeEach()
-		{
-			var specification = new TestSpecificationWithSingleItWithBeforeEach
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
+        [Test]
+        public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
+        {
+            var specification = new TestSpecificationWithBeforeAllAndAfterAll();
+            var result = specification.BuildExpression();
 
-			specification.Validate();
+            result.Examples.Should().HaveCount(1);
+            var example = result.Examples.First();
+            example.Examples.Should().HaveCount(1);
+            example.BeforeEach.Should().NotBeNull();
+            example.AfterEach.Should().NotBeNull();
+            example.BeforeAll.Should().NotBeNull();
+            example.AfterAll.Should().NotBeNull();
+        }
 
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithSingleItWithBeforeEach");
-			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
-		}
+        [Test]
+        public void ShouldValidateWithFluentAssertions()
+        {
+            var specification = new TestSpecificationWithFluentAssertions();
+            var result = specification.BuildExpression();
 
-		[Test]
-		public void ShouldValidateSingleDescribeWithSingleItAndBeforeEachAndAfterEach()
-		{
-			var specification = new TestSpecificationWithSingleItWithBeforeEachAndAfterEach
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
+            result.Examples.Should().HaveCount(1);
+            var example = result.Examples.First();
+            example.Examples.Should().HaveCount(1);
+        }
 
-			specification.Validate();
+        [Test]
+        public void ShouldValidateWithNSubstitute()
+        {
+            var specification = new TestSpecificationWithNSubstitute();
+            var result = specification.BuildExpression();
 
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithSingleItWithBeforeEachAndAfterEach");
-			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
-			this.visitor.Received().VisitItAfterEach("it 1");
-		}
-
-		[Test]
-		public void ShouldValidateSpecificationWithBeforeAll()
-		{
-			var specification = new TestSpecificationWithBeforeAll
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
-
-			specification.Validate();
-
-			this.visitor.Received().VisitDescribeBeforeAll("describe TestSpecificationWithBeforeAll");
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithBeforeAll");
-			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
-			this.visitor.Received().VisitItAfterEach("it 1");
-		}
-
-		[Test]
-		public void ShouldValidateSpecificationWithBeforeAllAndAfterAll()
-		{
-			var specification = new TestSpecificationWithBeforeAllAndAfterAll
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
-
-			specification.Validate();
-
-			this.visitor.Received().VisitDescribeBeforeAll("describe TestSpecificationWithBeforeAllAndAfterAll");
-			this.visitor.Received().VisitDescribe("describe TestSpecificationWithBeforeAllAndAfterAll");
-			this.visitor.Received().VisitItBeforeEach("it 1");
-			this.visitor.Received().VisitIt("it 1", new ExampleResult { Status = ResultStatus.Success });
-			this.visitor.Received().VisitItAfterEach("it 1");
-			this.visitor.Received().VisitDescribeAfterAll("describe TestSpecificationWithBeforeAllAndAfterAll");
-		}
-
-		[Test]
-		public void ShouldValidateWithFluentAssertions()
-		{
-			var specification = new TestSpecificationWithFluentAssertions
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
-
-			specification.Validate();
-
-			this.visitor.Received().VisitDescribe("trying to do an assertion using FluentAssertions");
-			this.visitor.Received().VisitIt(
-                "should be true", new ExampleResult { Status = ResultStatus.Error });
-		}
-
-		[Test]
-		public void ShouldValidateWithNSubstitute()
-		{
-			var specification = new TestSpecificationWithNSubstitute
-                { Visitor = this.visitor, ExampleGroupStrategy = this.strategy, ExampleStrategy = this.strategy };
-
-			specification.Validate();
-
-			this.visitor.Received().VisitDescribe("using NSustitute");
-			this.visitor.Received().VisitIt("call method", new ExampleResult { Status = ResultStatus.Error });
-		}
-	}
+            result.Examples.Should().HaveCount(1);
+            var example = result.Examples.First();
+            example.Examples.Should().HaveCount(1);
+        }
+    }
 }

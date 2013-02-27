@@ -37,20 +37,15 @@ namespace System.Spec.Specs
 	public class RunnerSpecs
 	{
 		private IRunner command;
-		private ISpecificationVisitor specificationVisitor;
-		private IConsoleFormatter consoleFormatter;
 		private IFileSystem fileSystem;
-		private IActionStrategy strategy;
+        private IActionStrategy stratergy;      
 
 		[SetUp]
 		public void BeforeEach()
 		{
-			this.fileSystem = Substitute.For<IFileSystem>();
-			this.strategy = new DefaultActionStrategy();
-			this.consoleFormatter = Substitute.For<IConsoleFormatter>();
-			this.specificationVisitor = new DefaultSpecificationVisitor(this.consoleFormatter);
-			this.command = new DefaultRunner(
-                this.specificationVisitor, this.strategy, this.strategy, this.fileSystem);
+            this.fileSystem = Substitute.For<IFileSystem>();
+            this.stratergy = new DefaultActionStrategy();
+			this.command = new DefaultRunner(this.stratergy, this.fileSystem);
 		}
 
 		[Test]
@@ -87,8 +82,7 @@ namespace System.Spec.Specs
 		[Test]
 		public void ShouldExecuteAllSpecificationsInPath()
 		{
-			this.command = new DefaultRunner(
-                this.specificationVisitor, this.strategy, this.strategy, new DefaultFileSystem());
+			this.command = new DefaultRunner(new DefaultActionStrategy(), new DefaultFileSystem());
 
 			var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);

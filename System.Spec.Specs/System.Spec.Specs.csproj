@@ -70,7 +70,6 @@
     <Compile Include="NestedConsoleFormatterSpecs.cs" />
     <Compile Include="ProgressConsoleFormatterSpecs.cs" />
     <Compile Include="FileSystemSpecs.cs" />
-    <Compile Include="SpecificationVisitorSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificationSpecs.cs" />
     <Compile Include="SummarySpecs.cs" />

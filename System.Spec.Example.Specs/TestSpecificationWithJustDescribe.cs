@@ -4,9 +4,10 @@
 
     public class TestSpecificationWithJustDescribe : Specification
     {
-        public override void Validate()
+        protected override void Define()
         {
-            this.Describe("describe TestSpecificationWithJustDescribe", describe => { });
+            Describe("describe TestSpecificationWithJustDescribe", () => {     
+            });
         }
     }
 }

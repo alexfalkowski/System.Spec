@@ -4,14 +4,15 @@
 
 	public class TestSpecificationWithSingleItWithBeforeEach : Specification
 	{
-		public override void Validate()
+        protected override void Define()
 		{
-			this.Describe("describe TestSpecificationWithSingleItWithBeforeEach", describe =>
-			{
-				describe.BeforeEach = () => { };
-
-				describe.It("it 1", () => { });
-			});
+            Describe("describe TestSpecificationWithSingleItWithBeforeEach", () => {
+                BeforeEach(() => {
+                });
+                
+                It("it 1", () => {
+                });
+            });
 		}
 	}
 }

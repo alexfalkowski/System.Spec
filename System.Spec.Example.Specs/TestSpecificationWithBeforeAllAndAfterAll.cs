@@ -4,19 +4,24 @@
 
 	public class TestSpecificationWithBeforeAllAndAfterAll : Specification
 	{
-		public override void Validate()
+        protected override void Define()
 		{
-			this.Describe("describe TestSpecificationWithBeforeAllAndAfterAll",
-                beforeAll: () => { },
-                example: describe =>
-			{
-				describe.BeforeEach = () => { };
+            Describe("describe TestSpecificationWithBeforeAllAndAfterAll", () => {
+                BeforeAll(() => {
+                });
 
-				describe.AfterEach = () => { };
-
-				describe.It("it 1", () => { });
-			},
-                afterAll: () => { });
+                AfterAll(() => {
+                });
+                
+                BeforeEach(() => {
+                });
+                
+                AfterEach(() => {
+                });
+                
+                It("it 1", () => {
+                });
+            });
 		}
 	}
 }

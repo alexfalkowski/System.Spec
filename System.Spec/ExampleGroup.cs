@@ -1,37 +1,45 @@
-﻿namespace System.Spec
+﻿// Author:
+//       alex.falkowski <alexrfalkowski@gmail.com>
+//
+//  Copyright (c) 2013 alex.falkowski
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+namespace System.Spec
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
-	public class ExampleGroup : ExampleBase
+	public class ExampleGroup
 	{
-		public void Describe(string reason, Action<Example> example)
-		{
-			this.Describe(reason, null, example, null);
-		}
-
-		public void Describe(string reason, Action beforeAll, Action<Example> example)
-		{
-			this.Describe(reason, beforeAll, example, null);
-		}
-
-		public void Describe(
-            string reason, Action beforeAll, Action<Example> example, Action afterAll)
-		{
-			this.Visitor.VisitDescribeBeforeAll(reason);
-			this.ExampleGroupStrategy.ExecuteAction(beforeAll);
-
-			this.Visitor.VisitDescribe(reason);
-			this.ExampleGroupStrategy.ExecuteAction(
-                example,
-                new Example
-                    {
-                        Visitor = this.Visitor,
-                        ExampleGroupStrategy = this.ExampleGroupStrategy,
-                        ExampleStrategy = this.ExampleStrategy, 
-                    });
-
-			this.Visitor.VisitDescribeAfterAll(reason);
-			this.ExampleGroupStrategy.ExecuteAction(afterAll);
-		}
+        private IList<Example> examples = new Collection<Example>();
+        
+        public string Reason { get; set; }
+        
+        public Action BeforeAll { get; set; }
+        
+        public Action AfterAll { get; set; }
+        
+        public Action BeforeEach { get; set; }
+        
+        public Action AfterEach { get; set; }
+        
+        public IList<Example> Examples {
+            get {
+                return examples;
+            }
+        }
 	}
 }
