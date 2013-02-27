@@ -67,22 +67,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TestSpecificationWithBeforeAll.cs" />
     <Compile Include="NestedConsoleFormatterSpecs.cs" />
     <Compile Include="ProgressConsoleFormatterSpecs.cs" />
     <Compile Include="FileSystemSpecs.cs" />
-    <Compile Include="ITestInterface.cs" />
     <Compile Include="SpecificationVisitorSpecs.cs" />
-    <Compile Include="TestSpecificationWithBeforeAllAndAfterAll.cs" />
-    <Compile Include="TestSpecificationWithFluentAssertions.cs" />
-    <Compile Include="TestSpecificationWithNestedDescribe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecificationSpecs.cs" />
-    <Compile Include="TestSpecificationWithJustDescribe.cs" />
-    <Compile Include="TestSpecificationWithNSubstitute.cs" />
-    <Compile Include="TestSpecificationWithSingleIt.cs" />
-    <Compile Include="TestSpecificationWithSingleItWithBeforeEach.cs" />
-    <Compile Include="TestSpecificationWithSingleItWithBeforeEachAndAfterEach.cs" />
     <Compile Include="SummarySpecs.cs" />
     <Compile Include="RunnerSpecs.cs" />
   </ItemGroup>
@@ -109,6 +99,10 @@
     <ProjectReference Include="..\System.Spec\System.Spec.csproj">
       <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
       <Name>System.Spec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Spec.Example.Specs\System.Spec.Example.Specs.csproj">
+      <Project>{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}</Project>
+      <Name>System.Spec.Example.Specs</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

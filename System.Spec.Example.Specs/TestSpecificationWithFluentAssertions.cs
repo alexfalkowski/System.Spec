@@ -1,5 +1,6 @@
-﻿namespace System.Spec.Specs
+﻿namespace System.Spec.Example.Specs
 {
+    using System.Spec;
     using FluentAssertions;
 
     public class TestSpecificationWithFluentAssertions : Specification

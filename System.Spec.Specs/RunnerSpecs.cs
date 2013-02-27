@@ -26,6 +26,7 @@ namespace System.Spec.Specs
 
 	using FluentAssertions;
 
+    using System.Spec.Example.Specs;
 	using System.Spec.Formatter;
 
 	using NSubstitute;
@@ -55,7 +56,7 @@ namespace System.Spec.Specs
 		[Test]
 		public void ShouldFindSpecificationsInCurrentlyRunningDll()
 		{
-			var types = this.command.GetSpecificationTypes(Assembly.GetExecutingAssembly());
+            var types = this.command.GetSpecificationTypes(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)));
 			types.Should().HaveCount(9);
 		}
 

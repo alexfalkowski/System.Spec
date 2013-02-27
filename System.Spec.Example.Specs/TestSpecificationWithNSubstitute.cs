@@ -1,5 +1,7 @@
-﻿namespace System.Spec.Specs
+﻿namespace System.Spec.Example.Specs
 {
+    using System.Spec;
+
     using NSubstitute;
 
 	public class TestSpecificationWithNSubstitute : Specification

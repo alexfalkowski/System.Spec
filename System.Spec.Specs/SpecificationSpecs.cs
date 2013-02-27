@@ -1,5 +1,7 @@
 namespace System.Spec.Specs
 {
+    using System.Spec.Example.Specs;
+
     using NSubstitute;
 
 	using NUnit.Framework;

@@ -1,4 +1,4 @@
-namespace System.Spec.Specs
+namespace System.Spec.Example.Specs
 {
     public interface ITestInterface
     {
