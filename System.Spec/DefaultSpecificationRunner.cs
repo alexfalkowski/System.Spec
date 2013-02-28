@@ -33,15 +33,18 @@ namespace System.Spec
     {
         private readonly ISpecificationFinder finder;
 
-        private readonly ExpressionRunner runner;
+        private readonly IExpressionRunner runner;
+
+        private IConsoleFormatter formatter;
 
         public DefaultSpecificationRunner(
-            IActionStrategy exampleStrategy,
+            IExpressionRunner runner,
             ISpecificationFinder finder,
             IConsoleFormatter formatter)
         {
             this.finder = finder;
-            this.runner = new ExpressionRunner(exampleStrategy, formatter);
+            this.runner = runner;
+            this.formatter = formatter;
         }
        
         public void ExecuteSpecificationsInPath(string path, string search)
@@ -49,7 +52,19 @@ namespace System.Spec
             var specifications = this.finder.FindSpecifications(path, search);
 
             foreach (var specification in specifications) {
-                this.runner.Execute(specification.BuildExpression());
+                var result = this.runner.Execute(specification.BuildExpression());
+
+                foreach (var exampleGroup in result.Examples) {
+                    this.formatter.WriteInformation(exampleGroup.Reason);
+
+                    foreach (var example in exampleGroup.Examples) {
+                        if (example.Status == ResultStatus.Success) {
+                            this.formatter.WriteSuccess(example.Reason, example);
+                        } else {
+                            this.formatter.WriteError(example.Reason, example);
+                        }
+                    }
+                }
             }
         }
     }

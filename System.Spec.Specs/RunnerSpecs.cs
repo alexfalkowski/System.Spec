@@ -26,6 +26,7 @@ namespace System.Spec.Specs
 
     using FluentAssertions;
 
+    using System.Spec;
     using System.Spec.Example.Specs;
     using System.Spec.Formatter;
 
@@ -41,7 +42,7 @@ namespace System.Spec.Specs
         [SetUp]
         public void BeforeEach()
         {
-            this.command = new DefaultSpecificationRunner(new DefaultActionStrategy(), 
+            this.command = new DefaultSpecificationRunner(new DefaultExpressionRunner(new DefaultActionStrategy()), 
                                                           new DefaultSpecificationFinder(new DefaultFileSystem()),
                                                           new SilentConsoleFormatter());
         }

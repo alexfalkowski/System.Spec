@@ -20,44 +20,37 @@ namespace System.Spec
 {
     using System.Spec.Formatter;
 
-    public class ExpressionRunner
+    public class DefaultExpressionRunner : IExpressionRunner
     {
         private IActionStrategy stratergy;
-        private IConsoleFormatter formatter;
 
-        public ExpressionRunner(IActionStrategy stratergy, IConsoleFormatter formatter)
+        public DefaultExpressionRunner(IActionStrategy stratergy)
         {
             this.stratergy = stratergy;
-            this.formatter = formatter;
         }
 
-        public void Execute(Expression expression)
+        public ExpressionResult Execute(Expression expression)
         {
+            var expressionResult = new ExpressionResult { Name = expression.Name };
+
             foreach (var exampleGroup in expression.Examples) {
-                this.formatter.WriteInformation(exampleGroup.Reason);
+                var exampleGroupResult = new ExampleGroupResult2 { Reason = exampleGroup.Reason };
+
                 this.stratergy.ExecuteActionWithResult(exampleGroup.BeforeAll);
                 
                 foreach (var example in exampleGroup.Examples) {
                     this.stratergy.ExecuteActionWithResult(exampleGroup.BeforeEach);
-                    var result = this.stratergy.ExecuteActionWithResult(example.Action);
-                    var exampleResult = new ExampleResult {
-                        Reason = example.Reason,
-                        Status = result.Status,
-                        Exception = result.Exception,
-                        ElapsedTime = result.ElapsedTime
-                    };
-
-                    if (result.Status == ResultStatus.Success) {
-                        this.formatter.WriteSuccess(example.Reason, exampleResult);
-                    } else {
-                        this.formatter.WriteError(example.Reason, exampleResult);
-                    }
+                    var result = this.stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example.Reason);
                   
                     this.stratergy.ExecuteActionWithResult(exampleGroup.AfterEach);
+                    exampleGroupResult.Examples.Add(result);
                 }
                 
                 this.stratergy.ExecuteActionWithResult(exampleGroup.AfterAll);
+                expressionResult.Examples.Add(exampleGroupResult);
             }
+
+            return expressionResult;
         }
     }
 }

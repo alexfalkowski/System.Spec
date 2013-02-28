@@ -93,13 +93,17 @@
     <Compile Include="ActionResult.cs" />
     <Compile Include="ResultStatus.cs" />
     <Compile Include="Expression.cs" />
-    <Compile Include="ExpressionRunner.cs" />
     <Compile Include="ISpecificationFinder.cs" />
     <Compile Include="DefaultSpecificationFinder.cs" />
     <Compile Include="ISpecificationRunner.cs" />
     <Compile Include="DefaultSpecificationRunner.cs" />
     <Compile Include="Formatter\ISpecificationReporter.cs" />
     <Compile Include="Formatter\NUnitSpecificationReporter.cs" />
+    <Compile Include="ActionResultExtensions.cs" />
+    <Compile Include="ExampleGroupResult2.cs" />
+    <Compile Include="ExpressionResult.cs" />
+    <Compile Include="DefaultExpressionRunner.cs" />
+    <Compile Include="IExpressionRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

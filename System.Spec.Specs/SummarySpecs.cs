@@ -49,8 +49,9 @@ namespace System.Spec.Specs
         {
             this.strategy = new DefaultActionStrategy();
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
+            var runner = new DefaultExpressionRunner(this.strategy);
             this.consoleFormatter = new SilentConsoleFormatter();
-            this.runner = new DefaultSpecificationRunner(this.strategy, finder, this.consoleFormatter);
+            this.runner = new DefaultSpecificationRunner(runner, finder, this.consoleFormatter);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);

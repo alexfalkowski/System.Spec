@@ -55,7 +55,8 @@ namespace System.Spec.Command
                 
                 IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format);
                 ISpecificationFinder finder = new DefaultSpecificationFinder(fileSystem);
-                ISpecificationRunner command = new DefaultSpecificationRunner(this.exampleStratergy, finder, consoleFormatter);
+                IExpressionRunner runner = new DefaultExpressionRunner(this.exampleStratergy);
+                ISpecificationRunner command = new DefaultSpecificationRunner(runner, finder, consoleFormatter);
                 
                 var elapsedTime = StopwatchHelper.ExecuteTimedAction(() => {
                     command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
