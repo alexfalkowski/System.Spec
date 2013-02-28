@@ -18,14 +18,8 @@
 
 namespace System.Spec
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.Linq;
-    using System.Reflection;
 
     using System.Spec.Formatter;
 
@@ -47,9 +41,10 @@ namespace System.Spec
             this.formatter = formatter;
         }
        
-        public void ExecuteSpecificationsInPath(string path, string search)
+        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search)
         {
             var specifications = this.finder.FindSpecifications(path, search);
+            var results = new Collection<ExpressionResult>();
 
             foreach (var specification in specifications) {
                 var result = this.runner.Execute(specification.BuildExpression());
@@ -65,7 +60,11 @@ namespace System.Spec
                         }
                     }
                 }
+
+                results.Add(result);
             }
+
+            return results;
         }
     }
 }

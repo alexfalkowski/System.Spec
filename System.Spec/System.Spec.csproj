@@ -104,6 +104,9 @@
     <Compile Include="ExpressionResult.cs" />
     <Compile Include="DefaultExpressionRunner.cs" />
     <Compile Include="IExpressionRunner.cs" />
+    <Compile Include="Reports\ISpecificationReporter.cs" />
+    <Compile Include="Reports\NUnitSpecificationReporter.cs" />
+    <Compile Include="Reports\Results.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -16,12 +16,13 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec
+namespace System.Spec.Reports
 {
+    using System.IO;
     using System.Collections.Generic;
 
-    public interface ISpecificationRunner
+    public interface ISpecificationReporter
     {
-        IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search);
+        void Write(Stream stream, IEnumerable<ExpressionResult> expressions);
     }
 }
