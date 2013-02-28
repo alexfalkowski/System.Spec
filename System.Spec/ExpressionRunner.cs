@@ -18,23 +18,41 @@
 
 namespace System.Spec
 {
+    using System.Spec.Formatter;
+
     public class ExpressionRunner
     {
         private IActionStrategy stratergy;
+        private IConsoleFormatter formatter;
 
-        public ExpressionRunner(IActionStrategy stratergy)
+        public ExpressionRunner(IActionStrategy stratergy, IConsoleFormatter formatter)
         {
             this.stratergy = stratergy;
+            this.formatter = formatter;
         }
 
         public void Execute(Expression expression)
         {
             foreach (var exampleGroup in expression.Examples) {
+                this.formatter.WriteInformation(exampleGroup.Reason);
                 this.stratergy.ExecuteActionWithResult(exampleGroup.BeforeAll);
                 
                 foreach (var example in exampleGroup.Examples) {
                     this.stratergy.ExecuteActionWithResult(exampleGroup.BeforeEach);
-                    this.stratergy.ExecuteActionWithResult(example.Action);
+                    var result = this.stratergy.ExecuteActionWithResult(example.Action);
+                    var exampleResult = new ExampleResult {
+                        Reason = example.Reason,
+                        Status = result.Status,
+                        Exception = result.Exception,
+                        ElapsedTime = result.ElapsedTime
+                    };
+
+                    if (result.Status == ResultStatus.Success) {
+                        this.formatter.WriteSuccess(example.Reason, exampleResult);
+                    } else {
+                        this.formatter.WriteError(example.Reason, exampleResult);
+                    }
+                  
                     this.stratergy.ExecuteActionWithResult(exampleGroup.AfterEach);
                 }
                 

@@ -79,7 +79,7 @@ namespace System.Spec.Formatter
 
         public virtual void WriteSummaryToStream(Stream stream, long elapsedMilliseconds)
         {
-            var reporter = new NUnitReporter(this.HasErrors, this.ExampleResults);
+            var reporter = new NUnitSpecificationReporter(this.HasErrors, this.ExampleResults);
             reporter.Write(stream, elapsedMilliseconds);
         }
     }

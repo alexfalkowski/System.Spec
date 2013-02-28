@@ -42,7 +42,8 @@ namespace System.Spec.Specs
         public void BeforeEach()
         {
             this.command = new DefaultSpecificationRunner(new DefaultActionStrategy(), 
-                                                          new DefaultSpecificationFinder(new DefaultFileSystem()));
+                                                          new DefaultSpecificationFinder(new DefaultFileSystem()),
+                                                          new SilentConsoleFormatter());
         }
 
         [Test]

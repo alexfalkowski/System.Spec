@@ -20,7 +20,7 @@ namespace System.Spec.Formatter
 {
     using System.IO;
 
-    public interface IReporter
+    public interface ISpecificationReporter
     {
         void Write(Stream stream, long elapsedMilliseconds);
     }

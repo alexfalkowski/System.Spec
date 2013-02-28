@@ -50,7 +50,7 @@ namespace System.Spec.Specs
             this.strategy = new DefaultActionStrategy();
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
             this.consoleFormatter = new SilentConsoleFormatter();
-            this.runner = new DefaultSpecificationRunner(this.strategy, finder);
+            this.runner = new DefaultSpecificationRunner(this.strategy, finder, this.consoleFormatter);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);

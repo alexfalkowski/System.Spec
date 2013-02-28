@@ -37,10 +37,11 @@ namespace System.Spec
 
         public DefaultSpecificationRunner(
             IActionStrategy exampleStrategy,
-            ISpecificationFinder finder)
+            ISpecificationFinder finder,
+            IConsoleFormatter formatter)
         {
             this.finder = finder;
-            this.runner = new ExpressionRunner(exampleStrategy);
+            this.runner = new ExpressionRunner(exampleStrategy, formatter);
         }
        
         public void ExecuteSpecificationsInPath(string path, string search)

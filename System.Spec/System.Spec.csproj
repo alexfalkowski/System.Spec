@@ -89,17 +89,17 @@
     <Compile Include="StopwatchHelper.cs" />
     <Compile Include="ExampleGroupResult.cs" />
     <Compile Include="ExampleGroupResultCollection.cs" />
-    <Compile Include="Formatter\IReporter.cs" />
     <Compile Include="Formatter\Results.cs" />
     <Compile Include="ActionResult.cs" />
     <Compile Include="ResultStatus.cs" />
-    <Compile Include="Formatter\NUnitReporter.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="ExpressionRunner.cs" />
     <Compile Include="ISpecificationFinder.cs" />
     <Compile Include="DefaultSpecificationFinder.cs" />
     <Compile Include="ISpecificationRunner.cs" />
     <Compile Include="DefaultSpecificationRunner.cs" />
+    <Compile Include="Formatter\ISpecificationReporter.cs" />
+    <Compile Include="Formatter\NUnitSpecificationReporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
