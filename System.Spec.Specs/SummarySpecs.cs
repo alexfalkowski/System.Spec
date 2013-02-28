@@ -39,22 +39,21 @@ namespace System.Spec.Specs
     [TestFixture]
     public class SummarySpecs
     {
-        private IRunner command;
+        private ISpecificationRunner runner;
         private IConsoleFormatter consoleFormatter;
-        private IFileSystem fileSystem;
         private IActionStrategy strategy;
         private resultType resultType;
         
         [SetUp]
         public void BeforeEach()
         {
-            this.fileSystem = new DefaultFileSystem();
             this.strategy = new DefaultActionStrategy();
+            var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
             this.consoleFormatter = new SilentConsoleFormatter();
-            this.command = new DefaultRunner(this.strategy, this.fileSystem);
+            this.runner = new DefaultSpecificationRunner(this.strategy, finder);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
+            this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
             
             using (var stream = new MemoryStream()) {
                 this.consoleFormatter.WriteSummaryToStream(stream, 10);

@@ -15,6 +15,7 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
 
 namespace System.Spec.Specs
 {
@@ -23,33 +24,39 @@ namespace System.Spec.Specs
     using System.Reflection;
     using System.Xml;
     using System.Xml.Serialization;
-
+    
     using FluentAssertions;
-
+    
     using System.Spec.Example.Specs;
     using System.Spec.Formatter;
-
+    
     using NSubstitute;
-
+    
     using NUnit.Framework;
-
+    
     [TestFixture]
-    public class RunnerSpecs
+    public class SpecificationFinderSpecs
     {
-        private ISpecificationRunner command;
-
+        private IFileSystem fileSystem;
+        private ISpecificationFinder finder;
+        
         [SetUp]
         public void BeforeEach()
         {
-            this.command = new DefaultSpecificationRunner(new DefaultActionStrategy(), 
-                                                          new DefaultSpecificationFinder(new DefaultFileSystem()));
+            this.fileSystem = Substitute.For<IFileSystem>();
+            this.finder = new DefaultSpecificationFinder(this.fileSystem);
         }
 
         [Test]
-        public void ShouldExecuteAllSpecificationsInPath()
+        public void ShouldFindSpecifications()
         {
-            var location = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath);
-            this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
+            var location = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
+            const string TestPath = "test";
+            this.fileSystem.CurrentPath.Returns(TestPath);
+            this.fileSystem.GetFilesWithExtension(TestPath, "Example.Spec.dll").Returns(new[] { location });
+
+            var specifications = this.finder.FindSpecifications(TestPath, "Example.Spec");
+            specifications.Should().HaveCount(9);
         }
     }
 }

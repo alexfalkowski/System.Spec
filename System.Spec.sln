@@ -102,7 +102,7 @@ Global
 		{FA0A5A6C-6A27-4E41-9910-314CB6D4F448}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = System.Spec\System.Spec.csproj
+		StartupItem = System.Spec.Specs\System.Spec.Specs.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = Hierarchical

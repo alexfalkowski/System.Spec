@@ -87,8 +87,6 @@
     <Compile Include="Specification.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="StopwatchHelper.cs" />
-    <Compile Include="IRunner.cs" />
-    <Compile Include="DefaultRunner.cs" />
     <Compile Include="ExampleGroupResult.cs" />
     <Compile Include="ExampleGroupResultCollection.cs" />
     <Compile Include="Formatter\IReporter.cs" />
@@ -98,6 +96,10 @@
     <Compile Include="Formatter\NUnitReporter.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="ExpressionRunner.cs" />
+    <Compile Include="ISpecificationFinder.cs" />
+    <Compile Include="DefaultSpecificationFinder.cs" />
+    <Compile Include="ISpecificationRunner.cs" />
+    <Compile Include="DefaultSpecificationRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -18,18 +18,8 @@
 
 namespace System.Spec
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-
-    public interface IRunner
+    public interface ISpecificationRunner
     {
-        IEnumerable<Assembly> GetAssemblies(string path, string search);
-
-        IEnumerable<Type> GetSpecificationTypes(Assembly assembly);
-
-        void ExecuteSpecifications(IEnumerable<Type> types);
-
         void ExecuteSpecificationsInPath(string path, string search);
     }
 }

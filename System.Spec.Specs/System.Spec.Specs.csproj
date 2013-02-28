@@ -74,6 +74,7 @@
     <Compile Include="SpecificationSpecs.cs" />
     <Compile Include="SummarySpecs.cs" />
     <Compile Include="RunnerSpecs.cs" />
+    <Compile Include="SpecificationFinderSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
