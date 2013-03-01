@@ -33,18 +33,18 @@ namespace System.Spec.Reports
 
     public class NUnitSpecificationReporter : ISpecificationReporter
     {
-        public void Write(Stream stream, ExpressionResultCollection expressions)
+        public void Write(Stream stream, IEnumerable<ExpressionResult> expressions)
         {
             var testsuite = new testsuiteType {
                 name = "Specifications",
                 type = "Assembly",
                 executed = bool.TrueString,
-                result = expressions.HasErrors ? "Failure" : "Success",
+                result = expressions.HasErrors() ? "Failure" : "Success",
                 asserts = "0",
-                time = ConvertToSeconds(expressions.ElapsedTime).ToString(),
+                time = ConvertToSeconds(expressions.ElapsedTime()).ToString(),
             };
             
-            var errorCount = expressions.AllErrors.Count();
+            var errorCount = expressions.AllErrors().Count();
             
             var resultType = new resultType {
                 environment = new environmentType {
@@ -64,7 +64,7 @@ namespace System.Spec.Reports
                 
                 testsuite = testsuite,
                 errors = errorCount,
-                total = expressions.AllSuccess.Count() + errorCount,
+                total = expressions.AllSuccesses().Count() + errorCount,
                 name = "Results",
                 date = DateTime.Now.ToString("yyyy-MM-dd"),
                 time = DateTime.Now.ToString("H:mm:ss")

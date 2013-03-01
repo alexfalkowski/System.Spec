@@ -18,10 +18,11 @@
 
 namespace System.Spec.Reports
 {
+    using System.Collections.Generic;
     using System.IO;
 
     public interface ISpecificationReporter
     {
-        void Write(Stream stream, ExpressionResultCollection expressions);
+        void Write(Stream stream, IEnumerable<ExpressionResult> expressions);
     }
 }

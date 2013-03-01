@@ -19,6 +19,7 @@
 namespace System.Spec.Formatter
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
 
@@ -45,9 +46,9 @@ namespace System.Spec.Formatter
                         example.Exception)));
         }
 
-        public override void WriteSummary(ExpressionResultCollection expressions)
+        public override void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {
-            if (expressions.HasErrors || expressions.HasSuccess) {
+            if (expressions.HasErrors() || expressions.HasSuccesses()) {
                 Console.WriteLine();
             }
 

@@ -19,6 +19,8 @@
 
 namespace System.Spec.Formatter
 {
+    using System.Collections.Generic;
+
     public class SilentConsoleFormatter : ConsoleFormatterBase
     {
         public override void WriteInformation(string message)
@@ -33,7 +35,7 @@ namespace System.Spec.Formatter
         {
         }
 
-        public override void WriteSummary(ExpressionResultCollection expressions)
+        public override void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {
         }
     }

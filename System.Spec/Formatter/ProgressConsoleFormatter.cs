@@ -19,6 +19,7 @@
 namespace System.Spec.Formatter
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
 
@@ -40,13 +41,13 @@ namespace System.Spec.Formatter
             Console.Write(Resources.ConsoleFormatterErrorMessage);
         }
 
-        public override void WriteSummary(ExpressionResultCollection expressions)
+        public override void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {
-            if (expressions.HasErrors || expressions.HasSuccess) {
+            if (expressions.HasErrors() || expressions.HasSuccesses()) {
                 Console.WriteLine(Environment.NewLine);
             }
 
-            var errorResults = expressions.AllErrors.ToList();
+            var errorResults = expressions.AllErrors().ToList();
 
             if (errorResults.Count > 0) {
                 for (var index = 0; index < errorResults.Count; index++) {

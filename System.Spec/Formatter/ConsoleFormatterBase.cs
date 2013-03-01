@@ -39,18 +39,18 @@ namespace System.Spec.Formatter
 
         public abstract void WriteError(string reason, ExampleResult example);
 
-        public virtual void WriteSummary(ExpressionResultCollection expressions)
+        public virtual void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {
             var elapsdeTimeMessage = string.Format(CultureInfo.CurrentCulture, 
                                                    Resources.ConsoleFormatterElapsedTimeMessage, 
-                                                   expressions.ElapsedTime / 1000D);
+                                                   expressions.ElapsedTime() / 1000D);
             Console.WriteLine(elapsdeTimeMessage);
 
-            var errorCount = expressions.AllErrors.Count();
+            var errorCount = expressions.AllErrors().Count();
             var summaryMessage = string.Format(
                 CultureInfo.CurrentCulture,
                 Resources.ConsoleFormatterSummaryMessage,
-                expressions.AllSuccess.Count() + errorCount,
+                expressions.AllSuccesses().Count() + errorCount,
                 errorCount);
             Console.WriteLine(summaryMessage);
         }

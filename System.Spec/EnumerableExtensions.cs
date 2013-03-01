@@ -33,11 +33,28 @@ namespace System.Spec
             return examples.AllErrors().Any();
         }
 
+        public static bool HasErrors(this IEnumerable<ExpressionResult> examples)
+        {
+            return GetExamples(examples, (example) => example.Status == ResultStatus.Error).Any();
+        }
+        
+        public static bool HasSuccesses(this IEnumerable<ExpressionResult> examples)
+        {
+            return GetExamples(examples, (example) => example.Status == ResultStatus.Success).Any();
+        }
+
         public static long ElapsedTime(this IEnumerable<ExampleGroupResult> examples)
         {
             var query = from exampleGroup in examples
-                        from example in exampleGroup.Examples
-                        select example.ElapsedTime;
+                select exampleGroup.Examples.ElapsedTime();
+            
+            return query.Sum();
+        }
+
+        public static long ElapsedTime(this IEnumerable<ExpressionResult> expressions)
+        {
+            var query = from expression in expressions
+                        select expression.Examples.ElapsedTime();
 
             return query.Sum();
         }
@@ -50,11 +67,21 @@ namespace System.Spec
             return query.Sum();
         }
 
+        public static IEnumerable<ExampleResult> AllErrors(this IEnumerable<ExpressionResult> expressions)
+        {
+            return GetExamples(expressions, (example) => example.Status == ResultStatus.Error);
+        }
+
+        public static IEnumerable<ExampleResult> AllSuccesses(this IEnumerable<ExpressionResult> expressions)
+        {
+            return GetExamples(expressions, (example) => example.Status == ResultStatus.Success);
+        }
+
         public static IEnumerable<ExampleResult> AllErrors(this IEnumerable<ExampleResult> examples)
         {
             return GetExamples(examples, (example) => example.Status == ResultStatus.Error);
         }
-
+        
         public static IEnumerable<ExampleResult> AllSuccesses(this IEnumerable<ExampleResult> examples)
         {
             return GetExamples(examples, (example) => example.Status == ResultStatus.Success);
@@ -73,6 +100,16 @@ namespace System.Spec
                                                               Predicate<ExampleResult> status)
         {
             return from example in examples
+                   where status(example)
+                   select example;
+        }
+
+        private static IEnumerable<ExampleResult> GetExamples(IEnumerable<ExpressionResult> expressions,
+                                                       Predicate<ExampleResult> status)
+        {
+            return from result in expressions
+                   from exampleGroup in result.Examples
+                   from example in exampleGroup.Examples
                    where status(example)
                    select example;
         }

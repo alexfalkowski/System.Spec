@@ -30,6 +30,6 @@ namespace System.Spec.Formatter
 
         void WriteError(string reason, ExampleResult example);
 
-        void WriteSummary(ExpressionResultCollection expressionss);
+        void WriteSummary(IEnumerable<ExpressionResult> expressionss);
     }
 }

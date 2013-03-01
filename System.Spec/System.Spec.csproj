@@ -101,7 +101,6 @@
     <Compile Include="Reports\ISpecificationReporter.cs" />
     <Compile Include="Reports\NUnitSpecificationReporter.cs" />
     <Compile Include="Reports\Results.cs" />
-    <Compile Include="ExpressionResultCollection.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="ExampleGroupResult.cs" />
   </ItemGroup>

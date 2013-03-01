@@ -67,7 +67,7 @@ namespace System.Spec.Command
                 consoleFormatter.WriteSummary(results);
                 this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);
 
-                return results.HasErrors ? 1 : 0;
+                return results.HasErrors() ? 1 : 0;
             } catch (ArgException) {
                 Console.WriteLine(ArgUsage.GetUsage<Arguments>());
                 return 1;

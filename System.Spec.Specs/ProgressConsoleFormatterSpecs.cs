@@ -1,6 +1,7 @@
 namespace System.Spec.Specs
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
@@ -64,7 +65,7 @@ namespace System.Spec.Specs
                     Exception = new InvalidOperationException("Test Exception"),
                     Status = ResultStatus.Error
                 };
-            var results = new ExpressionResultCollection();
+            var results = new Collection<ExpressionResult>();
             var expression = new ExpressionResult();
             var group = new ExampleGroupResult();
             group.Examples.Add(example);

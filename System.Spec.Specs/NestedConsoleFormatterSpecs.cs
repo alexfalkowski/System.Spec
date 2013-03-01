@@ -2,6 +2,7 @@ namespace System.Spec.Specs
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
 
@@ -66,7 +67,7 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldWriteSummary()
         {
-            var results = new ExpressionResultCollection();
+            var results = new Collection<ExpressionResult>();
             
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
@@ -79,7 +80,7 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldWriteSummaryWithOneSuccess()
         {
-            var results = new ExpressionResultCollection();
+            var results = new Collection<ExpressionResult>();
             var result = new ExpressionResult();
             var group = new ExampleGroupResult();
             var example = new ExampleResult { ElapsedTime = 1000 };
