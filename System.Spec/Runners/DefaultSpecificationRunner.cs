@@ -16,49 +16,31 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec
+namespace System.Spec.Runners
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Spec.IO;
     using System.Spec.Formatter;
 
-    public class DefaultSpecificationRunner : ISpecificationRunner
+    public class DefaultSpecificationRunner : SpecificationRunnerBase
     {
         private readonly ISpecificationFinder finder;
 
-        private readonly IExpressionRunner runner;
-
-        private IConsoleFormatter formatter;
-
-        public DefaultSpecificationRunner(
-            IExpressionRunner runner,
-            ISpecificationFinder finder,
-            IConsoleFormatter formatter)
+        public DefaultSpecificationRunner(IExpressionRunner runner, 
+                                          ISpecificationFinder finder, 
+                                          IConsoleFormatter formatter) : base(runner, formatter)
         {
             this.finder = finder;
-            this.runner = runner;
-            this.formatter = formatter;
         }
        
-        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search)
+        public override IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search)
         {
             var specifications = this.finder.FindSpecifications(path, search);
             var results = new Collection<ExpressionResult>();
 
             foreach (var specification in specifications) {
-                var result = this.runner.Execute(specification.BuildExpression());
-
-                foreach (var exampleGroup in result.Examples) {
-                    this.formatter.WriteInformation(exampleGroup.Reason);
-
-                    foreach (var example in exampleGroup.Examples) {
-                        if (example.Status == ResultStatus.Success) {
-                            this.formatter.WriteSuccess(example);
-                        } else {
-                            this.formatter.WriteError(example);
-                        }
-                    }
-                }
+                var result = this.ExecuteSpecification(specification);
 
                 results.Add(result);
             }

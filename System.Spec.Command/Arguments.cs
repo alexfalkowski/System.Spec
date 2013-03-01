@@ -46,6 +46,10 @@ namespace System.Spec.Command
 		[ArgDescription("Invokes formatters without executing the examples.")]
 		public bool DryRun { get; set; }
 
+        [ArgShortcut("p")]
+        [ArgDescription("Execute example(s) in parrallel.")]
+        public bool Parrallel { get; set; }
+
 		[ArgShortcut("h")]
 		[ArgDescription("You're looking at it.")]
 		public bool Help { get; set; }

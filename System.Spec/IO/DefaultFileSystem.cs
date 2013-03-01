@@ -16,17 +16,29 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec
+namespace System.Spec.IO
 {
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
-    public interface IFileSystem
+    public class DefaultFileSystem : IFileSystem
     {
-        string CurrentPath { get; }
+        public string CurrentPath {
+            get {
+                return Directory.GetCurrentDirectory();
+            }
+        }
 
-        IEnumerable<string> GetFilesWithExtension(string path, string extension);
+        public IEnumerable<string> GetFilesWithExtension(string path, string extension)
+        {
+            return from file in Directory.EnumerateFiles(path, "*" + extension, SearchOption.AllDirectories) 
+                   select file;
+        }
 
-        FileStream OpenWrite(string path);
+        public FileStream OpenWrite(string path)
+        {
+            return File.Open(path, FileMode.Create);
+        }
     }
 }

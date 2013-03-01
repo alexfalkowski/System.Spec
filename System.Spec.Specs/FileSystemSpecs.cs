@@ -21,6 +21,7 @@ namespace System.Spec.Specs
     using System;
 	using System.IO;
 	using System.Reflection;
+    using System.Spec.IO;
 
 	using FluentAssertions;
 

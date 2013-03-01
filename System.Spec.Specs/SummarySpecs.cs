@@ -31,6 +31,8 @@ namespace System.Spec.Specs
     using FluentAssertions;
 
     using System.Spec.Reports;
+    using System.Spec.IO;
+    using System.Spec.Runners;
     
     using NSubstitute;
     

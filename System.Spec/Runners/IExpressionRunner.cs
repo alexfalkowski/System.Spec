@@ -16,29 +16,10 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec
+namespace System.Spec.Runners
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-
-    public class DefaultFileSystem : IFileSystem
+    public interface IExpressionRunner
     {
-        public string CurrentPath {
-            get {
-                return Directory.GetCurrentDirectory();
-            }
-        }
-
-        public IEnumerable<string> GetFilesWithExtension(string path, string extension)
-        {
-            return from file in Directory.EnumerateFiles(path, "*" + extension, SearchOption.AllDirectories) 
-                   select file;
-        }
-
-        public FileStream OpenWrite(string path)
-        {
-            return File.Open(path, FileMode.Create);
-        }
+        ExpressionResult Execute(Expression expression);
     }
 }

@@ -29,6 +29,8 @@ namespace System.Spec.Specs
     using System.Spec;
     using System.Spec.Example.Specs;
     using System.Spec.Formatter;
+    using System.Spec.IO;
+    using System.Spec.Runners;
 
     using NSubstitute;
 

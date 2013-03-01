@@ -16,10 +16,12 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec
+namespace System.Spec.IO
 {
-    public interface IExpressionRunner
+    using System.Collections.Generic;
+
+    public interface ISpecificationFinder
     {
-        ExpressionResult Execute(Expression expression);
+        IEnumerable<Specification> FindSpecifications(string path, string search);
     }
 }

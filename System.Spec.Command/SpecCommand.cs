@@ -24,6 +24,8 @@ namespace System.Spec.Command
     
     using System.Spec.Formatter;
     using System.Spec.Reports;
+    using System.Spec.IO;
+    using System.Spec.Runners;
     
     using PowerArgs;
     
@@ -58,7 +60,10 @@ namespace System.Spec.Command
                 ISpecificationFinder finder = new DefaultSpecificationFinder(fileSystem);
                 IActionStrategy actionStratergy = this.CreateActionStrategy(arguments.DryRun);
                 IExpressionRunner runner = new DefaultExpressionRunner(actionStratergy);
-                ISpecificationRunner command = new DefaultSpecificationRunner(runner, finder, consoleFormatter);
+                ISpecificationRunner command = this.CreateSpecificationRunner(arguments.Parrallel, 
+                                                                              runner, 
+                                                                              finder, 
+                                                                              consoleFormatter);
                 
                 var results = command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
 
@@ -73,6 +78,18 @@ namespace System.Spec.Command
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e));
                 return 1;
             }
+        }
+
+        private ISpecificationRunner CreateSpecificationRunner(bool parrallel, 
+                                                               IExpressionRunner runner, 
+                                                               ISpecificationFinder finder, 
+                                                               IConsoleFormatter formatter)
+        {
+            if (parrallel) {
+                return new ParallelSpecificationRunner(runner, finder, formatter);
+            }
+
+            return new DefaultSpecificationRunner(runner, finder, formatter);
         }
 
         private IActionStrategy CreateActionStrategy(bool dryRun)

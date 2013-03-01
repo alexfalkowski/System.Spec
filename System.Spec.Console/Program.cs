@@ -23,6 +23,7 @@ namespace System.Spec.Console
 	using System.Spec.Formatter;
     using System.Spec.Reports;
 	using System.Spec.Command;
+    using System.Spec.IO;
 	
 	using PowerArgs;
 	
