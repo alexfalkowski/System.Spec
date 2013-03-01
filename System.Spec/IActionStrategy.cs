@@ -23,5 +23,7 @@ namespace System.Spec
     public interface IActionStrategy
     {
         ActionResult ExecuteActionWithResult(Action action);
+
+        void ExecuteAction(Action action);
     }
 }

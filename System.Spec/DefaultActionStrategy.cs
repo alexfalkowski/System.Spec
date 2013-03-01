@@ -33,5 +33,14 @@ namespace System.Spec
                 action();
             });
         }
+
+        public void ExecuteAction(Action action)
+        {
+            if (action == null) {
+                return;
+            }
+            
+            action();
+        }
     }
 }

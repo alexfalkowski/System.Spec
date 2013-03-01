@@ -38,7 +38,7 @@ namespace System.Spec
 
         public FileStream OpenWrite(string path)
         {
-            return File.OpenWrite(path);
+            return File.Open(path, FileMode.Create);
         }
     }
 }

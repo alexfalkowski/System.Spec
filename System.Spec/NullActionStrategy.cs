@@ -26,5 +26,9 @@ namespace System.Spec
         {
             return new ActionResult { Status = ResultStatus.Success };
         }
+
+        public void ExecuteAction(Action action) 
+        {
+        }
     }
 }

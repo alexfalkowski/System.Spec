@@ -17,13 +17,14 @@ Below is an example specification in C#:
 	namespace YourCompany.Specs
 	{
 	    using NSubstitute;
+	    using System.Spec;
 
 	    public class ImportantSpecification : Specification
 	    {
-	        public override void Validate()
+	        public override void Define()
 	        {
-	            Describe("A very cool specification", describe => {
-                    describe.It("should do something that is good", () => {
+	            Describe("A very cool specification", () => {
+                    It("should do something that is good", () => {
                         var testInterface = Substitute.For<ITestInterface>();
                         testInterface.Received().TestMethod();
                     });
@@ -34,41 +35,43 @@ Below is an example specification in C#:
 
 To execute your specifications execute the following:
 	
-	.\spec.exe -e C:\Projects\OSS\System.Spec\System.Spec.Specs\bin\Debug
+	./artifacts/spec.sh -e artifacts/
 
 The default output will display the following example:
 
-	..F..F
+	..FF...
 
-	1) should be true - NUnit.Framework.AssertionException: Expected True, but found False.
-	   at FluentAssertions.Frameworks.LateBoundTestFramework.Throw(String message) in c:\Workspaces\FluentAssertions\Release
-	s\1.7.0\FluentAssertions.Net35\Frameworks\LateBoundTestFramework.cs:line 16
-	   at FluentAssertions.Verification.FailWith(String failureMessage, Object[] failureArgs) in c:\Workspaces\FluentAsserti
-	ons\Releases\1.7.0\FluentAssertions.Net35\Verification.cs:line 158
-	   at FluentAssertions.Assertions.BooleanAssertions.BeTrue(String reason, Object[] reasonArgs) in c:\Workspaces\FluentAs
-	sertions\Releases\1.7.0\FluentAssertions.Net35\Assertions\BooleanAssertions.cs:line 75
-	   at System.Spec.Specs.TestSpecificationWithFluentAssertions.<Validate>b__1() in C:\Projects\OSS\System.Spec\System.Spec.Specs\TestSpecif
-	icationWithFluentAssertions.cs:line 16
-	   at System.Spec.Example.It(String reason, Action action)
+    1) should be true - FluentAssertions.Frameworks.AssertionFailedException: Expected True, but found False.
+      at FluentAssertions.Frameworks.FallbackTestFramework.Throw (System.String message) [0x00000] in <filename unknown>:0
+      at FluentAssertions.Frameworks.AssertionHelper.Throw (System.String message) [0x00000] in <filename unknown>:0
+      at FluentAssertions.Verification.FailWith (System.String failureMessage, System.Object[] failureArgs) [0x00000] in <filename unknown>:0
+      at FluentAssertions.Assertions.BooleanAssertions.BeTrue (System.String reason, System.Object[] reasonArgs) [0x00000] in <filename unknown>:0
+      at FluentAssertions.Assertions.BooleanAssertions.BeTrue () [0x00000] in <filename unknown>:0
+      at System.Spec.Example.Specs.TestSpecificationWithFluentAssertions.<Define>m__C () [0x00000] in <filename unknown>:0
+      at System.Spec.DefaultActionStrategy+<ExecuteActionWithResult>c__AnonStorey0.<>m__0 () [0x00000] in <filename unknown>:0
+      at System.Spec.StopwatchHelper.ExecuteTimedActionWithResult (System.Action action) [0x00000] in <filename unknown>:0
 
-	2) call method - NSubstitute.Exceptions.ReceivedCallsException: Expected to receive a call matching:
-	        TestMethod()
-	Actually received no matching calls.
+    2) call method - NSubstitute.Exceptions.ReceivedCallsException: Expected to receive a call matching:
+    	TestMethod()
+        Actually received no matching calls.
 
-	   at NSubstitute.Core.ReceivedCallsExceptionThrower.Throw(ICallSpecification callSpecification, IEnumerable`1 matchingC
-	alls, IEnumerable`1 nonMatchingCalls, Quantity requiredQuantity)
-	   at NSubstitute.Routing.Handlers.CheckReceivedCallsHandler.Handle(ICall call)
-	   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
-	   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
-	   at NSubstitute.Routing.Route.Handle(ICall call)
-	   at NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor.Intercept(IInvocation invocation)
-	   at Castle.DynamicProxy.AbstractInvocation.Proceed()
-	   at System.Spec.Specs.TestSpecificationWithNSubstitute.<Validate>b__1() in C:\Projects\OSS\System.Spec\System.Spec.Specs\TestSpecificati
-	onWithNSubstitute.cs:line 22
-	   at System.Spec.Example.It(String reason, Action action)
+      at NSubstitute.Core.ReceivedCallsExceptionThrower.Throw (ICallSpecification callSpecification, IEnumerable`1 matchingCalls, IEnumerable`1 nonMatchingCalls, NSubstitute.Core.Quantity requiredQuantity) [0x00000] in <filename unknown>:0
+      at NSubstitute.Routing.Handlers.CheckReceivedCallsHandler.Handle (ICall call) [0x00000] in <filename unknown>:0
+      at NSubstitute.Routing.Route+<>c__DisplayClass3.<Handle>b__0 (ICallHandler x) [0x00000] in <filename unknown>:0
+      at System.Linq.Enumerable+<CreateSelectIterator>c__Iterator27`2[NSubstitute.Core.ICallHandler,NSubstitute.Core.RouteAction].MoveNext () [0x00000] in <filename unknown>:0
+      at System.Linq.Enumerable.First[RouteAction] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0
+      at System.Linq.Enumerable.FirstOrDefault[RouteAction] (IEnumerable`1 source, System.Func`2 predicate) [0x00000] in <filename unknown>:0
+      at NSubstitute.Routing.Route.Handle (ICall call) [0x00000] in <filename unknown>:0
+      at NSubstitute.Core.CallRouter.Route (ICall call) [0x00000] in <filename unknown>:0
+      at NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor.Intercept (IInvocation invocation) [0x00000] in <filename unknown>:0
+      at Castle.DynamicProxy.AbstractInvocation.Proceed () [0x00000] in <filename unknown>:0
+      at Castle.Proxies.ITestInterfaceProxy.TestMethod () [0x00000] in <filename unknown>:0
+      at System.Spec.Example.Specs.TestSpecificationWithNSubstitute.<Define>m__11 () [0x00000] in <filename unknown>:0
+      at System.Spec.DefaultActionStrategy+<ExecuteActionWithResult>c__AnonStorey0.<>m__0 () [0x00000] in <filename unknown>:0
+      at System.Spec.StopwatchHelper.ExecuteTimedActionWithResult (System.Action action) [0x00000] in <filename unknown>:0
 
-	Finished in 0.397 seconds
-	6 examples, 2 failures
+    Finished in 0.277 seconds
+    7 examples, 2 failures
 
 Convention
 ----------
@@ -85,6 +88,21 @@ The command spec has the following options:
        OPTION          TYPE                   ORDER   DESCRIPTION
        -example (-e)   String                         Execute example(s) in the specified path.
        -search (-s)    String                         The search path to use for the spec assemblies. The default is Specs.
+       -output (-o)    String                         The output path of the test results. The default is test-results.xml.
        -format (-f)    ConsoleFormatterType           Specifies what format to use for output.
        -dryrun (-d)    Switch                         Invokes formatters without executing the examples.
        -help (-h)      Switch                         You're looking at it.
+
+Migration
+---------
+
+From version 2.0 we have changed the way you construct your specifications. Here is a list of changes:
+
+- The new method to override is Define rather Validate.
+- The Describe method does not pass an example to the Action.
+- BeforeXXX and AfterXXX are now methods that take an action, rather than just an action.
+
+Future
+------
+
+I have always been a fan of the [Jasmine](http://pivotal.github.com/jasmine/) so I will be following that design. If you have any suggestions please raise a request or issue.

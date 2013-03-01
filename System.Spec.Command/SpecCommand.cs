@@ -33,21 +33,18 @@ namespace System.Spec.Command
         private IConsoleFormatterFactory formatterFactory;
         private ISpecificationReporter reporter;
         private IFileSystem fileSystem;
-        private IActionStrategy exampleStratergy;
         
         public SpecCommand(string[] args, 
             IConsoleFormatterFactory formatterFactory,
             ISpecificationReporter reporter,
-            IFileSystem fileSystem, 
-            IActionStrategy exampleStratergy)
+            IFileSystem fileSystem)
         {
             this.args = args;
             this.formatterFactory = formatterFactory;
             this.reporter = reporter;
             this.fileSystem = fileSystem;
-            this.exampleStratergy = exampleStratergy;
         }
-        
+
         public int Perform()
         {
             try {
@@ -59,7 +56,8 @@ namespace System.Spec.Command
                 
                 IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format);
                 ISpecificationFinder finder = new DefaultSpecificationFinder(fileSystem);
-                IExpressionRunner runner = new DefaultExpressionRunner(this.exampleStratergy);
+                IActionStrategy actionStratergy = this.CreateActionStrategy(arguments.DryRun);
+                IExpressionRunner runner = new DefaultExpressionRunner(actionStratergy);
                 ISpecificationRunner command = new DefaultSpecificationRunner(runner, finder, consoleFormatter);
                 
                 var results = command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
@@ -75,6 +73,15 @@ namespace System.Spec.Command
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e));
                 return 1;
             }
+        }
+
+        private IActionStrategy CreateActionStrategy(bool dryRun)
+        {
+            if (dryRun) {
+                return new NullActionStrategy();
+            }
+            
+            return new DefaultActionStrategy();
         }
     }
 }

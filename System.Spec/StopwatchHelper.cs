@@ -23,18 +23,6 @@ namespace System.Spec
 
     public static class StopwatchHelper
     {
-        public static long ExecuteTimedAction(Action action)
-        {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            action();
-
-            stopwatch.Stop();
-            
-            return stopwatch.ElapsedMilliseconds;
-        }
-
         public static ActionResult ExecuteTimedActionWithResult(Action action)
         {
             var stopwatch = new Stopwatch();

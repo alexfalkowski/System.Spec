@@ -33,8 +33,7 @@ namespace System.Spec.Console
 			var command = new SpecCommand(args,
 			                              new DefaultConsoleFormatterFactory(),
                                           new NUnitSpecificationReporter(),
-			                              new DefaultFileSystem(), 
-			                              new DefaultActionStrategy());
+			                              new DefaultFileSystem());
 			return command.Perform();
 		}
 	}

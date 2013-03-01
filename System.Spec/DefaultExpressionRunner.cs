@@ -36,17 +36,17 @@ namespace System.Spec
             foreach (var exampleGroup in expression.Examples) {
                 var exampleGroupResult = new ExampleGroupResult { Reason = exampleGroup.Reason };
 
-                this.stratergy.ExecuteActionWithResult(exampleGroup.BeforeAll);
+                this.stratergy.ExecuteAction(exampleGroup.BeforeAll);
                 
                 foreach (var example in exampleGroup.Examples) {
-                    this.stratergy.ExecuteActionWithResult(exampleGroup.BeforeEach);
+                    this.stratergy.ExecuteAction(exampleGroup.BeforeEach);
                     var result = this.stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example.Reason);
                   
-                    this.stratergy.ExecuteActionWithResult(exampleGroup.AfterEach);
+                    this.stratergy.ExecuteAction(exampleGroup.AfterEach);
                     exampleGroupResult.Examples.Add(result);
                 }
                 
-                this.stratergy.ExecuteActionWithResult(exampleGroup.AfterAll);
+                this.stratergy.ExecuteAction(exampleGroup.AfterAll);
                 expressionResult.Examples.Add(exampleGroupResult);
             }
 
