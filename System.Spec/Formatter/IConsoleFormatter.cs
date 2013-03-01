@@ -16,7 +16,6 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 namespace System.Spec.Formatter
 {
     using System.Collections.Generic;
@@ -26,9 +25,9 @@ namespace System.Spec.Formatter
     {
         void WriteInformation(string message);
 
-        void WriteSuccess(string reason, ExampleResult example);
+        void WriteSuccess(ExampleResult example);
 
-        void WriteError(string reason, ExampleResult example);
+        void WriteError(ExampleResult example);
 
         void WriteSummary(IEnumerable<ExpressionResult> expressionss);
     }

@@ -35,9 +35,9 @@ namespace System.Spec.Formatter
     {
         public abstract void WriteInformation(string message);
 
-        public abstract void WriteSuccess(string reason, ExampleResult example);
+        public abstract void WriteSuccess(ExampleResult example);
 
-        public abstract void WriteError(string reason, ExampleResult example);
+        public abstract void WriteError(ExampleResult example);
 
         public virtual void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {

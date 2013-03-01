@@ -31,12 +31,12 @@ namespace System.Spec.Formatter
         {
         }
 
-        public override void WriteSuccess(string reason, ExampleResult example)
+        public override void WriteSuccess(ExampleResult example)
         {
             Console.Write(Resources.ConsoleFormatterSuccessMessage);
         }
 
-        public override void WriteError(string reason, ExampleResult example)
+        public override void WriteError(ExampleResult example)
         {
             Console.Write(Resources.ConsoleFormatterErrorMessage);
         }

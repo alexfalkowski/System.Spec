@@ -1,19 +1,35 @@
+// Author:
+//       alex.falkowski <alexrfalkowski@gmail.com>
+//
+//  Copyright (c) 2013 alex.falkowski
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU Lesser General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU Lesser General Public License for more details.
+//
+//  You should have received a copy of the GNU Lesser General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace System.Spec.Specs
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
 
     using FluentAssertions;
 
-	using System.Spec.Formatter;
-	using System.Spec.Specs.Properties;
+    using System.Spec.Formatter;
+    using System.Spec.Specs.Properties;
 
     using NUnit.Framework;
 
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "It happens in AfterEach")]
     [TestFixture]
     public class NestedConsoleFormatterSpecs
     {
@@ -43,7 +59,7 @@ namespace System.Spec.Specs
         public void ShouldWriteSuccess()
         {
             var result = new ExampleResult { Reason = Resources.TestReason, Status = ResultStatus.Success };
-            this.consoleFormatter.WriteSuccess(Resources.TestReason, result);
+            this.consoleFormatter.WriteSuccess(result);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(Resources.TestReason + Environment.NewLine + StringHelper.Tab + Resources.TestReason + Environment.NewLine);
         }
@@ -51,10 +67,7 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldWriteError()
         {
-            this.consoleFormatter.WriteError(
-                Resources.TestReason,
-                new ExampleResult
-                    {
+            this.consoleFormatter.WriteError(new ExampleResult {
                         Reason = Resources.TestReason,
                         Status = ResultStatus.Error,
                         Exception = new InvalidOperationException("Test Exception")
@@ -72,9 +85,9 @@ namespace System.Spec.Specs
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(Resources.TestReason + 
-                                                     Environment.NewLine + 
-                                                     "Finished in 0 seconds" + Environment.NewLine + 
-                                                     "0 examples, 0 failures" + Environment.NewLine);
+                Environment.NewLine + 
+                "Finished in 0 seconds" + Environment.NewLine + 
+                "0 examples, 0 failures" + Environment.NewLine);
         }
 
         [Test]
@@ -91,9 +104,9 @@ namespace System.Spec.Specs
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(Resources.TestReason + 
-                                                     Environment.NewLine + Environment.NewLine + 
-                                                     "Finished in 1 seconds" + Environment.NewLine + 
-                                                     "1 examples, 0 failures" + Environment.NewLine);
+                Environment.NewLine + Environment.NewLine + 
+                "Finished in 1 seconds" + Environment.NewLine + 
+                "1 examples, 0 failures" + Environment.NewLine);
         }
     }
 }

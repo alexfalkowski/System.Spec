@@ -32,17 +32,17 @@ namespace System.Spec.Formatter
             WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(message));
         }
 
-        public override void WriteSuccess(string reason, ExampleResult example)
+        public override void WriteSuccess(ExampleResult example)
         {
-            WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(StringHelper.Tab + reason));
+            WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(StringHelper.Tab + example.Reason));
         }
 
-        public override void WriteError(string reason, ExampleResult example)
+        public override void WriteError(ExampleResult example)
         {
             WriteWithColour(ConsoleColor.Red, () =>
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
                         StringHelper.Tab + Resources.NestedConsoleFormatterErrorMessage,
-                        reason,
+                        example.Reason,
                         example.Exception)));
         }
 

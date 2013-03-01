@@ -53,9 +53,9 @@ namespace System.Spec
 
                     foreach (var example in exampleGroup.Examples) {
                         if (example.Status == ResultStatus.Success) {
-                            this.formatter.WriteSuccess(example.Reason, example);
+                            this.formatter.WriteSuccess(example);
                         } else {
-                            this.formatter.WriteError(example.Reason, example);
+                            this.formatter.WriteError(example);
                         }
                     }
                 }

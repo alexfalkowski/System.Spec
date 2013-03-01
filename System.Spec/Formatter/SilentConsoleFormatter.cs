@@ -16,7 +16,6 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 namespace System.Spec.Formatter
 {
     using System.Collections.Generic;
@@ -27,11 +26,11 @@ namespace System.Spec.Formatter
         {
         }
 
-        public override void WriteSuccess(string reason, ExampleResult example)
+        public override void WriteSuccess(ExampleResult example)
         {
         }
 
-        public override void WriteError(string reason, ExampleResult example)
+        public override void WriteError(ExampleResult example)
         {
         }
 
