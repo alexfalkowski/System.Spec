@@ -22,6 +22,6 @@ namespace System.Spec
 
     public interface ISpecificationRunner
     {
-        IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search);
+        ExpressionResultCollection ExecuteSpecificationsInPath(string path, string search);
     }
 }

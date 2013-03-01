@@ -87,9 +87,6 @@
     <Compile Include="Specification.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="StopwatchHelper.cs" />
-    <Compile Include="ExampleGroupResult.cs" />
-    <Compile Include="ExampleGroupResultCollection.cs" />
-    <Compile Include="Formatter\Results.cs" />
     <Compile Include="ActionResult.cs" />
     <Compile Include="ResultStatus.cs" />
     <Compile Include="Expression.cs" />
@@ -97,16 +94,16 @@
     <Compile Include="DefaultSpecificationFinder.cs" />
     <Compile Include="ISpecificationRunner.cs" />
     <Compile Include="DefaultSpecificationRunner.cs" />
-    <Compile Include="Formatter\ISpecificationReporter.cs" />
-    <Compile Include="Formatter\NUnitSpecificationReporter.cs" />
     <Compile Include="ActionResultExtensions.cs" />
-    <Compile Include="ExampleGroupResult2.cs" />
     <Compile Include="ExpressionResult.cs" />
     <Compile Include="DefaultExpressionRunner.cs" />
     <Compile Include="IExpressionRunner.cs" />
     <Compile Include="Reports\ISpecificationReporter.cs" />
     <Compile Include="Reports\NUnitSpecificationReporter.cs" />
     <Compile Include="Reports\Results.cs" />
+    <Compile Include="ExpressionResultCollection.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="ExampleGroupResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

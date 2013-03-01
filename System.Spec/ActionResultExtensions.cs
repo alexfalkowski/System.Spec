@@ -30,9 +30,9 @@ namespace System.Spec
             };
         }
 
-        public static ExampleGroupResult2 ToExampleGroupResult(this ActionResult result, string reason)
+        public static ExampleGroupResult ToExampleGroupResult(this ActionResult result, string reason)
         {
-            return new ExampleGroupResult2 {
+            return new ExampleGroupResult {
                 Reason = reason,
                 Status = result.Status,
                 Exception = result.Exception,

@@ -30,7 +30,7 @@ namespace System.Spec.Specs
     
     using FluentAssertions;
 
-    using System.Spec.Formatter;
+    using System.Spec.Reports;
     
     using NSubstitute;
     
@@ -40,7 +40,6 @@ namespace System.Spec.Specs
     public class SummarySpecs
     {
         private ISpecificationRunner runner;
-        private IConsoleFormatter consoleFormatter;
         private IActionStrategy strategy;
         private resultType resultType;
         
@@ -50,14 +49,15 @@ namespace System.Spec.Specs
             this.strategy = new DefaultActionStrategy();
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
             var runner = new DefaultExpressionRunner(this.strategy);
-            this.consoleFormatter = new SilentConsoleFormatter();
-            this.runner = new DefaultSpecificationRunner(runner, finder, this.consoleFormatter);
+            var formatter = new System.Spec.Formatter.SilentConsoleFormatter();
+            this.runner = new DefaultSpecificationRunner(runner, finder, formatter);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
+            var results = this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
             
             using (var stream = new MemoryStream()) {
-                this.consoleFormatter.WriteSummaryToStream(stream, 10);
+                var reporter = new NUnitSpecificationReporter();
+                reporter.Write(stream, results);
                 stream.Seek(0, SeekOrigin.Begin);
 
                 var serializer = new XmlSerializer(typeof(resultType));
@@ -133,24 +133,18 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldHaveTime()
         {
-            double.Parse(this.resultType.testsuite.time).Should().BeGreaterThan(0.0);
-        }
-
-        [Test]
-        public void ShouldHaveResults()
-        {
-            var results = this.resultType.testsuite.results;
-            results.Should().NotBeNull();
-            results.Should().HaveCount(10);
+            double.Parse(this.resultType.testsuite.time).Should().BeGreaterOrEqualTo(0.0);
         }
 
         [Test]
         public void ShouldHaveErrors()
         {
             var results = this.resultType.testsuite.results.AsEnumerable();
-            var query = from testsuiteType type in results
-                        where type.result == "Failure"
-                        select type;
+            var query = from testsuiteType expression in results
+                        from testsuiteType @group in expression.results
+                        from testcaseType example in @group.results
+                        where example.result == "Failure"
+                        select example;
             query.Should().HaveCount(2);
             query.Should().Contain(result => int.Parse(result.time) >= 0);
         }
@@ -159,10 +153,12 @@ namespace System.Spec.Specs
         public void ShouldHaveSuccess()
         {
             var results = this.resultType.testsuite.results.AsEnumerable();
-            var query = from testsuiteType type in results
-                where type.result == "Success"
-                    select type;
-            query.Should().HaveCount(8);
+            var query = from testsuiteType expression in results
+                        from testsuiteType @group in expression.results
+                        from testcaseType example in @group.results
+                        where example.result == "Success"
+                        select example;
+            query.Should().HaveCount(5);
             query.Should().Contain(result => int.Parse(result.time) >= 0);
         }
     }

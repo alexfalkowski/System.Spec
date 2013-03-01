@@ -19,10 +19,9 @@
 namespace System.Spec.Reports
 {
     using System.IO;
-    using System.Collections.Generic;
 
     public interface ISpecificationReporter
     {
-        void Write(Stream stream, IEnumerable<ExpressionResult> expressions);
+        void Write(Stream stream, ExpressionResultCollection expressions);
     }
 }

@@ -20,8 +20,13 @@ namespace System.Spec
 {
     public abstract class Specification
     {
-        private Expression expression = new Expression();
+        private Expression expression;
         private ExampleGroup currentExampleGroup;
+
+        protected Specification()
+        {
+            this.expression = new Expression { Name = this.GetType().AssemblyQualifiedName };
+        }
         
         public void BeforeAll(Action action)
         {

@@ -17,12 +17,13 @@ namespace System.Spec.Specs
     public class NestedConsoleFormatterSpecs
     {
         private StringWriter stringWriter;
-
         private IConsoleFormatter consoleFormatter;
+        private TextWriter originalWritter;
 
         [SetUp]
         public void BeforeEach()
         {
+            this.originalWritter = Console.Out;
             this.stringWriter = new StringWriter(CultureInfo.CurrentCulture);
             Console.SetOut(this.stringWriter);
 
@@ -34,6 +35,7 @@ namespace System.Spec.Specs
         public void AfterEach()
         {
             this.stringWriter.Dispose();
+            Console.SetOut(this.originalWritter);
         }
 
         [Test]
@@ -64,9 +66,33 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldWriteSummary()
         {
-            this.consoleFormatter.WriteSummary(1000);
+            var results = new ExpressionResultCollection();
+            
+            this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(Resources.TestReason + Environment.NewLine + "Finished in 1 seconds" + Environment.NewLine + "0 examples, 0 failures" + Environment.NewLine);
+            this.stringWriter.ToString().Should().Be(Resources.TestReason + 
+                                                     Environment.NewLine + 
+                                                     "Finished in 0 seconds" + Environment.NewLine + 
+                                                     "0 examples, 0 failures" + Environment.NewLine);
+        }
+
+        [Test]
+        public void ShouldWriteSummaryWithOneSuccess()
+        {
+            var results = new ExpressionResultCollection();
+            var result = new ExpressionResult();
+            var group = new ExampleGroupResult();
+            var example = new ExampleResult { ElapsedTime = 1000 };
+            group.Examples.Add(example);
+            result.Examples.Add(group);
+            results.Add(result);
+
+            this.consoleFormatter.WriteSummary(results);
+            this.stringWriter.Flush();
+            this.stringWriter.ToString().Should().Be(Resources.TestReason + 
+                                                     Environment.NewLine + Environment.NewLine + 
+                                                     "Finished in 1 seconds" + Environment.NewLine + 
+                                                     "1 examples, 0 failures" + Environment.NewLine);
         }
     }
 }

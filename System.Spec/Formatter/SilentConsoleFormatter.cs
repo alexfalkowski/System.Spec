@@ -21,7 +21,19 @@ namespace System.Spec.Formatter
 {
     public class SilentConsoleFormatter : ConsoleFormatterBase
     {
-        public override void WriteSummary(long elapsedMilliseconds)
+        public override void WriteInformation(string message)
+        {
+        }
+
+        public override void WriteSuccess(string reason, ExampleResult example)
+        {
+        }
+
+        public override void WriteError(string reason, ExampleResult example)
+        {
+        }
+
+        public override void WriteSummary(ExpressionResultCollection expressions)
         {
         }
     }

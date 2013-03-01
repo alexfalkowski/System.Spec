@@ -23,6 +23,7 @@ namespace System.Spec.Command
     using System.Globalization;
     
     using System.Spec.Formatter;
+    using System.Spec.Reports;
     
     using PowerArgs;
     
@@ -30,16 +31,19 @@ namespace System.Spec.Command
     {
         private string[] args;
         private IConsoleFormatterFactory formatterFactory;
+        private ISpecificationReporter reporter;
         private IFileSystem fileSystem;
         private IActionStrategy exampleStratergy;
         
         public SpecCommand(string[] args, 
-            IConsoleFormatterFactory formatterFactory, 
+            IConsoleFormatterFactory formatterFactory,
+            ISpecificationReporter reporter,
             IFileSystem fileSystem, 
             IActionStrategy exampleStratergy)
         {
             this.args = args;
             this.formatterFactory = formatterFactory;
+            this.reporter = reporter;
             this.fileSystem = fileSystem;
             this.exampleStratergy = exampleStratergy;
         }
@@ -58,14 +62,12 @@ namespace System.Spec.Command
                 IExpressionRunner runner = new DefaultExpressionRunner(this.exampleStratergy);
                 ISpecificationRunner command = new DefaultSpecificationRunner(runner, finder, consoleFormatter);
                 
-                var elapsedTime = StopwatchHelper.ExecuteTimedAction(() => {
-                    command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
-                });
+                var results = command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
 
-                consoleFormatter.WriteSummary(elapsedTime);
-                consoleFormatter.WriteSummaryToStream(this.fileSystem.OpenWrite(arguments.Output), elapsedTime);
+                consoleFormatter.WriteSummary(results);
+                this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);
 
-                return consoleFormatter.HasErrors ? 1 : 0;
+                return results.HasErrors ? 1 : 0;
             } catch (ArgException) {
                 Console.WriteLine(ArgUsage.GetUsage<Arguments>());
                 return 1;

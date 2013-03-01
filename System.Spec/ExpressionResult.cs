@@ -23,11 +23,11 @@ namespace System.Spec
 
     public class ExpressionResult
     {
-        private IList<ExampleGroupResult2> examples = new Collection<ExampleGroupResult2>();
+        private IList<ExampleGroupResult> examples = new Collection<ExampleGroupResult>();
 
         public string Name { get; set; }
 
-        public IList<ExampleGroupResult2> Examples 
+        public IList<ExampleGroupResult> Examples 
         {
             get {
                 return examples;

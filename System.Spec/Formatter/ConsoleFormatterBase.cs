@@ -33,54 +33,26 @@ namespace System.Spec.Formatter
 
     public abstract class ConsoleFormatterBase : IConsoleFormatter
     {
-        private readonly ExampleGroupResultCollection exampleResults = new ExampleGroupResultCollection();
+        public abstract void WriteInformation(string message);
 
-        protected ExampleGroupResultCollection ExampleResults {
-            get {
-                return this.exampleResults;
-            }
-        }
+        public abstract void WriteSuccess(string reason, ExampleResult example);
 
-        public bool HasErrors {
-            get {
-                return this.exampleResults.HasErrors;
-            }
-        }
+        public abstract void WriteError(string reason, ExampleResult example);
 
-        public virtual void WriteInformation(string message)
+        public virtual void WriteSummary(ExpressionResultCollection expressions)
         {
-            this.exampleResults.Add(new ExampleGroupResult { Name = message });
-        }
-
-        public virtual void WriteSuccess(string reason, ExampleResult example)
-        {
-            this.exampleResults.Last().SuccessResults.Add(example);
-        }
-
-        public virtual void WriteError(string reason, ExampleResult example)
-        {
-            this.exampleResults.Last().ErrorResults.Add(example);
-        }
-
-        public virtual void WriteSummary(long elapsedMilliseconds)
-        {
-            var elapsdeTimeMessage = string.Format(
-                CultureInfo.CurrentCulture, Resources.ConsoleFormatterElapsedTimeMessage, elapsedMilliseconds / 1000D);
+            var elapsdeTimeMessage = string.Format(CultureInfo.CurrentCulture, 
+                                                   Resources.ConsoleFormatterElapsedTimeMessage, 
+                                                   expressions.ElapsedTime / 1000D);
             Console.WriteLine(elapsdeTimeMessage);
 
-            var errorCount = this.exampleResults.AllErrors.Count();
+            var errorCount = expressions.AllErrors.Count();
             var summaryMessage = string.Format(
                 CultureInfo.CurrentCulture,
                 Resources.ConsoleFormatterSummaryMessage,
-                this.exampleResults.AllSuccess.Count() + errorCount,
+                expressions.AllSuccess.Count() + errorCount,
                 errorCount);
             Console.WriteLine(summaryMessage);
-        }
-
-        public virtual void WriteSummaryToStream(Stream stream, long elapsedMilliseconds)
-        {
-            var reporter = new NUnitSpecificationReporter(this.HasErrors, this.ExampleResults);
-            reporter.Write(stream, elapsedMilliseconds);
         }
     }
 }

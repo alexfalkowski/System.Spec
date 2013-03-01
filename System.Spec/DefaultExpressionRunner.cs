@@ -34,7 +34,7 @@ namespace System.Spec
             var expressionResult = new ExpressionResult { Name = expression.Name };
 
             foreach (var exampleGroup in expression.Examples) {
-                var exampleGroupResult = new ExampleGroupResult2 { Reason = exampleGroup.Reason };
+                var exampleGroupResult = new ExampleGroupResult { Reason = exampleGroup.Reason };
 
                 this.stratergy.ExecuteActionWithResult(exampleGroup.BeforeAll);
                 

@@ -18,9 +18,6 @@
 
 namespace System.Spec
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-
     using System.Spec.Formatter;
 
     public class DefaultSpecificationRunner : ISpecificationRunner
@@ -41,10 +38,10 @@ namespace System.Spec
             this.formatter = formatter;
         }
        
-        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search)
+        public ExpressionResultCollection ExecuteSpecificationsInPath(string path, string search)
         {
             var specifications = this.finder.FindSpecifications(path, search);
-            var results = new Collection<ExpressionResult>();
+            var results = new ExpressionResultCollection();
 
             foreach (var specification in specifications) {
                 var result = this.runner.Execute(specification.BuildExpression());

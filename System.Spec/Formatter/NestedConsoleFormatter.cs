@@ -29,39 +29,29 @@ namespace System.Spec.Formatter
         public override void WriteInformation(string message)
         {
             WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(message));
-
-            base.WriteInformation(message);
         }
 
         public override void WriteSuccess(string reason, ExampleResult example)
         {
             WriteWithColour(ConsoleColor.Green, () => Console.WriteLine(StringHelper.Tab + reason));
-
-            base.WriteSuccess(reason, example);
         }
 
         public override void WriteError(string reason, ExampleResult example)
         {
-            if (example == null) {
-                throw new ArgumentNullException("example");
-            }
-
             WriteWithColour(ConsoleColor.Red, () =>
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
                         StringHelper.Tab + Resources.NestedConsoleFormatterErrorMessage,
                         reason,
                         example.Exception)));
-
-            base.WriteError(reason, example);
         }
 
-        public override void WriteSummary(long elapsedMilliseconds)
+        public override void WriteSummary(ExpressionResultCollection expressions)
         {
-            if (this.ExampleResults.HasErrors || this.ExampleResults.HasSuccess) {
+            if (expressions.HasErrors || expressions.HasSuccess) {
                 Console.WriteLine();
             }
 
-            base.WriteSummary(elapsedMilliseconds);
+            base.WriteSummary(expressions);
         }
 
         /// <remarks>Idea from http://blogs.msdn.com/b/abhinaba/archive/2006/01/05/509581.aspx</remarks>

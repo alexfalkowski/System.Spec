@@ -26,29 +26,27 @@ namespace System.Spec.Formatter
 
     public class ProgressConsoleFormatter : ConsoleFormatterBase
     {
+        public override void WriteInformation(string message)
+        {
+        }
+
         public override void WriteSuccess(string reason, ExampleResult example)
         {
             Console.Write(Resources.ConsoleFormatterSuccessMessage);
-
-            base.WriteSuccess(reason, example);
         }
 
         public override void WriteError(string reason, ExampleResult example)
         {
             Console.Write(Resources.ConsoleFormatterErrorMessage);
-
-            base.WriteError(reason, example);
         }
 
-        public override void WriteSummary(long elapsedMilliseconds)
+        public override void WriteSummary(ExpressionResultCollection expressions)
         {
-            var exampleResults = this.ExampleResults;
-
-            if (exampleResults.HasErrors || exampleResults.HasSuccess) {
+            if (expressions.HasErrors || expressions.HasSuccess) {
                 Console.WriteLine(Environment.NewLine);
             }
 
-            var errorResults = exampleResults.AllErrors.ToList();
+            var errorResults = expressions.AllErrors.ToList();
 
             if (errorResults.Count > 0) {
                 for (var index = 0; index < errorResults.Count; index++) {
@@ -65,7 +63,7 @@ namespace System.Spec.Formatter
                 }
             }
 
-            base.WriteSummary(elapsedMilliseconds);
+            base.WriteSummary(expressions);
         }
     }
 }

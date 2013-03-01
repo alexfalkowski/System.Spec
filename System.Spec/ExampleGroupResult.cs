@@ -15,28 +15,21 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
 
 namespace System.Spec
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class ExampleGroupResult
+    public class ExampleGroupResult : ExampleResult
     {
-        private readonly IList<ExampleResult> errorResults = new Collection<ExampleResult>();
-        private readonly IList<ExampleResult> successResults = new Collection<ExampleResult>();
-
-        public string Name { get; set; }
+        private IList<ExampleResult> examples = new Collection<ExampleResult>();
         
-        public IList<ExampleResult> ErrorResults {
+        public IList<ExampleResult> Examples 
+        {
             get {
-                return this.errorResults;
-            }
-        }
-        
-        public IList<ExampleResult> SuccessResults {
-            get {
-                return this.successResults;
+                return examples;
             }
         }
     }

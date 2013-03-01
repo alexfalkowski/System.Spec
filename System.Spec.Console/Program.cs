@@ -21,6 +21,7 @@ namespace System.Spec.Console
 	using System;
 	
 	using System.Spec.Formatter;
+    using System.Spec.Reports;
 	using System.Spec.Command;
 	
 	using PowerArgs;
@@ -29,10 +30,11 @@ namespace System.Spec.Console
 	{
 		public static int Main(string[] args)
 		{
-			var command = new SpecCommand(args, 
-			                          new DefaultConsoleFormatterFactory(), 
-			                          new DefaultFileSystem(), 
-			                          new DefaultActionStrategy());
+			var command = new SpecCommand(args,
+			                              new DefaultConsoleFormatterFactory(),
+                                          new NUnitSpecificationReporter(),
+			                              new DefaultFileSystem(), 
+			                              new DefaultActionStrategy());
 			return command.Perform();
 		}
 	}

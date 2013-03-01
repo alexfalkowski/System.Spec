@@ -19,20 +19,17 @@
 
 namespace System.Spec.Formatter
 {
+    using System.Collections.Generic;
     using System.IO;
 
     public interface IConsoleFormatter
     {
-        bool HasErrors { get; }
-
         void WriteInformation(string message);
 
         void WriteSuccess(string reason, ExampleResult example);
 
         void WriteError(string reason, ExampleResult example);
 
-        void WriteSummary(long elapsedMilliseconds);
-
-        void WriteSummaryToStream(Stream stream, long elapsedMilliseconds);
+        void WriteSummary(ExpressionResultCollection expressionss);
     }
 }
