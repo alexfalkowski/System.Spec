@@ -25,9 +25,5 @@ namespace System.Spec
         public string Reason { get; set; }
         
         public Action Action { get; set; }
-
-        public Action BeforeEach { get; set; }
-
-        public Action AfterEach { get; set; }
     }
 }
