@@ -21,7 +21,7 @@ Below is an example specification in C#:
 
 	    public class ImportantSpecification : Specification
 	    {
-	        public override void Define()
+	        protected override void Define()
 	        {
 	            Describe("A very cool specification", () => {
                     It("should do something that is good", () => {
