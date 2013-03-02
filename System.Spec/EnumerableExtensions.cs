@@ -20,29 +20,28 @@ namespace System.Spec
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Monad.Maybe;
 
     public static class EnumerableExtensions
     {
-        public static Specification FindByExampleGroupName(this IEnumerable<Specification> specs, string name)
+        public static IOption<Specification> FindByExampleGroupName(this IEnumerable<Specification> specs, string name)
         {
             var query = from spec in specs
                         let expression = spec.BuildExpression()
-                        let @group = expression.FindExampleGroup(name)
-                        where @group != null
+                        from @group in expression.FindExampleGroup(name)
                         select spec;
 
-            return query.FirstOrDefault();
+            return query.FirstOrDefault().SomeOrNone();
         }
 
-        public static Specification FindByExampleName(this IEnumerable<Specification> specs, string name)
+        public static IOption<Specification> FindByExampleName(this IEnumerable<Specification> specs, string name)
         {
             var query = from spec in specs
                         let expression = spec.BuildExpression()
-                        let example = expression.FindExample(name)
-                        where example != null
+                        from example in expression.FindExample(name)
                         select spec;
             
-            return query.FirstOrDefault();
+            return query.FirstOrDefault().SomeOrNone();
         }
 
         public static bool HasErrors(this IEnumerable<ExampleGroupResult> examples)

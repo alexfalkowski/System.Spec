@@ -20,6 +20,7 @@ namespace System.Spec.Runners
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Monad.Maybe;
     using System.Spec.Formatter;
     using System.Spec.IO;
 
@@ -41,18 +42,15 @@ namespace System.Spec.Runners
             this.formatter = formatter;
         }
 
-        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, 
-                                                                         string pattern, 
-                                                                         string example)
+        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string pattern, string example)
         {
             var specifications = this.finder.FindSpecifications(path, pattern, example);
-            var specification = this.FindSpecification(specifications, example);
 
-            if (specification != null) {
+            foreach (var specification in this.FindSpecification(specifications, example)) {
                 return this.ExecuteSpecifications(new [] { specification }, example);
-            } else {
-                return this.ExecuteSpecifications(specifications, example);
             }
+
+            return this.ExecuteSpecifications(specifications, example);
         }
        
         protected abstract IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications, 
@@ -77,15 +75,13 @@ namespace System.Spec.Runners
             return result;
         }
 
-        private Specification FindSpecification(IEnumerable<Specification> specifications, string example)
+        private IOption<Specification> FindSpecification(IEnumerable<Specification> specifications, string example)
         {
-            var specification = specifications.FindByExampleGroupName(example);
-            
-            if (specification == null) {
-                specification = specifications.FindByExampleName(example);
+            foreach (var specification in specifications.FindByExampleGroupName(example)) {
+                return specification.SomeOrNone();
             }
-            
-            return specification;
+
+            return specifications.FindByExampleName(example).Into(specification => specification);
         }
     }
 }

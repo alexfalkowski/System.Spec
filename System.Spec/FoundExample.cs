@@ -18,26 +18,10 @@
 
 namespace System.Spec
 {
-    using System;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Monad.Maybe;
-
-    public class DefaultActionStrategy : IActionStrategy
+    public class FoundExample
     {
-        public ActionResult ExecuteActionWithResult(Action action)
-        {
-            var option = action.SomeOrNone().Into(value => {
-                return StopwatchHelper.ExecuteTimedActionWithResult(() => {
-                    action();
-                });
-            });
-            return option.Or(new ActionResult {Status = ResultStatus.Error }).First();
-        }
+        public Example Example { get; set; }
 
-        public void ExecuteAction(Action action)
-        {
-            action.SomeOrNone().Into(value => value());
-        }
+        public ExampleGroup ExampleGroup { get; set; }
     }
 }

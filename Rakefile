@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '2.1.0'
+VERSION = '2.2.0'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 desc 'Get all the referenced packages'
@@ -85,6 +85,7 @@ nuspec :nuget_spec do |nuspec|
   nuspec.output_file = 'System.Spec.nuspec'
 
   nuspec.file 'System.Spec.dll', 'lib/net40'
+  nuspec.file 'System.Monad.dll', 'lib/net40'
   nuspec.file 'FluentAssertions.dll', 'lib/net40'
   nuspec.file 'NSubstitute.dll', 'lib/net40'
   nuspec.file 'nunit.framework.dll', 'lib/net40'
@@ -94,6 +95,7 @@ nuspec :nuget_spec do |nuspec|
   nuspec.file 'spec.exe', 'tools'
   nuspec.file 'spec.exe.config', 'tools'
   nuspec.file 'spec.sh', 'tools'
+  nuspec.file 'System.Monad.dll', 'tools'
   nuspec.file 'FluentAssertions.dll', 'tools'
   nuspec.file 'NSubstitute.dll', 'tools'
   nuspec.file 'PowerArgs.dll', 'tools'

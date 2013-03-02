@@ -18,6 +18,7 @@
 
 namespace System.Spec.Runners
 {
+    using System.Monad.Maybe;
     using System.Spec.Formatter;
 
     public class DefaultExpressionRunner : IExpressionRunner
@@ -32,24 +33,24 @@ namespace System.Spec.Runners
         public ExpressionResult Execute(Expression expression, string exampleText)
         {
             var expressionResult = new ExpressionResult { Name = expression.Name };
-            var exampleGroup = expression.FindExampleGroup(exampleText);
 
-            if (exampleGroup != null) {
+            foreach (var exampleGroup in expression.FindExampleGroup(exampleText)) {
                 expressionResult.Examples.Add(this.ExecuteExampleGroup(exampleGroup));
-            } else {
-                var example = expression.FindExample(exampleText);
 
-                if (example != null) {
-                    exampleGroup = example.Item2;
-                    var exampleResult = new ExampleGroupResult { Reason = exampleGroup.Reason };
+                return expressionResult;
+            }
 
-                    exampleResult.Examples.Add(this.ExecuteExample(exampleGroup, example.Item1));
-                    expressionResult.Examples.Add(exampleResult);
-                } else {
-                    foreach (var group in expression.Examples) {
-                        expressionResult.Examples.Add(this.ExecuteExampleGroup(group));
-                    }
-                }
+            foreach (var example in expression.FindExample(exampleText)) {
+                var exampleResult = new ExampleGroupResult { Reason = example.ExampleGroup.Reason };
+                
+                exampleResult.Examples.Add(this.ExecuteExample(example.ExampleGroup, example.Example));
+                expressionResult.Examples.Add(exampleResult);
+
+                return expressionResult;
+            }
+
+            foreach (var group in expression.Examples) {
+                expressionResult.Examples.Add(this.ExecuteExampleGroup(group));
             }
 
             return expressionResult;

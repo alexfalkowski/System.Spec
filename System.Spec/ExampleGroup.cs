@@ -21,6 +21,7 @@ namespace System.Spec
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Monad.Maybe;
 
 	public class ExampleGroup
 	{
@@ -47,20 +48,16 @@ namespace System.Spec
             examples.Add(example.Reason, example);
         }
 
-        public Example Find(string exampleText)
+        public IOption<Example> Find(string exampleText)
         {
-            var isValidExampleText = !string.IsNullOrWhiteSpace(exampleText);
-            
-            if (isValidExampleText) {
+            var option = exampleText.SomeStringOrNone();
+
+            return option.Into(value => {
                 Example example;
-                var foundExample = this.examples.TryGetValue(exampleText, out example);
+                this.examples.TryGetValue(value, out example);
                 
-                if (foundExample) {
-                    return example;
-                }
-            }
-            
-            return null;
+                return example.SomeOrNone();
+            });
         }
 	}
 }

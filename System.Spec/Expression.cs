@@ -20,6 +20,8 @@ namespace System.Spec
 {
     using System.Collections.ObjectModel;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Monad.Maybe;
     
     public class Expression
     {
@@ -38,33 +40,25 @@ namespace System.Spec
             }
         }
 
-        public ExampleGroup FindExampleGroup(string groupText)
+        public IOption<ExampleGroup> FindExampleGroup(string groupText)
         {
-            var isValidExampleText = !string.IsNullOrWhiteSpace(groupText);
+            var option = groupText.SomeStringOrNone();
 
-            if (isValidExampleText) {
+            return option.Into(value => {
                 ExampleGroup group;
-                var foundExampleGroup = this.exampleGroups.TryGetValue(groupText, out group);
-
-                if (foundExampleGroup) {
-                    return group;
-                }
-            }
-
-            return null;
+                this.exampleGroups.TryGetValue(value, out group);
+                
+                return group.SomeOrNone();
+            });
         }
 
-        public Tuple<Example, ExampleGroup> FindExample(string exampleText)
+        public IOption<FoundExample> FindExample(string exampleText)
         {
-            foreach (var exampleGroup in this.exampleGroups.Values) {
-                var example = exampleGroup.Find(exampleText);
-                
-                if (example != null) {
-                    return Tuple.Create(example, exampleGroup);
-                }
-            }
+            var query = from exampleGroup in this.exampleGroups.Values
+                        from example in exampleGroup.Find(exampleText)
+                        select new FoundExample { Example = example, ExampleGroup = exampleGroup };
 
-            return null;
+            return query.FirstOrDefault().SomeOrNone();
         }
     }
 }
