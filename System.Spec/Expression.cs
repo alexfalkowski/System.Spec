@@ -23,16 +23,19 @@ namespace System.Spec
     
     public class Expression
     {
-        private IList<ExampleGroup> exampleGroups = new Collection<ExampleGroup>();
+        private IDictionary<string, ExampleGroup> exampleGroups = new Dictionary<string, ExampleGroup>();
         
         public string Name { get; set; }
-        
-        public IList<ExampleGroup> Examples 
+
+        public void Add(ExampleGroup example)
         {
+            exampleGroups.Add(example.Reason, example);
+        }
+        
+        public IEnumerable<ExampleGroup> Examples {
             get {
-                return exampleGroups;
+                return exampleGroups.Values;
             }
         }
     }
 }
-

@@ -24,7 +24,7 @@ namespace System.Spec
 
 	public class ExampleGroup
 	{
-        private IList<Example> examples = new Collection<Example>();
+        private IDictionary<string, Example> examples = new Dictionary<string, Example>();
         
         public string Reason { get; set; }
         
@@ -35,10 +35,15 @@ namespace System.Spec
         public Action BeforeEach { get; set; }
         
         public Action AfterEach { get; set; }
-        
-        public IList<Example> Examples {
+
+        public void Add(Example example)
+        {
+            examples.Add(example.Reason, example);
+        }
+
+        public IEnumerable<Example> Examples {
             get {
-                return examples;
+                return examples.Values;
             }
         }
 	}

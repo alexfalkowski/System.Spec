@@ -75,7 +75,7 @@ namespace System.Spec
         public void Describe(string reason, Action action)
         {
             currentExampleGroup = new ExampleGroup { Reason = reason };
-            expression.Examples.Add(currentExampleGroup);
+            expression.Add(currentExampleGroup);
             
             action();
             
@@ -90,7 +90,7 @@ namespace System.Spec
         {
             HasCurrentExampleGroup();
             
-            currentExampleGroup.Examples.Add(new Example { 
+            currentExampleGroup.Add(new Example { 
                 Reason = reason, 
                 Action = action 
             });
