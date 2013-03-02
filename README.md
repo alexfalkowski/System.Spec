@@ -103,7 +103,7 @@ From version 2.0 we have changed the way you construct your specifications. Here
 - The new method to override is Define rather Validate.
 - The Describe method does not pass an example to the Action.
 - BeforeXXX and AfterXXX are now methods that take an action, rather than just an action.
-- The command line options have changed to follow [rspec](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line) command line.
+- The command line options have changed to follow the [rspec](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line) command line.
 
 Future
 ------
