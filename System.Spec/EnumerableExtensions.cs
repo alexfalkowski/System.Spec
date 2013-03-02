@@ -105,7 +105,7 @@ namespace System.Spec
         }
 
         private static IEnumerable<ExampleResult> GetExamples(IEnumerable<ExpressionResult> expressions,
-                                                       Predicate<ExampleResult> status)
+                                                              Predicate<ExampleResult> status)
         {
             return from result in expressions
                    from exampleGroup in result.Examples

@@ -48,6 +48,7 @@ namespace System.Spec.Command
 
         [ArgShortcut("p")]
         [ArgDescription("Execute example(s) in parrallel.")]
+        [ArgIgnore]
         public bool Parrallel { get; set; }
 
 		[ArgShortcut("h")]

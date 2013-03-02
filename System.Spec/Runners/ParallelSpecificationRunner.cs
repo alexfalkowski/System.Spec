@@ -29,8 +29,8 @@ namespace System.Spec.Runners
         private readonly ISpecificationFinder finder;
         
         public ParallelSpecificationRunner(IExpressionRunner runner, 
-                                          ISpecificationFinder finder, 
-                                          IConsoleFormatter formatter) : base(runner, formatter)
+                                           ISpecificationFinder finder, 
+                                           IConsoleFormatter formatter) : base(runner, formatter)
         {
             this.finder = finder;
         }
