@@ -30,7 +30,7 @@ namespace System.Spec.Command
         public string Path { get; set; }
 
 		[ArgShortcut("e")]
-		[ArgDescription("The example to execute. This could be a type, group or single example.")]
+		[ArgDescription("The example to execute. This could be a spec, example group or an example.")]
 		public string Example { get; set; }
 
         [ArgShortcut("P")]

@@ -87,7 +87,7 @@ The command spec has the following options:
 
        OPTION          TYPE                   ORDER   DESCRIPTION
        -path (-p)      String                 0       The path to search all the Spec assemblies.
-       -example (-e)   String                         The example to execute. This could be a type, group or single example.
+       -example (-e)   String                         The example to execute. This could be a spec, example group or an example.
        -pattern (-P)   String                         Load files matching pattern. The default is Specs.
        -output (-o)    String                         The output path of the test results. The default is test-results.xml.
        -format (-f)    ConsoleFormatterType           Specifies what format to use for output.
