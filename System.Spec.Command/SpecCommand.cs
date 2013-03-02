@@ -21,6 +21,7 @@ namespace System.Spec.Command
     using System;
     using System.Diagnostics;
     using System.Globalization;
+    using System.Reflection;
     
     using System.Spec.Formatter;
     using System.Spec.Reports;
@@ -55,6 +56,11 @@ namespace System.Spec.Command
                     Console.WriteLine(ArgUsage.GetUsage<Arguments>());
                     return 0;
                 }
+
+                if (arguments.Version) {
+                    Console.WriteLine(Assembly.GetEntryAssembly().GetName().Version);
+                    return 0;
+                }
                 
                 IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format);
                 ISpecificationFinder finder = new DefaultSpecificationFinder(fileSystem);
@@ -65,7 +71,7 @@ namespace System.Spec.Command
                                                                               finder, 
                                                                               consoleFormatter);
                 
-                var results = command.ExecuteSpecificationsInPath(arguments.Example, arguments.Search);
+                var results = command.ExecuteSpecificationsInPath(arguments.Path, arguments.Pattern);
 
                 consoleFormatter.WriteSummary(results);
                 this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);
@@ -75,7 +81,7 @@ namespace System.Spec.Command
                 Console.WriteLine(ArgUsage.GetUsage<Arguments>());
                 return 1;
             } catch (Exception e) {
-                Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e));
+                Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e.Message));
                 return 1;
             }
         }

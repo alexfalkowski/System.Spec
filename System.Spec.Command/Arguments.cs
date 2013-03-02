@@ -24,14 +24,19 @@ namespace System.Spec.Command
 
 	public class Arguments
 	{
+        [ArgPosition(0)]
+        [ArgDescription("The path to search all the Spec assemblies.")]
+        [DefaultValue("spec")]
+        public string Path { get; set; }
+
 		[ArgShortcut("e")]
-		[ArgDescription("Execute example(s) in the specified path.")]
+		[ArgDescription("The example to execute. This could be a type, group or single example.")]
 		public string Example { get; set; }
 
-        [ArgShortcut("s")]
-        [ArgDescription("The search path to use for the spec assemblies. The default is Specs.")]
+        [ArgShortcut("P")]
+        [ArgDescription("Load files matching pattern. The default is Specs.")]
         [DefaultValue(StringHelper.SpecsSearch)]
-        public string Search { get; set; }
+        public string Pattern { get; set; }
 
         [ArgShortcut("o")]
         [ArgDescription("The output path of the test results. The default is test-results.xml.")]
@@ -50,6 +55,10 @@ namespace System.Spec.Command
         [ArgDescription("Execute example(s) in parrallel.")]
         [ArgIgnore]
         public bool Parrallel { get; set; }
+
+        [ArgShortcut("v")]
+        [ArgDescription("Display the version.")]
+        public bool Version { get; set; }
 
 		[ArgShortcut("h")]
 		[ArgDescription("You're looking at it.")]
