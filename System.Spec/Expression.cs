@@ -32,7 +32,13 @@ namespace System.Spec
             exampleGroups.Add(example.Reason, example);
         }
 
-        public ExampleGroup FindGroup(string groupText)
+        public IEnumerable<ExampleGroup> Examples {
+            get {
+                return exampleGroups.Values;
+            }
+        }
+
+        public ExampleGroup FindExampleGroup(string groupText)
         {
             var isValidExampleText = !string.IsNullOrWhiteSpace(groupText);
 
@@ -47,11 +53,18 @@ namespace System.Spec
 
             return null;
         }
-        
-        public IEnumerable<ExampleGroup> Examples {
-            get {
-                return exampleGroups.Values;
+
+        public Tuple<Example, ExampleGroup> FindExample(string exampleText)
+        {
+            foreach (var exampleGroup in this.exampleGroups.Values) {
+                var example = exampleGroup.Find(exampleText);
+                
+                if (example != null) {
+                    return Tuple.Create(example, exampleGroup);
+                }
             }
+
+            return null;
         }
     }
 }

@@ -58,7 +58,7 @@ namespace System.Spec.Specs
         {
             var location = Path.GetDirectoryName(this.path);
             var results = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch, null);
-            results.Should().HaveCount(9);
+            results.Should().HaveCount(10);
         }
 
         [Test]
@@ -77,9 +77,27 @@ namespace System.Spec.Specs
             var location = Path.GetDirectoryName(this.path);
             var results = this.command.ExecuteSpecificationsInPath(location, 
                                                                    StringHelper.SpecsSearch, 
-                                                                   "describe TestSpecificationWithBeforeAll");
+                                                                   "describe TestSpecificationWithMultipleIts");
             results.Should().HaveCount(1);
-            results.First().Examples.Should().HaveCount(1);
+            var result = results.First();
+            result.Examples.Should().HaveCount(1);
+            result.Examples.First().Reason.Should().Be("describe TestSpecificationWithMultipleIts");
+        }
+
+        [Test]
+        public void ShouldExecuteOneItInPath()
+        {
+            var location = Path.GetDirectoryName(this.path);
+            var results = this.command.ExecuteSpecificationsInPath(location, 
+                                                                   StringHelper.SpecsSearch, 
+                                                                   "it should do one thing");
+            results.Should().HaveCount(1);
+            var result = results.First();
+            result.Examples.Should().HaveCount(1);
+            var group = result.Examples.First();
+            group.Reason.Should().Be("describe TestSpecificationWithMultipleIts");
+            group.Examples.Should().HaveCount(1);
+            group.Examples.First().Reason.Should().Be("it should do one thing");
         }
     }
 }

@@ -46,7 +46,7 @@ namespace System.Spec.Runners
                                                                          string example)
         {
             var specifications = this.finder.FindSpecifications(path, pattern, example);
-            var specification = specifications.FindExpressionByGroupName(example);
+            var specification = this.FindSpecification(specifications, example);
 
             if (specification != null) {
                 return this.ExecuteSpecifications(new [] { specification }, example);
@@ -54,7 +54,7 @@ namespace System.Spec.Runners
                 return this.ExecuteSpecifications(specifications, example);
             }
         }
-
+       
         protected abstract IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications, 
                                                                                string example);
 
@@ -76,6 +76,16 @@ namespace System.Spec.Runners
             
             return result;
         }
+
+        private Specification FindSpecification(IEnumerable<Specification> specifications, string example)
+        {
+            var specification = specifications.FindByExampleGroupName(example);
+            
+            if (specification == null) {
+                specification = specifications.FindByExampleName(example);
+            }
+            
+            return specification;
+        }
     }
 }
-

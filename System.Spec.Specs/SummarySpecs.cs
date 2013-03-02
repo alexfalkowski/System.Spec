@@ -160,7 +160,7 @@ namespace System.Spec.Specs
                         from testcaseType example in @group.results
                         where example.result == "Success"
                         select example;
-            query.Should().HaveCount(5);
+            query.Should().HaveCount(7);
             query.Should().Contain(result => int.Parse(result.time) >= 0);
         }
     }

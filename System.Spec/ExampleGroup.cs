@@ -36,15 +36,31 @@ namespace System.Spec
         
         public Action AfterEach { get; set; }
 
+        public IEnumerable<Example> Examples {
+            get {
+                return examples.Values;
+            }
+        }
+
         public void Add(Example example)
         {
             examples.Add(example.Reason, example);
         }
 
-        public IEnumerable<Example> Examples {
-            get {
-                return examples.Values;
+        public Example Find(string exampleText)
+        {
+            var isValidExampleText = !string.IsNullOrWhiteSpace(exampleText);
+            
+            if (isValidExampleText) {
+                Example example;
+                var foundExample = this.examples.TryGetValue(exampleText, out example);
+                
+                if (foundExample) {
+                    return example;
+                }
             }
+            
+            return null;
         }
 	}
 }

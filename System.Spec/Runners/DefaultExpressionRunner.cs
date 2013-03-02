@@ -29,16 +29,26 @@ namespace System.Spec.Runners
             this.stratergy = stratergy;
         }
 
-        public ExpressionResult Execute(Expression expression, string example)
+        public ExpressionResult Execute(Expression expression, string exampleText)
         {
             var expressionResult = new ExpressionResult { Name = expression.Name };
-            var group = expression.FindGroup(example);
+            var exampleGroup = expression.FindExampleGroup(exampleText);
 
-            if (group != null) {
-                expressionResult.Examples.Add(this.ExecuteExampleGroup(group));
+            if (exampleGroup != null) {
+                expressionResult.Examples.Add(this.ExecuteExampleGroup(exampleGroup));
             } else {
-                foreach (var exampleGroup in expression.Examples) {
-                    expressionResult.Examples.Add(this.ExecuteExampleGroup(exampleGroup));
+                var example = expression.FindExample(exampleText);
+
+                if (example != null) {
+                    exampleGroup = example.Item2;
+                    var exampleResult = new ExampleGroupResult { Reason = exampleGroup.Reason };
+
+                    exampleResult.Examples.Add(this.ExecuteExample(exampleGroup, example.Item1));
+                    expressionResult.Examples.Add(exampleResult);
+                } else {
+                    foreach (var group in expression.Examples) {
+                        expressionResult.Examples.Add(this.ExecuteExampleGroup(group));
+                    }
                 }
             }
 

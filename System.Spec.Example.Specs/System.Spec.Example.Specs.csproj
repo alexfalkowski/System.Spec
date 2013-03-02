@@ -54,6 +54,7 @@
     <Compile Include="TestSpecificationWithSingleItWithBeforeEach.cs" />
     <Compile Include="TestSpecificationWithSingleItWithBeforeEachAndAfterEach.cs" />
     <Compile Include="ITestInterface.cs" />
+    <Compile Include="TestSpecificationWithMultipleIts.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
