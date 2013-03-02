@@ -35,7 +35,7 @@ Below is an example specification in C#:
 
 To execute your specifications execute the following:
 	
-	./artifacts/spec.sh -e artifacts/
+	./artifacts/spec.sh artifacts/
 
 The default output will display the following example:
 
@@ -86,11 +86,13 @@ The command spec has the following options:
     Usage: spec options
 
        OPTION          TYPE                   ORDER   DESCRIPTION
-       -example (-e)   String                         Execute example(s) in the specified path.
-       -search (-s)    String                         The search path to use for the spec assemblies. The default is Specs.
+       -path (-p)      String                 0       The path to search all the Spec assemblies.
+       -example (-e)   String                         The example to execute. This could be a type, group or single example.
+       -pattern (-P)   String                         Load files matching pattern. The default is Specs.
        -output (-o)    String                         The output path of the test results. The default is test-results.xml.
        -format (-f)    ConsoleFormatterType           Specifies what format to use for output.
        -dryrun (-d)    Switch                         Invokes formatters without executing the examples.
+       -version (-v)   Switch                         Display the version.
        -help (-h)      Switch                         You're looking at it.
 
 Migration
@@ -101,6 +103,7 @@ From version 2.0 we have changed the way you construct your specifications. Here
 - The new method to override is Define rather Validate.
 - The Describe method does not pass an example to the Action.
 - BeforeXXX and AfterXXX are now methods that take an action, rather than just an action.
+- The command line options have changed to follow [rspec](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line) command line.
 
 Future
 ------
