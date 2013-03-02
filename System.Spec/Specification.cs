@@ -27,12 +27,16 @@ namespace System.Spec
         {
             this.expression = new Expression { Name = this.GetType().AssemblyQualifiedName };
         }
-        
+
         public void BeforeAll(Action action)
         {
             HasCurrentExampleGroup();
             
             currentExampleGroup.BeforeAll = action;
+        }
+
+        public void XBeforeAll(Action action)
+        {
         }
         
         public void AfterAll(Action action)
@@ -41,6 +45,10 @@ namespace System.Spec
             
             currentExampleGroup.AfterAll = action;
         }
+
+        public void XAfterAll( Action action)
+        {
+        }
         
         public void BeforeEach(Action action)
         {
@@ -48,12 +56,20 @@ namespace System.Spec
             
             currentExampleGroup.BeforeEach = action;
         }
+
+        public void XBeforeEach(Action action)
+        {
+        }
         
         public void AfterEach(Action action)
         {
             HasCurrentExampleGroup();
             
             currentExampleGroup.AfterEach = action;
+        }
+
+        public void XAfterEach(Action action)
+        {
         }
         
         public void Describe(string reason, Action action)
@@ -65,7 +81,11 @@ namespace System.Spec
             
             currentExampleGroup = null;
         }
-        
+
+        public void XDescribe(string reason, Action action)
+        {
+        }
+
         public void It(string reason, Action action)
         {
             HasCurrentExampleGroup();
@@ -74,6 +94,10 @@ namespace System.Spec
                 Reason = reason, 
                 Action = action 
             });
+        }
+
+        public void XIt(string reason, Action action)
+        {
         }
         
         public Expression BuildExpression()
