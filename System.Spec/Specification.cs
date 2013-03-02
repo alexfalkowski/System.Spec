@@ -22,6 +22,7 @@ namespace System.Spec
     {
         private Expression expression;
         private ExampleGroup currentExampleGroup;
+        private bool hasExpressionBeenBuilt;
 
         protected Specification()
         {
@@ -102,7 +103,10 @@ namespace System.Spec
         
         public Expression BuildExpression()
         {
-            this.Define();
+            if (!this.hasExpressionBeenBuilt) {
+                this.Define();
+                this.hasExpressionBeenBuilt = true;
+            }
             
             return expression;
         }

@@ -32,12 +32,13 @@ namespace System.Spec.Runners
         {
         }
 
-        protected override IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications)
+        protected override IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications,
+                                                                               string example)
         {
             var results = new Collection<ExpressionResult>();
             
             foreach (var specification in specifications) {
-                var result = this.ExecuteSpecification(specification);
+                var result = this.ExecuteSpecification(specification, example);
                 
                 results.Add(result);
             }

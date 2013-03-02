@@ -23,6 +23,17 @@ namespace System.Spec
 
     public static class EnumerableExtensions
     {
+        public static Specification FindExpressionByGroupName(this IEnumerable<Specification> specs, string name)
+        {
+            var query = from spec in specs
+                        let expression = spec.BuildExpression()
+                        let @group = expression.FindGroup(name)
+                        where @group != null
+                        select spec;
+
+            return query.FirstOrDefault();
+        }
+
         public static bool HasErrors(this IEnumerable<ExampleGroupResult> examples)
         {
             return GetExamples(examples, (example) => example.Status == ResultStatus.Error).Any();

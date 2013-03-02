@@ -32,12 +32,13 @@ namespace System.Spec.Runners
         {
         }
 
-        protected override IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications)
+        protected override IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications,
+                                                                               string example)
         {
             var results = new ConcurrentBag<ExpressionResult>();
             
             Parallel.ForEach(specifications, specification => {
-                var result = this.ExecuteSpecification(specification);
+                var result = this.ExecuteSpecification(specification, example);
                 
                 results.Add(result);
             });

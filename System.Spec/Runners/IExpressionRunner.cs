@@ -20,6 +20,6 @@ namespace System.Spec.Runners
 {
     public interface IExpressionRunner
     {
-        ExpressionResult Execute(Expression expression);
+        ExpressionResult Execute(Expression expression, string example);
     }
 }

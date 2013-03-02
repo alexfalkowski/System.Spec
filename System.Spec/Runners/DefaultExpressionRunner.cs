@@ -29,28 +29,45 @@ namespace System.Spec.Runners
             this.stratergy = stratergy;
         }
 
-        public ExpressionResult Execute(Expression expression)
+        public ExpressionResult Execute(Expression expression, string example)
         {
             var expressionResult = new ExpressionResult { Name = expression.Name };
+            var group = expression.FindGroup(example);
 
-            foreach (var exampleGroup in expression.Examples) {
-                var exampleGroupResult = new ExampleGroupResult { Reason = exampleGroup.Reason };
-
-                this.stratergy.ExecuteAction(exampleGroup.BeforeAll);
-                
-                foreach (var example in exampleGroup.Examples) {
-                    this.stratergy.ExecuteAction(exampleGroup.BeforeEach);
-                    var result = this.stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example.Reason);
-                  
-                    this.stratergy.ExecuteAction(exampleGroup.AfterEach);
-                    exampleGroupResult.Examples.Add(result);
+            if (group != null) {
+                expressionResult.Examples.Add(this.ExecuteExampleGroup(group));
+            } else {
+                foreach (var exampleGroup in expression.Examples) {
+                    expressionResult.Examples.Add(this.ExecuteExampleGroup(exampleGroup));
                 }
-                
-                this.stratergy.ExecuteAction(exampleGroup.AfterAll);
-                expressionResult.Examples.Add(exampleGroupResult);
             }
 
             return expressionResult;
+        }
+
+        private ExampleGroupResult ExecuteExampleGroup(ExampleGroup exampleGroup)
+        {
+            var result = new ExampleGroupResult { Reason = exampleGroup.Reason };
+            
+            this.stratergy.ExecuteAction(exampleGroup.BeforeAll);
+            
+            foreach (var example in exampleGroup.Examples) {
+                result.Examples.Add(this.ExecuteExample(exampleGroup, example));
+            }
+            
+            this.stratergy.ExecuteAction(exampleGroup.AfterAll);
+
+            return result;
+        }
+
+        private ExampleResult ExecuteExample(ExampleGroup exampleGroup, Example example)
+        {
+            this.stratergy.ExecuteAction(exampleGroup.BeforeEach);
+            var result = this.stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example.Reason);
+            
+            this.stratergy.ExecuteAction(exampleGroup.AfterEach);
+
+            return result;
         }
     }
 }

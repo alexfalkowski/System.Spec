@@ -31,6 +31,22 @@ namespace System.Spec
         {
             exampleGroups.Add(example.Reason, example);
         }
+
+        public ExampleGroup FindGroup(string groupText)
+        {
+            var isValidExampleText = !string.IsNullOrWhiteSpace(groupText);
+
+            if (isValidExampleText) {
+                ExampleGroup group;
+                var foundExampleGroup = this.exampleGroups.TryGetValue(groupText, out group);
+
+                if (foundExampleGroup) {
+                    return group;
+                }
+            }
+
+            return null;
+        }
         
         public IEnumerable<ExampleGroup> Examples {
             get {

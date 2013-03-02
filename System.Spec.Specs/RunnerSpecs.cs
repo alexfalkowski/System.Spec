@@ -20,6 +20,7 @@ namespace System.Spec.Specs
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Xml;
     using System.Xml.Serialization;
@@ -68,6 +69,17 @@ namespace System.Spec.Specs
                                                                    StringHelper.SpecsSearch, 
                                                                    typeof(TestSpecificationWithBeforeAll).FullName);
             results.Should().HaveCount(1);
+        }
+
+        [Test]
+        public void ShouldExecuteOneDescribeInPath()
+        {
+            var location = Path.GetDirectoryName(this.path);
+            var results = this.command.ExecuteSpecificationsInPath(location, 
+                                                                   StringHelper.SpecsSearch, 
+                                                                   "describe TestSpecificationWithBeforeAll");
+            results.Should().HaveCount(1);
+            results.First().Examples.Should().HaveCount(1);
         }
     }
 }

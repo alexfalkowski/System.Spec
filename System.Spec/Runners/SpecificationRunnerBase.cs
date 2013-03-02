@@ -45,14 +45,22 @@ namespace System.Spec.Runners
                                                                          string pattern, 
                                                                          string example)
         {
-            return this.ExecuteSpecifications(this.finder.FindSpecifications(path, pattern, example));
+            var specifications = this.finder.FindSpecifications(path, pattern, example);
+            var specification = specifications.FindExpressionByGroupName(example);
+
+            if (specification != null) {
+                return this.ExecuteSpecifications(new [] { specification }, example);
+            } else {
+                return this.ExecuteSpecifications(specifications, example);
+            }
         }
 
-        protected abstract IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications);
+        protected abstract IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications, 
+                                                                               string example);
 
-        protected ExpressionResult ExecuteSpecification(Specification specification)
+        protected ExpressionResult ExecuteSpecification(Specification specification, string exampleText)
         {
-            var result = this.runner.Execute(specification.BuildExpression());
+            var result = this.runner.Execute(specification.BuildExpression(), exampleText);
             
             foreach (var exampleGroup in result.Examples) {
                 this.formatter.WriteInformation(exampleGroup.Reason);
