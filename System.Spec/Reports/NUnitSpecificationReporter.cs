@@ -45,31 +45,7 @@ namespace System.Spec.Reports
             };
             
             var errorCount = expressions.AllErrors().Count();
-            
-            var resultType = new resultType {
-                environment = new environmentType {
-                    nunitversion = typeof(TestAttribute).Assembly.GetName().Version.ToString(),
-                    clrversion = Environment.Version.ToString(),
-                    osversion = Environment.OSVersion.VersionString,
-                    machinename = Environment.MachineName,
-                    platform = Enum.GetName(typeof(PlatformID), Environment.OSVersion.Platform),
-                    user = Environment.UserName,
-                    userdomain = Environment.UserDomainName
-                },
-                
-                cultureinfo = new cultureinfoType {
-                    currentculture = CultureInfo.CurrentCulture.ToString(),
-                    currentuiculture = CultureInfo.CurrentUICulture.ToString()
-                },
-                
-                testsuite = testsuite,
-                errors = errorCount,
-                total = expressions.AllSuccesses().Count() + errorCount,
-                name = "Results",
-                date = DateTime.Now.ToString("yyyy-MM-dd"),
-                time = DateTime.Now.ToString("H:mm:ss")
-            };
-
+            var resultType = CreateResultType(expressions, testsuite, errorCount);
             var resultTypes = new Collection<testsuiteType>();
 
             foreach (var expression in expressions) {
@@ -86,55 +62,7 @@ namespace System.Spec.Reports
 
                 var groupTypes = new Collection<testsuiteType>();
 
-                foreach (var group in expression.Examples) {
-                    var hasGroupErrors = group.Examples.HasErrors();
-                    var groupType = new testsuiteType { 
-                        name = group.Reason, 
-                        type = "TestFixture",
-                        result =  hasGroupErrors ? "Failure" : "Success",
-                        executed = bool.TrueString,
-                        time = ConvertToSeconds(group.Examples.ElapsedTime()).ToString(),
-                        asserts = "0",
-                        success = hasGroupErrors ? bool.FalseString : bool.TrueString
-                    };
-
-                    var cases = new Collection<testcaseType>();
-                    
-                    foreach (var error in group.Examples.AllErrors()) {
-                        var failure = new failureType {
-                            message = this.CreateCDataSection(error.Exception.Message),
-                            stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
-                        };
-                        
-                        var @case = new testcaseType { 
-                            name = error.Reason, 
-                            executed = bool.TrueString, 
-                            success = bool.FalseString,
-                            result = "Failure",
-                            asserts = "0",
-                            time = ConvertToSeconds(error.ElapsedTime).ToString(),
-                            Item = failure
-                        };
-                        
-                        cases.Add(@case);
-                    }
-                    
-                    foreach (var success in group.Examples.AllSuccesses()) {
-                        var @case = new testcaseType { 
-                            name = success.Reason, 
-                            executed = bool.TrueString, 
-                            success = bool.TrueString,
-                            result = "Success",
-                            asserts = "0",
-                            time = ConvertToSeconds(success.ElapsedTime).ToString()
-                        };
-                        
-                        cases.Add(@case);
-                    }
-                    
-                    groupType.results = cases.ToArray();
-                    groupTypes.Add(groupType);
-                }
+                CreateExamples(expression, groupTypes);
 
                 expressionType.results = groupTypes.ToArray();
                 resultTypes.Add(expressionType);
@@ -144,6 +72,90 @@ namespace System.Spec.Reports
             
             var serializer = new XmlSerializer(typeof(resultType));
             serializer.Serialize(stream, resultType);
+        }
+
+        private void CreateExamples(ExpressionResult expression, Collection<testsuiteType> groupTypes)
+        {
+            foreach (var group in expression.Examples) {
+                var hasGroupErrors = group.Examples.HasErrors();
+                var groupType = new testsuiteType {
+                    name = group.Reason,
+                    type = "TestFixture",
+                    result = hasGroupErrors ? "Failure" : "Success",
+                    executed = bool.TrueString,
+                    time = ConvertToSeconds(group.Examples.ElapsedTime()).ToString(),
+                    asserts = "0",
+                    success = hasGroupErrors ? bool.FalseString : bool.TrueString
+                };
+                var cases = new Collection<testcaseType>();
+                CreateErrors(group, cases);
+                CreateSuccesses(group, cases);
+                groupType.results = cases.ToArray();
+                groupTypes.Add(groupType);
+            }
+        }
+
+        private static resultType CreateResultType(IEnumerable<ExpressionResult> expressions, testsuiteType testsuite, 
+                                                   int errorCount)
+        {
+            var resultType = new resultType {
+                environment = new environmentType {
+                    nunitversion = typeof(TestAttribute).Assembly.GetName().Version.ToString(),
+                    clrversion = Environment.Version.ToString(),
+                    osversion = Environment.OSVersion.VersionString,
+                    machinename = Environment.MachineName,
+                    platform = Enum.GetName(typeof(PlatformID), Environment.OSVersion.Platform),
+                    user = Environment.UserName,
+                    userdomain = Environment.UserDomainName
+                },
+                cultureinfo = new cultureinfoType {
+                    currentculture = CultureInfo.CurrentCulture.ToString(),
+                    currentuiculture = CultureInfo.CurrentUICulture.ToString()
+                },
+                testsuite = testsuite,
+                errors = errorCount,
+                total = expressions.AllSuccesses().Count() + errorCount,
+                name = "Results",
+                date = DateTime.Now.ToString("yyyy-MM-dd"),
+                time = DateTime.Now.ToString("H:mm:ss")
+            };
+            
+            return resultType;
+        }
+
+        private void CreateErrors(ExampleGroupResult group, Collection<testcaseType> cases)
+        {
+            foreach (var error in group.Examples.AllErrors()) {
+                var failure = new failureType {
+                    message = this.CreateCDataSection(error.Exception.Message),
+                    stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
+                };
+                var @case = new testcaseType {
+                    name = error.Reason,
+                    executed = bool.TrueString,
+                    success = bool.FalseString,
+                    result = "Failure",
+                    asserts = "0",
+                    time = ConvertToSeconds(error.ElapsedTime).ToString(),
+                    Item = failure
+                };
+                cases.Add(@case);
+            }
+        }
+        
+        private void CreateSuccesses(ExampleGroupResult group, Collection<testcaseType> cases)
+        {
+            foreach (var success in group.Examples.AllSuccesses()) {
+                var @case = new testcaseType {
+                    name = success.Reason,
+                    executed = bool.TrueString,
+                    success = bool.TrueString,
+                    result = "Success",
+                    asserts = "0",
+                    time = ConvertToSeconds(success.ElapsedTime).ToString()
+                };
+                cases.Add(@case);
+            }
         }
 
         private double ConvertToSeconds(double elapsedTime)
