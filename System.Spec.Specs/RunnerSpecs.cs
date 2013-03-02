@@ -57,7 +57,7 @@ namespace System.Spec.Specs
         public void ShouldExecuteAllSpecificationsInPath()
         {
             var location = Path.GetDirectoryName(this.path);
-            var results = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch, null);
+            var results = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
             results.Should().HaveCount(10);
         }
 

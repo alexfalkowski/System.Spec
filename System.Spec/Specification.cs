@@ -18,10 +18,12 @@
 
 namespace System.Spec
 {
+    using System.Monad.Maybe;
+
     public abstract class Specification
     {
         private Expression expression;
-        private ExampleGroup currentExampleGroup;
+        private IOption<ExampleGroup> currentExampleGroupOption;
         private bool hasExpressionBeenBuilt;
 
         protected Specification()
@@ -31,9 +33,7 @@ namespace System.Spec
 
         public void BeforeAll(Action action)
         {
-            HasCurrentExampleGroup();
-            
-            currentExampleGroup.BeforeAll = action;
+            currentExampleGroupOption.Into(currentExampleGroup => currentExampleGroup.BeforeAll = action);
         }
 
         public void XBeforeAll(Action action)
@@ -42,9 +42,7 @@ namespace System.Spec
         
         public void AfterAll(Action action)
         {
-            HasCurrentExampleGroup();
-            
-            currentExampleGroup.AfterAll = action;
+            currentExampleGroupOption.Into(currentExampleGroup => currentExampleGroup.AfterAll = action);
         }
 
         public void XAfterAll( Action action)
@@ -53,9 +51,7 @@ namespace System.Spec
         
         public void BeforeEach(Action action)
         {
-            HasCurrentExampleGroup();
-            
-            currentExampleGroup.BeforeEach = action;
+            currentExampleGroupOption.Into(currentExampleGroup => currentExampleGroup.BeforeEach = action);
         }
 
         public void XBeforeEach(Action action)
@@ -64,9 +60,7 @@ namespace System.Spec
         
         public void AfterEach(Action action)
         {
-            HasCurrentExampleGroup();
-            
-            currentExampleGroup.AfterEach = action;
+            currentExampleGroupOption.Into(currentExampleGroup => currentExampleGroup.AfterEach = action);
         }
 
         public void XAfterEach(Action action)
@@ -75,12 +69,13 @@ namespace System.Spec
         
         public void Describe(string reason, Action action)
         {
-            currentExampleGroup = new ExampleGroup { Reason = reason };
-            expression.Add(currentExampleGroup);
-            
+            var group = new ExampleGroup { Reason = reason };
+            expression.Add(group);
+            currentExampleGroupOption = group.SomeOrNone();
+
             action();
             
-            currentExampleGroup = null;
+            currentExampleGroupOption = Option.None<ExampleGroup>();
         }
 
         public void XDescribe(string reason, Action action)
@@ -89,11 +84,11 @@ namespace System.Spec
 
         public void It(string reason, Action action)
         {
-            HasCurrentExampleGroup();
-            
-            currentExampleGroup.Add(new Example { 
-                Reason = reason, 
-                Action = action 
+            currentExampleGroupOption.Into(currentExampleGroup => {
+                currentExampleGroup.Add(new Example { 
+                    Reason = reason, 
+                    Action = action 
+                });
             });
         }
 
@@ -112,12 +107,5 @@ namespace System.Spec
         }
         
         protected abstract void Define();
-        
-        private void HasCurrentExampleGroup()
-        {
-            if (currentExampleGroup == null) {
-                throw new InvalidOperationException("There is no current describe");
-            }
-        }
     }
 }

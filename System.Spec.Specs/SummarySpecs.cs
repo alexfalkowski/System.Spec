@@ -55,7 +55,7 @@ namespace System.Spec.Specs
             this.runner = new DefaultSpecificationRunner(runner, finder, formatter);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            var results = this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch, null);
+            var results = this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
             
             using (var stream = new MemoryStream()) {
                 var reporter = new NUnitSpecificationReporter();

@@ -20,7 +20,7 @@ namespace System.Spec
 {
     using System;
 
-    public class NullActionStrategy : IActionStrategy
+    public class NoneActionStrategy : IActionStrategy
     {
         public ActionResult ExecuteActionWithResult(Action action)
         {

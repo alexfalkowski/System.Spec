@@ -42,7 +42,7 @@ namespace System.Spec.Runners
             this.formatter = formatter;
         }
 
-        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string pattern, string example)
+        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string pattern, string example = null)
         {
             var specifications = this.finder.FindSpecifications(path, pattern, example);
 

@@ -24,6 +24,7 @@ namespace System.Spec.IO
     using System.Diagnostics;
     using System.Globalization;
     using System.Linq;
+    using System.Monad.Maybe;
     using System.Reflection;
 
     public class DefaultSpecificationFinder : ISpecificationFinder
@@ -35,7 +36,7 @@ namespace System.Spec.IO
             this.fileSystem = fileSystem;
         }
 
-        public IEnumerable<Specification> FindSpecifications(string path, string pattern, string example)
+        public IEnumerable<Specification> FindSpecifications(string path, string pattern, string example = null)
         {
             return from assembly in this.GetAssemblies(path, pattern)
                    from specification in this.GetSpecifications(this.GetSpecificationTypes(assembly, example))
@@ -50,15 +51,13 @@ namespace System.Spec.IO
 
         private IEnumerable<Type> GetSpecificationTypes(Assembly assembly, string example)
         {
-            if (assembly == null) {
-                throw new ArgumentNullException("assembly");
-            }
-
-            if (!string.IsNullOrWhiteSpace(example)) {
-                var exampleType = assembly.GetType(example);
-                
-                if (exampleType != null && exampleType.IsSubclassOf(typeof(Specification))) {
-                    return new Type[] { exampleType };
+            foreach (var exampleText in example.SomeStringOrNone()) {
+                foreach (var assemblyValue in assembly.SomeOrNone()) {
+                    foreach (var exampleType in assembly.GetType(example).SomeOrNone()) {
+                        if (exampleType.IsSubclassOf(typeof(Specification))) {
+                            return new Type[] { exampleType };
+                        }
+                    }
                 }
             }
 
@@ -80,7 +79,11 @@ namespace System.Spec.IO
 
         private string GetPath(string path)
         {
-            return string.IsNullOrWhiteSpace(path) ? this.fileSystem.CurrentPath : path;
+            foreach (var pathValue in path.SomeStringOrNone()) {
+                return pathValue;
+            }
+
+            return this.fileSystem.CurrentPath;
         }
     }
 }

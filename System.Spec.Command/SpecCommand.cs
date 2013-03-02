@@ -101,7 +101,7 @@ namespace System.Spec.Command
         private IActionStrategy CreateActionStrategy(bool dryRun)
         {
             if (dryRun) {
-                return new NullActionStrategy();
+                return new NoneActionStrategy();
             }
             
             return new DefaultActionStrategy();
