@@ -26,26 +26,22 @@ namespace System.Spec.Runners
 
     public class ParallelSpecificationRunner : SpecificationRunnerBase
     {
-        private readonly ISpecificationFinder finder;
-        
         public ParallelSpecificationRunner(IExpressionRunner runner, 
                                            ISpecificationFinder finder, 
-                                           IConsoleFormatter formatter) : base(runner, formatter)
+                                           IConsoleFormatter formatter) : base(runner, finder, formatter)
         {
-            this.finder = finder;
         }
 
-        public override IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search)
+        protected override IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications)
         {
-            var specifications = this.finder.FindSpecifications(path, search);
             var results = new ConcurrentBag<ExpressionResult>();
-
+            
             Parallel.ForEach(specifications, specification => {
                 var result = this.ExecuteSpecification(specification);
                 
                 results.Add(result);
             });
-
+            
             return results;
         }
     }

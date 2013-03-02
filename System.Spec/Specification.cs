@@ -25,7 +25,7 @@ namespace System.Spec
 
         protected Specification()
         {
-            this.expression = new Expression { Name = this.GetType().AssemblyQualifiedName };
+            this.expression = new Expression { Name = this.GetType().FullName };
         }
 
         public void BeforeAll(Action action)

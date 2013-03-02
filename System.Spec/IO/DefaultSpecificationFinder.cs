@@ -35,10 +35,10 @@ namespace System.Spec.IO
             this.fileSystem = fileSystem;
         }
 
-        public IEnumerable<Specification> FindSpecifications(string path, string search)
+        public IEnumerable<Specification> FindSpecifications(string path, string pattern, string example)
         {
-            return from assembly in this.GetAssemblies(path, search)
-                   from specification in this.GetSpecifications(this.GetSpecificationTypes(assembly))
+            return from assembly in this.GetAssemblies(path, pattern)
+                   from specification in this.GetSpecifications(this.GetSpecificationTypes(assembly, example))
                    select specification;
         }
 
@@ -48,12 +48,20 @@ namespace System.Spec.IO
                    select (Specification)Activator.CreateInstance(type);
         }
 
-        private IEnumerable<Type> GetSpecificationTypes(Assembly assembly)
+        private IEnumerable<Type> GetSpecificationTypes(Assembly assembly, string example)
         {
             if (assembly == null) {
                 throw new ArgumentNullException("assembly");
             }
-            
+
+            if (!string.IsNullOrWhiteSpace(example)) {
+                var exampleType = assembly.GetType(example);
+                
+                if (exampleType != null && exampleType.IsSubclassOf(typeof(Specification))) {
+                    return new Type[] { exampleType };
+                }
+            }
+
             try {
                 return from type in assembly.GetTypes() where type.IsSubclassOf(typeof(Specification)) select type;
             } catch {

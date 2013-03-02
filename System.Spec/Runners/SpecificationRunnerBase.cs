@@ -21,22 +21,34 @@ namespace System.Spec.Runners
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Spec.Formatter;
+    using System.Spec.IO;
 
     public abstract class SpecificationRunnerBase : ISpecificationRunner
     {
         private readonly IExpressionRunner runner;
+
+        private readonly ISpecificationFinder finder;
         
         private IConsoleFormatter formatter;
         
         public SpecificationRunnerBase(
             IExpressionRunner runner,
+            ISpecificationFinder finder,
             IConsoleFormatter formatter)
         {
             this.runner = runner;
+            this.finder = finder;
             this.formatter = formatter;
         }
 
-        public abstract IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search);
+        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, 
+                                                                         string pattern, 
+                                                                         string example)
+        {
+            return this.ExecuteSpecifications(this.finder.FindSpecifications(path, pattern, example));
+        }
+
+        protected abstract IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications);
 
         protected ExpressionResult ExecuteSpecification(Specification specification)
         {

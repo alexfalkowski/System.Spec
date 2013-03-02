@@ -71,7 +71,7 @@ namespace System.Spec.Command
                                                                               finder, 
                                                                               consoleFormatter);
                 
-                var results = command.ExecuteSpecificationsInPath(arguments.Path, arguments.Pattern);
+                var results = command.ExecuteSpecificationsInPath(arguments.Path, arguments.Pattern, arguments.Example);
 
                 consoleFormatter.WriteSummary(results);
                 this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);

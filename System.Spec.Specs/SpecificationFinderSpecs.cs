@@ -56,7 +56,7 @@ namespace System.Spec.Specs
             this.fileSystem.CurrentPath.Returns(TestPath);
             this.fileSystem.GetFilesWithExtension(TestPath, "Example.Spec.dll").Returns(new[] { location });
 
-            var specifications = this.finder.FindSpecifications(TestPath, "Example.Spec");
+            var specifications = this.finder.FindSpecifications(TestPath, "Example.Spec", null);
             specifications.Should().HaveCount(9);
         }
     }

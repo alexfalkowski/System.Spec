@@ -25,26 +25,23 @@ namespace System.Spec.Runners
 
     public class DefaultSpecificationRunner : SpecificationRunnerBase
     {
-        private readonly ISpecificationFinder finder;
 
         public DefaultSpecificationRunner(IExpressionRunner runner, 
                                           ISpecificationFinder finder, 
-                                          IConsoleFormatter formatter) : base(runner, formatter)
+                                          IConsoleFormatter formatter) : base(runner, finder, formatter)
         {
-            this.finder = finder;
         }
-       
-        public override IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string search)
-        {
-            var specifications = this.finder.FindSpecifications(path, search);
-            var results = new Collection<ExpressionResult>();
 
+        protected override IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications)
+        {
+            var results = new Collection<ExpressionResult>();
+            
             foreach (var specification in specifications) {
                 var result = this.ExecuteSpecification(specification);
-
+                
                 results.Add(result);
             }
-
+            
             return results;
         }
     }

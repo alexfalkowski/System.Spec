@@ -41,19 +41,33 @@ namespace System.Spec.Specs
     {
         private ISpecificationRunner command;
 
+        private string path;
+
         [SetUp]
         public void BeforeEach()
         {
             this.command = new DefaultSpecificationRunner(new DefaultExpressionRunner(new DefaultActionStrategy()), 
                                                           new DefaultSpecificationFinder(new DefaultFileSystem()),
                                                           new SilentConsoleFormatter());
+            this.path = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
         }
 
         [Test]
         public void ShouldExecuteAllSpecificationsInPath()
         {
-            var location = Path.GetDirectoryName(new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath);
-            this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
+            var location = Path.GetDirectoryName(this.path);
+            var results = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch, null);
+            results.Should().HaveCount(9);
+        }
+
+        [Test]
+        public void ShouldExecuteOneSpecificationInPath()
+        {
+            var location = Path.GetDirectoryName(this.path);
+            var results = this.command.ExecuteSpecificationsInPath(location, 
+                                                                   StringHelper.SpecsSearch, 
+                                                                   typeof(TestSpecificationWithBeforeAll).FullName);
+            results.Should().HaveCount(1);
         }
     }
 }
