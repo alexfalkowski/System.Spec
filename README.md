@@ -86,7 +86,7 @@ From version 2.0 we have changed the way you construct your specifications. Here
 - The Describe method does not pass an example to the Action.
 - BeforeXXX and AfterXXX are now methods that take an action, rather than just an action.
 - The command line options have changed to follow the [rspec](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line) command line.
-- The output follows RSpec [format](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line/format-option)
+- The output follows RSpec [format](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line/format-option).
 
 Future
 ------
