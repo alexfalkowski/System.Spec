@@ -61,8 +61,10 @@ namespace System.Spec.Command
                     Console.WriteLine(Assembly.GetEntryAssembly().GetName().Version);
                     return 0;
                 }
-                
-                IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format);
+
+                IConsoleWritter writter = this.CreateConsoleWritter(arguments.Colour);
+                IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format,
+                                                                                                  writter);
                 ISpecificationFinder finder = new DefaultSpecificationFinder(fileSystem);
                 IActionStrategy actionStratergy = this.CreateActionStrategy(arguments.DryRun);
                 IExpressionRunner runner = new DefaultExpressionRunner(actionStratergy);
@@ -84,6 +86,15 @@ namespace System.Spec.Command
                 Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e.Message));
                 return 1;
             }
+        }
+
+        private IConsoleWritter CreateConsoleWritter(bool coloured)
+        {
+            if (coloured) {
+                return new ColouredConsoleWritter();
+            }
+
+            return new DefaultConsoleWritter();
         }
 
         private ISpecificationRunner CreateSpecificationRunner(bool parrallel, 

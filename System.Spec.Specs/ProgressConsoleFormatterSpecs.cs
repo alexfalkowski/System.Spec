@@ -44,7 +44,7 @@ namespace System.Spec.Specs
             this.stringWriter = new StringWriter(CultureInfo.CurrentCulture);
             Console.SetOut(this.stringWriter);
 
-            this.consoleFormatter = new ProgressConsoleFormatter();
+            this.consoleFormatter = new ProgressConsoleFormatter(new DefaultConsoleWritter());
             this.consoleFormatter.WriteInformation(Resources.TestReason);
         }
 

@@ -49,7 +49,7 @@ namespace System.Spec.Specs
         {
             this.command = new DefaultSpecificationRunner(new DefaultExpressionRunner(new DefaultActionStrategy()), 
                                                           new DefaultSpecificationFinder(new DefaultFileSystem()),
-                                                          new SilentConsoleFormatter());
+                                                          new SilentConsoleFormatter(new DefaultConsoleWritter()));
             this.path = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
         }
 

@@ -18,19 +18,41 @@
 
 namespace System.Spec.Formatter
 {
-	public class DefaultConsoleFormatterFactory : IConsoleFormatterFactory
-	{
-		public IConsoleFormatter CreateConsoleFormatter(ConsoleFormatterType type, IConsoleWritter writter)
-		{
-            if (type == ConsoleFormatterType.Documentation) {
-                return new DocumentionConsoleFormatter(writter);
-            }
+    public class DefaultConsoleWritter : IConsoleWritter
+    {
+        public void WriteInformationLine(string value)
+        {
+            Console.WriteLine(value);
+        }
 
-			if (type == ConsoleFormatterType.Progress) {
-                return new ProgressConsoleFormatter(writter);
-			}
+        public void WriteErrorLine(string value)
+        {
+            Console.WriteLine(value);
+        }
 
-            return new ProgressConsoleFormatter(writter);
-		}
-	}
+        public void WriteSuccessLine(string value)
+        {
+            Console.WriteLine(value);
+        }
+
+        public void WriteInformation(string value)
+        {
+            Console.Write(value);
+        }
+        
+        public void WriteError(string value)
+        {
+            Console.Write(value);
+        }
+        
+        public void WriteSuccess(string value)
+        {
+            Console.Write(value);
+        }
+
+        public void WriteLine()
+        {
+            Console.WriteLine();
+        }
+    }
 }

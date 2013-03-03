@@ -22,6 +22,10 @@ namespace System.Spec.Formatter
 
     public class SilentConsoleFormatter : ConsoleFormatterBase
     {
+        public SilentConsoleFormatter(IConsoleWritter writter) : base(writter) 
+        {
+        }
+
         public override void WriteInformation(string message)
         {
         }

@@ -61,8 +61,8 @@ namespace System.Spec.Command
         public bool Version { get; set; }
 
         [ArgShortcut("c")]
-        [ArgDescription("Enable color in the output.")]
-        public bool Color { get; set; }
+        [ArgDescription("Enable colour in the output.")]
+        public bool Colour { get; set; }
 
 		[ArgShortcut("h")]
 		[ArgDescription("You're looking at it.")]

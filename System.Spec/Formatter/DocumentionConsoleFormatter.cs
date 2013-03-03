@@ -27,14 +27,21 @@ namespace System.Spec.Formatter
 
     public class DocumentionConsoleFormatter : ConsoleFormatterBase
     {
+        private IConsoleWritter writter;
+        
+        public DocumentionConsoleFormatter(IConsoleWritter writter) : base(writter)
+        {
+            this.writter = writter;
+        }
+
         public override void WriteInformation(string message)
         {
-            Console.WriteLine(Environment.NewLine + message);
+            this.writter.WriteInformationLine(Environment.NewLine + message);
         }
 
         public override void WriteSuccess(ExampleResult example)
         {
-            Console.WriteLine(StringHelper.DoubleSpace + example.Reason);
+            this.writter.WriteSuccessLine(StringHelper.DoubleSpace + example.Reason);
         }
 
         public override void WriteError(ExampleResult example)
@@ -42,7 +49,7 @@ namespace System.Spec.Formatter
             var message = string.Format(CultureInfo.CurrentCulture,
                                         Resources.DocumentationConsoleFormatterErrorMessage,
                                         example.Reason);
-            Console.WriteLine(StringHelper.DoubleSpace + message);
+            this.writter.WriteErrorLine(StringHelper.DoubleSpace + message);
         }
     }
 }

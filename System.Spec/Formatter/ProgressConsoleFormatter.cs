@@ -27,24 +27,31 @@ namespace System.Spec.Formatter
 
     public class ProgressConsoleFormatter : ConsoleFormatterBase
     {
+        private IConsoleWritter writter;
+        
+        public ProgressConsoleFormatter(IConsoleWritter writter) : base(writter) 
+        {
+            this.writter = writter;
+        }
+
         public override void WriteInformation(string message)
         {
         }
 
         public override void WriteSuccess(ExampleResult example)
         {
-            Console.Write(Resources.ConsoleFormatterSuccessMessage);
+            this.writter.WriteSuccess(Resources.ConsoleFormatterSuccessMessage);
         }
 
         public override void WriteError(ExampleResult example)
         {
-            Console.Write(Resources.ConsoleFormatterErrorMessage);
+            this.writter.WriteError(Resources.ConsoleFormatterErrorMessage);
         }
 
         public override void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {
             if (expressions.HasErrors() || expressions.HasSuccesses()) {
-                Console.WriteLine();
+                this.writter.WriteLine();
             }
             
             base.WriteSummary(expressions);

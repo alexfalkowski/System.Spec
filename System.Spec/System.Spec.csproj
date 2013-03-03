@@ -109,6 +109,9 @@
     <Compile Include="NoneActionStrategy.cs" />
     <Compile Include="Formatter\DocumentionConsoleFormatter.cs" />
     <Compile Include="Formatter\SilentConsoleFormatter.cs" />
+    <Compile Include="Formatter\IConsoleWritter.cs" />
+    <Compile Include="Formatter\DefaultConsoleWritter.cs" />
+    <Compile Include="Formatter\ColouredConsoleWritter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -136,4 +139,13 @@
     <Folder Include="IO\" />
     <Folder Include="Runners\" />
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileName" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

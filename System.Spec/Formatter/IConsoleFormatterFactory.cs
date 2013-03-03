@@ -20,6 +20,6 @@ namespace System.Spec.Formatter
 {
     public interface IConsoleFormatterFactory
     {
-        IConsoleFormatter CreateConsoleFormatter(ConsoleFormatterType type);
+        IConsoleFormatter CreateConsoleFormatter(ConsoleFormatterType type, IConsoleWritter writter);
     }
 }

@@ -33,6 +33,13 @@ namespace System.Spec.Formatter
 
     public abstract class ConsoleFormatterBase : IConsoleFormatter
     {
+        private IConsoleWritter writter;
+
+        protected ConsoleFormatterBase(IConsoleWritter writter) 
+        {
+            this.writter = writter;
+        }
+
         public abstract void WriteInformation(string message);
 
         public abstract void WriteSuccess(ExampleResult example);
@@ -44,28 +51,33 @@ namespace System.Spec.Formatter
             var errorResults = expressions.AllErrors().ToList();
             
             if (errorResults.Count > 0) {
-                Console.WriteLine(Environment.NewLine + "Failures:" + Environment.NewLine);
+                this.writter.WriteInformationLine(Environment.NewLine + "Failures:" + Environment.NewLine);
                 for (var index = 0; index < errorResults.Count; index++) {
                     var example = errorResults [index];
                     var numberFormatValue = string.Format("{0}) ", index + 1);
       
-                    Console.WriteLine(numberFormatValue + example.Reason);
+                    this.writter.WriteInformationLine(numberFormatValue + example.Reason);
                     var prefix = new string(' ', numberFormatValue.Length);
-                    Console.WriteLine(prefix + "Failure/Error: " + example.Exception.Message.Clean() + Environment.NewLine);
+                    this.writter.WriteErrorLine(prefix + "Failure/Error: " + example.Exception.Message.Clean() + Environment.NewLine);
                 }
             }
 
             var elapsdeTimeMessage = string.Format(CultureInfo.CurrentCulture, 
                                                    Resources.ConsoleFormatterElapsedTimeMessage, 
                                                    expressions.ElapsedTime() / 1000D);
-            Console.WriteLine(elapsdeTimeMessage);
+            this.writter.WriteInformationLine(elapsdeTimeMessage);
 
             var summaryMessage = string.Format(
                 CultureInfo.CurrentCulture,
                 Resources.ConsoleFormatterSummaryMessage,
                 expressions.AllSuccesses().Count() + errorResults.Count,
                 errorResults.Count);
-            Console.WriteLine(summaryMessage);
+
+            if (errorResults.Count > 0) {
+                this.writter.WriteErrorLine(summaryMessage);
+            } else {
+                this.writter.WriteSuccessLine(summaryMessage);
+            }
         }
     }
 }

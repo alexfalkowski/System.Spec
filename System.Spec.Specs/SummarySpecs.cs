@@ -52,7 +52,7 @@ namespace System.Spec.Specs
             this.strategy = new DefaultActionStrategy();
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
             var runner = new DefaultExpressionRunner(this.strategy);
-            var formatter = new SilentConsoleFormatter();
+            var formatter = new SilentConsoleFormatter(new DefaultConsoleWritter());
             this.runner = new DefaultSpecificationRunner(runner, finder, formatter);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
