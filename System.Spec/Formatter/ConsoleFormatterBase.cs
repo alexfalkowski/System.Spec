@@ -49,9 +49,10 @@ namespace System.Spec.Formatter
         public virtual void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {        
             var errorResults = expressions.AllErrors().ToList();
+
+            this.writter.WriteLine();
             
             if (errorResults.Count > 0) {
-                this.writter.WriteLine();
                 this.writter.WriteInformationLine(Resources.ConsoleFormatteFailuresMessage);
                 this.writter.WriteLine();
 

@@ -87,7 +87,7 @@ namespace System.Spec.Specs
             
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
-            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
+            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + Environment.NewLine +
                 "Finished in 0 seconds" + Environment.NewLine + 
                 "0 examples, 0 failures" + Environment.NewLine;
             this.stringWriter.ToString().Should().Be(value);
@@ -106,7 +106,7 @@ namespace System.Spec.Specs
 
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
-            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
+            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + Environment.NewLine +
                 "Finished in 1 seconds" + Environment.NewLine + 
                 "1 examples, 0 failures" + Environment.NewLine;
             this.stringWriter.ToString().Should().Be(value);
