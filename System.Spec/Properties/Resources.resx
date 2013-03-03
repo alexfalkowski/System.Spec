@@ -129,10 +129,16 @@
   <data name="ConsoleFormatterElapsedTimeMessage" xml:space="preserve">
     <value>Finished in {0} seconds</value>
   </data>
+  <data name="DocumentationConsoleFormatterErrorMessage" xml:space="preserve">
+    <value>{0} (FAILED)</value>
+  </data>
   <data name="ConsoleFormatteErrorsMessage" xml:space="preserve">
     <value>{0}) {1}</value>
   </data>
-  <data name="DocumentationConsoleFormatterErrorMessage" xml:space="preserve">
-    <value>{0} (FAILED)</value>
+  <data name="ConsoleFormatteFailureMessage" xml:space="preserve">
+    <value>{0}Failure/Error: {1}</value>
+  </data>
+   <data name="ConsoleFormatteFailuresMessage" xml:space="preserve">
+    <value>Failures:</value>
   </data>
 </root>

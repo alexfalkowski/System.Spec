@@ -30,6 +30,10 @@ namespace System.Spec.Formatter
                 return new ProgressConsoleFormatter(writter);
 			}
 
+            if (type == ConsoleFormatterType.Silent) {
+                return new SilentConsoleFormatter(writter);
+            }
+
             return new ProgressConsoleFormatter(writter);
 		}
 	}

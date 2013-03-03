@@ -113,5 +113,17 @@ namespace System.Spec.Properties {
                 return ResourceManager.GetString("DocumentationConsoleFormatterErrorMessage", resourceCulture);
             }
         }
+
+        internal static string ConsoleFormatteFailureMessage {
+            get {
+                return ResourceManager.GetString("ConsoleFormatteFailureMessage", resourceCulture);
+            }
+        }
+
+        internal static string ConsoleFormatteFailuresMessage {
+            get {
+                return ResourceManager.GetString("ConsoleFormatteFailuresMessage", resourceCulture);
+            }
+        }
     }
 }

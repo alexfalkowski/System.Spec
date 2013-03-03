@@ -22,6 +22,8 @@ namespace System.Spec.Formatter
     {
         Progress,
 
-        Documentation
+        Documentation,
+
+        Silent
     }
 }

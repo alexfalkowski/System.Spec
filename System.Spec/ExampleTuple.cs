@@ -18,7 +18,7 @@
 
 namespace System.Spec
 {
-    public class FoundExample
+    public class ExampleTuple
     {
         public Example Example { get; set; }
 

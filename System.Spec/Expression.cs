@@ -52,11 +52,11 @@ namespace System.Spec
             });
         }
 
-        public IOption<FoundExample> FindExample(string exampleText)
+        public IOption<ExampleTuple> FindExample(string exampleText)
         {
             var query = from exampleGroup in this.exampleGroups.Values
                         from example in exampleGroup.Find(exampleText)
-                        select new FoundExample { Example = example, ExampleGroup = exampleGroup };
+                        select new ExampleTuple { Example = example, ExampleGroup = exampleGroup };
 
             return query.FirstOrDefault().SomeOrNone();
         }

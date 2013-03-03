@@ -105,13 +105,13 @@
     <Compile Include="Runners\ISpecificationRunner.cs" />
     <Compile Include="Runners\ParallelSpecificationRunner.cs" />
     <Compile Include="Runners\SpecificationRunnerBase.cs" />
-    <Compile Include="FoundExample.cs" />
     <Compile Include="NoneActionStrategy.cs" />
     <Compile Include="Formatter\DocumentionConsoleFormatter.cs" />
     <Compile Include="Formatter\SilentConsoleFormatter.cs" />
     <Compile Include="Formatter\IConsoleWritter.cs" />
     <Compile Include="Formatter\DefaultConsoleWritter.cs" />
     <Compile Include="Formatter\ColouredConsoleWritter.cs" />
+    <Compile Include="ExampleTuple.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

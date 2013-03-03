@@ -36,12 +36,13 @@ namespace System.Spec.Formatter
 
         public override void WriteInformation(string message)
         {
-            this.writter.WriteInformationLine(Environment.NewLine + message);
+            this.writter.WriteLine();
+            this.writter.WriteInformationLine(message);
         }
 
         public override void WriteSuccess(ExampleResult example)
         {
-            this.writter.WriteSuccessLine(StringHelper.DoubleSpace + example.Reason);
+            this.writter.WriteSuccessLine(string.Concat(StringHelper.DoubleSpace, example.Reason));
         }
 
         public override void WriteError(ExampleResult example)
@@ -49,7 +50,7 @@ namespace System.Spec.Formatter
             var message = string.Format(CultureInfo.CurrentCulture,
                                         Resources.DocumentationConsoleFormatterErrorMessage,
                                         example.Reason);
-            this.writter.WriteErrorLine(StringHelper.DoubleSpace + message);
+            this.writter.WriteErrorLine(string.Concat(StringHelper.DoubleSpace, message));
         }
     }
 }

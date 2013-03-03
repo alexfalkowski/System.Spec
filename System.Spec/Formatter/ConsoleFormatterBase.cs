@@ -51,14 +51,20 @@ namespace System.Spec.Formatter
             var errorResults = expressions.AllErrors().ToList();
             
             if (errorResults.Count > 0) {
-                this.writter.WriteInformationLine(Environment.NewLine + "Failures:" + Environment.NewLine);
+                this.writter.WriteLine();
+                this.writter.WriteInformationLine(Resources.ConsoleFormatteFailuresMessage);
+                this.writter.WriteLine();
+
                 for (var index = 0; index < errorResults.Count; index++) {
                     var example = errorResults [index];
-                    var numberFormatValue = string.Format("{0}) ", index + 1);
-      
-                    this.writter.WriteInformationLine(numberFormatValue + example.Reason);
-                    var prefix = new string(' ', numberFormatValue.Length);
-                    this.writter.WriteErrorLine(prefix + "Failure/Error: " + example.Exception.Message.Trim() + Environment.NewLine);
+                    this.writter.WriteInformationLine(string.Format(CultureInfo.CurrentCulture,
+                                                                    Resources.ConsoleFormatteErrorsMessage, 
+                                                                    index + 1, example.Reason));
+                    var prefix = new string(' ', index.ToString().Length + 2);
+                    this.writter.WriteErrorLine(string.Format(CultureInfo.CurrentCulture,
+                                                              Resources.ConsoleFormatteFailureMessage, 
+                                                              prefix, example.Exception.Message.Trim()));
+                    this.writter.WriteLine();
                 }
             }
 
