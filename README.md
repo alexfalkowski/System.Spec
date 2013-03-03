@@ -39,39 +39,20 @@ To execute your specifications execute the following:
 
 The default output will display the following example:
 
-	..FF...
+	..FF.....
 
-    1) should be true - FluentAssertions.Frameworks.AssertionFailedException: Expected True, but found False.
-      at FluentAssertions.Frameworks.FallbackTestFramework.Throw (System.String message) [0x00000] in <filename unknown>:0
-      at FluentAssertions.Frameworks.AssertionHelper.Throw (System.String message) [0x00000] in <filename unknown>:0
-      at FluentAssertions.Verification.FailWith (System.String failureMessage, System.Object[] failureArgs) [0x00000] in <filename unknown>:0
-      at FluentAssertions.Assertions.BooleanAssertions.BeTrue (System.String reason, System.Object[] reasonArgs) [0x00000] in <filename unknown>:0
-      at FluentAssertions.Assertions.BooleanAssertions.BeTrue () [0x00000] in <filename unknown>:0
-      at System.Spec.Example.Specs.TestSpecificationWithFluentAssertions.<Define>m__C () [0x00000] in <filename unknown>:0
-      at System.Spec.DefaultActionStrategy+<ExecuteActionWithResult>c__AnonStorey0.<>m__0 () [0x00000] in <filename unknown>:0
-      at System.Spec.StopwatchHelper.ExecuteTimedActionWithResult (System.Action action) [0x00000] in <filename unknown>:0
+    Failures:
 
-    2) call method - NSubstitute.Exceptions.ReceivedCallsException: Expected to receive a call matching:
+    1) should be true
+       Failure/Error: Expected True, but found False.
+
+    2) call method
+       Failure/Error: Expected to receive a call matching:
     	TestMethod()
-        Actually received no matching calls.
+    Actually received no matching calls.
 
-      at NSubstitute.Core.ReceivedCallsExceptionThrower.Throw (ICallSpecification callSpecification, IEnumerable`1 matchingCalls, IEnumerable`1 nonMatchingCalls, NSubstitute.Core.Quantity requiredQuantity) [0x00000] in <filename unknown>:0
-      at NSubstitute.Routing.Handlers.CheckReceivedCallsHandler.Handle (ICall call) [0x00000] in <filename unknown>:0
-      at NSubstitute.Routing.Route+<>c__DisplayClass3.<Handle>b__0 (ICallHandler x) [0x00000] in <filename unknown>:0
-      at System.Linq.Enumerable+<CreateSelectIterator>c__Iterator27`2[NSubstitute.Core.ICallHandler,NSubstitute.Core.RouteAction].MoveNext () [0x00000] in <filename unknown>:0
-      at System.Linq.Enumerable.First[RouteAction] (IEnumerable`1 source, System.Func`2 predicate, Fallback fallback) [0x00000] in <filename unknown>:0
-      at System.Linq.Enumerable.FirstOrDefault[RouteAction] (IEnumerable`1 source, System.Func`2 predicate) [0x00000] in <filename unknown>:0
-      at NSubstitute.Routing.Route.Handle (ICall call) [0x00000] in <filename unknown>:0
-      at NSubstitute.Core.CallRouter.Route (ICall call) [0x00000] in <filename unknown>:0
-      at NSubstitute.Proxies.CastleDynamicProxy.CastleForwardingInterceptor.Intercept (IInvocation invocation) [0x00000] in <filename unknown>:0
-      at Castle.DynamicProxy.AbstractInvocation.Proceed () [0x00000] in <filename unknown>:0
-      at Castle.Proxies.ITestInterfaceProxy.TestMethod () [0x00000] in <filename unknown>:0
-      at System.Spec.Example.Specs.TestSpecificationWithNSubstitute.<Define>m__11 () [0x00000] in <filename unknown>:0
-      at System.Spec.DefaultActionStrategy+<ExecuteActionWithResult>c__AnonStorey0.<>m__0 () [0x00000] in <filename unknown>:0
-      at System.Spec.StopwatchHelper.ExecuteTimedActionWithResult (System.Action action) [0x00000] in <filename unknown>:0
-
-    Finished in 0.277 seconds
-    7 examples, 2 failures
+    Finished in 0.273 seconds
+    9 examples, 2 failures
 
 Convention
 ----------
@@ -93,6 +74,7 @@ The command spec has the following options:
        -format (-f)    ConsoleFormatterType           Specifies what format to use for output.
        -dryrun (-d)    Switch                         Invokes formatters without executing the examples.
        -version (-v)   Switch                         Display the version.
+       -colour (-c)    Switch                         Enable colour in the output.
        -help (-h)      Switch                         You're looking at it.
 
 Migration
@@ -104,6 +86,7 @@ From version 2.0 we have changed the way you construct your specifications. Here
 - The Describe method does not pass an example to the Action.
 - BeforeXXX and AfterXXX are now methods that take an action, rather than just an action.
 - The command line options have changed to follow the [rspec](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line) command line.
+- The output follows RSpec [format](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line/format-option)
 
 Future
 ------

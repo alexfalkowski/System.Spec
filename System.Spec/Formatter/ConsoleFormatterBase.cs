@@ -58,7 +58,7 @@ namespace System.Spec.Formatter
       
                     this.writter.WriteInformationLine(numberFormatValue + example.Reason);
                     var prefix = new string(' ', numberFormatValue.Length);
-                    this.writter.WriteErrorLine(prefix + "Failure/Error: " + example.Exception.Message.Clean() + Environment.NewLine);
+                    this.writter.WriteErrorLine(prefix + "Failure/Error: " + example.Exception.Message.Trim() + Environment.NewLine);
                 }
             }
 

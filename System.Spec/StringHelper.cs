@@ -29,14 +29,5 @@ namespace System.Spec
         public const string DoubleSpace = "  ";
 
         public const string SpecsSearch = "Specs";
-
-        public static string Clean(this string value)
-        {
-            var builder = new StringBuilder(value);
-            builder.Replace(Environment.NewLine, Space);
-            builder.Replace(Tab, Space);
-
-            return builder.ToString();
-        }
 	}
 }
