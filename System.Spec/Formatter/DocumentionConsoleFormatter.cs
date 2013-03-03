@@ -25,29 +25,24 @@ namespace System.Spec.Formatter
 
     using System.Spec.Properties;
 
-    public class ProgressConsoleFormatter : ConsoleFormatterBase
+    public class DocumentionConsoleFormatter : ConsoleFormatterBase
     {
         public override void WriteInformation(string message)
         {
+            Console.WriteLine(Environment.NewLine + message);
         }
 
         public override void WriteSuccess(ExampleResult example)
         {
-            Console.Write(Resources.ConsoleFormatterSuccessMessage);
+            Console.WriteLine(StringHelper.DoubleSpace + example.Reason);
         }
 
         public override void WriteError(ExampleResult example)
         {
-            Console.Write(Resources.ConsoleFormatterErrorMessage);
-        }
-
-        public override void WriteSummary(IEnumerable<ExpressionResult> expressions)
-        {
-            if (expressions.HasErrors() || expressions.HasSuccesses()) {
-                Console.WriteLine();
-            }
-            
-            base.WriteSummary(expressions);
+            var message = string.Format(CultureInfo.CurrentCulture,
+                                        Resources.DocumentationConsoleFormatterErrorMessage,
+                                        example.Reason);
+            Console.WriteLine(StringHelper.DoubleSpace + message);
         }
     }
 }

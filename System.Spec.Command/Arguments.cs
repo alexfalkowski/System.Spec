@@ -60,6 +60,10 @@ namespace System.Spec.Command
         [ArgDescription("Display the version.")]
         public bool Version { get; set; }
 
+        [ArgShortcut("c")]
+        [ArgDescription("Enable color in the output.")]
+        public bool Color { get; set; }
+
 		[ArgShortcut("h")]
 		[ArgDescription("You're looking at it.")]
 		public bool Help { get; set; }

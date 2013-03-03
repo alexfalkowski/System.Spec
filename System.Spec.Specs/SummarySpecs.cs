@@ -31,6 +31,7 @@ namespace System.Spec.Specs
     using FluentAssertions;
 
     using System.Spec.Reports;
+    using System.Spec.Formatter;
     using System.Spec.IO;
     using System.Spec.Runners;
     
@@ -51,7 +52,7 @@ namespace System.Spec.Specs
             this.strategy = new DefaultActionStrategy();
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
             var runner = new DefaultExpressionRunner(this.strategy);
-            var formatter = new System.Spec.Formatter.SilentConsoleFormatter();
+            var formatter = new SilentConsoleFormatter();
             this.runner = new DefaultSpecificationRunner(runner, finder, formatter);
 
             var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);

@@ -22,8 +22,6 @@ namespace System.Spec.Formatter
     {
         Progress,
 
-        Nested,
-
-        Silent
+        Documentation
     }
 }

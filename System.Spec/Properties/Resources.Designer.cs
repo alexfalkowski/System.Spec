@@ -108,9 +108,9 @@ namespace System.Spec.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} - {1}.
         /// </summary>
-        internal static string NestedConsoleFormatterErrorMessage {
+        internal static string DocumentationConsoleFormatterErrorMessage {
             get {
-                return ResourceManager.GetString("NestedConsoleFormatterErrorMessage", resourceCulture);
+                return ResourceManager.GetString("DocumentationConsoleFormatterErrorMessage", resourceCulture);
             }
         }
     }

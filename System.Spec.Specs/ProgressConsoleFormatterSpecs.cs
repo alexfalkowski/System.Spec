@@ -20,7 +20,6 @@ namespace System.Spec.Specs
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
 
@@ -31,7 +30,6 @@ namespace System.Spec.Specs
 
     using NUnit.Framework;
 
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "It happens in AfterEach")]
     [TestFixture]
     public class ProgressConsoleFormatterSpecs
     {
@@ -60,7 +58,7 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldWriteSuccess()
         {
-            this.consoleFormatter.WriteSuccess(new ExampleResult { Reason = Resources.TestReason } );
+            this.consoleFormatter.WriteSuccess(new ExampleResult { Reason = Resources.TestReason });
             this.stringWriter.Flush();
             this.stringWriter.ToString().Should().Be(".");
         }
@@ -76,8 +74,7 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldWriteSummary()
         {
-            var example = new ExampleResult
-                {
+            var example = new ExampleResult {
                     Reason = Resources.TestReason,
                     ElapsedTime = 1000,
                     Exception = new InvalidOperationException("Test Exception"),
@@ -93,8 +90,14 @@ namespace System.Spec.Specs
             this.consoleFormatter.WriteError(example);
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(
-                "F" + Environment.NewLine + Environment.NewLine + "1) test - System.InvalidOperationException: Test Exception" + Environment.NewLine + Environment.NewLine + "Finished in 1 seconds" + Environment.NewLine + "1 examples, 1 failures" + Environment.NewLine);
+
+            var value = "F" + Environment.NewLine + Environment.NewLine +
+                "Failures:" + Environment.NewLine + Environment.NewLine +
+                "1) test" + Environment.NewLine +
+                "   Failure/Error: Test Exception" + Environment.NewLine + Environment.NewLine + 
+                "Finished in 1 seconds" + Environment.NewLine + 
+                "1 examples, 1 failures" + Environment.NewLine;
+            this.stringWriter.ToString().Should().Be(value);
         }
     }
 }

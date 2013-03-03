@@ -71,9 +71,7 @@
     <Compile Include="Formatter\DefaultConsoleFormatterFactory.cs" />
     <Compile Include="Formatter\IConsoleFormatter.cs" />
     <Compile Include="Formatter\IConsoleFormatterFactory.cs" />
-    <Compile Include="Formatter\NestedConsoleFormatter.cs" />
     <Compile Include="Formatter\ProgressConsoleFormatter.cs" />
-    <Compile Include="Formatter\SilentConsoleFormatter.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroup.cs" />
     <Compile Include="ExampleResult.cs" />
@@ -109,6 +107,8 @@
     <Compile Include="Runners\SpecificationRunnerBase.cs" />
     <Compile Include="FoundExample.cs" />
     <Compile Include="NoneActionStrategy.cs" />
+    <Compile Include="Formatter\DocumentionConsoleFormatter.cs" />
+    <Compile Include="Formatter\SilentConsoleFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

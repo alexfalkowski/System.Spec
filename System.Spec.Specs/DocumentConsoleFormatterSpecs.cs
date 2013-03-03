@@ -31,7 +31,7 @@ namespace System.Spec.Specs
     using NUnit.Framework;
 
     [TestFixture]
-    public class NestedConsoleFormatterSpecs
+    public class DocumentConsoleFormatterSpecs
     {
         private StringWriter stringWriter;
         private IConsoleFormatter consoleFormatter;
@@ -44,7 +44,7 @@ namespace System.Spec.Specs
             this.stringWriter = new StringWriter(CultureInfo.CurrentCulture);
             Console.SetOut(this.stringWriter);
 
-            this.consoleFormatter = new NestedConsoleFormatter();
+            this.consoleFormatter = new DocumentionConsoleFormatter();
             this.consoleFormatter.WriteInformation(Resources.TestReason);
         }
 
@@ -61,7 +61,9 @@ namespace System.Spec.Specs
             var result = new ExampleResult { Reason = Resources.TestReason, Status = ResultStatus.Success };
             this.consoleFormatter.WriteSuccess(result);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(Resources.TestReason + Environment.NewLine + StringHelper.Tab + Resources.TestReason + Environment.NewLine);
+            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
+                StringHelper.DoubleSpace + Resources.TestReason + Environment.NewLine;
+            this.stringWriter.ToString().Should().Be(value);
         }
 
         [Test]
@@ -73,8 +75,9 @@ namespace System.Spec.Specs
                         Exception = new InvalidOperationException("Test Exception")
                     });
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(
-                Resources.TestReason + Environment.NewLine + StringHelper.Tab + Resources.TestReason + " - System.InvalidOperationException: Test Exception" + Environment.NewLine);
+            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
+                StringHelper.DoubleSpace + Resources.TestReason + " (FAILED)" + Environment.NewLine;
+            this.stringWriter.ToString().Should().Be(value);
         }
 
         [Test]
@@ -84,10 +87,10 @@ namespace System.Spec.Specs
             
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(Resources.TestReason + 
-                Environment.NewLine + 
+            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
                 "Finished in 0 seconds" + Environment.NewLine + 
-                "0 examples, 0 failures" + Environment.NewLine);
+                "0 examples, 0 failures" + Environment.NewLine;
+            this.stringWriter.ToString().Should().Be(value);
         }
 
         [Test]
@@ -103,10 +106,10 @@ namespace System.Spec.Specs
 
             this.consoleFormatter.WriteSummary(results);
             this.stringWriter.Flush();
-            this.stringWriter.ToString().Should().Be(Resources.TestReason + 
-                Environment.NewLine + Environment.NewLine + 
+            var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
                 "Finished in 1 seconds" + Environment.NewLine + 
-                "1 examples, 0 failures" + Environment.NewLine);
+                "1 examples, 0 failures" + Environment.NewLine;
+            this.stringWriter.ToString().Should().Be(value);
         }
     }
 }

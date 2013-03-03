@@ -130,9 +130,9 @@
     <value>Finished in {0} seconds</value>
   </data>
   <data name="ConsoleFormatteErrorsMessage" xml:space="preserve">
-    <value>{0}) {1} - {2}</value>
+    <value>{0}) {1}</value>
   </data>
-  <data name="NestedConsoleFormatterErrorMessage" xml:space="preserve">
-    <value>{0} - {1}</value>
+  <data name="DocumentationConsoleFormatterErrorMessage" xml:space="preserve">
+    <value>{0} (FAILED)</value>
   </data>
 </root>

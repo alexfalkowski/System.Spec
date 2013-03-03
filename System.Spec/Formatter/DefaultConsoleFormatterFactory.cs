@@ -22,15 +22,15 @@ namespace System.Spec.Formatter
 	{
 		public IConsoleFormatter CreateConsoleFormatter(ConsoleFormatterType type)
 		{
+            if (type == ConsoleFormatterType.Documentation) {
+                return new DocumentionConsoleFormatter();
+            }
+
 			if (type == ConsoleFormatterType.Progress) {
 				return new ProgressConsoleFormatter();
 			}
 
-			if (type == ConsoleFormatterType.Nested) {
-				return new NestedConsoleFormatter();
-			}
-
-			return new SilentConsoleFormatter();
+            return new ProgressConsoleFormatter();
 		}
 	}
 }

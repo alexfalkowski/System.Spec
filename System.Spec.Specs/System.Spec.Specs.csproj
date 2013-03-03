@@ -67,7 +67,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="NestedConsoleFormatterSpecs.cs" />
     <Compile Include="ProgressConsoleFormatterSpecs.cs" />
     <Compile Include="FileSystemSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +74,7 @@
     <Compile Include="SummarySpecs.cs" />
     <Compile Include="RunnerSpecs.cs" />
     <Compile Include="SpecificationFinderSpecs.cs" />
+    <Compile Include="DocumentConsoleFormatterSpecs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
