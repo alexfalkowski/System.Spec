@@ -88,7 +88,7 @@ namespace System.Spec.Command
                 return results.HasErrors() ? 1 : 0;
             } catch (ArgException) {
                 var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
-                consoleFormatter.WriteInformationLine((ArgUsage.GetUsage<Arguments>()));
+                consoleFormatter.WriteInformationLine(ArgUsage.GetUsage<Arguments>());
                 return 1;
             } catch (Exception e) {
                 var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
