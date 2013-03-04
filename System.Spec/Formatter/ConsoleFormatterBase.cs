@@ -64,7 +64,7 @@ namespace System.Spec.Formatter
                     var prefix = new string(' ', index.ToString().Length + 2);
                     this.writter.WriteErrorLine(string.Format(CultureInfo.CurrentCulture,
                                                               Resources.ConsoleFormatteFailureMessage, 
-                                                              prefix, example.Exception.Message.Trim()));
+                                                              prefix, example.Exception.ToString().Trim()));
                     this.writter.WriteLine();
                 }
             }

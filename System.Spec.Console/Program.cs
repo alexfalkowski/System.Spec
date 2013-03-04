@@ -24,6 +24,7 @@ namespace System.Spec.Console
     using System.Spec.Reports;
 	using System.Spec.Command;
     using System.Spec.IO;
+    using System.Spec.Runners;
 	
 	using PowerArgs;
 	
@@ -31,11 +32,16 @@ namespace System.Spec.Console
 	{
 		public static int Main(string[] args)
 		{
+            var fileSystem = new DefaultFileSystem();
 			var command = new SpecCommand(args,
 			                              new DefaultConsoleFormatterFactory(),
                                           new NUnitSpecificationReporter(),
-			                              new DefaultFileSystem());
-			return command.Perform();
+                                          fileSystem,
+                                          new DefaultConsoleWritterFactory(),
+                                          new DefaultExpressionRunnerFactory(),
+                                          new DefaultSpecificationFinder(fileSystem),
+                                          new DefaultSpecificationRunnerFactory());
+			return command.Run();
 		}
 	}
 }

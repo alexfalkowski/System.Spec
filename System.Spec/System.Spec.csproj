@@ -112,6 +112,12 @@
     <Compile Include="Formatter\DefaultConsoleWritter.cs" />
     <Compile Include="Formatter\ColouredConsoleWritter.cs" />
     <Compile Include="ExampleTuple.cs" />
+    <Compile Include="Formatter\IConsoleWritterFactory.cs" />
+    <Compile Include="Formatter\DefaultConsoleWritterFactory.cs" />
+    <Compile Include="Runners\IExpressionRunnerFactory.cs" />
+    <Compile Include="Runners\DefaultExpressionRunnerFactory.cs" />
+    <Compile Include="Runners\ISpecificationRunnerFactory.cs" />
+    <Compile Include="Runners\DefaultSpecificationRunnerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -36,86 +36,65 @@ namespace System.Spec.Command
         private IConsoleFormatterFactory formatterFactory;
         private ISpecificationReporter reporter;
         private IFileSystem fileSystem;
+        private IConsoleWritterFactory consoleFactory;
+        private IExpressionRunnerFactory expressionFactory;
+        private ISpecificationFinder finder;
+        private ISpecificationRunnerFactory runnerFactory;
         
         public SpecCommand(string[] args, 
-            IConsoleFormatterFactory formatterFactory,
-            ISpecificationReporter reporter,
-            IFileSystem fileSystem)
+                           IConsoleFormatterFactory formatterFactory,
+                           ISpecificationReporter reporter,
+                           IFileSystem fileSystem,
+                           IConsoleWritterFactory consoleFactory,
+                           IExpressionRunnerFactory expressionFactory,
+                           ISpecificationFinder finder,
+                           ISpecificationRunnerFactory runnerFactory)
         {
             this.args = args;
             this.formatterFactory = formatterFactory;
             this.reporter = reporter;
             this.fileSystem = fileSystem;
+            this.consoleFactory = consoleFactory;
+            this.expressionFactory = expressionFactory;
+            this.finder = finder;
+            this.runnerFactory = runnerFactory;
         }
 
-        public int Perform()
+        public int Run()
         {
             try {
                 var arguments = Args.Parse<Arguments>(args);
+                var writter = this.consoleFactory.CreateConsoleWritter(arguments.Colour);
+
                 if (arguments.Help) {
-                    Console.WriteLine(ArgUsage.GetUsage<Arguments>());
+                    writter.WriteInformationLine(ArgUsage.GetUsage<Arguments>());
                     return 0;
                 }
 
                 if (arguments.Version) {
-                    Console.WriteLine(Assembly.GetEntryAssembly().GetName().Version);
+                    writter.WriteInformationLine(Assembly.GetEntryAssembly().GetName().Version.ToString());
                     return 0;
                 }
 
-                IConsoleWritter writter = this.CreateConsoleWritter(arguments.Colour);
-                IConsoleFormatter consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format,
-                                                                                                  writter);
-                ISpecificationFinder finder = new DefaultSpecificationFinder(fileSystem);
-                IActionStrategy actionStratergy = this.CreateActionStrategy(arguments.DryRun);
-                IExpressionRunner runner = new DefaultExpressionRunner(actionStratergy);
-                ISpecificationRunner command = this.CreateSpecificationRunner(arguments.Parrallel, 
-                                                                              runner, 
-                                                                              finder, 
-                                                                              consoleFormatter);
-                
-                var results = command.ExecuteSpecificationsInPath(arguments.Path, arguments.Pattern, arguments.Example);
+                var consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format, writter);
+                var expressionRunner = this.expressionFactory.CreateExpressionRunner(arguments.DryRun);
+                var specRunner = this.runnerFactory.CreateSpecificationRunner(arguments.Parrallel, expressionRunner, 
+                                                                              finder, consoleFormatter);
+                var results = specRunner.ExecuteSpecificationsInPath(arguments.Path, arguments.Pattern, arguments.Example);
 
                 consoleFormatter.WriteSummary(results);
                 this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);
 
                 return results.HasErrors() ? 1 : 0;
             } catch (ArgException) {
-                Console.WriteLine(ArgUsage.GetUsage<Arguments>());
+                var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
+                consoleFormatter.WriteInformationLine((ArgUsage.GetUsage<Arguments>()));
                 return 1;
             } catch (Exception e) {
-                Console.WriteLine(string.Format(CultureInfo.CurrentCulture, "Could not run specs: {0}", e.Message));
+                var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
+                consoleFormatter.WriteInformationLine(e.ToString().Trim());
                 return 1;
             }
-        }
-
-        private IConsoleWritter CreateConsoleWritter(bool coloured)
-        {
-            if (coloured) {
-                return new ColouredConsoleWritter();
-            }
-
-            return new DefaultConsoleWritter();
-        }
-
-        private ISpecificationRunner CreateSpecificationRunner(bool parrallel, 
-                                                               IExpressionRunner runner, 
-                                                               ISpecificationFinder finder, 
-                                                               IConsoleFormatter formatter)
-        {
-            if (parrallel) {
-                return new ParallelSpecificationRunner(runner, finder, formatter);
-            }
-
-            return new DefaultSpecificationRunner(runner, finder, formatter);
-        }
-
-        private IActionStrategy CreateActionStrategy(bool dryRun)
-        {
-            if (dryRun) {
-                return new NoneActionStrategy();
-            }
-            
-            return new DefaultActionStrategy();
         }
     }
 }

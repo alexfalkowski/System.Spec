@@ -94,7 +94,7 @@ namespace System.Spec.Specs
             var value = "F" + Environment.NewLine + Environment.NewLine +
                 "Failures:" + Environment.NewLine + Environment.NewLine +
                 "1) test" + Environment.NewLine +
-                "   Failure/Error: Test Exception" + Environment.NewLine + Environment.NewLine + 
+                "   Failure/Error: System.InvalidOperationException: Test Exception" + Environment.NewLine + Environment.NewLine + 
                 "Finished in 1 seconds" + Environment.NewLine + 
                 "1 examples, 1 failures" + Environment.NewLine;
             this.stringWriter.ToString().Should().Be(value);
