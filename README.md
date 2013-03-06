@@ -39,12 +39,12 @@ To execute your specifications execute the following:
 
 The default output will display the following example:
 
-	..FF.....
+	..FF.......
 
     Failures:
 
     1) should be true
-       Failure/Error: FluentAssertions.Frameworks.AssertionFailedException: Expected True, but found False.
+       Failure/Error: System.Spec.InvalidActionException: Expected True, but found False.
       at FluentAssertions.Frameworks.FallbackTestFramework.Throw (System.String message) [0x00000] in <filename unknown>:0
       at FluentAssertions.Frameworks.AssertionHelper.Throw (System.String message) [0x00000] in <filename unknown>:0
       at FluentAssertions.Verification.FailWith (System.String failureMessage, System.Object[] failureArgs) [0x00000] in <filename unknown>:0
@@ -55,7 +55,7 @@ The default output will display the following example:
       at System.Spec.StopwatchHelper.ExecuteTimedActionWithResult (System.Action action) [0x00000] in <filename unknown>:0
 
     2) call method
-       Failure/Error: NSubstitute.Exceptions.ReceivedCallsException: Expected to receive a call matching:
+       Failure/Error: System.Spec.InvalidActionException: Expected to receive a call matching:
     	TestMethod()
     Actually received no matching calls.
 
@@ -74,8 +74,8 @@ The default output will display the following example:
       at System.Spec.DefaultActionStrategy+<ExecuteActionWithResult>c__AnonStorey0.<>m__2 () [0x00000] in <filename unknown>:0
       at System.Spec.StopwatchHelper.ExecuteTimedActionWithResult (System.Action action) [0x00000] in <filename unknown>:0
 
-    Finished in 0.28 seconds
-    9 examples, 2 failures
+    Finished in 0.248 seconds
+    11 examples, 2 failures
 
 Convention
 ----------
@@ -90,7 +90,7 @@ The command spec has the following options:
     Usage: spec options
 
        OPTION          TYPE                   ORDER   DESCRIPTION
-       -path (-p)      String                 0       The path to search all the Spec assemblies.
+       -path (-p)      String                 0       The path to search all the Spec assemblies. The default is spec.
        -example (-e)   String                         The example to execute. This could be a spec, example group or an example.
        -pattern (-P)   String                         Load files matching pattern. The default is Specs.
        -output (-o)    String                         The output path of the test results. The default is test-results.xml.
