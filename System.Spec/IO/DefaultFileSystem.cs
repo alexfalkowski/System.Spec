@@ -22,6 +22,7 @@ namespace System.Spec.IO
     using System.IO;
     using System.Linq;
 
+    [Serializable]
     public class DefaultFileSystem : IFileSystem
     {
         public string CurrentPath {

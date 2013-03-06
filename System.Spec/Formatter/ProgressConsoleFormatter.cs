@@ -25,6 +25,7 @@ namespace System.Spec.Formatter
 
     using System.Spec.Properties;
 
+    [Serializable]
     public class ProgressConsoleFormatter : ConsoleFormatterBase
     {
         private IConsoleWritter writter;

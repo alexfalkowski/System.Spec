@@ -41,6 +41,7 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -55,11 +56,13 @@
     <Compile Include="TestSpecificationWithSingleItWithBeforeEachAndAfterEach.cs" />
     <Compile Include="ITestInterface.cs" />
     <Compile Include="TestSpecificationWithMultipleIts.cs" />
+    <Compile Include="TestSpecificationConfigurationManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="System.Spec.snk" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\System.Spec\System.Spec.csproj">

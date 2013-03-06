@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '2.3.2'
+VERSION = '2.4.0'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 desc 'Get all the referenced packages'
@@ -93,7 +93,6 @@ nuspec :nuget_spec do |nuspec|
   nuspec.file 'System.Spec.dll', 'tools'
   nuspec.file 'System.Spec.Command.dll', 'tools'
   nuspec.file 'spec.exe', 'tools'
-  nuspec.file 'spec.exe.config', 'tools'
   nuspec.file 'spec.sh', 'tools'
   nuspec.file 'System.Monad.dll', 'tools'
   nuspec.file 'FluentAssertions.dll', 'tools'

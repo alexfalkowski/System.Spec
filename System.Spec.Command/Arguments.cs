@@ -25,7 +25,7 @@ namespace System.Spec.Command
 	public class Arguments
 	{
         [ArgPosition(0)]
-        [ArgDescription("The path to search all the Spec assemblies.")]
+        [ArgDescription("The path to search all the Spec assemblies. The default is spec.")]
         [DefaultValue("spec")]
         public string Path { get; set; }
 

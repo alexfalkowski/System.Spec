@@ -18,6 +18,7 @@
 
 namespace System.Spec.Formatter
 {
+    [Serializable]
     public class ColouredConsoleWritter : IConsoleWritter
     {
         public void WriteInformationLine(string value)

@@ -21,6 +21,7 @@ namespace System.Spec
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
+    [Serializable]
     public class ExpressionResult
     {
         private IList<ExampleGroupResult> examples = new Collection<ExampleGroupResult>();

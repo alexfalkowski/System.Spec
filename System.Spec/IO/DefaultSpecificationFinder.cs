@@ -27,6 +27,7 @@ namespace System.Spec.IO
     using System.Monad.Maybe;
     using System.Reflection;
 
+    [Serializable]
     public class DefaultSpecificationFinder : ISpecificationFinder
     {
         private readonly IFileSystem fileSystem;
@@ -36,10 +37,11 @@ namespace System.Spec.IO
             this.fileSystem = fileSystem;
         }
 
-        public IEnumerable<Specification> FindSpecifications(string path, string pattern, string example = null)
+        public IEnumerable<Specification> GetSpecifications(string path, string example = null)
         {
-            return from assembly in this.GetAssemblies(path, pattern)
-                   from specification in this.GetSpecifications(this.GetSpecificationTypes(assembly, example))
+            var assembly = Assembly.LoadFrom(path);
+
+            return from specification in this.GetSpecifications(this.GetSpecificationTypes(assembly, example))
                    select specification;
         }
 
@@ -68,13 +70,12 @@ namespace System.Spec.IO
             }
         }
 
-        private IEnumerable<Assembly> GetAssemblies(string path, string search)
+        public IEnumerable<string> GetSpecificationFiles(string path, string search)
         {
             var searchExpression = string.Format(CultureInfo.CurrentCulture, "{0}.dll", search);
             var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), searchExpression);
 
-            return from file in files
-                   select Assembly.LoadFrom(file);
+            return files;
         }
 
         private string GetPath(string path)

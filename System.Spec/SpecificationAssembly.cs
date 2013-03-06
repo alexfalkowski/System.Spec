@@ -16,44 +16,26 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Formatter
+namespace System.Spec
 {
-    [Serializable]
-    public class DefaultConsoleWritter : IConsoleWritter
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Reflection;
+    using System.Spec.Runners;
+
+    public class SpecificationAssembly : MarshalByRefObject
     {
-        public void WriteInformationLine(string value)
-        {
-            Console.WriteLine(value);
-        }
-
-        public void WriteErrorLine(string value)
-        {
-            Console.WriteLine(value);
-        }
-
-        public void WriteSuccessLine(string value)
-        {
-            Console.WriteLine(value);
-        }
-
-        public void WriteInformation(string value)
-        {
-            Console.Write(value);
-        }
+        private ISpecificationRunner runner;
         
-        public void WriteError(string value)
+        public SpecificationAssembly(ISpecificationRunner runner)
         {
-            Console.Write(value);
-        }
-        
-        public void WriteSuccess(string value)
-        {
-            Console.Write(value);
+            this.runner = runner;
         }
 
-        public void WriteLine()
+        public IEnumerable<ExpressionResult> ExecuteSpecifications(string path, string example = null)
         {
-            Console.WriteLine();
+            return runner.ExecuteSpecificationsInPath(path, example);
         }
     }
 }

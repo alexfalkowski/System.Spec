@@ -118,6 +118,9 @@
     <Compile Include="Runners\DefaultExpressionRunnerFactory.cs" />
     <Compile Include="Runners\ISpecificationRunnerFactory.cs" />
     <Compile Include="Runners\DefaultSpecificationRunnerFactory.cs" />
+    <Compile Include="SpecificationAssembly.cs" />
+    <Compile Include="SpecificationAppDomain.cs" />
+    <Compile Include="InvalidActionException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

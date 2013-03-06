@@ -20,6 +20,7 @@ namespace System.Spec.Formatter
 {
     using System.Collections.Generic;
 
+    [Serializable]
     public class SilentConsoleFormatter : ConsoleFormatterBase
     {
         public SilentConsoleFormatter(IConsoleWritter writter) : base(writter) 

@@ -32,12 +32,7 @@ namespace System.Spec
 
         public static ExampleGroupResult ToExampleGroupResult(this ActionResult result, string reason)
         {
-            return new ExampleGroupResult {
-                Reason = reason,
-                Status = result.Status,
-                Exception = result.Exception,
-                ElapsedTime = result.ElapsedTime
-            };
+            return new ExampleGroupResult { Reason = reason };
         }
     }
 }

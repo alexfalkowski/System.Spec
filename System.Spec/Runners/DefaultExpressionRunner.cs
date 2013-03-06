@@ -21,6 +21,7 @@ namespace System.Spec.Runners
     using System.Monad.Maybe;
     using System.Spec.Formatter;
 
+    [Serializable]
     public class DefaultExpressionRunner : IExpressionRunner
     {
         private IActionStrategy stratergy;

@@ -25,6 +25,7 @@ namespace System.Spec.Formatter
 
     using System.Spec.Properties;
 
+    [Serializable]
     public class DocumentionConsoleFormatter : ConsoleFormatterBase
     {
         private IConsoleWritter writter;

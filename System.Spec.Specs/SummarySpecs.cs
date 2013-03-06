@@ -30,6 +30,7 @@ namespace System.Spec.Specs
     
     using FluentAssertions;
 
+    using System.Spec.Example.Specs;
     using System.Spec.Reports;
     using System.Spec.Formatter;
     using System.Spec.IO;
@@ -46,8 +47,8 @@ namespace System.Spec.Specs
         private IActionStrategy strategy;
         private resultType resultType;
         
-        [SetUp]
-        public void BeforeEach()
+        [TestFixtureSetUp]
+        public void BeforeAll()
         {
             this.strategy = new DefaultActionStrategy();
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
@@ -55,8 +56,9 @@ namespace System.Spec.Specs
             var formatter = new SilentConsoleFormatter(new DefaultConsoleWritter());
             this.runner = new DefaultSpecificationRunner(runner, finder, formatter);
 
-            var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-            var results = this.runner.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
+            var location = new Uri(typeof(TestSpecificationConfigurationManager).Assembly.CodeBase).LocalPath;
+            var appDomain = new SpecificationAppDomain(this.runner);
+            var results = appDomain.ExecuteSpecifications(location);
             
             using (var stream = new MemoryStream()) {
                 var reporter = new NUnitSpecificationReporter();
@@ -149,7 +151,7 @@ namespace System.Spec.Specs
                         where example.result == "Failure"
                         select example;
             query.Should().HaveCount(2);
-            query.Should().Contain(result => int.Parse(result.time) >= 0);
+            query.Should().Contain(result => double.Parse(result.time) >= 0D);
         }
 
         [Test]
@@ -161,8 +163,8 @@ namespace System.Spec.Specs
                         from testcaseType example in @group.results
                         where example.result == "Success"
                         select example;
-            query.Should().HaveCount(7);
-            query.Should().Contain(result => int.Parse(result.time) >= 0);
+            query.Should().HaveCount(9);
+            query.Should().Contain(result => double.Parse(result.time) >= 0D);
         }
     }
 }

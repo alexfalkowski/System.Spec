@@ -22,6 +22,8 @@ namespace System.Spec.IO
 
     public interface ISpecificationFinder
     {
-        IEnumerable<Specification> FindSpecifications(string path, string pattern, string example = null);
+        IEnumerable<Specification> GetSpecifications(string path, string example = null);
+
+        IEnumerable<string> GetSpecificationFiles(string path, string search);
     }
 }

@@ -21,9 +21,12 @@ namespace System.Spec
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class ExampleGroupResult : ExampleResult
+    [Serializable]
+    public class ExampleGroupResult
     {
         private IList<ExampleResult> examples = new Collection<ExampleResult>();
+
+        public string Reason { get; set; }
         
         public IList<ExampleResult> Examples 
         {

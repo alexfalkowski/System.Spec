@@ -34,7 +34,7 @@ namespace System.Spec
                 result.Status = ResultStatus.Success;
             } catch (Exception e) {
                 result.Status = ResultStatus.Error;
-                result.Exception = e;
+                result.Exception = new InvalidActionException(e);
             } finally {
                 stopwatch.Stop();
             }

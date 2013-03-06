@@ -19,6 +19,7 @@
 namespace System.Spec.Command
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
     using System.Reflection;
@@ -78,9 +79,14 @@ namespace System.Spec.Command
 
                 var consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format, writter);
                 var expressionRunner = this.expressionFactory.CreateExpressionRunner(arguments.DryRun);
-                var specRunner = this.runnerFactory.CreateSpecificationRunner(arguments.Parrallel, expressionRunner, 
-                                                                              finder, consoleFormatter);
-                var results = specRunner.ExecuteSpecificationsInPath(arguments.Path, arguments.Pattern, arguments.Example);
+                var specRunner = this.runnerFactory.CreateSpecificationRunner(arguments.Parrallel, expressionRunner, finder, consoleFormatter);
+                var files = this.finder.GetSpecificationFiles(arguments.Path, arguments.Pattern);
+                var appDomain = new SpecificationAppDomain(specRunner);
+                var results = new List<ExpressionResult>();
+
+                foreach (var file in files) {
+                    results.AddRange(appDomain.ExecuteSpecifications(file, arguments.Example));
+                }
 
                 consoleFormatter.WriteSummary(results);
                 this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);

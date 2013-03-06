@@ -23,6 +23,7 @@ namespace System.Spec.Runners
     using System.Spec.IO;
     using System.Spec.Formatter;
 
+    [Serializable]
     public class DefaultSpecificationRunner : SpecificationRunnerBase
     {
 

@@ -24,6 +24,7 @@ namespace System.Spec.Runners
     using System.Spec.Formatter;
     using System.Spec.IO;
 
+    [Serializable]
     public abstract class SpecificationRunnerBase : ISpecificationRunner
     {
         private readonly IExpressionRunner runner;
@@ -42,9 +43,9 @@ namespace System.Spec.Runners
             this.formatter = formatter;
         }
 
-        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string pattern, string example = null)
+        public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string example = null)
         {
-            var specifications = this.finder.FindSpecifications(path, pattern, example);
+            var specifications = this.finder.GetSpecifications(path, example);
 
             foreach (var specification in this.FindSpecification(specifications, example)) {
                 return this.ExecuteSpecifications(new [] { specification }, example);

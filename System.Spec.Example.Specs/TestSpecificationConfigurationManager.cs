@@ -16,12 +16,28 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Runners
+namespace System.Spec.Example.Specs
 {
-    using System.Collections.Generic;
+    using System.IO;
+    using System.Spec;
+    using System.Configuration;
+    using System.Reflection;
 
-    public interface ISpecificationRunner
+    using FluentAssertions;
+
+    public class TestSpecificationConfigurationManager : Specification
     {
-        IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string example = null);
+        protected override void Define()
+        {
+            Describe("Configuration Manager", () => {
+                It("should find Test1 in ConfigurationManager", () => {
+                    ConfigurationManager.AppSettings ["Test1"].Should().Be("Test1");
+                });
+
+                It("should find Test2 in ConfigurationManager", () => {
+                    ConfigurationManager.AppSettings ["Test2"].Should().Be("Test2");
+                });
+            });
+        }
     }
 }

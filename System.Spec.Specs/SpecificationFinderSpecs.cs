@@ -52,12 +52,20 @@ namespace System.Spec.Specs
         public void ShouldFindSpecifications()
         {
             var location = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
+            var specifications = this.finder.GetSpecifications(location);
+            specifications.Should().HaveCount(11);
+        }
+
+        [Test]
+        public void ShouldGetSpecifications()
+        {
+            var location = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
             const string TestPath = "test";
             this.fileSystem.CurrentPath.Returns(TestPath);
             this.fileSystem.GetFilesWithExtension(TestPath, "Example.Spec.dll").Returns(new[] { location });
-
-            var specifications = this.finder.FindSpecifications(TestPath, "Example.Spec");
-            specifications.Should().HaveCount(10);
+            
+            var specifications = this.finder.GetSpecificationFiles(TestPath, "Example.Spec");
+            specifications.Should().HaveCount(1);
         }
     }
 }

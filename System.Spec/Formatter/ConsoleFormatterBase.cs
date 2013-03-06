@@ -31,6 +31,7 @@ namespace System.Spec.Formatter
 
     using System.Spec.Properties;
 
+    [Serializable]
     public abstract class ConsoleFormatterBase : IConsoleFormatter
     {
         private IConsoleWritter writter;

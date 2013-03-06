@@ -56,17 +56,14 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldExecuteAllSpecificationsInPath()
         {
-            var location = Path.GetDirectoryName(this.path);
-            var results = this.command.ExecuteSpecificationsInPath(location, StringHelper.SpecsSearch);
-            results.Should().HaveCount(10);
+            var results = this.command.ExecuteSpecificationsInPath(this.path);
+            results.Should().HaveCount(11);
         }
 
         [Test]
         public void ShouldExecuteOneSpecificationInPath()
         {
-            var location = Path.GetDirectoryName(this.path);
-            var results = this.command.ExecuteSpecificationsInPath(location, 
-                                                                   StringHelper.SpecsSearch, 
+            var results = this.command.ExecuteSpecificationsInPath(this.path, 
                                                                    typeof(TestSpecificationWithBeforeAll).FullName);
             results.Should().HaveCount(1);
         }
@@ -74,9 +71,7 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldExecuteOneDescribeInPath()
         {
-            var location = Path.GetDirectoryName(this.path);
-            var results = this.command.ExecuteSpecificationsInPath(location, 
-                                                                   StringHelper.SpecsSearch, 
+            var results = this.command.ExecuteSpecificationsInPath(this.path, 
                                                                    "describe TestSpecificationWithMultipleIts");
             results.Should().HaveCount(1);
             var result = results.First();
@@ -87,9 +82,7 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldExecuteOneItInPath()
         {
-            var location = Path.GetDirectoryName(this.path);
-            var results = this.command.ExecuteSpecificationsInPath(location, 
-                                                                   StringHelper.SpecsSearch, 
+            var results = this.command.ExecuteSpecificationsInPath(this.path, 
                                                                    "it should do one thing");
             results.Should().HaveCount(1);
             var result = results.First();

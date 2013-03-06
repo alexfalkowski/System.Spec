@@ -24,6 +24,7 @@ namespace System.Spec.Runners
     using System.Spec.IO;
     using System.Threading.Tasks;
 
+    [Serializable]
     public class ParallelSpecificationRunner : SpecificationRunnerBase
     {
         public ParallelSpecificationRunner(IExpressionRunner runner, 

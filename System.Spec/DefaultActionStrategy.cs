@@ -23,6 +23,7 @@ namespace System.Spec
     using System.Linq;
     using System.Monad.Maybe;
 
+    [Serializable]
     public class DefaultActionStrategy : IActionStrategy
     {
         public ActionResult ExecuteActionWithResult(Action action)

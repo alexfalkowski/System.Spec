@@ -18,6 +18,7 @@
 
 namespace System.Spec
 {
+    [Serializable]
 	public class ExampleResult
 	{
 		public string Reason { get; set; }

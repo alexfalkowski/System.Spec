@@ -6,6 +6,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("alex.falkowski")]
 [assembly: AssemblyProduct("System.Spec.Console")]
 [assembly: AssemblyCopyright("2013")]
-[assembly: AssemblyVersion("2.3.2")]
+[assembly: AssemblyVersion("2.4.0")]
 
 [assembly: CLSCompliantAttribute(false)]
