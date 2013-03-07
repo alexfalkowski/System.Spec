@@ -16,17 +16,15 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Example.Specs
+namespace System.Spec.Examples.Specs
 {
     using System.Spec;
 
-    public class TestSpecificationWithSingleIt : Specification
+    public class TestSpecificationWithJustDescribe : Specification
     {
         protected override void Define()
         {
-            Describe("describe TestSpecificationWithSingleIt", () => {              
-                It("it 1", () => {
-                });
+            Describe("describe TestSpecificationWithJustDescribe", () => {     
             });
         }
     }

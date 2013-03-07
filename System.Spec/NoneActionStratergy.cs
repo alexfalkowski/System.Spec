@@ -21,7 +21,7 @@ namespace System.Spec
     using System;
 
     [Serializable]
-    public class NoneActionStrategy : IActionStrategy
+    public class NoneActionStratergy : IActionStratergy
     {
         public ActionResult ExecuteActionWithResult(Action action)
         {

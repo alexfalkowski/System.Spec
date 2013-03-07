@@ -15,24 +15,29 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 
-namespace System.Spec.Example.Specs
+namespace System.Spec.Examples.Specs
 {
+    using System.IO;
     using System.Spec;
+    using System.Configuration;
+    using System.Reflection;
 
-    public class TestSpecificationWithMultipleIts : Specification
+    using FluentAssertions;
+
+    public class TestSpecificationConfigurationManager : Specification
     {
         protected override void Define()
         {
-            Describe("describe TestSpecificationWithMultipleIts", () => {              
-                It("it should do one thing", () => {
+            Describe("Configuration Manager", () => {
+                It("should find Test1 in ConfigurationManager", () => {
+                    ConfigurationManager.AppSettings ["Test1"].Should().Be("Test1");
                 });
 
-                It("it should do another thing", () => {
+                It("should find Test2 in ConfigurationManager", () => {
+                    ConfigurationManager.AppSettings ["Test2"].Should().Be("Test2");
                 });
             });
         }
     }
 }
-

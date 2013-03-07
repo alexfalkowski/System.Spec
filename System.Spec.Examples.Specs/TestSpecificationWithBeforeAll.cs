@@ -1,4 +1,4 @@
-// Author:
+﻿// Author:
 //       alex.falkowski <alexrfalkowski@gmail.com>
 //
 //  Copyright (c) 2013 alex.falkowski
@@ -16,28 +16,27 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Example.Specs
+namespace System.Spec.Examples.Specs
 {
-    using System.IO;
     using System.Spec;
-    using System.Configuration;
-    using System.Reflection;
 
-    using FluentAssertions;
-
-    public class TestSpecificationConfigurationManager : Specification
-    {
-        protected override void Define()
-        {
-            Describe("Configuration Manager", () => {
-                It("should find Test1 in ConfigurationManager", () => {
-                    ConfigurationManager.AppSettings ["Test1"].Should().Be("Test1");
+	public class TestSpecificationWithBeforeAll : Specification
+	{
+		protected override void Define()
+		{
+            Describe("describe TestSpecificationWithBeforeAll", () => {
+                BeforeAll(() => {
                 });
 
-                It("should find Test2 in ConfigurationManager", () => {
-                    ConfigurationManager.AppSettings ["Test2"].Should().Be("Test2");
+                BeforeEach(() => {
+                });
+                
+                AfterEach(() => {
+                });
+                
+                It("it 1", () => {
                 });
             });
-        }
-    }
+		}
+	}
 }

@@ -15,7 +15,6 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 
 namespace System.Spec.Specs
 {
@@ -27,7 +26,7 @@ namespace System.Spec.Specs
     
     using FluentAssertions;
     
-    using System.Spec.Example.Specs;
+    using System.Spec.Examples.Specs;
     using System.Spec.Formatter;
     using System.Spec.IO;
     

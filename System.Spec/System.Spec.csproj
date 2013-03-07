@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\NSpec.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\NSpec.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
@@ -65,7 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultActionStrategy.cs" />
+    <Compile Include="DefaultActionStratergy.cs" />
     <Compile Include="Formatter\ConsoleFormatterBase.cs" />
     <Compile Include="Formatter\ConsoleFormatterType.cs" />
     <Compile Include="Formatter\DefaultConsoleFormatterFactory.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="Example.cs" />
     <Compile Include="ExampleGroup.cs" />
     <Compile Include="ExampleResult.cs" />
-    <Compile Include="IActionStrategy.cs" />
+    <Compile Include="IActionStratergy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -105,7 +105,7 @@
     <Compile Include="Runners\ISpecificationRunner.cs" />
     <Compile Include="Runners\ParallelSpecificationRunner.cs" />
     <Compile Include="Runners\SpecificationRunnerBase.cs" />
-    <Compile Include="NoneActionStrategy.cs" />
+    <Compile Include="NoneActionStratergy.cs" />
     <Compile Include="Formatter\DocumentionConsoleFormatter.cs" />
     <Compile Include="Formatter\SilentConsoleFormatter.cs" />
     <Compile Include="Formatter\IConsoleWritter.cs" />
@@ -143,11 +143,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Reports\" />
-    <Folder Include="IO\" />
-    <Folder Include="Runners\" />
-  </ItemGroup>
+  <ItemGroup />
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>

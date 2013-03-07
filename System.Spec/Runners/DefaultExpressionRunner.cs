@@ -24,9 +24,9 @@ namespace System.Spec.Runners
     [Serializable]
     public class DefaultExpressionRunner : IExpressionRunner
     {
-        private IActionStrategy stratergy;
+        private IActionStratergy stratergy;
 
-        public DefaultExpressionRunner(IActionStrategy stratergy)
+        public DefaultExpressionRunner(IActionStratergy stratergy)
         {
             this.stratergy = stratergy;
         }

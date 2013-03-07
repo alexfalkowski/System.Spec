@@ -1,4 +1,4 @@
-﻿// Author:
+// Author:
 //       alex.falkowski <alexrfalkowski@gmail.com>
 //
 //  Copyright (c) 2013 alex.falkowski
@@ -16,18 +16,29 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Example.Specs
+namespace System.Spec
 {
-    using System.Spec;
+    using System;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Monad.Maybe;
 
-	public class TestSpecificationWithNestedDescribe : Specification
-	{
-        protected override void Define()
-		{
-            Describe("describe TestSpecificationWithNestedDescribe1", () => {
-                Describe("describe TestSpecificationWithNestedDescribe2", () => {     
+    [Serializable]
+    public class DefaultActionStratergy : IActionStratergy
+    {
+        public ActionResult ExecuteActionWithResult(Action action)
+        {
+            var option = action.SomeOrNone().Into(value => {
+                return StopwatchHelper.ExecuteTimedActionWithResult(() => {
+                    action();
                 });
             });
-		}
-	}
+            return option.Or(new ActionResult {Status = ResultStatus.Error }).First();
+        }
+
+        public void ExecuteAction(Action action)
+        {
+            action.SomeOrNone().Into(value => value());
+        }
+    }
 }

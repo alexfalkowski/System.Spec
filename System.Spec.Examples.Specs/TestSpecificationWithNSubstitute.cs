@@ -16,16 +16,23 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Example.Specs
+namespace System.Spec.Examples.Specs
 {
     using System.Spec;
 
-    public class TestSpecificationWithJustDescribe : Specification
-    {
+    using NSubstitute;
+
+	public class TestSpecificationWithNSubstitute : Specification
+	{
         protected override void Define()
-        {
-            Describe("describe TestSpecificationWithJustDescribe", () => {     
+		{
+            Describe("using NSustitute", () => {             
+                It("call method", () => {
+                    var testInterface = Substitute.For<ITestInterface>();
+                    
+                    testInterface.Received().TestMethod();
+                });
             });
-        }
-    }
+		}
+	}
 }

@@ -22,18 +22,18 @@ namespace System.Spec.Runners
     {
         public IExpressionRunner CreateExpressionRunner(bool dryRun)
         {
-            IActionStrategy actionStratergy = this.CreateActionStrategy(dryRun);
+            IActionStratergy actionStratergy = this.CreateActionStrategy(dryRun);
 
             return new DefaultExpressionRunner(actionStratergy);
         }
 
-        private IActionStrategy CreateActionStrategy(bool dryRun)
+        private IActionStratergy CreateActionStrategy(bool dryRun)
         {
             if (dryRun) {
-                return new NoneActionStrategy();
+                return new NoneActionStratergy();
             }
             
-            return new DefaultActionStrategy();
+            return new DefaultActionStratergy();
         }
     }
 }

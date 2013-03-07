@@ -16,14 +16,20 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec
+namespace System.Spec.Examples.Specs
 {
-    using System;
+    using System.Spec;
+    using FluentAssertions;
 
-    public interface IActionStrategy
+    public class TestSpecificationWithFluentAssertions : Specification
     {
-        ActionResult ExecuteActionWithResult(Action action);
-
-        void ExecuteAction(Action action);
+        protected override void Define()
+        {
+            Describe("trying to do an assertion using FluentAssertions", () => {     
+                It("should be true", () => {
+                    false.Should().BeTrue();
+                });
+            });
+        }        
     }
 }

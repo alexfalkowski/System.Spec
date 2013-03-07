@@ -1,4 +1,4 @@
-// Author:
+﻿// Author:
 //       alex.falkowski <alexrfalkowski@gmail.com>
 //
 //  Copyright (c) 2013 alex.falkowski
@@ -16,29 +16,18 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec
+namespace System.Spec.Examples.Specs
 {
-    using System;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Monad.Maybe;
+    using System.Spec;
 
-    [Serializable]
-    public class DefaultActionStrategy : IActionStrategy
+    public class TestSpecificationWithSingleIt : Specification
     {
-        public ActionResult ExecuteActionWithResult(Action action)
+        protected override void Define()
         {
-            var option = action.SomeOrNone().Into(value => {
-                return StopwatchHelper.ExecuteTimedActionWithResult(() => {
-                    action();
+            Describe("describe TestSpecificationWithSingleIt", () => {              
+                It("it 1", () => {
                 });
             });
-            return option.Or(new ActionResult {Status = ResultStatus.Error }).First();
-        }
-
-        public void ExecuteAction(Action action)
-        {
-            action.SomeOrNone().Into(value => value());
         }
     }
 }

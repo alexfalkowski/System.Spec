@@ -1,4 +1,4 @@
-// Author:
+﻿// Author:
 //       alex.falkowski <alexrfalkowski@gmail.com>
 //
 //  Copyright (c) 2013 alex.falkowski
@@ -16,10 +16,24 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Example.Specs
+namespace System.Spec.Examples.Specs
 {
-    public interface ITestInterface
-    {
-        void TestMethod();
-    }
+    using System.Spec;
+
+	public class TestSpecificationWithSingleItWithBeforeEachAndAfterEach : Specification
+	{
+        protected override void Define()
+		{
+            Describe("describe TestSpecificationWithSingleItWithBeforeEachAndAfterEach", () => {
+                BeforeEach(() => {
+                });
+
+                AfterEach(() => {
+                });
+
+                It("it 1", () => {
+                });
+            });
+		}
+	}
 }

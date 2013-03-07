@@ -28,7 +28,7 @@ namespace System.Spec.Specs
     using FluentAssertions;
 
     using System.Spec;
-    using System.Spec.Example.Specs;
+    using System.Spec.Examples.Specs;
     using System.Spec.Formatter;
     using System.Spec.IO;
     using System.Spec.Runners;
@@ -47,7 +47,7 @@ namespace System.Spec.Specs
         [SetUp]
         public void BeforeEach()
         {
-            this.command = new DefaultSpecificationRunner(new DefaultExpressionRunner(new DefaultActionStrategy()), 
+            this.command = new DefaultSpecificationRunner(new DefaultExpressionRunner(new DefaultActionStratergy()), 
                                                           new DefaultSpecificationFinder(new DefaultFileSystem()),
                                                           new SilentConsoleFormatter(new DefaultConsoleWritter()));
             this.path = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;

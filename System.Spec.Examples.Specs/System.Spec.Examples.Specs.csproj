@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>System.Spec.Examples.Specs</RootNamespace>
+    <AssemblyName>System.Spec.Examples.Specs</AssemblyName>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>System.Spec.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.1.7.1.1\Lib\net40\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.4.2.0\lib\NET40\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="TestSpecificationWithBeforeAll.cs" />
+    <Compile Include="TestSpecificationWithBeforeAllAndAfterAll.cs" />
+    <Compile Include="TestSpecificationWithFluentAssertions.cs" />
+    <Compile Include="TestSpecificationWithJustDescribe.cs" />
+    <Compile Include="TestSpecificationWithNestedDescribe.cs" />
+    <Compile Include="TestSpecificationWithNSubstitute.cs" />
+    <Compile Include="TestSpecificationWithSingleIt.cs" />
+    <Compile Include="TestSpecificationWithSingleItWithBeforeEach.cs" />
+    <Compile Include="TestSpecificationWithSingleItWithBeforeEachAndAfterEach.cs" />
+    <Compile Include="ITestInterface.cs" />
+    <Compile Include="TestSpecificationWithMultipleIts.cs" />
+    <Compile Include="TestSpecificationConfigurationManager.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="System.Spec.snk" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\System.Spec\System.Spec.csproj">
+      <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
+      <Name>System.Spec</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

@@ -41,17 +41,11 @@ namespace System.Spec.IO
         {
             var assembly = Assembly.LoadFrom(path);
 
-            return from specification in this.GetSpecifications(this.GetSpecificationTypes(assembly, example))
+            return from specification in this.GetSpecifications(GetSpecificationTypes(assembly, example))
                    select specification;
         }
 
-        private IEnumerable<Specification> GetSpecifications(IEnumerable<Type> types)
-        {
-            return from type in types
-                   select (Specification)Activator.CreateInstance(type);
-        }
-
-        private IEnumerable<Type> GetSpecificationTypes(Assembly assembly, string example)
+        private static IEnumerable<Type> GetSpecificationTypes(Assembly assembly, string example)
         {
             foreach (var exampleText in example.SomeStringOrNone()) {
                 foreach (var assemblyValue in assembly.SomeOrNone()) {
@@ -68,6 +62,12 @@ namespace System.Spec.IO
             } catch {
                 return Enumerable.Empty<Type>();
             }
+        }
+
+        private IEnumerable<Specification> GetSpecifications(IEnumerable<Type> types)
+        {
+            return from type in types
+                   select (Specification)Activator.CreateInstance(type);
         }
 
         public IEnumerable<string> GetSpecificationFiles(string path, string search)
