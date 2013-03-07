@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Command", "Syst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Examples.Specs", "System.Spec.Examples.Specs\System.Spec.Examples.Specs.csproj", "{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.VisualStudio", "System.Spec.VisualStudio\System.Spec.VisualStudio.csproj", "{90D05E7A-1450-4076-ABCB-0795D2E278A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,18 @@ Global
 		{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}.Release|x64.Build.0 = Release|Any CPU
 		{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}.Release|x86.ActiveCfg = Release|Any CPU
 		{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}.Release|x86.Build.0 = Release|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Release|x64.ActiveCfg = Release|Any CPU
+		{90D05E7A-1450-4076-ABCB-0795D2E278A8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
