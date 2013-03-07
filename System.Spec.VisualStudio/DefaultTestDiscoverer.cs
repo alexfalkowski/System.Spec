@@ -18,26 +18,55 @@
 
 namespace System.Spec.VisualStudio
 {
+    using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Spec.Formatter;
     using System.Spec.IO;
+    using System.Spec.Runners;
 
     public class DefaultTestDiscoverer : ITestDiscoverer
     {
-        private ISpecificationFinder finder;
+        private ISpecificationRunner runner;
 
-        public DefaultTestDiscoverer() : this(new DefaultSpecificationFinder(new DefaultFileSystem()))
+        public DefaultTestDiscoverer() : this(CreateSpecificationRunner())
         {
         }
 
-        public DefaultTestDiscoverer(ISpecificationFinder finder)
+        public DefaultTestDiscoverer(ISpecificationRunner runner)
         {
-            this.finder = finder;
+            this.runner = runner;
         }
 
-        public void DiscoverTests(IEnumerable<string> sources, IDiscoveryContext discoveryContext, IMessageLogger logger, ITestCaseDiscoverySink discoverySink)
+        public void DiscoverTests(IEnumerable<string> sources, 
+                                  IDiscoveryContext discoveryContext, 
+                                  IMessageLogger logger, 
+                                  ITestCaseDiscoverySink discoverySink)
         {
+            foreach (var source in sources) {
+                var results = runner.ExecuteSpecificationsInPath(source);
+
+                var query = from result in results
+                            from @group in result.Examples
+                            from example in @group.Examples
+                            select example;
+
+                foreach (var example in query) {
+                    discoverySink.SendTestCase(new TestCase(example.Reason, DefaultTestExecutor.ExecutorUri, source) {
+                        CodeFilePath = source
+                    });
+                }
+            }
+        }
+
+        private static ISpecificationRunner CreateSpecificationRunner()
+        {
+            return new DefaultSpecificationRunner(
+                new DefaultExpressionRunner(new NoneActionStratergy()), 
+                new DefaultSpecificationFinder(new DefaultFileSystem()), 
+                new SilentConsoleFormatter(new DefaultConsoleWritter()));
         }
     }
 }

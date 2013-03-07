@@ -24,6 +24,9 @@ namespace System.Spec.VisualStudio
 
     public class DefaultTestExecutor : ITestExecutor
     {
+        public const string ExecutorUriString = "executor://System.Spec.VisualStudio.DefaultTestExecutor/v1";
+        public static readonly Uri ExecutorUri = new Uri(ExecutorUriString);
+
         public void Cancel()
         {
         }

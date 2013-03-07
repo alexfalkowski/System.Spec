@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '2.4.0'
+VERSION = '2.4.1'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 desc 'Get all the referenced packages'
@@ -69,6 +69,19 @@ assemblyinfo :spec_command_assembly_info do |asm|
   asm.namespaces 'System'
   asm.custom_attributes :CLSCompliantAttribute => false
   asm.output_file = 'System.Spec.Command/AssemblyInfo.cs'
+end
+
+desc 'Version the System.Spec.VisualStudio assembly'
+assemblyinfo :spec_command_assembly_info do |asm|
+  asm.version = VERSION
+  asm.company_name = 'alex.falkowski'
+  asm.product_name = 'System.Spec.VisualStudio'
+  asm.title = 'System.Spec.Console'
+  asm.description = 'System.Spec is testing tool for the C# programming language.'
+  asm.copyright = Time.now.strftime('%Y')
+  asm.namespaces 'System'
+  asm.custom_attributes :CLSCompliantAttribute => false
+  asm.output_file = 'System.Spec.VisualStudio/Properties/AssemblyInfo.cs'
 end
 
 desc 'Create the nuspec'
