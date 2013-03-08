@@ -20,6 +20,7 @@ namespace System.Spec.Runners
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Monad.Maybe;
     using System.Spec.Formatter;
     using System.Spec.IO;
@@ -45,13 +46,19 @@ namespace System.Spec.Runners
 
         public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string example = null)
         {
-            var specifications = this.finder.GetSpecifications(path, example);
+            var result = this.finder.GetSpecifications(path, example);
 
-            foreach (var specification in this.FindSpecification(specifications, example)) {
-                return this.ExecuteSpecifications(new [] { specification }, example);
+            if (!result.FoundType) {
+                foreach (var exampleText in example.SomeStringOrNone()) {
+                    foreach (var specification in this.FindSpecification(result.Specifications, exampleText)) {
+                        return this.ExecuteSpecifications(new [] { specification }, exampleText);
+                    }
+                    
+                    return Enumerable.Empty<ExpressionResult>();
+                }
             }
 
-            return this.ExecuteSpecifications(specifications, example);
+            return this.ExecuteSpecifications(result.Specifications, example);
         }
        
         protected abstract IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications, 

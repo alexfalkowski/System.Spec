@@ -121,6 +121,7 @@
     <Compile Include="SpecificationAssembly.cs" />
     <Compile Include="SpecificationAppDomain.cs" />
     <Compile Include="InvalidActionException.cs" />
+    <Compile Include="SpecificationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

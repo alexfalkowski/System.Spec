@@ -37,25 +37,31 @@ namespace System.Spec.IO
             this.fileSystem = fileSystem;
         }
 
-        public IEnumerable<Specification> GetSpecifications(string path, string example = null)
+        public SpecificationResult GetSpecifications(string path, string example = null)
         {
             var assembly = Assembly.LoadFrom(path);
+            bool foundType;
 
-            return from specification in this.GetSpecifications(GetSpecificationTypes(assembly, example))
-                   select specification;
+            var query = from specification in this.GetSpecifications(GetSpecificationTypes(assembly, example, out foundType))
+                        select specification;
+
+            return new SpecificationResult(query, foundType);
         }
 
-        private static IEnumerable<Type> GetSpecificationTypes(Assembly assembly, string example)
+        private static IEnumerable<Type> GetSpecificationTypes(Assembly assembly, string example, out bool foundType)
         {
             foreach (var exampleText in example.SomeStringOrNone()) {
                 foreach (var assemblyValue in assembly.SomeOrNone()) {
                     foreach (var exampleType in assembly.GetType(example).SomeOrNone()) {
                         if (exampleType.IsSubclassOf(typeof(Specification))) {
+                            foundType = true;
                             return new Type[] { exampleType };
                         }
                     }
                 }
             }
+
+            foundType = false;
 
             try {
                 return from type in assembly.GetTypes() where type.IsSubclassOf(typeof(Specification)) select type;

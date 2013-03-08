@@ -104,5 +104,9 @@
       <Project>{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}</Project>
       <Name>System.Spec.Examples.Specs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\System.Spec.MoreExamples.Specs\System.Spec.MoreExamples.Specs.csproj">
+      <Project>{DD5CB344-004A-4A59-8BEE-98162DBECD33}</Project>
+      <Name>System.Spec.MoreExamples.Specs</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

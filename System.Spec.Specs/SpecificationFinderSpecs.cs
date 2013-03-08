@@ -51,8 +51,8 @@ namespace System.Spec.Specs
         public void ShouldFindSpecifications()
         {
             var location = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
-            var specifications = this.finder.GetSpecifications(location);
-            specifications.Should().HaveCount(11);
+            var result = this.finder.GetSpecifications(location);
+            result.Specifications.Should().HaveCount(11);
         }
 
         [Test]
@@ -63,8 +63,8 @@ namespace System.Spec.Specs
             this.fileSystem.CurrentPath.Returns(TestPath);
             this.fileSystem.GetFilesWithExtension(TestPath, "Example.Spec.dll").Returns(new[] { location });
             
-            var specifications = this.finder.GetSpecificationFiles(TestPath, "Example.Spec");
-            specifications.Should().HaveCount(1);
+            var result = this.finder.GetSpecificationFiles(TestPath, "Example.Spec");
+            result.Should().HaveCount(1);
         }
     }
 }
