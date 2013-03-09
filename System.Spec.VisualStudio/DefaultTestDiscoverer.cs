@@ -23,21 +23,26 @@ namespace System.Spec.VisualStudio
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Monad.Maybe;
     using System.Spec.Formatter;
     using System.Spec.IO;
     using System.Spec.Runners;
 
+    [FileExtension(".dll")]
+    [DefaultExecutorUri(DefaultTestExecutor.ExecutorUriString)]
+    [ExtensionUri(DefaultTestExecutor.ExecutorUriString)]
     public class DefaultTestDiscoverer : ITestDiscoverer
     {
-        private ISpecificationRunner runner;
+        private SpecificationAppDomain appDomainRunner;
 
-        public DefaultTestDiscoverer() : this(CreateSpecificationRunner())
+        public DefaultTestDiscoverer()
+            : this(CreateSpecificationRunner())
         {
         }
 
         public DefaultTestDiscoverer(ISpecificationRunner runner)
         {
-            this.runner = runner;
+            appDomainRunner = new SpecificationAppDomain(runner);
         }
 
         public void DiscoverTests(IEnumerable<string> sources, 
@@ -45,9 +50,12 @@ namespace System.Spec.VisualStudio
                                   IMessageLogger logger, 
                                   ITestCaseDiscoverySink discoverySink)
         {
-            foreach (var source in sources) {
-                var results = runner.ExecuteSpecificationsInPath(source);
+            var validSources = from source in sources
+                               where source.EndsWith(StringHelper.GetSearchExpression(), StringComparison.CurrentCultureIgnoreCase)
+                               select source;
 
+            foreach (var source in validSources) {
+                var results = appDomainRunner.ExecuteSpecifications(source);
                 var query = from result in results
                             from @group in result.Examples
                             from example in @group.Examples
@@ -64,9 +72,9 @@ namespace System.Spec.VisualStudio
         private static ISpecificationRunner CreateSpecificationRunner()
         {
             return new DefaultSpecificationRunner(
-                new DefaultExpressionRunner(new NoneActionStratergy()), 
-                new DefaultSpecificationFinder(new DefaultFileSystem()), 
-                new SilentConsoleFormatter(new DefaultConsoleWritter()));
+                new DefaultExpressionRunnerFactory().CreateExpressionRunner(true),
+                new DefaultSpecificationFinder(new DefaultFileSystem()),
+                new DefaultConsoleFormatterFactory().CreateConsoleFormatter(ConsoleFormatterType.Silent, new DefaultConsoleWritter()));
         }
     }
 }

@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '2.4.1'
+VERSION = '2.4.0'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 desc 'Get all the referenced packages'
@@ -12,7 +12,7 @@ exec :packages do |command|
 end
 
 desc 'Build the solution'
-xbuild :build => :assembly_info do |build|
+msbuild :build => :assembly_info do |build|
   FileUtils.rm_rf(ARTIFACTS_PATH)
   build.solution = 'System.Spec.sln'
   build.properties = { :configuration => :Release, :OutputPath => ARTIFACTS_PATH }

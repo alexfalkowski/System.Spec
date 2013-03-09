@@ -23,7 +23,7 @@ namespace System.Spec.Command
     using System.Diagnostics;
     using System.Globalization;
     using System.Reflection;
-    
+
     using System.Spec.Formatter;
     using System.Spec.Reports;
     using System.Spec.IO;

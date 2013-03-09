@@ -42,15 +42,13 @@ namespace System.Spec.Specs
     public class SummarySpecs
     {
         private ISpecificationRunner runner;
-        private IActionStratergy strategy;
         private resultType resultType;
         
         [TestFixtureSetUp]
         public void BeforeAll()
         {
-            this.strategy = new DefaultActionStratergy();
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
-            var runner = new DefaultExpressionRunner(this.strategy);
+            var runner = new DefaultExpressionRunnerFactory().CreateExpressionRunner(false);
             var formatter = new SilentConsoleFormatter(new DefaultConsoleWritter());
             this.runner = new DefaultSpecificationRunner(runner, finder, formatter);
 

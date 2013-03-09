@@ -18,17 +18,18 @@
 
 namespace System.Spec.Runners
 {
+    using System.Linq;
     using System.Monad.Maybe;
     using System.Spec.Formatter;
 
     [Serializable]
     public class DefaultExpressionRunner : IExpressionRunner
     {
-        private IActionStratergy stratergy;
+        private IOption<IActionStratergy> stratergyOption;
 
-        public DefaultExpressionRunner(IActionStratergy stratergy)
+        public DefaultExpressionRunner(IOption<IActionStratergy> stratergyOption)
         {
-            this.stratergy = stratergy;
+            this.stratergyOption = stratergyOption;
         }
 
         public ExpressionResult Execute(Expression expression, string exampleText)
@@ -43,7 +44,7 @@ namespace System.Spec.Runners
 
             foreach (var example in expression.FindExample(exampleText)) {
                 var exampleResult = new ExampleGroupResult { Reason = example.ExampleGroup.Reason };
-                
+
                 exampleResult.Examples.Add(this.ExecuteExample(example.ExampleGroup, example.Example));
                 expressionResult.Examples.Add(exampleResult);
 
@@ -60,24 +61,24 @@ namespace System.Spec.Runners
         private ExampleGroupResult ExecuteExampleGroup(ExampleGroup exampleGroup)
         {
             var result = new ExampleGroupResult { Reason = exampleGroup.Reason };
-            
-            this.stratergy.ExecuteAction(exampleGroup.BeforeAll);
-            
+            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeAll));
+
             foreach (var example in exampleGroup.Examples) {
                 result.Examples.Add(this.ExecuteExample(exampleGroup, example));
             }
-            
-            this.stratergy.ExecuteAction(exampleGroup.AfterAll);
+
+            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterAll));
 
             return result;
         }
 
         private ExampleResult ExecuteExample(ExampleGroup exampleGroup, Example example)
         {
-            this.stratergy.ExecuteAction(exampleGroup.BeforeEach);
-            var result = this.stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example.Reason);
-            
-            this.stratergy.ExecuteAction(exampleGroup.AfterEach);
+            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeEach));
+            var result = this.stratergyOption.Into(stratergy => stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example.Reason))
+                .Or(new ExampleResult { Reason = example.Reason, Status = ResultStatus.Success }).First();
+
+            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterEach));
 
             return result;
         }

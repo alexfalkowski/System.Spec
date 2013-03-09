@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -34,11 +34,12 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Reference Include="PowerArgs, Version=1.2.0.0, Culture=neutral, PublicKeyToken=54832990a0812961, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PowerArgs.1.2.0.0\lib\net40\PowerArgs.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System" />
-    <Reference Include="PowerArgs">
-      <HintPath>..\packages\PowerArgs.1.1.14.0\lib\net40\PowerArgs.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

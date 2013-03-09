@@ -36,7 +36,7 @@ namespace System.Spec
         public IEnumerable<ExpressionResult> ExecuteSpecifications(string path, string example = null)
         {
             var name = Guid.NewGuid().ToString();
-            var domainSetup = new AppDomainSetup { 
+            var domainSetup = new AppDomainSetup {
                 ApplicationName = name,
                 ApplicationBase = Path.GetDirectoryName(path),
                 ConfigurationFile = string.Concat(Path.GetFileName(path), ".config")
@@ -51,10 +51,10 @@ namespace System.Spec
                     false,
                     BindingFlags.Default,
                     null,
-                    new [] { this.runner },
+                    new[] { this.runner },
                     CultureInfo.CurrentCulture,
                     null);
-                
+
                 return assembly.ExecuteSpecifications(path, example);
             } finally {
                 AppDomain.Unload(domain);

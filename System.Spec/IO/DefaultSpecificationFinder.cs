@@ -78,8 +78,7 @@ namespace System.Spec.IO
 
         public IEnumerable<string> GetSpecificationFiles(string path, string search)
         {
-            var searchExpression = string.Format(CultureInfo.CurrentCulture, "{0}.dll", search);
-            var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), searchExpression);
+            var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), StringHelper.GetSearchExpression(search));
 
             return files;
         }

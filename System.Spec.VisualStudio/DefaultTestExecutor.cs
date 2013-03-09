@@ -22,6 +22,8 @@ namespace System.Spec.VisualStudio
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
     using System.Collections.Generic;
 
+    [DefaultExecutorUri(DefaultTestExecutor.ExecutorUriString)]
+    [ExtensionUri(DefaultTestExecutor.ExecutorUriString)]
     public class DefaultTestExecutor : ITestExecutor
     {
         public const string ExecutorUriString = "executor://System.Spec.VisualStudio.DefaultTestExecutor/v1";

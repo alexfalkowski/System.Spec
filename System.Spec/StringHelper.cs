@@ -18,6 +18,7 @@
 
 namespace System.Spec
 {
+    using System.Globalization;
     using System.Text;
 
 	public static class StringHelper
@@ -29,5 +30,10 @@ namespace System.Spec
         public const string DoubleSpace = "  ";
 
         public const string SpecsSearch = "Specs";
+
+        public static string GetSearchExpression(string defaultSearch = SpecsSearch)
+        {
+            return string.Format(CultureInfo.CurrentCulture, "{0}.dll", defaultSearch);
+        }
 	}
 }
