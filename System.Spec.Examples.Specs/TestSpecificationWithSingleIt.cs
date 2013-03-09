@@ -24,8 +24,8 @@ namespace System.Spec.Examples.Specs
     {
         protected override void Define()
         {
-            Describe("describe TestSpecificationWithSingleIt", () => {              
-                It("it 1", () => {
+            Describe("describe TestSpecificationWithSingleIt", () => {
+                It("it TestSpecificationWithSingleIt", () => {
                 });
             });
         }

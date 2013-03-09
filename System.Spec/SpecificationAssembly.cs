@@ -35,12 +35,7 @@ namespace System.Spec
 
         public IEnumerable<ExpressionResult> ExecuteSpecifications(string path, string example = null)
         {
-            try {
-                return runner.ExecuteSpecificationsInPath(path, example);
-            } catch (Exception e) {
-                Console.WriteLine(e);
-                throw;
-            }
+            return runner.ExecuteSpecificationsInPath(path, example);
         }
     }
 }

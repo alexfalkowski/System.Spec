@@ -27,7 +27,7 @@ namespace System.Spec.Examples.Specs
         protected override void Define()
 		{
             Describe("using NSustitute", () => {             
-                It("call method", () => {
+                It("should call method", () => {
                     var testInterface = Substitute.For<ITestInterface>();
                     
                     testInterface.Received().TestMethod();

@@ -30,6 +30,6 @@ namespace System.Spec.Examples.Specs
                     false.Should().BeTrue();
                 });
             });
-        }        
+        }
     }
 }

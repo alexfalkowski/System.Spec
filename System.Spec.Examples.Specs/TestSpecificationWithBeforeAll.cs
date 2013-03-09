@@ -33,8 +33,8 @@ namespace System.Spec.Examples.Specs
                 
                 AfterEach(() => {
                 });
-                
-                It("it 1", () => {
+
+                It("it TestSpecificationWithBeforeAll", () => {
                 });
             });
 		}

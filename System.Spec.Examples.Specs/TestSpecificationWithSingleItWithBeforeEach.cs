@@ -27,8 +27,8 @@ namespace System.Spec.Examples.Specs
             Describe("describe TestSpecificationWithSingleItWithBeforeEach", () => {
                 BeforeEach(() => {
                 });
-                
-                It("it 1", () => {
+
+                It("it TestSpecificationWithSingleItWithBeforeEach", () => {
                 });
             });
 		}

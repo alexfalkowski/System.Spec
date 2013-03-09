@@ -116,7 +116,7 @@ namespace System.Spec.Specs
         public void ShouldHaveCurrentCulture()
         {
             this.resultType.cultureinfo.currentculture.Should().Be(CultureInfo.CurrentCulture.ToString());
-            this.resultType.cultureinfo.currentuiculture.Should().Be(CultureInfo.CurrentCulture.ToString());
+            this.resultType.cultureinfo.currentuiculture.Should().Be(CultureInfo.CurrentUICulture.ToString());
         }
 
         [Test]

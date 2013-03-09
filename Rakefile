@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '2.4.0'
+VERSION = '2.4.1'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 desc 'Get all the referenced packages'
@@ -23,7 +23,8 @@ end
 
 desc 'Run the specs'
 nunit :specs => :build do |nunit|
-  nunit.command = 'tools/nunit-console'
+  file = Dir['packages/**/nunit-console.exe'].first
+  nunit.command = file
   nunit.options '-noshadow'
   nunit.assemblies 'artifacts/System.Spec.Specs.dll'
   nunit.parameters '-nologo'
