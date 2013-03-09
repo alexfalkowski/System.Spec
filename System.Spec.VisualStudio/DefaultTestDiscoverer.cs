@@ -62,9 +62,12 @@ namespace System.Spec.VisualStudio
                             select example;
 
                 foreach (var example in query) {
-                    discoverySink.SendTestCase(new TestCase(example.Reason, DefaultTestExecutor.ExecutorUri, source) {
-                        CodeFilePath = source
-                    });
+                    var testCase = new TestCase(example.Reason, DefaultTestExecutor.ExecutorUri, source) {
+                        CodeFilePath = example.FileName,
+                        LineNumber = example.LineNumber
+                    };
+                    logger.SendMessage(TestMessageLevel.Informational, "The path and line number: " + testCase.CodeFilePath + " " + testCase.LineNumber);
+                    discoverySink.SendTestCase(testCase);
                 }
             }
         }

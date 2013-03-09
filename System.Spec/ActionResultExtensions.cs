@@ -20,13 +20,15 @@ namespace System.Spec
 {
     public static class ActionResultExtensions
     {
-        public static ExampleResult ToExampleResult(this ActionResult result, string reason)
+        public static ExampleResult ToExampleResult(this ActionResult result, Example example)
         {
             return new ExampleResult {
-                Reason = reason,
+                Reason = example.Reason,
                 Status = result.Status,
                 Exception = result.Exception,
-                ElapsedTime = result.ElapsedTime
+                ElapsedTime = result.ElapsedTime,
+                FileName = example.FileName,
+                LineNumber = example.LineNumber
             };
         }
 

@@ -75,9 +75,7 @@ namespace System.Spec.Runners
         private ExampleResult ExecuteExample(ExampleGroup exampleGroup, Example example)
         {
             this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeEach));
-            var result = this.stratergyOption.Into(stratergy => stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example.Reason))
-                .Or(new ExampleResult { Reason = example.Reason, Status = ResultStatus.Success }).First();
-
+            var result = this.stratergyOption.Into(stratergy => stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example)).Or(example.ToExampleResult()).First();
             this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterEach));
 
             return result;

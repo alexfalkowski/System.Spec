@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultActionStratergy.cs" />
+    <Compile Include="ExampleExtensions.cs" />
     <Compile Include="Formatter\ConsoleFormatterBase.cs" />
     <Compile Include="Formatter\ConsoleFormatterType.cs" />
     <Compile Include="Formatter\DefaultConsoleFormatterFactory.cs" />

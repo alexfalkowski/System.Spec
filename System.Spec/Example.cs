@@ -25,5 +25,9 @@ namespace System.Spec
         public string Reason { get; set; }
         
         public Action Action { get; set; }
+
+        public string FileName { get; set; }
+
+        public int LineNumber { get; set; }
     }
 }

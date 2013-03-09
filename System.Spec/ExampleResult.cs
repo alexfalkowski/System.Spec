@@ -28,5 +28,9 @@ namespace System.Spec
 		public Exception Exception { get; set; }
 
         public long ElapsedTime { get; set; }
+
+        public string FileName { get; set; }
+
+        public int LineNumber { get; set; }
 	}
 }

@@ -18,6 +18,7 @@
 
 namespace System.Spec
 {
+    using System.Diagnostics;
     using System.Monad.Maybe;
 
     public abstract class Specification
@@ -85,9 +86,12 @@ namespace System.Spec
         public void It(string reason, Action action)
         {
             currentExampleGroupOption.Into(currentExampleGroup => {
+
                 currentExampleGroup.Add(new Example { 
                     Reason = reason, 
-                    Action = action 
+                    Action = action,
+                    FileName = GetType().Name,
+                    LineNumber = 0
                 });
             });
         }
@@ -99,6 +103,7 @@ namespace System.Spec
         public Expression BuildExpression()
         {
             if (!this.hasExpressionBeenBuilt) {
+
                 this.Define();
                 this.hasExpressionBeenBuilt = true;
             }
