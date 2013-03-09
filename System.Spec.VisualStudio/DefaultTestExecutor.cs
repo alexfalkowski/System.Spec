@@ -33,7 +33,6 @@ namespace System.Spec.VisualStudio
     {
         public const string ExecutorUriString = "executor://System.Spec.VisualStudio.DefaultTestExecutor/v1";
         public static readonly Uri ExecutorUri = new Uri(ExecutorUriString);
-
         private SpecificationAppDomain appDomainRunner;
 
         public DefaultTestExecutor()

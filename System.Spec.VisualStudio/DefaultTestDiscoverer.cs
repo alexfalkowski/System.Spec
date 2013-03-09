@@ -66,7 +66,6 @@ namespace System.Spec.VisualStudio
                         CodeFilePath = example.FileName,
                         LineNumber = example.LineNumber
                     };
-                    logger.SendMessage(TestMessageLevel.Informational, "The path and line number: " + testCase.CodeFilePath + " " + testCase.LineNumber);
                     discoverySink.SendTestCase(testCase);
                 }
             }
