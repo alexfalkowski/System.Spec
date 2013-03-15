@@ -19,6 +19,7 @@
 namespace System.Spec
 {
     using System.Diagnostics;
+    using System.Runtime.CompilerServices;
     using System.Monad.Maybe;
 
     public abstract class Specification
@@ -46,7 +47,7 @@ namespace System.Spec
             currentExampleGroupOption.Into(currentExampleGroup => currentExampleGroup.AfterAll = action);
         }
 
-        public void XAfterAll( Action action)
+        public void XAfterAll(Action action)
         {
         }
         
@@ -83,15 +84,16 @@ namespace System.Spec
         {
         }
 
-        public void It(string reason, Action action)
+        public void It(string reason, Action action, 
+                       [CallerFilePath] string callingFilePath = "", 
+                       [CallerLineNumber] int callingFileLineNumber = 0)
         {
             currentExampleGroupOption.Into(currentExampleGroup => {
-
                 currentExampleGroup.Add(new Example { 
                     Reason = reason, 
                     Action = action,
-                    FileName = GetType().Name,
-                    LineNumber = 0
+                    FileName = callingFilePath,
+                    LineNumber = callingFileLineNumber
                 });
             });
         }
