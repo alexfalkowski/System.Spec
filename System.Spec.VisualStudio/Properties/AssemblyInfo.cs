@@ -6,6 +6,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("alex.falkowski")]
 [assembly: AssemblyProduct("System.Spec.VisualStudio")]
 [assembly: AssemblyCopyright("2013")]
-[assembly: AssemblyVersion("2.4.1")]
+[assembly: AssemblyVersion("3.0.0")]
 
 [assembly: CLSCompliantAttribute(false)]

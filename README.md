@@ -111,7 +111,13 @@ From version 2.0 we have changed the way you construct your specifications. Here
 - The command line options have changed to follow the [rspec](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line) command line.
 - The output follows RSpec [format](https://www.relishapp.com/rspec/rspec-core/v/2-13/docs/command-line/format-option).
 
+From version 3.0 we have changed a few more things
+
+- The framework has been upgraded to 4.5
+- The It method contains to default methods [CallerFilePath] string callingFilePath = "", [CallerLineNumber] int callingFileLineNumber = 0. This should not be filled in.
+- There is a runner for VS 2012.
+
 Future
 ------
 
-I have always been a fan of the [Jasmine](http://pivotal.github.com/jasmine/) so I will be following that design. If you have any suggestions please raise a request or issue.
+I have always been a fan of the [Jasmine](http://pivotal.github.com/jasmine/) so I will be following that design. If you have any suggestions please raise a request or issue or better yet fork and contribute.
