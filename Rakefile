@@ -26,6 +26,15 @@ if is_windows
     build.verbosity = 'quiet'
     build.parameters '/nologo'
   end
+
+  msbuild :build_extension => :assembly_info do |build|
+    FileUtils.rm_rf(ARTIFACTS_PATH)
+    build.solution = 'System.Spec.VisualStudio.Extension/System.Spec.VisualStudio.Extension.csproj'
+    build.properties = { :configuration => :Release, :OutputPath => ARTIFACTS_PATH }
+    build.targets :Rebuild
+    build.verbosity = 'quiet'
+    build.parameters '/nologo'
+  end
 else
   xbuild :build => :assembly_info do |build|
     FileUtils.rm_rf(ARTIFACTS_PATH)

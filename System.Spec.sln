@@ -137,13 +137,11 @@ Global
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Release|x64.ActiveCfg = Release|Any CPU
 		{3B7DDA17-D46D-463D-82A8-785A78A2E4B6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
