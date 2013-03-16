@@ -47,7 +47,7 @@ nunit :specs => :build do |nunit|
 end
 
 desc 'Version the product'
-task :assembly_info => [:spec_assembly_info, :spec_console_assembly_info, :spec_command_assembly_info ]
+task :assembly_info => [:spec_assembly_info, :spec_console_assembly_info, :spec_command_assembly_info, :spec_visualstudio_assembly_info, :spec_visualstudio_extension_assembly_info ]
 
 desc 'Version the System.Spec assembly'
 assemblyinfo :spec_assembly_info do |asm|
@@ -89,7 +89,7 @@ assemblyinfo :spec_command_assembly_info do |asm|
 end
 
 desc 'Version the System.Spec.VisualStudio assembly'
-assemblyinfo :spec_command_assembly_info do |asm|
+assemblyinfo :spec_visualstudio_assembly_info do |asm|
   asm.version = VERSION
   asm.company_name = 'alex.falkowski'
   asm.product_name = 'System.Spec.VisualStudio'
@@ -99,6 +99,19 @@ assemblyinfo :spec_command_assembly_info do |asm|
   asm.namespaces 'System'
   asm.custom_attributes :CLSCompliantAttribute => false
   asm.output_file = 'System.Spec.VisualStudio/Properties/AssemblyInfo.cs'
+end
+
+desc 'Version the System.Spec.VisualStudio.Extension assembly'
+assemblyinfo :spec_visualstudio_extension_assembly_info do |asm|
+  asm.version = VERSION
+  asm.company_name = 'alex.falkowski'
+  asm.product_name = 'System.Spec.VisualStudio.Extension'
+  asm.title = 'System.Spec.Console'
+  asm.description = 'System.Spec is testing tool for the C# programming language.'
+  asm.copyright = Time.now.strftime('%Y')
+  asm.namespaces 'System'
+  asm.custom_attributes :CLSCompliantAttribute => false
+  asm.output_file = 'System.Spec.VisualStudio.Extension/Properties/AssemblyInfo.cs'
 end
 
 desc 'Create the nuspec'
