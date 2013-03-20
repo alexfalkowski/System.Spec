@@ -20,6 +20,7 @@ namespace System.Spec.Runners
 {
     using System.Linq;
     using System.Monad.Maybe;
+    using System.Monad.Collections;
     using System.Spec.Formatter;
 
     [Serializable]
@@ -51,9 +52,7 @@ namespace System.Spec.Runners
                 return expressionResult;
             }
 
-            foreach (var group in expression.Examples) {
-                expressionResult.Examples.Add(this.ExecuteExampleGroup(group));
-            }
+            expression.Examples.ForEach(group => expressionResult.Examples.Add(this.ExecuteExampleGroup(group)));
 
             return expressionResult;
         }
@@ -63,9 +62,7 @@ namespace System.Spec.Runners
             var result = new ExampleGroupResult { Reason = exampleGroup.Reason };
             this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeAll));
 
-            foreach (var example in exampleGroup.Examples) {
-                result.Examples.Add(this.ExecuteExample(exampleGroup, example));
-            }
+            exampleGroup.Examples.ForEach(example => result.Examples.Add(this.ExecuteExample(exampleGroup, example)));
 
             this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterAll));
 

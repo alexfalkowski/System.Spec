@@ -20,6 +20,7 @@ namespace System.Spec.Runners
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Monad.Collections;
     using System.Spec.IO;
     using System.Spec.Formatter;
 
@@ -37,12 +38,8 @@ namespace System.Spec.Runners
                                                                                string example)
         {
             var results = new Collection<ExpressionResult>();
-            
-            foreach (var specification in specifications) {
-                var result = this.ExecuteSpecification(specification, example);
-                
-                results.Add(result);
-            }
+
+            specifications.ForEach(specification => results.Add(this.ExecuteSpecification(specification, example)));
             
             return results;
         }
