@@ -18,22 +18,21 @@
 
 namespace System.Spec.VisualStudio
 {
+    using Collections.Generic;
+    using Formatter;
+    using IO;
+    using Linq;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
-    using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Spec.Formatter;
-    using System.Spec.IO;
-    using System.Spec.Runners;
+    using Runners;
 
-    [DefaultExecutorUri(DefaultTestExecutor.ExecutorUriString)]
-    [ExtensionUri(DefaultTestExecutor.ExecutorUriString)]
+    [DefaultExecutorUri(ExecutorUriString)]
+    [ExtensionUri(ExecutorUriString)]
     public class DefaultTestExecutor : ITestExecutor
     {
         public const string ExecutorUriString = "executor://System.Spec.VisualStudio.DefaultTestExecutor/v1";
         public static readonly Uri ExecutorUri = new Uri(ExecutorUriString);
-        private SpecificationAppDomain appDomainRunner;
+        private readonly SpecificationAppDomain appDomainRunner;
 
         public DefaultTestExecutor()
             : this(CreateSpecificationRunner())
@@ -68,7 +67,7 @@ namespace System.Spec.VisualStudio
             }
         }
 
-        private void RunTest(IFrameworkHandle frameworkHandle, string source, string spec = null)
+        private void RunTest(ITestExecutionRecorder frameworkHandle, string source, string spec = null)
         {
             var results = appDomainRunner.ExecuteSpecifications(source, spec);
             var query = from result in results
@@ -77,7 +76,7 @@ namespace System.Spec.VisualStudio
                         select example;
 
             foreach (var example in query) {
-                var testCase = new TestCase(example.Reason, DefaultTestExecutor.ExecutorUri, source) {
+                var testCase = new TestCase(example.Reason, ExecutorUri, source) {
                     CodeFilePath = source
                 };
 

@@ -18,14 +18,11 @@
 
 namespace System.Spec.IO
 {
+    using Collections.Generic;
+    using Linq;
+    using Monad.Maybe;
+    using Reflection;
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Linq;
-    using System.Monad.Maybe;
-    using System.Reflection;
 
     [Serializable]
     public class DefaultSpecificationFinder : ISpecificationFinder
@@ -42,7 +39,7 @@ namespace System.Spec.IO
             var assembly = Assembly.LoadFrom(path);
             bool foundType;
 
-            var query = from specification in this.GetSpecifications(GetSpecificationTypes(assembly, example, out foundType))
+            var query = from specification in GetSpecifications(GetSpecificationTypes(assembly, example, out foundType))
                         select specification;
 
             return new SpecificationResult(query, foundType);
@@ -50,15 +47,15 @@ namespace System.Spec.IO
 
         private static IEnumerable<Type> GetSpecificationTypes(Assembly assembly, string example, out bool foundType)
         {
-            foreach (var exampleText in example.SomeStringOrNone()) {
-                foreach (var assemblyValue in assembly.SomeOrNone()) {
-                    foreach (var exampleType in assembly.GetType(example).SomeOrNone()) {
-                        if (exampleType.IsSubclassOf(typeof(Specification))) {
-                            foundType = true;
-                            return new Type[] { exampleType };
-                        }
-                    }
-                }
+            var exampleTypes = from exampleText in example.SomeStringOrNone()
+                               from assemblyValue in assembly.SomeOrNone()
+                               from exampleType in assemblyValue.GetType(exampleText).SomeOrNone()
+                               where exampleType.IsSubclassOf(typeof (Specification))
+                               select exampleType;
+            foreach (var exampleType in exampleTypes)
+            {
+                foundType = true;
+                return new[] {exampleType};
             }
 
             foundType = false;
@@ -70,17 +67,17 @@ namespace System.Spec.IO
             }
         }
 
-        private IEnumerable<Specification> GetSpecifications(IEnumerable<Type> types)
+        public IEnumerable<string> GetSpecificationFiles(string path, string search)
+        {
+            var files = fileSystem.GetFilesWithExtension(GetPath(path), StringHelper.GetSearchExpression(search));
+
+            return files;
+        }
+
+        private static IEnumerable<Specification> GetSpecifications(IEnumerable<Type> types)
         {
             return from type in types
                    select (Specification)Activator.CreateInstance(type);
-        }
-
-        public IEnumerable<string> GetSpecificationFiles(string path, string search)
-        {
-            var files = this.fileSystem.GetFilesWithExtension(this.GetPath(path), StringHelper.GetSearchExpression(search));
-
-            return files;
         }
 
         private string GetPath(string path)
@@ -89,7 +86,7 @@ namespace System.Spec.IO
                 return pathValue;
             }
 
-            return this.fileSystem.CurrentPath;
+            return fileSystem.CurrentPath;
         }
     }
 }

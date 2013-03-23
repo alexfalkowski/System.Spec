@@ -18,10 +18,10 @@
 
 namespace System.Spec.Runners
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Spec.IO;
-    using System.Spec.Formatter;
+    using Collections.Generic;
+    using Collections.ObjectModel;
+    using Formatter;
+    using IO;
 
     [Serializable]
     public class DefaultSpecificationRunner : SpecificationRunnerBase
@@ -39,7 +39,7 @@ namespace System.Spec.Runners
             var results = new Collection<ExpressionResult>();
             
             foreach (var specification in specifications) {
-                var result = this.ExecuteSpecification(specification, example);
+                var result = ExecuteSpecification(specification, example);
                 
                 results.Add(result);
             }

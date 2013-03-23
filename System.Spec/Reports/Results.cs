@@ -18,719 +18,570 @@
 
 namespace System.Spec.Reports
 {
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute("test-results", Namespace="", IsNullable=false)]
-    public partial class resultType
+    using CodeDom.Compiler;
+    using ComponentModel;
+    using Diagnostics;
+    using Xml;
+    using Xml.Serialization;
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlRoot("test-results", Namespace = "", IsNullable = false)]
+    public class resultType
     {
-        private string nameField;
-        private decimal totalField;
+        private cultureinfoType cultureinfoField;
+        private string dateField;
+        private environmentType environmentField;
         private decimal errorsField;
         private decimal failuresField;
-        private decimal inconclusiveField;
-        private decimal notrunField;
         private decimal ignoredField;
-        private decimal skippedField;
+        private decimal inconclusiveField;
         private decimal invalidField;
-        private string dateField;
-        private string timeField;
-        private environmentType environmentField;
-        private cultureinfoType cultureinfoField;
+        private string nameField;
+        private decimal notrunField;
+        private decimal skippedField;
         private testsuiteType testsuiteField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
+        private string timeField;
+        private decimal totalField;
+
+        /// <remarks />
+        [XmlAttribute]
+        public string name
+        {
+            get { return nameField; }
+            set { nameField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal total {
-            get {
-                return this.totalField;
-            }
-            set {
-                this.totalField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public decimal total
+        {
+            get { return totalField; }
+            set { totalField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal errors {
-            get {
-                return this.errorsField;
-            }
-            set {
-                this.errorsField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public decimal errors
+        {
+            get { return errorsField; }
+            set { errorsField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal failures {
-            get {
-                return this.failuresField;
-            }
-            set {
-                this.failuresField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public decimal failures
+        {
+            get { return failuresField; }
+            set { failuresField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal inconclusive {
-            get {
-                return this.inconclusiveField;
-            }
-            set {
-                this.inconclusiveField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public decimal inconclusive
+        {
+            get { return inconclusiveField; }
+            set { inconclusiveField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("not-run")]
-        public decimal notrun {
-            get {
-                return this.notrunField;
-            }
-            set {
-                this.notrunField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("not-run")]
+        public decimal notrun
+        {
+            get { return notrunField; }
+            set { notrunField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal ignored {
-            get {
-                return this.ignoredField;
-            }
-            set {
-                this.ignoredField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public decimal ignored
+        {
+            get { return ignoredField; }
+            set { ignoredField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal skipped {
-            get {
-                return this.skippedField;
-            }
-            set {
-                this.skippedField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public decimal skipped
+        {
+            get { return skippedField; }
+            set { skippedField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal invalid {
-            get {
-                return this.invalidField;
-            }
-            set {
-                this.invalidField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public decimal invalid
+        {
+            get { return invalidField; }
+            set { invalidField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string date {
-            get {
-                return this.dateField;
-            }
-            set {
-                this.dateField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string date
+        {
+            get { return dateField; }
+            set { dateField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string time {
-            get {
-                return this.timeField;
-            }
-            set {
-                this.timeField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string time
+        {
+            get { return timeField; }
+            set { timeField = value; }
         }
-        
-        /// <remarks/>
-        public environmentType environment {
-            get {
-                return this.environmentField;
-            }
-            set {
-                this.environmentField = value;
-            }
+
+        /// <remarks />
+        public environmentType environment
+        {
+            get { return environmentField; }
+            set { environmentField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("culture-info")]
-        public cultureinfoType cultureinfo {
-            get {
-                return this.cultureinfoField;
-            }
-            set {
-                this.cultureinfoField = value;
-            }
+
+        /// <remarks />
+        [XmlElement("culture-info")]
+        public cultureinfoType cultureinfo
+        {
+            get { return cultureinfoField; }
+            set { cultureinfoField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("test-suite")]
-        public testsuiteType testsuite {
-            get {
-                return this.testsuiteField;
-            }
-            set {
-                this.testsuiteField = value;
-            }
+
+        /// <remarks />
+        [XmlElement("test-suite")]
+        public testsuiteType testsuite
+        {
+            get { return testsuiteField; }
+            set { testsuiteField = value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class environmentType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class environmentType
     {
-        
-        private string nunitversionField;
         private string clrversionField;
-        private string osversionField;
-        private string platformField;
         private string cwdField;
         private string machinenameField;
+        private string nunitversionField;
+        private string osversionField;
+        private string platformField;
         private string userField;
         private string userdomainField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("nunit-version")]
-        public string nunitversion {
-            get {
-                return this.nunitversionField;
-            }
-            set {
-                this.nunitversionField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("nunit-version")]
+        public string nunitversion
+        {
+            get { return nunitversionField; }
+            set { nunitversionField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("clr-version")]
-        public string clrversion {
-            get {
-                return this.clrversionField;
-            }
-            set {
-                this.clrversionField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("clr-version")]
+        public string clrversion
+        {
+            get { return clrversionField; }
+            set { clrversionField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("os-version")]
-        public string osversion {
-            get {
-                return this.osversionField;
-            }
-            set {
-                this.osversionField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("os-version")]
+        public string osversion
+        {
+            get { return osversionField; }
+            set { osversionField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string platform {
-            get {
-                return this.platformField;
-            }
-            set {
-                this.platformField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string platform
+        {
+            get { return platformField; }
+            set { platformField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string cwd {
-            get {
-                return this.cwdField;
-            }
-            set {
-                this.cwdField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string cwd
+        {
+            get { return cwdField; }
+            set { cwdField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("machine-name")]
-        public string machinename {
-            get {
-                return this.machinenameField;
-            }
-            set {
-                this.machinenameField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("machine-name")]
+        public string machinename
+        {
+            get { return machinenameField; }
+            set { machinenameField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string user {
-            get {
-                return this.userField;
-            }
-            set {
-                this.userField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string user
+        {
+            get { return userField; }
+            set { userField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("user-domain")]
-        public string userdomain {
-            get {
-                return this.userdomainField;
-            }
-            set {
-                this.userdomainField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("user-domain")]
+        public string userdomain
+        {
+            get { return userdomainField; }
+            set { userdomainField = value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute("culture-infoType")]
-    public partial class cultureinfoType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType("culture-infoType")]
+    public class cultureinfoType
     {
-        
         private string currentcultureField;
         private string currentuicultureField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("current-culture")]
-        public string currentculture {
-            get {
-                return this.currentcultureField;
-            }
-            set {
-                this.currentcultureField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("current-culture")]
+        public string currentculture
+        {
+            get { return currentcultureField; }
+            set { currentcultureField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute("current-uiculture")]
-        public string currentuiculture {
-            get {
-                return this.currentuicultureField;
-            }
-            set {
-                this.currentuicultureField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute("current-uiculture")]
+        public string currentuiculture
+        {
+            get { return currentuicultureField; }
+            set { currentuicultureField = value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute("test-suiteType")]
-    public partial class testsuiteType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType("test-suiteType")]
+    public class testsuiteType
     {
-        private string typeField;
-        private string nameField1;
+        private string assertsField;
+        private categoryType[] categoriesField;
         private string descriptionField;
+        private string executedField;
+        private object itemField;
+        private string nameField1;
+        private propertyType[] propertiesField;
+        private string resultField;
+        private object[] resultsField;
         private string successField;
         private string timeField1;
-        private string executedField;
-        private string assertsField;
-        private string resultField;
-        private categoryType[] categoriesField;
-        private propertyType[] propertiesField;
-        private object itemField;
-        private object[] resultsField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string type {
-            get {
-                return this.typeField;
-            }
-            set {
-                this.typeField = value;
-            }
+        private string typeField;
+
+        /// <remarks />
+        [XmlAttribute]
+        public string type
+        {
+            get { return typeField; }
+            set { typeField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField1;
-            }
-            set {
-                this.nameField1 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string name
+        {
+            get { return nameField1; }
+            set { nameField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                this.descriptionField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string description
+        {
+            get { return descriptionField; }
+            set { descriptionField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string success {
-            get {
-                return this.successField;
-            }
-            set {
-                this.successField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string success
+        {
+            get { return successField; }
+            set { successField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string time {
-            get {
-                return this.timeField1;
-            }
-            set {
-                this.timeField1 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string time
+        {
+            get { return timeField1; }
+            set { timeField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string executed {
-            get {
-                return this.executedField;
-            }
-            set {
-                this.executedField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string executed
+        {
+            get { return executedField; }
+            set { executedField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string asserts {
-            get {
-                return this.assertsField;
-            }
-            set {
-                this.assertsField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string asserts
+        {
+            get { return assertsField; }
+            set { assertsField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string result {
-            get {
-                return this.resultField;
-            }
-            set {
-                this.resultField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string result
+        {
+            get { return resultField; }
+            set { resultField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItem(ElementName="category", IsNullable=false)]
-        public categoryType[] categories {
-            get {
-                return this.categoriesField;
-            }
-            set {
-                this.categoriesField = value;
-            }
+
+        /// <remarks />
+        [XmlArrayItem(ElementName = "category", IsNullable = false)]
+        public categoryType[] categories
+        {
+            get { return categoriesField; }
+            set { categoriesField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItem(ElementName="property", IsNullable=false)]
-        public propertyType[] properties {
-            get {
-                return this.propertiesField;
-            }
-            set {
-                this.propertiesField = value;
-            }
+
+        /// <remarks />
+        [XmlArrayItem(ElementName = "property", IsNullable = false)]
+        public propertyType[] properties
+        {
+            get { return propertiesField; }
+            set { propertiesField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("failure", Type=typeof(failureType))]
-        [System.Xml.Serialization.XmlElementAttribute("reason", Type=typeof(reasonType))]
-        public object Item {
-            get {
-                return this.itemField;
-            }
-            set {
-                this.itemField = value;
-            }
+
+        /// <remarks />
+        [XmlElement("failure", Type = typeof (failureType))]
+        [XmlElement("reason", Type = typeof (reasonType))]
+        public object Item
+        {
+            get { return itemField; }
+            set { itemField = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItem(ElementName="test-suite", Type=typeof(testsuiteType), IsNullable=false)]
-        [System.Xml.Serialization.XmlArrayItem(ElementName="test-case", Type=typeof(testcaseType), IsNullable=false)]
-        public object[] results {
-            get {
-                return this.resultsField;
-            }
-            set {
-                this.resultsField = value;
-            }
+
+        /// <remarks />
+        [XmlArrayItem(ElementName = "test-suite", Type = typeof (testsuiteType), IsNullable = false)]
+        [XmlArrayItem(ElementName = "test-case", Type = typeof (testcaseType), IsNullable = false)]
+        public object[] results
+        {
+            get { return resultsField; }
+            set { resultsField = value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class categoryType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class categoryType
     {
-        
         private string nameField2;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField2;
-            }
-            set {
-                this.nameField2 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string name
+        {
+            get { return nameField2; }
+            set { nameField2 = value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class propertyType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class propertyType
     {
-        
         private string nameField3;
         private string valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField3;
-            }
-            set {
-                this.nameField3 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string name
+        {
+            get { return nameField3; }
+            set { nameField3 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string value
+        {
+            get { return valueField; }
+            set { valueField = value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class failureType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class failureType
     {
         private string messageField;
         private string stacktraceField;
-        
-        /// <remarks/>
-        public System.Xml.XmlCDataSection message {
-            get {
-                var document = new System.Xml.XmlDocument();
-                return document.CreateCDataSection(this.messageField);
+
+        /// <remarks />
+        public XmlCDataSection message
+        {
+            get
+            {
+                var document = new XmlDocument();
+                return document.CreateCDataSection(messageField);
             }
-            set {
-                this.messageField = value.Value;
-            }
+            set { messageField = value.Value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("stack-trace")]
-        public System.Xml.XmlCDataSection stacktrace {
-            get {
-                var document = new System.Xml.XmlDocument();
-                return document.CreateCDataSection(this.stacktraceField);
+
+        /// <remarks />
+        [XmlElement("stack-trace")]
+        public XmlCDataSection stacktrace
+        {
+            get
+            {
+                var document = new XmlDocument();
+                return document.CreateCDataSection(stacktraceField);
             }
-            set {
-                this.stacktraceField = value.Value;
-            }
+            set { stacktraceField = value.Value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class reasonType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    public class reasonType
     {
         private string messageField1;
-        
-        /// <remarks/>
-        public string message {
-            get {
-                return this.messageField1;
-            }
-            set {
-                this.messageField1 = value;
-            }
+
+        /// <remarks />
+        public string message
+        {
+            get { return messageField1; }
+            set { messageField1 = value; }
         }
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.1")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute("test-caseType")]
-    public partial class testcaseType
+
+    /// <remarks />
+    [GeneratedCode("System.Xml", "4.0.30319.1")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType("test-caseType")]
+    public class testcaseType
     {
-        
-        private string nameField4;
+        private string assertsField1;
+        private categoryType[] categoriesField1;
         private string descriptionField1;
+        private string executedField1;
+        private object itemField1;
+        private string nameField4;
+        private propertyType[] propertiesField1;
+        private string resultField1;
         private string successField1;
         private string timeField2;
-        private string executedField1;
-        private string assertsField1;
-        private string resultField1;
-        private categoryType[] categoriesField1;
-        private propertyType[] propertiesField1;
-        private object itemField1;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name {
-            get {
-                return this.nameField4;
-            }
-            set {
-                this.nameField4 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string name
+        {
+            get { return nameField4; }
+            set { nameField4 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string description {
-            get {
-                return this.descriptionField1;
-            }
-            set {
-                this.descriptionField1 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string description
+        {
+            get { return descriptionField1; }
+            set { descriptionField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string success {
-            get {
-                return this.successField1;
-            }
-            set {
-                this.successField1 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string success
+        {
+            get { return successField1; }
+            set { successField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string time {
-            get {
-                return this.timeField2;
-            }
-            set {
-                this.timeField2 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string time
+        {
+            get { return timeField2; }
+            set { timeField2 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string executed {
-            get {
-                return this.executedField1;
-            }
-            set {
-                this.executedField1 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string executed
+        {
+            get { return executedField1; }
+            set { executedField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string asserts {
-            get {
-                return this.assertsField1;
-            }
-            set {
-                this.assertsField1 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string asserts
+        {
+            get { return assertsField1; }
+            set { assertsField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string result {
-            get {
-                return this.resultField1;
-            }
-            set {
-                this.resultField1 = value;
-            }
+
+        /// <remarks />
+        [XmlAttribute]
+        public string result
+        {
+            get { return resultField1; }
+            set { resultField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItem(ElementName="category", IsNullable=false)]
-        public categoryType[] categories {
-            get {
-                return this.categoriesField1;
-            }
-            set {
-                this.categoriesField1 = value;
-            }
+
+        /// <remarks />
+        [XmlArrayItem(ElementName = "category", IsNullable = false)]
+        public categoryType[] categories
+        {
+            get { return categoriesField1; }
+            set { categoriesField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItem(ElementName="property", IsNullable=false)]
-        public propertyType[] properties {
-            get {
-                return this.propertiesField1;
-            }
-            set {
-                this.propertiesField1 = value;
-            }
+
+        /// <remarks />
+        [XmlArrayItem(ElementName = "property", IsNullable = false)]
+        public propertyType[] properties
+        {
+            get { return propertiesField1; }
+            set { propertiesField1 = value; }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("failure", Type=typeof(failureType))]
-        [System.Xml.Serialization.XmlElementAttribute("reason", Type=typeof(reasonType))]
-        public object Item {
-            get {
-                return this.itemField1;
-            }
-            set {
-                this.itemField1 = value;
-            }
+
+        /// <remarks />
+        [XmlElement("failure", Type = typeof (failureType))]
+        [XmlElement("reason", Type = typeof (reasonType))]
+        public object Item
+        {
+            get { return itemField1; }
+            set { itemField1 = value; }
         }
     }
 }

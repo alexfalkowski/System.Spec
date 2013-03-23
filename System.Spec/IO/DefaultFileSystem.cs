@@ -18,9 +18,9 @@
 
 namespace System.Spec.IO
 {
-    using System.Collections.Generic;
+    using Collections.Generic;
+    using Linq;
     using System.IO;
-    using System.Linq;
 
     [Serializable]
     public class DefaultFileSystem : IFileSystem

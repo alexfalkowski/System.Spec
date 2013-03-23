@@ -18,21 +18,19 @@
 
 namespace System.Spec.Examples.Specs
 {
-    using System.Spec;
-
     using NSubstitute;
+    using Spec;
 
 	public class TestSpecificationWithNSubstitute : Specification
 	{
         protected override void Define()
-		{
-            Describe("using NSustitute", () => {             
-                It("should call method", () => {
+        {
+            Describe("using NSustitute", () => It("should call method", () =>
+                {
                     var testInterface = Substitute.For<ITestInterface>();
-                    
+
                     testInterface.Received().TestMethod();
-                });
-            });
-		}
+                }));
+        }
 	}
 }

@@ -18,18 +18,14 @@
 
 namespace System.Spec.Examples.Specs
 {
-    using System.Spec;
+    using Spec;
     using FluentAssertions;
 
     public class TestSpecificationWithFluentAssertions : Specification
     {
         protected override void Define()
         {
-            Describe("trying to do an assertion using FluentAssertions", () => {     
-                It("should be true", () => {
-                    false.Should().BeTrue();
-                });
-            });
+            Describe("trying to do an assertion using FluentAssertions", () => It("should be true", () => false.Should().BeTrue()));
         }
     }
 }

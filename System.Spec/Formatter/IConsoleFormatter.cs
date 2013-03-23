@@ -18,8 +18,7 @@
 
 namespace System.Spec.Formatter
 {
-    using System.Collections.Generic;
-    using System.IO;
+    using Collections.Generic;
 
     public interface IConsoleFormatter
     {

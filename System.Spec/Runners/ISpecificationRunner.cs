@@ -18,7 +18,7 @@
 
 namespace System.Spec.Runners
 {
-    using System.Collections.Generic;
+    using Collections.Generic;
 
     public interface ISpecificationRunner
     {

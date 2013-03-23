@@ -18,8 +18,8 @@
 
 namespace System.Spec.Runners
 {
-    using System.Spec.Formatter;
-    using System.Spec.IO;
+    using Formatter;
+    using IO;
 
     public class DefaultSpecificationRunnerFactory : ISpecificationRunnerFactory
     {

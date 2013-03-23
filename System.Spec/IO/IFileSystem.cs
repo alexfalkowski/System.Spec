@@ -18,7 +18,7 @@
 
 namespace System.Spec.IO
 {
-    using System.Collections.Generic;
+    using Collections.Generic;
     using System.IO;
 
     public interface IFileSystem

@@ -18,12 +18,11 @@
 
 namespace System.Spec.Runners
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Monad.Maybe;
-    using System.Spec.Formatter;
-    using System.Spec.IO;
+    using Collections.Generic;
+    using Formatter;
+    using IO;
+    using Linq;
+    using Monad.Maybe;
 
     [Serializable]
     public abstract class SpecificationRunnerBase : ISpecificationRunner
@@ -32,9 +31,9 @@ namespace System.Spec.Runners
 
         private readonly ISpecificationFinder finder;
         
-        private IConsoleFormatter formatter;
-        
-        public SpecificationRunnerBase(
+        private readonly IConsoleFormatter formatter;
+
+        protected SpecificationRunnerBase(
             IExpressionRunner runner,
             ISpecificationFinder finder,
             IConsoleFormatter formatter)
@@ -46,19 +45,19 @@ namespace System.Spec.Runners
 
         public IEnumerable<ExpressionResult> ExecuteSpecificationsInPath(string path, string example = null)
         {
-            var result = this.finder.GetSpecifications(path, example);
+            var result = finder.GetSpecifications(path, example);
 
             if (!result.FoundType) {
                 foreach (var exampleText in example.SomeStringOrNone()) {
-                    foreach (var specification in this.FindSpecification(result.Specifications, exampleText)) {
-                        return this.ExecuteSpecifications(new [] { specification }, exampleText);
+                    foreach (var specification in FindSpecification(result.Specifications, exampleText)) {
+                        return ExecuteSpecifications(new [] { specification }, exampleText);
                     }
                     
                     return Enumerable.Empty<ExpressionResult>();
                 }
             }
 
-            return this.ExecuteSpecifications(result.Specifications, example);
+            return ExecuteSpecifications(result.Specifications, example);
         }
        
         protected abstract IEnumerable<ExpressionResult> ExecuteSpecifications(IEnumerable<Specification> specifications, 
@@ -66,16 +65,16 @@ namespace System.Spec.Runners
 
         protected ExpressionResult ExecuteSpecification(Specification specification, string exampleText)
         {
-            var result = this.runner.Execute(specification.BuildExpression(), exampleText);
+            var result = runner.Execute(specification.BuildExpression(), exampleText);
             
             foreach (var exampleGroup in result.Examples) {
-                this.formatter.WriteInformation(exampleGroup.Reason);
+                formatter.WriteInformation(exampleGroup.Reason);
                 
                 foreach (var example in exampleGroup.Examples) {
                     if (example.Status == ResultStatus.Success) {
-                        this.formatter.WriteSuccess(example);
+                        formatter.WriteSuccess(example);
                     } else {
-                        this.formatter.WriteError(example);
+                        formatter.WriteError(example);
                     }
                 }
             }
@@ -83,13 +82,14 @@ namespace System.Spec.Runners
             return result;
         }
 
-        private IOption<Specification> FindSpecification(IEnumerable<Specification> specifications, string example)
+        private static IEnumerable<Specification> FindSpecification(IEnumerable<Specification> specifications, string example)
         {
-            foreach (var specification in specifications.FindByExampleGroupName(example)) {
+            var enumerable = specifications as Specification[] ?? specifications.ToArray();
+            foreach (var specification in enumerable.FindByExampleGroupName(example)) {
                 return specification.SomeOrNone();
             }
 
-            return specifications.FindByExampleName(example).Into(specification => specification);
+            return enumerable.FindByExampleName(example).Into(specification => specification);
         }
     }
 }

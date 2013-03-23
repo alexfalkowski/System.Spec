@@ -18,17 +18,15 @@
 
 namespace System.Spec.Formatter
 {
+    using Collections.Generic;
+    using Linq;
+    using Properties;
     using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-
-    using System.Spec.Properties;
 
     [Serializable]
     public class ProgressConsoleFormatter : ConsoleFormatterBase
     {
-        private IConsoleWritter writter;
+        private readonly IConsoleWritter writter;
         
         public ProgressConsoleFormatter(IConsoleWritter writter) : base(writter) 
         {
@@ -41,21 +39,22 @@ namespace System.Spec.Formatter
 
         public override void WriteSuccess(ExampleResult example)
         {
-            this.writter.WriteSuccess(Resources.ConsoleFormatterSuccessMessage);
+            writter.WriteSuccess(Resources.ConsoleFormatterSuccessMessage);
         }
 
         public override void WriteError(ExampleResult example)
         {
-            this.writter.WriteError(Resources.ConsoleFormatterErrorMessage);
+            writter.WriteError(Resources.ConsoleFormatterErrorMessage);
         }
 
         public override void WriteSummary(IEnumerable<ExpressionResult> expressions)
         {
-            if (expressions.HasErrors() || expressions.HasSuccesses()) {
-                this.writter.WriteLine();
+            var expressionResults = expressions as ExpressionResult[] ?? expressions.ToArray();
+            if (expressionResults.HasErrors() || expressionResults.HasSuccesses()) {
+                writter.WriteLine();
             }
             
-            base.WriteSummary(expressions);
+            base.WriteSummary(expressionResults);
         }
     }
 }

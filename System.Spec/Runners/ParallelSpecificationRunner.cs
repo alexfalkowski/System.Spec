@@ -18,11 +18,11 @@
 
 namespace System.Spec.Runners
 {
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Spec.Formatter;
-    using System.Spec.IO;
-    using System.Threading.Tasks;
+    using Collections.Concurrent;
+    using Collections.Generic;
+    using Formatter;
+    using IO;
+    using Threading.Tasks;
 
     [Serializable]
     public class ParallelSpecificationRunner : SpecificationRunnerBase
@@ -39,7 +39,7 @@ namespace System.Spec.Runners
             var results = new ConcurrentBag<ExpressionResult>();
             
             Parallel.ForEach(specifications, specification => {
-                var result = this.ExecuteSpecification(specification, example);
+                var result = ExecuteSpecification(specification, example);
                 
                 results.Add(result);
             });

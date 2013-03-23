@@ -18,47 +18,48 @@
 
 namespace System.Spec.Reports
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Xml;
-    using System.Xml.Serialization;
-    
+    using Collections.Generic;
+    using Collections.ObjectModel;
+    using Globalization;
+    using Linq;
     using NUnit.Framework;
-    
-    using System.Spec.Properties;
+    using System;
+    using System.IO;
+    using Xml;
+    using Xml.Serialization;
 
     public class NUnitSpecificationReporter : ISpecificationReporter
     {
         public void Write(Stream stream, IEnumerable<ExpressionResult> expressions)
         {
-            var testsuite = new testsuiteType {
-                name = "Specifications",
-                type = "Assembly",
-                executed = bool.TrueString,
-                result = expressions.HasErrors() ? "Failure" : "Success",
-                asserts = "0",
-                time = ConvertToSeconds(expressions.ElapsedTime()).ToString(),
-            };
+            var expressionResults = expressions as ExpressionResult[] ?? expressions.ToArray();
+            var testsuite = new testsuiteType
+                {
+                    name = "Specifications",
+                    type = "Assembly",
+                    executed = bool.TrueString,
+                    result = expressionResults.HasErrors() ? "Failure" : "Success",
+                    asserts = "0",
+                    time = ConvertToSeconds(expressionResults.ElapsedTime()).ToString(CultureInfo.InvariantCulture),
+                };
             
-            var errorCount = expressions.AllErrors().Count();
-            var resultType = CreateResultType(expressions, testsuite, errorCount);
+            var errorCount = expressionResults.AllErrors().Count();
+            var resultType = CreateResultType(expressionResults, testsuite, errorCount);
             var resultTypes = new Collection<testsuiteType>();
 
-            foreach (var expression in expressions) {
+            foreach (var expression in expressionResults) {
                 var hasResultErrors = expression.Examples.HasErrors();
-                var expressionType = new testsuiteType { 
-                    name = expression.Name, 
-                    type = "Namespace",
-                    result =  hasResultErrors ? "Failure" : "Success",
-                    executed = bool.TrueString,
-                    time = ConvertToSeconds(expression.Examples.ElapsedTime()).ToString(),
-                    asserts = "0",
-                    success = hasResultErrors ? bool.FalseString : bool.TrueString
-                };
+                var expressionType = new testsuiteType
+                    {
+                        name = expression.Name,
+                        type = "Namespace",
+                        result = hasResultErrors ? "Failure" : "Success",
+                        executed = bool.TrueString,
+                        time =
+                            ConvertToSeconds(expression.Examples.ElapsedTime()).ToString(CultureInfo.InvariantCulture),
+                        asserts = "0",
+                        success = hasResultErrors ? bool.FalseString : bool.TrueString
+                    };
 
                 var groupTypes = new Collection<testsuiteType>();
 
@@ -74,19 +75,20 @@ namespace System.Spec.Reports
             serializer.Serialize(stream, resultType);
         }
 
-        private void CreateExamples(ExpressionResult expression, Collection<testsuiteType> groupTypes)
+        private static void CreateExamples(ExpressionResult expression, ICollection<testsuiteType> groupTypes)
         {
             foreach (var group in expression.Examples) {
                 var hasGroupErrors = group.Examples.HasErrors();
-                var groupType = new testsuiteType {
-                    name = group.Reason,
-                    type = "TestFixture",
-                    result = hasGroupErrors ? "Failure" : "Success",
-                    executed = bool.TrueString,
-                    time = ConvertToSeconds(group.Examples.ElapsedTime()).ToString(),
-                    asserts = "0",
-                    success = hasGroupErrors ? bool.FalseString : bool.TrueString
-                };
+                var groupType = new testsuiteType
+                    {
+                        name = group.Reason,
+                        type = "TestFixture",
+                        result = hasGroupErrors ? "Failure" : "Success",
+                        executed = bool.TrueString,
+                        time = ConvertToSeconds(group.Examples.ElapsedTime()).ToString(CultureInfo.InvariantCulture),
+                        asserts = "0",
+                        success = hasGroupErrors ? bool.FalseString : bool.TrueString
+                    };
                 var cases = new Collection<testcaseType>();
                 CreateErrors(group, cases);
                 CreateSuccesses(group, cases);
@@ -95,7 +97,7 @@ namespace System.Spec.Reports
             }
         }
 
-        private static resultType CreateResultType(IEnumerable<ExpressionResult> expressions, testsuiteType testsuite, 
+        private static resultType CreateResultType(IEnumerable<ExpressionResult> expressions, testsuiteType testsuite,
                                                    int errorCount)
         {
             var resultType = new resultType {
@@ -123,47 +125,53 @@ namespace System.Spec.Reports
             return resultType;
         }
 
-        private void CreateErrors(ExampleGroupResult group, Collection<testcaseType> cases)
+        private static void CreateErrors(ExampleGroupResult group, Collection<testcaseType> cases)
         {
-            foreach (var error in group.Examples.AllErrors()) {
-                var failure = new failureType {
-                    message = this.CreateCDataSection(error.Exception.Message),
-                    stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
-                };
-                var @case = new testcaseType {
-                    name = error.Reason,
-                    executed = bool.TrueString,
-                    success = bool.FalseString,
-                    result = "Failure",
-                    asserts = "0",
-                    time = ConvertToSeconds(error.ElapsedTime).ToString(),
-                    Item = failure
-                };
+            var testcaseTypes = from error in @group.Examples.AllErrors()
+                                let failure = new failureType
+                                    {
+                                        message = CreateCDataSection(error.Exception.Message),
+                                        stacktrace = CreateCDataSection(error.Exception.StackTrace)
+                                    }
+                                select new testcaseType
+                                    {
+                                        name = error.Reason,
+                                        executed = bool.TrueString,
+                                        success = bool.FalseString,
+                                        result = "Failure",
+                                        asserts = "0",
+                                        time = ConvertToSeconds(error.ElapsedTime).ToString(CultureInfo.InvariantCulture),
+                                        Item = failure
+                                    };
+            foreach (var @case in testcaseTypes)
+            {
                 cases.Add(@case);
             }
         }
-        
-        private void CreateSuccesses(ExampleGroupResult group, Collection<testcaseType> cases)
+
+        private static void CreateSuccesses(ExampleGroupResult group, ICollection<testcaseType> cases)
         {
-            foreach (var success in group.Examples.AllSuccesses()) {
-                var @case = new testcaseType {
+            var testcaseTypes = @group.Examples.AllSuccesses().Select(success => new testcaseType
+                {
                     name = success.Reason,
                     executed = bool.TrueString,
                     success = bool.TrueString,
                     result = "Success",
                     asserts = "0",
-                    time = ConvertToSeconds(success.ElapsedTime).ToString()
-                };
+                    time = ConvertToSeconds(success.ElapsedTime).ToString(CultureInfo.InvariantCulture)
+                });
+            foreach (var @case in testcaseTypes)
+            {
                 cases.Add(@case);
             }
         }
 
-        private double ConvertToSeconds(double elapsedTime)
+        private static double ConvertToSeconds(double elapsedTime)
         {
             return elapsedTime / 1000D;
         }
         
-        private XmlCDataSection CreateCDataSection(string value)
+        private static XmlCDataSection CreateCDataSection(string value)
         {
             var document = new XmlDocument();
             return document.CreateCDataSection(value);

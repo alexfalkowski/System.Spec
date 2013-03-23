@@ -18,17 +18,14 @@
 
 namespace System.Spec.Formatter
 {
+    using Globalization;
+    using Properties;
     using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-
-    using System.Spec.Properties;
 
     [Serializable]
     public class DocumentionConsoleFormatter : ConsoleFormatterBase
     {
-        private IConsoleWritter writter;
+        private readonly IConsoleWritter writter;
         
         public DocumentionConsoleFormatter(IConsoleWritter writter) : base(writter)
         {
@@ -37,13 +34,13 @@ namespace System.Spec.Formatter
 
         public override void WriteInformation(string message)
         {
-            this.writter.WriteLine();
-            this.writter.WriteInformationLine(message);
+            writter.WriteLine();
+            writter.WriteInformationLine(message);
         }
 
         public override void WriteSuccess(ExampleResult example)
         {
-            this.writter.WriteSuccessLine(string.Concat(StringHelper.DoubleSpace, example.Reason));
+            writter.WriteSuccessLine(string.Concat(StringHelper.DoubleSpace, example.Reason));
         }
 
         public override void WriteError(ExampleResult example)
@@ -51,7 +48,7 @@ namespace System.Spec.Formatter
             var message = string.Format(CultureInfo.CurrentCulture,
                                         Resources.DocumentationConsoleFormatterErrorMessage,
                                         example.Reason);
-            this.writter.WriteErrorLine(string.Concat(StringHelper.DoubleSpace, message));
+            writter.WriteErrorLine(string.Concat(StringHelper.DoubleSpace, message));
         }
     }
 }

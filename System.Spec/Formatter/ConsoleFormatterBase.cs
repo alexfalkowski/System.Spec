@@ -18,23 +18,16 @@
 
 namespace System.Spec.Formatter
 {
+    using Collections.Generic;
+    using Globalization;
+    using Linq;
+    using Properties;
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Xml;
-    using System.Xml.Serialization;
-
-    using NUnit.Framework;
-
-    using System.Spec.Properties;
 
     [Serializable]
     public abstract class ConsoleFormatterBase : IConsoleFormatter
     {
-        private IConsoleWritter writter;
+        private readonly IConsoleWritter writter;
 
         protected ConsoleFormatterBase(IConsoleWritter writter) 
         {
@@ -48,43 +41,44 @@ namespace System.Spec.Formatter
         public abstract void WriteError(ExampleResult example);
 
         public virtual void WriteSummary(IEnumerable<ExpressionResult> expressions)
-        {        
-            var errorResults = expressions.AllErrors().ToList();
+        {
+            var expressionResults = expressions as ExpressionResult[] ?? expressions.ToArray();
+            var errorResults = expressionResults.AllErrors().ToList();
 
-            this.writter.WriteLine();
+            writter.WriteLine();
             
             if (errorResults.Count > 0) {
-                this.writter.WriteInformationLine(Resources.ConsoleFormatteFailuresMessage);
-                this.writter.WriteLine();
+                writter.WriteInformationLine(Resources.ConsoleFormatteFailuresMessage);
+                writter.WriteLine();
 
                 for (var index = 0; index < errorResults.Count; index++) {
                     var example = errorResults [index];
-                    this.writter.WriteInformationLine(string.Format(CultureInfo.CurrentCulture,
+                    writter.WriteInformationLine(string.Format(CultureInfo.CurrentCulture,
                                                                     Resources.ConsoleFormatteErrorsMessage, 
                                                                     index + 1, example.Reason));
-                    var prefix = new string(' ', index.ToString().Length + 2);
-                    this.writter.WriteErrorLine(string.Format(CultureInfo.CurrentCulture,
+                    var prefix = new string(' ', index.ToString(CultureInfo.InvariantCulture).Length + 2);
+                    writter.WriteErrorLine(string.Format(CultureInfo.CurrentCulture,
                                                               Resources.ConsoleFormatteFailureMessage, 
                                                               prefix, example.Exception.ToString().Trim()));
-                    this.writter.WriteLine();
+                    writter.WriteLine();
                 }
             }
 
             var elapsdeTimeMessage = string.Format(CultureInfo.CurrentCulture, 
                                                    Resources.ConsoleFormatterElapsedTimeMessage, 
-                                                   expressions.ElapsedTime() / 1000D);
-            this.writter.WriteInformationLine(elapsdeTimeMessage);
+                                                   expressionResults.ElapsedTime() / 1000D);
+            writter.WriteInformationLine(elapsdeTimeMessage);
 
             var summaryMessage = string.Format(
                 CultureInfo.CurrentCulture,
                 Resources.ConsoleFormatterSummaryMessage,
-                expressions.AllSuccesses().Count() + errorResults.Count,
+                expressionResults.AllSuccesses().Count() + errorResults.Count,
                 errorResults.Count);
 
             if (errorResults.Count > 0) {
-                this.writter.WriteErrorLine(summaryMessage);
+                writter.WriteErrorLine(summaryMessage);
             } else {
-                this.writter.WriteSuccessLine(summaryMessage);
+                writter.WriteSuccessLine(summaryMessage);
             }
         }
     }

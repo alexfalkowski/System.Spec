@@ -18,7 +18,7 @@
 
 namespace System.Spec.Formatter
 {
-    using System.Collections.Generic;
+    using Collections.Generic;
 
     [Serializable]
     public class SilentConsoleFormatter : ConsoleFormatterBase
