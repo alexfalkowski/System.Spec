@@ -18,25 +18,19 @@
 
 namespace System.Spec.Specs
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Xml;
-    using System.Xml.Serialization;
-    
+    using Examples.Specs;
     using FluentAssertions;
-
-    using System.Spec.Reports;
-    using System.Spec.Formatter;
-    using System.Spec.IO;
-    using System.Spec.Runners;
-    
-    using NSubstitute;
-    
+    using Formatter;
+    using Globalization;
+    using IO;
+    using Linq;
     using NUnit.Framework;
-    using System.Spec.Examples.Specs;
+    using Reports;
+    using Runners;
+    using System;
+    using System.IO;
+    using Xml;
+    using Xml.Serialization;
     
     [TestFixture]
     public class SummarySpecs
@@ -48,12 +42,12 @@ namespace System.Spec.Specs
         public void BeforeAll()
         {
             var finder = new DefaultSpecificationFinder(new DefaultFileSystem());
-            var runner = new DefaultExpressionRunnerFactory().CreateExpressionRunner(false);
+            var expressionRunner = new DefaultExpressionRunnerFactory().CreateExpressionRunner(false);
             var formatter = new SilentConsoleFormatter(new DefaultConsoleWritter());
-            this.runner = new DefaultSpecificationRunner(runner, finder, formatter);
+            runner = new DefaultSpecificationRunner(expressionRunner, finder, formatter);
 
             var location = new Uri(typeof(TestSpecificationConfigurationManager).Assembly.CodeBase).LocalPath;
-            var appDomain = new SpecificationAppDomain(this.runner);
+            var appDomain = new SpecificationAppDomain(runner);
             var results = appDomain.ExecuteSpecifications(location);
             
             using (var stream = new MemoryStream()) {
@@ -62,8 +56,8 @@ namespace System.Spec.Specs
                 stream.Seek(0, SeekOrigin.Begin);
 
                 var serializer = new XmlSerializer(typeof(resultType));
-                using (XmlReader reader = XmlReader.Create(stream)) {
-                    this.resultType = (resultType)serializer.Deserialize(reader);
+                using (var reader = XmlReader.Create(stream)) {
+                    resultType = (resultType)serializer.Deserialize(reader);
                 }
             }
         }
@@ -72,95 +66,97 @@ namespace System.Spec.Specs
         public void ShouldHaveNunitVersion()
         {
             var expectedVersion = typeof(TestAttribute).Assembly.GetName().Version.ToString();
-            this.resultType.environment.nunitversion.Should().Be(expectedVersion);
+            resultType.environment.nunitversion.Should().Be(expectedVersion);
         }
 
         [Test]
         public void ShouldHaveClrVersion()
         {
-            this.resultType.environment.clrversion.Should().Be(Environment.Version.ToString());
+            resultType.environment.clrversion.Should().Be(Environment.Version.ToString());
         }
 
         [Test]
         public void ShouldHaveOsVersion()
         {
-            this.resultType.environment.osversion.Should().Be(Environment.OSVersion.VersionString);
+            resultType.environment.osversion.Should().Be(Environment.OSVersion.VersionString);
         }
 
         [Test]
         public void ShouldHaveMachineName()
         {
-            this.resultType.environment.machinename.Should().Be(Environment.MachineName);
+            resultType.environment.machinename.Should().Be(Environment.MachineName);
         }
 
         [Test]
         public void ShouldHavePlatform()
         {
             var expected = Enum.GetName(typeof(PlatformID), Environment.OSVersion.Platform);
-            this.resultType.environment.platform.Should().Be(expected);
+            resultType.environment.platform.Should().Be(expected);
         }
 
         [Test]
         public void ShouldHaveUser()
         {
-            this.resultType.environment.user.Should().Be(Environment.UserName);
+            resultType.environment.user.Should().Be(Environment.UserName);
         }
 
         [Test]
         public void ShouldHaveDomain()
         {
-            this.resultType.environment.userdomain.Should().Be(Environment.UserDomainName);
+            resultType.environment.userdomain.Should().Be(Environment.UserDomainName);
         }
 
         [Test]
         public void ShouldHaveCurrentCulture()
         {
-            this.resultType.cultureinfo.currentculture.Should().Be(CultureInfo.CurrentCulture.ToString());
-            this.resultType.cultureinfo.currentuiculture.Should().Be(CultureInfo.CurrentUICulture.ToString());
+            resultType.cultureinfo.currentculture.Should().Be(CultureInfo.CurrentCulture.ToString());
+            resultType.cultureinfo.currentuiculture.Should().Be(CultureInfo.CurrentUICulture.ToString());
         }
 
         [Test]
         public void ShouldHaveExcecuted()
         {
-            this.resultType.testsuite.executed.Should().Be(bool.TrueString);
+            resultType.testsuite.executed.Should().Be(bool.TrueString);
         }
 
         [Test]
         public void ShouldHaveFailure()
         {
-            this.resultType.testsuite.result.Should().Be("Failure");
+            resultType.testsuite.result.Should().Be("Failure");
         }
 
         [Test]
         public void ShouldHaveTime()
         {
-            double.Parse(this.resultType.testsuite.time).Should().BeGreaterOrEqualTo(0.0);
+            double.Parse(resultType.testsuite.time).Should().BeGreaterOrEqualTo(0.0);
         }
 
         [Test]
         public void ShouldHaveErrors()
         {
-            var results = this.resultType.testsuite.results.AsEnumerable();
+            var results = resultType.testsuite.results.AsEnumerable();
             var query = from testsuiteType expression in results
                         from testsuiteType @group in expression.results
                         from testcaseType example in @group.results
                         where example.result == "Failure"
                         select example;
-            query.Should().HaveCount(2);
-            query.Should().Contain(result => double.Parse(result.time) >= 0D);
+            var testcaseTypes = query as testcaseType[] ?? query.ToArray();
+            testcaseTypes.Should().HaveCount(2);
+            testcaseTypes.Should().Contain(result => double.Parse(result.time) >= 0D);
         }
 
         [Test]
         public void ShouldHaveSuccess()
         {
-            var results = this.resultType.testsuite.results.AsEnumerable();
+            var results = resultType.testsuite.results.AsEnumerable();
             var query = from testsuiteType expression in results
                         from testsuiteType @group in expression.results
                         from testcaseType example in @group.results
                         where example.result == "Success"
                         select example;
-            query.Should().HaveCount(9);
-            query.Should().Contain(result => double.Parse(result.time) >= 0D);
+            var testcaseTypes = query as testcaseType[] ?? query.ToArray();
+            testcaseTypes.Should().HaveCount(9);
+            testcaseTypes.Should().Contain(result => double.Parse(result.time) >= 0D);
         }
     }
 }

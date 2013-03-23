@@ -22,11 +22,12 @@ namespace System.Spec
     {
         public static ExampleResult ToExampleResult(this Example example)
         {
-            return new ExampleResult {
-                Reason = example.Reason,
-                FileName = example.FileName,
-                LineNumber = example.LineNumber
-            };
+            return new ExampleResult
+                {
+                    Reason = example.Reason,
+                    FileName = example.FileName,
+                    LineNumber = example.LineNumber
+                };
         }
     }
 }

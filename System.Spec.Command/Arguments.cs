@@ -18,7 +18,7 @@
 
 namespace System.Spec.Command
 {
-	using System.Spec.Formatter;
+	using Formatter;
 
 	using PowerArgs;
 

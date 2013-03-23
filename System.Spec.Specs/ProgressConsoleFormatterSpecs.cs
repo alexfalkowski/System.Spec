@@ -18,17 +18,14 @@
 
 namespace System.Spec.Specs
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.IO;
-
+    using Collections.ObjectModel;
     using FluentAssertions;
-
-    using System.Spec.Formatter;
-    using System.Spec.Specs.Properties;
-
+    using Formatter;
+    using Globalization;
     using NUnit.Framework;
+    using Properties;
+    using System;
+    using System.IO;
 
     [TestFixture]
     public class ProgressConsoleFormatterSpecs

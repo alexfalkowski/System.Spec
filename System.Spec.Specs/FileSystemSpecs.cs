@@ -18,14 +18,12 @@
 
 namespace System.Spec.Specs
 {
+    using FluentAssertions;
+    using IO;
+    using NUnit.Framework;
+    using Reflection;
     using System;
-	using System.IO;
-	using System.Reflection;
-    using System.Spec.IO;
-
-	using FluentAssertions;
-
-	using NUnit.Framework;
+    using System.IO;
 
 	[TestFixture]
 	public class FileSystemSpecs
@@ -35,21 +33,21 @@ namespace System.Spec.Specs
 		[SetUp]
 		public void BeforeEach()
 		{
-			this.fileSystem = new DefaultFileSystem();
+			fileSystem = new DefaultFileSystem();
 		}
 
 		[Test]
 		public void ShouldFindDlls()
 		{
 			var location = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
-			var files = this.fileSystem.GetFilesWithExtension(location, ".dll");
+			var files = fileSystem.GetFilesWithExtension(location, ".dll");
 			files.Should().NotBeEmpty();
 		}
 
 		[Test]
 		public void ShouldGetCurrentPath()
 		{
-			var currentPath = this.fileSystem.CurrentPath;
+			var currentPath = fileSystem.CurrentPath;
 			currentPath.Should().Contain("System.Spec");
 		}
 	}

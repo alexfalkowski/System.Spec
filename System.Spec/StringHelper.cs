@@ -18,10 +18,9 @@
 
 namespace System.Spec
 {
-    using System.Globalization;
-    using System.Text;
+    using Globalization;
 
-	public static class StringHelper
+    public static class StringHelper
 	{
 		public const string Tab = "\t";
 

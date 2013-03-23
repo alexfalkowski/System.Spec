@@ -18,13 +18,9 @@
 
 namespace System.Spec.Specs
 {
-    using System.Linq;
-    using System.Spec.Examples.Specs;
-
+    using Examples.Specs;
     using FluentAssertions;
-
-    using NSubstitute;
-
+    using Linq;
     using NUnit.Framework;
 
     [TestFixture]

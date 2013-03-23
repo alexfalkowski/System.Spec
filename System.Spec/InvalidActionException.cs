@@ -18,32 +18,32 @@
 
 namespace System.Spec
 {
-    using System.Collections;
-    using System.Runtime.Serialization;
+    using Collections;
+    using Runtime.Serialization;
 
     [Serializable]
-    public class InvalidActionException : Exception, ISerializable
+    public sealed class InvalidActionException : Exception
     {
-        private IDictionary data;
-        private string message;
-        private string stackTrace;
+        private readonly IDictionary data;
+        private readonly string message;
+        private readonly string stackTrace;
 
         public InvalidActionException(Exception exception)
         {
-            this.data = exception.Data;
-            this.HelpLink = exception.HelpLink;
-            this.message = exception.Message;
-            this.Source = exception.Source;
-            this.stackTrace = exception.StackTrace;
+            data = exception.Data;
+            HelpLink = exception.HelpLink;
+            message = exception.Message;
+            Source = exception.Source;
+            stackTrace = exception.StackTrace;
         }
 
-        protected InvalidActionException(SerializationInfo info, StreamingContext context)
+        private InvalidActionException(SerializationInfo info, StreamingContext context)
         {
-            this.data = (IDictionary)info.GetValue("data", typeof(IDictionary));
-            this.HelpLink = info.GetString("helpLink");
-            this.message = info.GetString("message");
-            this.Source = info.GetString("source");
-            this.stackTrace = info.GetString("stackTrace");
+            data = (IDictionary)info.GetValue("data", typeof(IDictionary));
+            HelpLink = info.GetString("helpLink");
+            message = info.GetString("message");
+            Source = info.GetString("source");
+            stackTrace = info.GetString("stackTrace");
         }
 
         public override IDictionary Data {

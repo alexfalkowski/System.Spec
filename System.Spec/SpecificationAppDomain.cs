@@ -18,15 +18,15 @@
 
 namespace System.Spec
 {
-    using System.Collections.Generic;
-    using System.Globalization;
+    using Collections.Generic;
+    using Globalization;
+    using Reflection;
+    using Runners;
     using System.IO;
-    using System.Reflection;
-    using System.Spec.Runners;
 
     public class SpecificationAppDomain
     {
-        private ISpecificationRunner runner;
+        private readonly ISpecificationRunner runner;
 
         public SpecificationAppDomain(ISpecificationRunner runner)
         {
@@ -51,7 +51,7 @@ namespace System.Spec
                     false,
                     BindingFlags.Default,
                     null,
-                    new[] { this.runner },
+                    new object[] { runner },
                     CultureInfo.CurrentCulture,
                     null);
 

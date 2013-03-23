@@ -18,9 +18,9 @@
 
 namespace System.Spec
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Monad.Maybe;
+    using Collections.Generic;
+    using Linq;
+    using Monad.Maybe;
 
     public static class EnumerableExtensions
     {
@@ -46,7 +46,7 @@ namespace System.Spec
 
         public static bool HasErrors(this IEnumerable<ExampleGroupResult> examples)
         {
-            return GetExamples(examples, (example) => example.Status == ResultStatus.Error).Any();
+            return GetExamples(examples, example => example.Status == ResultStatus.Error).Any();
         }
 
         public static bool HasErrors(this IEnumerable<ExampleResult> examples)
@@ -56,12 +56,12 @@ namespace System.Spec
 
         public static bool HasErrors(this IEnumerable<ExpressionResult> examples)
         {
-            return GetExamples(examples, (example) => example.Status == ResultStatus.Error).Any();
+            return GetExamples(examples, example => example.Status == ResultStatus.Error).Any();
         }
         
         public static bool HasSuccesses(this IEnumerable<ExpressionResult> examples)
         {
-            return GetExamples(examples, (example) => example.Status == ResultStatus.Success).Any();
+            return GetExamples(examples, example => example.Status == ResultStatus.Success).Any();
         }
 
         public static long ElapsedTime(this IEnumerable<ExampleGroupResult> examples)
@@ -90,22 +90,22 @@ namespace System.Spec
 
         public static IEnumerable<ExampleResult> AllErrors(this IEnumerable<ExpressionResult> expressions)
         {
-            return GetExamples(expressions, (example) => example.Status == ResultStatus.Error);
+            return GetExamples(expressions, example => example.Status == ResultStatus.Error);
         }
 
         public static IEnumerable<ExampleResult> AllSuccesses(this IEnumerable<ExpressionResult> expressions)
         {
-            return GetExamples(expressions, (example) => example.Status == ResultStatus.Success);
+            return GetExamples(expressions, example => example.Status == ResultStatus.Success);
         }
 
         public static IEnumerable<ExampleResult> AllErrors(this IEnumerable<ExampleResult> examples)
         {
-            return GetExamples(examples, (example) => example.Status == ResultStatus.Error);
+            return GetExamples(examples, example => example.Status == ResultStatus.Error);
         }
         
         public static IEnumerable<ExampleResult> AllSuccesses(this IEnumerable<ExampleResult> examples)
         {
-            return GetExamples(examples, (example) => example.Status == ResultStatus.Success);
+            return GetExamples(examples, example => example.Status == ResultStatus.Success);
         }
 
         private static IEnumerable<ExampleResult> GetExamples(IEnumerable<ExampleGroupResult> examples, 

@@ -18,8 +18,8 @@
 
 namespace System.Spec
 {
+    using Diagnostics;
     using System;
-    using System.Diagnostics;
 
     public static class StopwatchHelper
     {

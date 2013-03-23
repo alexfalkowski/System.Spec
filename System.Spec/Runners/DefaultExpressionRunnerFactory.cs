@@ -18,22 +18,20 @@
 
 namespace System.Spec.Runners
 {
-    using System.Monad.Maybe;
+    using Monad.Maybe;
 
     public class DefaultExpressionRunnerFactory : IExpressionRunnerFactory
     {
         public IExpressionRunner CreateExpressionRunner(bool dryRun)
         {
-            return new DefaultExpressionRunner(this.CreateActionStrategy(dryRun));
+            return new DefaultExpressionRunner(CreateActionStrategy(dryRun));
         }
 
-        private IOption<IActionStratergy> CreateActionStrategy(bool dryRun)
+        private static IOption<IActionStratergy> CreateActionStrategy(bool dryRun)
         {
-            if (dryRun) {
-                return Option.None<IActionStratergy>();
-            }
-
-            return new DefaultActionStratergy().SomeOrNone<IActionStratergy>();
+            return dryRun
+                       ? Option.None<IActionStratergy>()
+                       : new DefaultActionStratergy().SomeOrNone<IActionStratergy>();
         }
     }
 }

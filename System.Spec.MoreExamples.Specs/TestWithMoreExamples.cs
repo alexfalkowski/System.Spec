@@ -22,11 +22,8 @@ namespace System.Spec.MoreExamples.Specs
     {
         protected override void Define()
         {
-            Describe("More Examples", () => {
-                It("should do one more example", () => {
-
-                });
-            });
+            Describe("More Examples", () => It("should do one more example", () => {
+            }));
         }
     }
 }

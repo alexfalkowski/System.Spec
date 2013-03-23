@@ -18,16 +18,15 @@
 
 namespace System.Spec.Examples.Specs
 {
-    using System.Spec;
+    using Spec;
 
 	public class TestSpecificationWithNestedDescribe : Specification
 	{
         protected override void Define()
-		{
-            Describe("describe TestSpecificationWithNestedDescribe1", () => {
-                Describe("describe TestSpecificationWithNestedDescribe2", () => {     
-                });
-            });
-		}
+        {
+            Describe("describe TestSpecificationWithNestedDescribe1",
+                     () => Describe("describe TestSpecificationWithNestedDescribe2", () => {
+                     }));
+        }
 	}
 }

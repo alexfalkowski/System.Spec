@@ -18,17 +18,13 @@
 
 namespace System.Spec.Console
 {
-	using System;
-	
-	using System.Spec.Formatter;
-    using System.Spec.Reports;
-	using System.Spec.Command;
-    using System.Spec.IO;
-    using System.Spec.Runners;
-	
-	using PowerArgs;
-	
-	public static class Program
+    using Command;
+    using Formatter;
+    using IO;
+    using Reports;
+    using Runners;
+
+    public static class Program
 	{
 		public static int Main(string[] args)
 		{

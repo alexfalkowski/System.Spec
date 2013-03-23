@@ -18,19 +18,18 @@
 
 namespace System.Spec
 {
-    using System.Diagnostics;
-    using System.Runtime.CompilerServices;
-    using System.Monad.Maybe;
+    using Monad.Maybe;
+    using Runtime.CompilerServices;
 
     public abstract class Specification
     {
-        private Expression expression;
+        private readonly Expression expression;
         private IOption<ExampleGroup> currentExampleGroupOption;
         private bool hasExpressionBeenBuilt;
 
         protected Specification()
         {
-            this.expression = new Expression { Name = this.GetType().FullName };
+            expression = new Expression { Name = GetType().FullName };
         }
 
         public void BeforeAll(Action action)
@@ -88,14 +87,13 @@ namespace System.Spec
                        [CallerFilePath] string callingFilePath = "", 
                        [CallerLineNumber] int callingFileLineNumber = 0)
         {
-            currentExampleGroupOption.Into(currentExampleGroup => {
-                currentExampleGroup.Add(new Example { 
-                    Reason = reason, 
+            currentExampleGroupOption.Into(@group => @group.Add(new Example
+                {
+                    Reason = reason,
                     Action = action,
                     FileName = callingFilePath,
                     LineNumber = callingFileLineNumber
-                });
-            });
+                }));
         }
 
         public void XIt(string reason, Action action)
@@ -104,10 +102,10 @@ namespace System.Spec
         
         public Expression BuildExpression()
         {
-            if (!this.hasExpressionBeenBuilt) {
+            if (!hasExpressionBeenBuilt) {
 
-                this.Define();
-                this.hasExpressionBeenBuilt = true;
+                Define();
+                hasExpressionBeenBuilt = true;
             }
             
             return expression;

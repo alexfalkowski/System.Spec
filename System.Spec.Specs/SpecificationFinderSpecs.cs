@@ -18,21 +18,13 @@
 
 namespace System.Spec.Specs
 {
-    using System;
-    using System.IO;
-    using System.Reflection;
-    using System.Xml;
-    using System.Xml.Serialization;
-    
+    using Examples.Specs;
     using FluentAssertions;
-    
-    using System.Spec.Examples.Specs;
-    using System.Spec.Formatter;
-    using System.Spec.IO;
-    
+    using IO;
     using NSubstitute;
-    
     using NUnit.Framework;
+    using Reflection;
+    using System;
     
     [TestFixture]
     public class SpecificationFinderSpecs
@@ -43,15 +35,15 @@ namespace System.Spec.Specs
         [SetUp]
         public void BeforeEach()
         {
-            this.fileSystem = Substitute.For<IFileSystem>();
-            this.finder = new DefaultSpecificationFinder(this.fileSystem);
+            fileSystem = Substitute.For<IFileSystem>();
+            finder = new DefaultSpecificationFinder(fileSystem);
         }
 
         [Test]
         public void ShouldFindSpecifications()
         {
             var location = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
-            var result = this.finder.GetSpecifications(location);
+            var result = finder.GetSpecifications(location);
             result.Specifications.Should().HaveCount(11);
         }
 
@@ -59,11 +51,11 @@ namespace System.Spec.Specs
         public void ShouldGetSpecifications()
         {
             var location = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
-            const string TestPath = "test";
-            this.fileSystem.CurrentPath.Returns(TestPath);
-            this.fileSystem.GetFilesWithExtension(TestPath, "Example.Spec.dll").Returns(new[] { location });
+            const string testPath = "test";
+            fileSystem.CurrentPath.Returns(testPath);
+            fileSystem.GetFilesWithExtension(testPath, "Example.Spec.dll").Returns(new[] { location });
             
-            var result = this.finder.GetSpecificationFiles(TestPath, "Example.Spec");
+            var result = finder.GetSpecificationFiles(testPath, "Example.Spec");
             result.Should().HaveCount(1);
         }
     }

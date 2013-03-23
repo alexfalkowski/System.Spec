@@ -18,16 +18,14 @@
 
 namespace System.Spec.Examples.Specs
 {
-    using System.Spec;
+    using Spec;
 
     public class TestSpecificationWithSingleIt : Specification
     {
         protected override void Define()
         {
-            Describe("describe TestSpecificationWithSingleIt", () => {
-                It("it TestSpecificationWithSingleIt", () => {
-                });
-            });
+            Describe("describe TestSpecificationWithSingleIt", () => It("it TestSpecificationWithSingleIt", () => {
+            }));
         }
     }
 }

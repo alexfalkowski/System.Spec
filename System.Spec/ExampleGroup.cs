@@ -18,14 +18,13 @@
 
 namespace System.Spec
 {
+    using Collections.Generic;
+    using Monad.Maybe;
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Monad.Maybe;
 
 	public class ExampleGroup
 	{
-        private IDictionary<string, Example> examples = new Dictionary<string, Example>();
+        private readonly IDictionary<string, Example> examples = new Dictionary<string, Example>();
         
         public string Reason { get; set; }
         
@@ -54,7 +53,7 @@ namespace System.Spec
 
             return option.Into(value => {
                 Example example;
-                this.examples.TryGetValue(value, out example);
+                examples.TryGetValue(value, out example);
                 
                 return example.SomeOrNone();
             });

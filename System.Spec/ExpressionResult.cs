@@ -18,13 +18,13 @@
 
 namespace System.Spec
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    using Collections.Generic;
+    using Collections.ObjectModel;
 
     [Serializable]
     public class ExpressionResult
     {
-        private IList<ExampleGroupResult> examples = new Collection<ExampleGroupResult>();
+        private readonly IList<ExampleGroupResult> examples = new Collection<ExampleGroupResult>();
 
         public string Name { get; set; }
 

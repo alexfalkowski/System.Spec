@@ -18,14 +18,14 @@
 
 namespace System.Spec.Runners
 {
-    using System.Linq;
-    using System.Monad.Maybe;
-    using System.Spec.Formatter;
+    using Linq;
+    using Monad.Collections;
+    using Monad.Maybe;
 
     [Serializable]
     public class DefaultExpressionRunner : IExpressionRunner
     {
-        private IOption<IActionStratergy> stratergyOption;
+        private readonly IOption<IActionStratergy> stratergyOption;
 
         public DefaultExpressionRunner(IOption<IActionStratergy> stratergyOption)
         {
@@ -37,7 +37,7 @@ namespace System.Spec.Runners
             var expressionResult = new ExpressionResult { Name = expression.Name };
 
             foreach (var exampleGroup in expression.FindExampleGroup(exampleText)) {
-                expressionResult.Examples.Add(this.ExecuteExampleGroup(exampleGroup));
+                expressionResult.Examples.Add(ExecuteExampleGroup(exampleGroup));
 
                 return expressionResult;
             }
@@ -45,15 +45,13 @@ namespace System.Spec.Runners
             foreach (var example in expression.FindExample(exampleText)) {
                 var exampleResult = new ExampleGroupResult { Reason = example.ExampleGroup.Reason };
 
-                exampleResult.Examples.Add(this.ExecuteExample(example.ExampleGroup, example.Example));
+                exampleResult.Examples.Add(ExecuteExample(example.ExampleGroup, example.Example));
                 expressionResult.Examples.Add(exampleResult);
 
                 return expressionResult;
             }
 
-            foreach (var group in expression.Examples) {
-                expressionResult.Examples.Add(this.ExecuteExampleGroup(group));
-            }
+            expression.Examples.ForEach(group => expressionResult.Examples.Add(ExecuteExampleGroup(group)));
 
             return expressionResult;
         }
@@ -61,22 +59,20 @@ namespace System.Spec.Runners
         private ExampleGroupResult ExecuteExampleGroup(ExampleGroup exampleGroup)
         {
             var result = new ExampleGroupResult { Reason = exampleGroup.Reason };
-            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeAll));
+            stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeAll));
 
-            foreach (var example in exampleGroup.Examples) {
-                result.Examples.Add(this.ExecuteExample(exampleGroup, example));
-            }
+            exampleGroup.Examples.ForEach(example => result.Examples.Add(ExecuteExample(exampleGroup, example)));
 
-            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterAll));
+            stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterAll));
 
             return result;
         }
 
         private ExampleResult ExecuteExample(ExampleGroup exampleGroup, Example example)
         {
-            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeEach));
-            var result = this.stratergyOption.Into(stratergy => stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example)).Or(example.ToExampleResult()).First();
-            this.stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterEach));
+            stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.BeforeEach));
+            var result = stratergyOption.Into(stratergy => stratergy.ExecuteActionWithResult(example.Action).ToExampleResult(example)).Or(example.ToExampleResult()).First();
+            stratergyOption.Into(stratergy => stratergy.ExecuteAction(exampleGroup.AfterEach));
 
             return result;
         }

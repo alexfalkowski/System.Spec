@@ -18,22 +18,21 @@
 
 namespace System.Spec.VisualStudio
 {
+    using Collections.Generic;
+    using Formatter;
+    using IO;
+    using Linq;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Adapter;
     using Microsoft.VisualStudio.TestPlatform.ObjectModel.Logging;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Monad.Maybe;
-    using System.Spec.Formatter;
-    using System.Spec.IO;
-    using System.Spec.Runners;
+    using Runners;
 
     [FileExtension(".dll")]
     [DefaultExecutorUri(DefaultTestExecutor.ExecutorUriString)]
     [ExtensionUri(DefaultTestExecutor.ExecutorUriString)]
     public class DefaultTestDiscoverer : ITestDiscoverer
     {
-        private SpecificationAppDomain appDomainRunner;
+        private readonly SpecificationAppDomain appDomainRunner;
 
         public DefaultTestDiscoverer()
             : this(CreateSpecificationRunner())

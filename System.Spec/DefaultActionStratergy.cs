@@ -18,21 +18,16 @@
 
 namespace System.Spec
 {
+    using Linq;
+    using Monad.Maybe;
     using System;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Monad.Maybe;
 
     [Serializable]
     public class DefaultActionStratergy : IActionStratergy
     {
         public ActionResult ExecuteActionWithResult(Action action)
         {
-            var option = action.SomeOrNone().Into(value => {
-                return StopwatchHelper.ExecuteTimedActionWithResult(() => {
-                    action();
-                });
-            });
+            var option = action.SomeOrNone().Into(value => StopwatchHelper.ExecuteTimedActionWithResult(action));
             return option.Or(new ActionResult {Status = ResultStatus.Error }).First();
         }
 

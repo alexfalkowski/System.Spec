@@ -17,12 +17,20 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace System.Spec.Runners
+<<<<<<< HEAD
 {
     using Collections.Generic;
     using Collections.ObjectModel;
     using Formatter;
     using IO;
-    using Monad.Collections;
+=======
+{
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Monad.Collections;
+    using System.Spec.IO;
+    using System.Spec.Formatter;
+>>>>>>> 8531f30a32159113afc231f02677c0af1d5ae9ea
 
     [Serializable]
     public class DefaultSpecificationRunner : SpecificationRunnerBase
@@ -38,8 +46,17 @@ namespace System.Spec.Runners
                                                                                string example)
         {
             var results = new Collection<ExpressionResult>();
+<<<<<<< HEAD
+            
+            foreach (var specification in specifications) {
+                var result = ExecuteSpecification(specification, example);
+                
+                results.Add(result);
+            }
+=======
 
-            specifications.ForEach(specification => results.Add(ExecuteSpecification(specification, example)));
+            specifications.ForEach(specification => results.Add(this.ExecuteSpecification(specification, example)));
+>>>>>>> 8531f30a32159113afc231f02677c0af1d5ae9ea
             
             return results;
         }

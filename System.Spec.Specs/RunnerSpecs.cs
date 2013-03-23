@@ -18,24 +18,15 @@
 
 namespace System.Spec.Specs
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Xml;
-    using System.Xml.Serialization;
-
+    using Examples.Specs;
     using FluentAssertions;
-
-    using System.Spec;
-    using System.Spec.Examples.Specs;
-    using System.Spec.Formatter;
-    using System.Spec.IO;
-    using System.Spec.Runners;
-
-    using NSubstitute;
-
+    using Formatter;
+    using IO;
+    using Linq;
     using NUnit.Framework;
+    using Reflection;
+    using Runners;
+    using System;
 
     [TestFixture]
     public class RunnerSpecs
@@ -47,23 +38,23 @@ namespace System.Spec.Specs
         [SetUp]
         public void BeforeEach()
         {
-            this.command = new DefaultSpecificationRunner(new DefaultExpressionRunnerFactory().CreateExpressionRunner(false), 
+            command = new DefaultSpecificationRunner(new DefaultExpressionRunnerFactory().CreateExpressionRunner(false), 
                                                           new DefaultSpecificationFinder(new DefaultFileSystem()),
                                                           new SilentConsoleFormatter(new DefaultConsoleWritter()));
-            this.path = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
+            path = new Uri(Assembly.GetAssembly(typeof(TestSpecificationWithBeforeAll)).CodeBase).LocalPath;
         }
 
         [Test]
         public void ShouldExecuteAllSpecificationsInPath()
         {
-            var results = this.command.ExecuteSpecificationsInPath(this.path);
+            var results = command.ExecuteSpecificationsInPath(path);
             results.Should().HaveCount(11);
         }
 
         [Test]
         public void ShouldExecuteOneSpecificationInPath()
         {
-            var results = this.command.ExecuteSpecificationsInPath(this.path, 
+            var results = command.ExecuteSpecificationsInPath(path, 
                                                                    typeof(TestSpecificationWithBeforeAll).FullName);
             results.Should().HaveCount(1);
         }
@@ -71,10 +62,11 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldExecuteOneDescribeInPath()
         {
-            var results = this.command.ExecuteSpecificationsInPath(this.path, 
+            var results = command.ExecuteSpecificationsInPath(path, 
                                                                    "describe TestSpecificationWithMultipleIts");
-            results.Should().HaveCount(1);
-            var result = results.First();
+            var expressionResults = results as ExpressionResult[] ?? results.ToArray();
+            expressionResults.Should().HaveCount(1);
+            var result = expressionResults.First();
             result.Examples.Should().HaveCount(1);
             result.Examples.First().Reason.Should().Be("describe TestSpecificationWithMultipleIts");
         }
@@ -82,10 +74,11 @@ namespace System.Spec.Specs
         [Test]
         public void ShouldExecuteOneItInPath()
         {
-            var results = this.command.ExecuteSpecificationsInPath(this.path, 
+            var results = command.ExecuteSpecificationsInPath(path, 
                                                                    "it should do one thing");
-            results.Should().HaveCount(1);
-            var result = results.First();
+            var expressionResults = results as ExpressionResult[] ?? results.ToArray();
+            expressionResults.Should().HaveCount(1);
+            var result = expressionResults.First();
             result.Examples.Should().HaveCount(1);
             var group = result.Examples.First();
             group.Reason.Should().Be("describe TestSpecificationWithMultipleIts");

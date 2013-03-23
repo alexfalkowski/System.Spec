@@ -18,15 +18,12 @@
 
 namespace System.Spec
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Reflection;
-    using System.Spec.Runners;
+    using Collections.Generic;
+    using Runners;
 
     public class SpecificationAssembly : MarshalByRefObject
     {
-        private ISpecificationRunner runner;
+        private readonly ISpecificationRunner runner;
         
         public SpecificationAssembly(ISpecificationRunner runner)
         {

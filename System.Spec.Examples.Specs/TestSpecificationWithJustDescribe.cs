@@ -18,7 +18,7 @@
 
 namespace System.Spec.Examples.Specs
 {
-    using System.Spec;
+    using Spec;
 
     public class TestSpecificationWithJustDescribe : Specification
     {

@@ -18,11 +18,8 @@
 
 namespace System.Spec.Examples.Specs
 {
-    using System.IO;
-    using System.Spec;
-    using System.Configuration;
-    using System.Reflection;
-
+    using Spec;
+    using Configuration;
     using FluentAssertions;
 
     public class TestSpecificationConfigurationManager : Specification
@@ -30,13 +27,9 @@ namespace System.Spec.Examples.Specs
         protected override void Define()
         {
             Describe("Configuration Manager", () => {
-                It("should find Test1 in ConfigurationManager", () => {
-                    ConfigurationManager.AppSettings ["Test1"].Should().Be("Test1");
-                });
+                It("should find Test1 in ConfigurationManager", () => ConfigurationManager.AppSettings ["Test1"].Should().Be("Test1"));
 
-                It("should find Test2 in ConfigurationManager", () => {
-                    ConfigurationManager.AppSettings ["Test2"].Should().Be("Test2");
-                });
+                It("should find Test2 in ConfigurationManager", () => ConfigurationManager.AppSettings ["Test2"].Should().Be("Test2"));
             });
         }
     }

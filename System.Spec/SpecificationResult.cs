@@ -18,12 +18,12 @@
 
 namespace System.Spec
 {
-    using System.Collections.Generic;
+    using Collections.Generic;
 
     public class SpecificationResult
     {
-        private IEnumerable<Specification> specifications;
-        private bool foundType;
+        private readonly IEnumerable<Specification> specifications;
+        private readonly bool foundType;
 
         public SpecificationResult(IEnumerable<Specification> specifications, bool foundType)
         {

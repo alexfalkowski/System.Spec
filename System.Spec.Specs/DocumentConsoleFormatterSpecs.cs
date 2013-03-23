@@ -18,17 +18,14 @@
 
 namespace System.Spec.Specs
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.IO;
-
+    using Collections.ObjectModel;
     using FluentAssertions;
-
-    using System.Spec.Formatter;
-    using System.Spec.Specs.Properties;
-
+    using Formatter;
+    using Globalization;
     using NUnit.Framework;
+    using Properties;
+    using System;
+    using System.IO;
 
     [TestFixture]
     public class DocumentConsoleFormatterSpecs
@@ -40,44 +37,44 @@ namespace System.Spec.Specs
         [SetUp]
         public void BeforeEach()
         {
-            this.originalWritter = Console.Out;
-            this.stringWriter = new StringWriter(CultureInfo.CurrentCulture);
-            Console.SetOut(this.stringWriter);
+            originalWritter = Console.Out;
+            stringWriter = new StringWriter(CultureInfo.CurrentCulture);
+            Console.SetOut(stringWriter);
 
-            this.consoleFormatter = new DocumentionConsoleFormatter(new DefaultConsoleWritter());
-            this.consoleFormatter.WriteInformation(Resources.TestReason);
+            consoleFormatter = new DocumentionConsoleFormatter(new DefaultConsoleWritter());
+            consoleFormatter.WriteInformation(Resources.TestReason);
         }
 
         [TearDown]
         public void AfterEach()
         {
-            this.stringWriter.Dispose();
-            Console.SetOut(this.originalWritter);
+            stringWriter.Dispose();
+            Console.SetOut(originalWritter);
         }
 
         [Test]
         public void ShouldWriteSuccess()
         {
             var result = new ExampleResult { Reason = Resources.TestReason, Status = ResultStatus.Success };
-            this.consoleFormatter.WriteSuccess(result);
-            this.stringWriter.Flush();
+            consoleFormatter.WriteSuccess(result);
+            stringWriter.Flush();
             var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
                 StringHelper.DoubleSpace + Resources.TestReason + Environment.NewLine;
-            this.stringWriter.ToString().Should().Be(value);
+            stringWriter.ToString().Should().Be(value);
         }
 
         [Test]
         public void ShouldWriteError()
         {
-            this.consoleFormatter.WriteError(new ExampleResult {
+            consoleFormatter.WriteError(new ExampleResult {
                         Reason = Resources.TestReason,
                         Status = ResultStatus.Error,
                         Exception = new InvalidOperationException("Test Exception")
                     });
-            this.stringWriter.Flush();
+            stringWriter.Flush();
             var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
                 StringHelper.DoubleSpace + Resources.TestReason + " (FAILED)" + Environment.NewLine;
-            this.stringWriter.ToString().Should().Be(value);
+            stringWriter.ToString().Should().Be(value);
         }
 
         [Test]
@@ -85,12 +82,12 @@ namespace System.Spec.Specs
         {
             var results = new Collection<ExpressionResult>();
             
-            this.consoleFormatter.WriteSummary(results);
-            this.stringWriter.Flush();
+            consoleFormatter.WriteSummary(results);
+            stringWriter.Flush();
             var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + Environment.NewLine +
                 "Finished in 0 seconds" + Environment.NewLine + 
                 "0 examples, 0 failures" + Environment.NewLine;
-            this.stringWriter.ToString().Should().Be(value);
+            stringWriter.ToString().Should().Be(value);
         }
 
         [Test]
@@ -104,12 +101,12 @@ namespace System.Spec.Specs
             result.Examples.Add(group);
             results.Add(result);
 
-            this.consoleFormatter.WriteSummary(results);
-            this.stringWriter.Flush();
+            consoleFormatter.WriteSummary(results);
+            stringWriter.Flush();
             var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + Environment.NewLine +
                 "Finished in 1 seconds" + Environment.NewLine + 
                 "1 examples, 0 failures" + Environment.NewLine;
-            this.stringWriter.ToString().Should().Be(value);
+            stringWriter.ToString().Should().Be(value);
         }
     }
 }

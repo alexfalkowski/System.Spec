@@ -18,29 +18,25 @@
 
 namespace System.Spec.Command
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Reflection;
-
-    using System.Spec.Formatter;
-    using System.Spec.Reports;
-    using System.Spec.IO;
-    using System.Spec.Runners;
-    
+    using Collections.Generic;
+    using Formatter;
+    using IO;
     using PowerArgs;
+    using Reflection;
+    using Reports;
+    using Runners;
+    using System;
     
     public class SpecCommand
     {
-        private string[] args;
-        private IConsoleFormatterFactory formatterFactory;
-        private ISpecificationReporter reporter;
-        private IFileSystem fileSystem;
-        private IConsoleWritterFactory consoleFactory;
-        private IExpressionRunnerFactory expressionFactory;
-        private ISpecificationFinder finder;
-        private ISpecificationRunnerFactory runnerFactory;
+        private readonly string[] args;
+        private readonly IConsoleFormatterFactory formatterFactory;
+        private readonly ISpecificationReporter reporter;
+        private readonly IFileSystem fileSystem;
+        private readonly IConsoleWritterFactory consoleFactory;
+        private readonly IExpressionRunnerFactory expressionFactory;
+        private readonly ISpecificationFinder finder;
+        private readonly ISpecificationRunnerFactory runnerFactory;
         
         public SpecCommand(string[] args, 
                            IConsoleFormatterFactory formatterFactory,
@@ -65,7 +61,7 @@ namespace System.Spec.Command
         {
             try {
                 var arguments = Args.Parse<Arguments>(args);
-                var writter = this.consoleFactory.CreateConsoleWritter(arguments.Colour);
+                var writter = consoleFactory.CreateConsoleWritter(arguments.Colour);
 
                 if (arguments.Help) {
                     writter.WriteInformationLine(ArgUsage.GetUsage<Arguments>());
@@ -77,10 +73,10 @@ namespace System.Spec.Command
                     return 0;
                 }
 
-                var consoleFormatter = this.formatterFactory.CreateConsoleFormatter(arguments.Format, writter);
-                var expressionRunner = this.expressionFactory.CreateExpressionRunner(arguments.DryRun);
-                var specRunner = this.runnerFactory.CreateSpecificationRunner(arguments.Parrallel, expressionRunner, finder, consoleFormatter);
-                var files = this.finder.GetSpecificationFiles(arguments.Path, arguments.Pattern);
+                var consoleFormatter = formatterFactory.CreateConsoleFormatter(arguments.Format, writter);
+                var expressionRunner = expressionFactory.CreateExpressionRunner(arguments.DryRun);
+                var specRunner = runnerFactory.CreateSpecificationRunner(arguments.Parrallel, expressionRunner, finder, consoleFormatter);
+                var files = finder.GetSpecificationFiles(arguments.Path, arguments.Pattern);
                 var appDomain = new SpecificationAppDomain(specRunner);
                 var results = new List<ExpressionResult>();
 
@@ -89,15 +85,15 @@ namespace System.Spec.Command
                 }
 
                 consoleFormatter.WriteSummary(results);
-                this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);
+                reporter.Write(fileSystem.OpenWrite(arguments.Output), results);
 
                 return results.HasErrors() ? 1 : 0;
             } catch (ArgException) {
-                var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
+                var consoleFormatter = consoleFactory.CreateConsoleWritter(false);
                 consoleFormatter.WriteInformationLine(ArgUsage.GetUsage<Arguments>());
                 return 1;
             } catch (Exception e) {
-                var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
+                var consoleFormatter = consoleFactory.CreateConsoleWritter(false);
                 consoleFormatter.WriteInformationLine(e.ToString().Trim());
                 return 1;
             }

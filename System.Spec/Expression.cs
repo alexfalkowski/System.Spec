@@ -18,14 +18,13 @@
 
 namespace System.Spec
 {
-    using System.Collections.ObjectModel;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Monad.Maybe;
+    using Collections.Generic;
+    using Linq;
+    using Monad.Maybe;
     
     public class Expression
     {
-        private IDictionary<string, ExampleGroup> exampleGroups = new Dictionary<string, ExampleGroup>();
+        private readonly IDictionary<string, ExampleGroup> exampleGroups = new Dictionary<string, ExampleGroup>();
         
         public string Name { get; set; }
 
@@ -46,7 +45,7 @@ namespace System.Spec
 
             return option.Into(value => {
                 ExampleGroup group;
-                this.exampleGroups.TryGetValue(value, out group);
+                exampleGroups.TryGetValue(value, out group);
                 
                 return group.SomeOrNone();
             });
@@ -54,7 +53,7 @@ namespace System.Spec
 
         public IOption<ExampleTuple> FindExample(string exampleText)
         {
-            var query = from exampleGroup in this.exampleGroups.Values
+            var query = from exampleGroup in exampleGroups.Values
                         from example in exampleGroup.Find(exampleText)
                         select new ExampleTuple { Example = example, ExampleGroup = exampleGroup };
 
