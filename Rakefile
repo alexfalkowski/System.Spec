@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '3.0.0'
+VERSION = '3.0.1'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 def is_windows

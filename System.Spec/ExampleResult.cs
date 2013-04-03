@@ -25,7 +25,11 @@ namespace System.Spec
 
 		public ResultStatus Status { get; set; }
 
-		public Exception Exception { get; set; }
+        public string Message { get; set; }
+
+        public string StackTrace { get; set; }
+        
+        public string ExceptionAsString { get; set;}
 
         public long ElapsedTime { get; set; }
 

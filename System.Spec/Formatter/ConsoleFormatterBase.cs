@@ -59,7 +59,7 @@ namespace System.Spec.Formatter
                     var prefix = new string(' ', index.ToString(CultureInfo.InvariantCulture).Length + 2);
                     writter.WriteErrorLine(string.Format(CultureInfo.CurrentCulture,
                                                               Resources.ConsoleFormatteFailureMessage, 
-                                                              prefix, example.Exception.ToString().Trim()));
+                                                              prefix, example.ExceptionAsString));
                     writter.WriteLine();
                 }
             }

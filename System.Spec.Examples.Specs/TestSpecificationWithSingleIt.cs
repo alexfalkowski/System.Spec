@@ -1,4 +1,4 @@
-﻿// Author:
+// Author:
 //       alex.falkowski <alexrfalkowski@gmail.com>
 //
 //  Copyright (c) 2013 alex.falkowski

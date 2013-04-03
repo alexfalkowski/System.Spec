@@ -19,7 +19,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("System.Spec.Example.Specs")]
+[assembly: AssemblyTitle("System.Spec.Examples.Specs")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

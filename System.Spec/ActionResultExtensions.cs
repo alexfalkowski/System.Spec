@@ -25,10 +25,10 @@ namespace System.Spec
             return new ExampleResult {
                 Reason = example.Reason,
                 Status = result.Status,
-                Exception = result.Exception,
-                ElapsedTime = result.ElapsedTime,
-                FileName = example.FileName,
-                LineNumber = example.LineNumber
+                Message = result.Message,
+                StackTrace = result.StackTrace,
+                ExceptionAsString = result.ExceptionAsString,
+                ElapsedTime = result.ElapsedTime
             };
         }
 

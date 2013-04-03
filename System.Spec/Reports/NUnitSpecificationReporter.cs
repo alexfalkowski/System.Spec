@@ -130,8 +130,8 @@ namespace System.Spec.Reports
             var testcaseTypes = from error in @group.Examples.AllErrors()
                                 let failure = new failureType
                                     {
-                                        message = CreateCDataSection(error.Exception.Message),
-                                        stacktrace = CreateCDataSection(error.Exception.StackTrace)
+                                        message = CreateCDataSection(error.Message),
+                                        stacktrace = CreateCDataSection(error.StackTrace)
                                     }
                                 select new testcaseType
                                     {

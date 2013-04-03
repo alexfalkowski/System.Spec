@@ -72,11 +72,13 @@ namespace System.Spec.Specs
         public void ShouldWriteSummary()
         {
             var example = new ExampleResult {
-                    Reason = Resources.TestReason,
-                    ElapsedTime = 1000,
-                    Exception = new InvalidOperationException("Test Exception"),
-                    Status = ResultStatus.Error
-                };
+                Reason = Resources.TestReason,
+                ElapsedTime = 1000,
+                Message = "Test Exception",
+                StackTrace = string.Empty,
+                ExceptionAsString = "System.InvalidOperationException: Test Exception",
+                Status = ResultStatus.Error
+            };
             var results = new Collection<ExpressionResult>();
             var expression = new ExpressionResult();
             var group = new ExampleGroupResult();
