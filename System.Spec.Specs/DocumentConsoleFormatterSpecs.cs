@@ -70,10 +70,11 @@ namespace System.Spec.Specs
         public void ShouldWriteError()
         {
             this.consoleFormatter.WriteError(new ExampleResult {
-                        Reason = Resources.TestReason,
-                        Status = ResultStatus.Error,
-                        Exception = new InvalidOperationException("Test Exception")
-                    });
+                Reason = Resources.TestReason,
+                Status = ResultStatus.Error,
+                Message = "Test Exception",
+                StackTrace = string.Empty
+            });
             this.stringWriter.Flush();
             var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 
                 StringHelper.DoubleSpace + Resources.TestReason + " (FAILED)" + Environment.NewLine;

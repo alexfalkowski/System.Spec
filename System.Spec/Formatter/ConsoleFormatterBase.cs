@@ -24,6 +24,7 @@ namespace System.Spec.Formatter
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Monad.Maybe;
     using System.Xml;
     using System.Xml.Serialization;
 
@@ -65,7 +66,7 @@ namespace System.Spec.Formatter
                     var prefix = new string(' ', index.ToString().Length + 2);
                     this.writter.WriteErrorLine(string.Format(CultureInfo.CurrentCulture,
                                                               Resources.ConsoleFormatteFailureMessage, 
-                                                              prefix, example.Exception.ToString().Trim()));
+                                                              prefix, example.ExceptionAsString));
                     this.writter.WriteLine();
                 }
             }

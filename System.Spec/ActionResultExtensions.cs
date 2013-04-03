@@ -25,7 +25,9 @@ namespace System.Spec
             return new ExampleResult {
                 Reason = reason,
                 Status = result.Status,
-                Exception = result.Exception,
+                Message = result.Message,
+                StackTrace = result.StackTrace,
+                ExceptionAsString = result.ExceptionAsString,
                 ElapsedTime = result.ElapsedTime
             };
         }

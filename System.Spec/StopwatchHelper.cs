@@ -34,7 +34,9 @@ namespace System.Spec
                 result.Status = ResultStatus.Success;
             } catch (Exception e) {
                 result.Status = ResultStatus.Error;
-                result.Exception = new InvalidActionException(e);
+                result.ExceptionAsString = e.ToString();
+                result.Message = e.Message;
+                result.StackTrace = e.StackTrace;
             } finally {
                 stopwatch.Stop();
             }

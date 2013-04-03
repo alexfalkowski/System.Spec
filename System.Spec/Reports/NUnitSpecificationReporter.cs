@@ -127,8 +127,8 @@ namespace System.Spec.Reports
         {
             foreach (var error in group.Examples.AllErrors()) {
                 var failure = new failureType {
-                    message = this.CreateCDataSection(error.Exception.Message),
-                    stacktrace = this.CreateCDataSection(error.Exception.StackTrace)
+                    message = this.CreateCDataSection(error.Message),
+                    stacktrace = this.CreateCDataSection(error.StackTrace)
                 };
                 var @case = new testcaseType {
                     name = error.Reason,
