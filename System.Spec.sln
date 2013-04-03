@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Console", "Syst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Command", "System.Spec.Command\System.Spec.Command.csproj", "{83AFB279-5FA1-4240-8509-16FBA4A40B96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Examples.Specs", "System.Spec.Example.Specs\System.Spec.Examples.Specs.csproj", "{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Spec.Examples.Specs", "System.Spec.Examples.Specs\System.Spec.Examples.Specs.csproj", "{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

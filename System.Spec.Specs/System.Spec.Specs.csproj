@@ -100,7 +100,7 @@
       <Project>{D52F70D6-7F9A-459C-8302-3F848C89C3C0}</Project>
       <Name>System.Spec</Name>
     </ProjectReference>
-    <ProjectReference Include="..\System.Spec.Example.Specs\System.Spec.Examples.Specs.csproj">
+    <ProjectReference Include="..\System.Spec.Examples.Specs\System.Spec.Examples.Specs.csproj">
       <Project>{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}</Project>
       <Name>System.Spec.Examples.Specs</Name>
     </ProjectReference>
