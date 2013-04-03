@@ -28,7 +28,7 @@ namespace System.Spec.Specs
     using FluentAssertions;
 
     using System.Spec;
-    using System.Spec.Example.Specs;
+    using System.Spec.Examples.Specs;
     using System.Spec.Formatter;
     using System.Spec.IO;
     using System.Spec.Runners;

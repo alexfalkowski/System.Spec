@@ -17,7 +17,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 
-namespace System.Spec.Example.Specs
+namespace System.Spec.Examples.Specs
 {
     using System.Spec;
 

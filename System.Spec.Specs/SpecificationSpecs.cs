@@ -19,7 +19,7 @@
 namespace System.Spec.Specs
 {
     using System.Linq;
-    using System.Spec.Example.Specs;
+    using System.Spec.Examples.Specs;
 
     using FluentAssertions;
 

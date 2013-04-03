@@ -8,7 +8,7 @@
     <ProjectGuid>{5E1EBCA6-B6FA-46D0-9CD9-6DC7274900E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>System.Spec.Example.Specs</RootNamespace>
-    <AssemblyName>System.Spec.Example.Specs</AssemblyName>
+    <AssemblyName>System.Spec.Examples.Specs</AssemblyName>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>System.Spec.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -42,6 +42,8 @@
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />

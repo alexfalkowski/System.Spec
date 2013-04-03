@@ -16,7 +16,7 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Example.Specs
+namespace System.Spec.Examples.Specs
 {
     using System.Spec;
     using FluentAssertions;

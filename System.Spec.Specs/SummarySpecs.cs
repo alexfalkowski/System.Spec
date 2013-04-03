@@ -30,7 +30,7 @@ namespace System.Spec.Specs
     
     using FluentAssertions;
 
-    using System.Spec.Example.Specs;
+    using System.Spec.Examples.Specs;
     using System.Spec.Reports;
     using System.Spec.Formatter;
     using System.Spec.IO;
