@@ -69,7 +69,7 @@ namespace System.Spec.Specs
             consoleFormatter.WriteError(new ExampleResult {
                         Reason = Resources.TestReason,
                         Status = ResultStatus.Error,
-                        ExceptionAsString = new InvalidOperationException("Test Exception").ToString()
+                        StackTrace = new InvalidOperationException("Test Exception").ToString()
                     });
             stringWriter.Flush();
             var value = Environment.NewLine + Resources.TestReason + Environment.NewLine + 

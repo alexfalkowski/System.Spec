@@ -1,7 +1,7 @@
 require 'albacore'
 
 CURRENT_PATH = File.expand_path(File.dirname(__FILE__))
-VERSION = '3.0.1'
+VERSION = '3.1.0'
 ARTIFACTS_PATH = File.join(CURRENT_PATH, 'artifacts')
 
 def is_windows
@@ -136,11 +136,12 @@ nuspec :nuget_spec do |nuspec|
   nuspec.working_directory = 'artifacts'
   nuspec.output_file = 'System.Spec.nuspec'
 
-  nuspec.file 'System.Spec.dll', 'lib/net40'
-  nuspec.file 'System.Monad.dll', 'lib/net40'
-  nuspec.file 'FluentAssertions.dll', 'lib/net40'
-  nuspec.file 'NSubstitute.dll', 'lib/net40'
-  nuspec.file 'nunit.framework.dll', 'lib/net40'
+  lib_folder = 'lib/net45'
+  nuspec.file 'System.Spec.dll', lib_folder
+  nuspec.file 'System.Monad.dll', lib_folder
+  nuspec.file 'FluentAssertions.dll', lib_folder
+  nuspec.file 'NSubstitute.dll', lib_folder
+  nuspec.file 'nunit.framework.dll', lib_folder
 
   nuspec.file 'System.Spec.dll', 'tools'
   nuspec.file 'System.Spec.Command.dll', 'tools'

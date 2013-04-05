@@ -26,17 +26,6 @@ namespace System.Spec.Command
     using Reports;
     using Runners;
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Reflection;
-    
-    using System.Spec.Formatter;
-    using System.Spec.Reports;
-    using System.Spec.IO;
-    using System.Spec.Runners;
-    
-    using PowerArgs;
     
     public class SpecCommand
     {
