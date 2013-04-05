@@ -68,7 +68,7 @@ namespace System.Spec.Command
                 var writter = this.consoleFactory.CreateConsoleWritter(arguments.Colour);
 
                 if (arguments.Help) {
-                    writter.WriteInformationLine(ArgUsage.GetUsage<Arguments>());
+                    ArgUsage.GetStyledUsage<Arguments>().Write();
                     return 0;
                 }
 
@@ -92,13 +92,15 @@ namespace System.Spec.Command
                 this.reporter.Write(this.fileSystem.OpenWrite(arguments.Output), results);
 
                 return results.HasErrors() ? 1 : 0;
-            } catch (ArgException) {
+            } catch (ArgException e) {
                 var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
-                consoleFormatter.WriteInformationLine(ArgUsage.GetUsage<Arguments>());
+                consoleFormatter.WriteInformationLine(e.Message);
+                consoleFormatter.WriteLine();
+                ArgUsage.GetStyledUsage<Arguments>().Write();
                 return 1;
             } catch (Exception e) {
                 var consoleFormatter = this.consoleFactory.CreateConsoleWritter(false);
-                consoleFormatter.WriteInformationLine(e.ToString().Trim());
+                consoleFormatter.WriteInformationLine(e.ToString());
                 return 1;
             }
         }

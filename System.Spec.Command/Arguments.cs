@@ -22,6 +22,8 @@ namespace System.Spec.Command
 
 	using PowerArgs;
 
+    [ArgExample("spec.(exe|sh) spec", "Execute all the specs in the folder spec.")]
+    [TabCompletion]
 	public class Arguments
 	{
         [ArgPosition(0)]

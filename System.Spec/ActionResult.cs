@@ -25,8 +25,6 @@ namespace System.Spec
         public string Message { get; set; }
 
         public string StackTrace { get; set; }
-
-        public string ExceptionAsString { get; set;}
         
         public long ElapsedTime { get; set; }
     }

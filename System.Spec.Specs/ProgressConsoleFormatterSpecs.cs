@@ -78,8 +78,7 @@ namespace System.Spec.Specs
                 Reason = Resources.TestReason,
                 ElapsedTime = 1000,
                 Message = "Test Exception",
-                StackTrace = string.Empty,
-                ExceptionAsString = "System.InvalidOperationException: Test Exception",
+                StackTrace = "System.InvalidOperationException: Test Exception",
                 Status = ResultStatus.Error
             };
             var results = new Collection<ExpressionResult>();
