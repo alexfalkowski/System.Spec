@@ -58,8 +58,8 @@ namespace System.Spec.Formatter
                                                                     index + 1, example.Reason));
                     var prefix = new string(' ', index.ToString(CultureInfo.InvariantCulture).Length + 2);
                     writter.WriteErrorLine(string.Format(CultureInfo.CurrentCulture,
-                                                              Resources.ConsoleFormatteFailureMessage, 
-                                                              prefix, example.ExceptionAsString));
+                                                         Resources.ConsoleFormatteFailureMessage, 
+                                                         prefix, example.StackTrace));
                     writter.WriteLine();
                 }
             }

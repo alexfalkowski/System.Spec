@@ -27,7 +27,6 @@ namespace System.Spec
                 Status = result.Status,
                 Message = result.Message,
                 StackTrace = result.StackTrace,
-                ExceptionAsString = result.ExceptionAsString,
                 ElapsedTime = result.ElapsedTime
             };
         }

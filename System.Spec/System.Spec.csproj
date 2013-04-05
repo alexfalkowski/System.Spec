@@ -145,7 +145,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Reports\" />
+    <Folder Include="IO\" />
+    <Folder Include="Runners\" />
+  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>

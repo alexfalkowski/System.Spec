@@ -86,16 +86,19 @@ The command spec has the following options:
 
     Usage: spec options
 
-       OPTION          TYPE                   ORDER   DESCRIPTION
-       -path (-p)      String                 0       The path to search all the Spec assemblies. The default is spec.
-       -example (-e)   String                         The example to execute. This could be a spec, example group or an example.
-       -pattern (-P)   String                         Load files matching pattern. The default is Specs.
-       -output (-o)    String                         The output path of the test results. The default is test-results.xml.
-       -format (-f)    ConsoleFormatterType           Specifies what format to use for output.
-       -dryrun (-d)    Switch                         Invokes formatters without executing the examples.
-       -version (-v)   Switch                         Display the version.
-       -colour (-c)    Switch                         Enable colour in the output.
-       -help (-h)      Switch                         You're looking at it.
+       OPTION          TYPE                   POSITION   DESCRIPTION
+       -path (-p)      String                 0          The path to search all the Spec assemblies. The default is spec.
+       -example (-e)   String                 NA         The example to execute. This could be a spec, example group or an example.
+       -pattern (-P)   String                 NA         Load files matching pattern. The default is Specs.
+       -output (-o)    String                 NA         The output path of the test results. The default is test-results.xml.
+       -format (-f)    ConsoleFormatterType   NA         Specifies what format to use for output.
+       -dryrun (-d)    Switch                 NA         Invokes formatters without executing the examples.
+       -version (-v)   Switch                 NA         Display the version.
+       -colour (-c)    Switch                 NA         Enable colour in the output.
+       -help (-h)      Switch                 NA         You're looking at it.
+
+       EXAMPLE: spec.(exe|sh) spec
+       Execute all the specs in the folder spec.
 
 Migration
 ---------

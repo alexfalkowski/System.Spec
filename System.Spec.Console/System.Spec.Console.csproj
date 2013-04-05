@@ -84,10 +84,11 @@
       <HintPath>..\packages\NSubstitute.1.5.0.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="PowerArgs">
-      <HintPath>..\packages\PowerArgs.1.2.0.0\lib\net40\PowerArgs.dll</HintPath>
+      <HintPath>..\packages\PowerArgs.1.4.0.0\lib\net40\PowerArgs.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
