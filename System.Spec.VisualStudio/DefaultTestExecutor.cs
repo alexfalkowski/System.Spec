@@ -88,8 +88,8 @@ namespace System.Spec.VisualStudio
 
                 if (example.Status == ResultStatus.Error) {
                     testResult.Outcome = TestOutcome.Failed;
-                    testResult.ErrorMessage = example.Exception.Message;
-                    testResult.ErrorStackTrace = example.Exception.StackTrace;
+                    testResult.ErrorMessage = example.Message;
+                    testResult.ErrorStackTrace = example.StackTrace;
                 }
 
                 if (example.Status == ResultStatus.Success) {
