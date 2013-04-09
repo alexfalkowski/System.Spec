@@ -107,7 +107,6 @@
     <Compile Include="Runners\ISpecificationRunner.cs" />
     <Compile Include="Runners\ParallelSpecificationRunner.cs" />
     <Compile Include="Runners\SpecificationRunnerBase.cs" />
-    <Compile Include="NoneActionStratergy.cs" />
     <Compile Include="Formatter\DocumentionConsoleFormatter.cs" />
     <Compile Include="Formatter\SilentConsoleFormatter.cs" />
     <Compile Include="Formatter\IConsoleWritter.cs" />
