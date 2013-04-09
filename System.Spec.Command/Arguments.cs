@@ -22,11 +22,13 @@ namespace System.Spec.Command
 
 	using PowerArgs;
 
+    [ArgIgnoreCase(false)]
     [ArgExample("spec.(exe|sh) spec", "Execute all the specs in the folder spec.")]
     [TabCompletion]
 	public class Arguments
 	{
         [ArgPosition(0)]
+        [ArgShortcut("p")]
         [ArgDescription("The path to search all the Spec assemblies. The default is spec.")]
         [DefaultValue("spec")]
         public string Path { get; set; }
