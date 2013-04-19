@@ -22,6 +22,7 @@ namespace System.Spec
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Monad.Maybe;
+    using System.Spec.Properties;
 
 	public class ExampleGroup
 	{
@@ -45,7 +46,7 @@ namespace System.Spec
 
         public void Add(Example example)
         {
-            examples.Add(example.Reason, example);
+            examples.SafeAdd(example.Reason, example, Resources.ExampleErrorMessage);
         }
 
         public IOption<Example> Find(string exampleText)

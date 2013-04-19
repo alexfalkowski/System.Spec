@@ -16,21 +16,22 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace System.Spec.Examples.Specs
+namespace System.Spec
 {
-    using System.Spec;
+    using System;
+    using System.Collections.Generic;
 
-    public class TestSpecificationWithMultipleIts : Specification
+    public static class DictionaryExtensions
     {
-        protected override void Define()
+        public static void SafeAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, 
+                                                 TKey key, TValue value, string errorMessage)
         {
-            Describe("describe TestSpecificationWithMultipleIts", () => {              
-                It("it should do one thing", () => {
-                });
+            if (dictionary.ContainsKey(key))
+            {
+                throw new ArgumentException(string.Format(errorMessage, key));
+            }
 
-                It("it should do another thing", () => {
-                });
-            });
+            dictionary.Add(key, value);
         }
     }
 }

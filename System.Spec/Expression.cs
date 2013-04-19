@@ -22,6 +22,7 @@ namespace System.Spec
     using System.Collections.Generic;
     using System.Linq;
     using System.Monad.Maybe;
+    using System.Spec.Properties;
     
     public class Expression
     {
@@ -31,7 +32,7 @@ namespace System.Spec
 
         public void Add(ExampleGroup example)
         {
-            exampleGroups.Add(example.Reason, example);
+            exampleGroups.SafeAdd(example.Reason, example, Resources.ExampleGroupErrorMessage);
         }
 
         public IEnumerable<ExampleGroup> Examples {

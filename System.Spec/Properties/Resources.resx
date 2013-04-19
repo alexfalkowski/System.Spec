@@ -138,7 +138,13 @@
   <data name="ConsoleFormatteFailureMessage" xml:space="preserve">
     <value>{0}Failure/Error: {1}</value>
   </data>
-   <data name="ConsoleFormatteFailuresMessage" xml:space="preserve">
+  <data name="ConsoleFormatteFailuresMessage" xml:space="preserve">
     <value>Failures:</value>
+  </data>
+  <data name="ExampleGroupErrorMessage" xml:space="preserve">
+    <value>An example group with name '{0}' already exists.</value>
+  </data>
+  <data name="ExampleErrorMessage" xml:space="preserve">
+    <value>An example with name '{0}' already exists.</value>
   </data>
 </root>

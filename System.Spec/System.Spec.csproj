@@ -120,6 +120,7 @@
     <Compile Include="Runners\DefaultSpecificationRunnerFactory.cs" />
     <Compile Include="SpecificationAssembly.cs" />
     <Compile Include="SpecificationAppDomain.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
