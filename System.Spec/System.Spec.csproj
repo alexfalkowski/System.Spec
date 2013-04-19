@@ -122,6 +122,7 @@
     <Compile Include="SpecificationAssembly.cs" />
     <Compile Include="SpecificationAppDomain.cs" />
     <Compile Include="SpecificationResult.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

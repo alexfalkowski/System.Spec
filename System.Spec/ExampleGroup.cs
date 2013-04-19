@@ -44,7 +44,7 @@ namespace System.Spec
 
         public void Add(Example example)
         {
-            examples.Add(example.Reason, example);
+            examples.SafeAdd(example.Reason, example, Resources.ExampleErrorMessage);
         }
 
         public IOption<Example> Find(string exampleText)

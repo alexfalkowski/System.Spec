@@ -125,5 +125,17 @@ namespace System.Spec.Properties {
                 return ResourceManager.GetString("ConsoleFormatteFailuresMessage", resourceCulture);
             }
         }
+
+        internal static string ExampleGroupErrorMessage {
+            get {
+                return ResourceManager.GetString("ExampleGroupErrorMessage", resourceCulture);
+            }
+        }
+        
+        internal static string ExampleErrorMessage {
+            get {
+                return ResourceManager.GetString("ExampleErrorMessage", resourceCulture);
+            }
+        }
     }
 }

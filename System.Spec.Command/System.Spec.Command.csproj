@@ -38,7 +38,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System" />
     <Reference Include="PowerArgs">
-      <HintPath>..\packages\PowerArgs.1.4.0.0\lib\net40\PowerArgs.dll</HintPath>
+      <HintPath>..\packages\PowerArgs.1.5.1.0\lib\net40\PowerArgs.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,7 @@ namespace System.Spec
 
         public void Add(ExampleGroup example)
         {
-            exampleGroups.Add(example.Reason, example);
+            exampleGroups.SafeAdd(example.Reason, example, Resources.ExampleGroupErrorMessage);
         }
 
         public IEnumerable<ExampleGroup> Examples {
