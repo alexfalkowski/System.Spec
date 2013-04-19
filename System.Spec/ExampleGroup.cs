@@ -20,6 +20,7 @@ namespace System.Spec
 {
     using Collections.Generic;
     using Monad.Maybe;
+    using Properties;
     using System;
 
 	public class ExampleGroup

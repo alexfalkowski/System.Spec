@@ -21,6 +21,7 @@ namespace System.Spec
     using Collections.Generic;
     using Linq;
     using Monad.Maybe;
+    using Properties;
     
     public class Expression
     {
