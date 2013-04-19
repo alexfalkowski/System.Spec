@@ -28,47 +28,56 @@ namespace System.Spec.Command
 	public class Arguments
 	{
         [ArgPosition(0)]
-        [ArgShortcut("p")]
+        [ArgShortcut(ArgShortcutPolicy.NoShortcut)]
         [ArgDescription("The path to search all the Spec assemblies. The default is spec.")]
         [DefaultValue("spec")]
         public string Path { get; set; }
 
 		[ArgShortcut("e")]
+        [ArgLongForm("example")]
 		[ArgDescription("The example to execute. This could be a spec, example group or an example.")]
 		public string Example { get; set; }
 
         [ArgShortcut("P")]
+        [ArgLongForm("pattern")]
         [ArgDescription("Load files matching pattern. The default is Specs.")]
         [DefaultValue(StringHelper.SpecsSearch)]
         public string Pattern { get; set; }
 
         [ArgShortcut("o")]
+        [ArgLongForm("out")]
         [ArgDescription("The output path of the test results. The default is test-results.xml.")]
         [DefaultValue("test-results.xml")]
         public string Output { get; set; }
 
 		[ArgShortcut("f")]
+        [ArgLongForm("format")]
 		[ArgDescription("Specifies what format to use for output.")]
 		public ConsoleFormatterType Format { get; set; }
 
 		[ArgShortcut("d")]
+        [ArgLongForm("dry-run")]
 		[ArgDescription("Invokes formatters without executing the examples.")]
 		public bool DryRun { get; set; }
 
         [ArgShortcut("p")]
+        [ArgLongForm("parrallel")]
         [ArgDescription("Execute example(s) in parrallel.")]
         [ArgIgnore]
         public bool Parrallel { get; set; }
 
         [ArgShortcut("v")]
+        [ArgLongForm("version")]
         [ArgDescription("Display the version.")]
         public bool Version { get; set; }
 
         [ArgShortcut("c")]
+        [ArgLongForm("colour")]
         [ArgDescription("Enable colour in the output.")]
         public bool Colour { get; set; }
 
 		[ArgShortcut("h")]
+        [ArgLongForm("help")]
 		[ArgDescription("You're looking at it.")]
 		public bool Help { get; set; }
 	}
