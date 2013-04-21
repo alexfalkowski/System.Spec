@@ -90,15 +90,23 @@ The command spec has the following options:
     Usage: spec options
 
        OPTION          TYPE                   POSITION   DESCRIPTION
-       -path (-p)      String                 0          The path to search all the Spec assemblies. The default is spec.
-       -example (-e)   String                 NA         The example to execute. This could be a spec, example group or an example.
-       -pattern (-P)   String                 NA         Load files matching pattern. The default is Specs.
-       -output (-o)    String                 NA         The output path of the test results. The default is test-results.xml.
-       -format (-f)    ConsoleFormatterType   NA         Specifies what format to use for output.
-       -dryrun (-d)    Switch                 NA         Invokes formatters without executing the examples.
-       -version (-v)   Switch                 NA         Display the version.
-       -colour (-c)    Switch                 NA         Enable colour in the output.
-       -help (-h)      Switch                 NA         You're looking at it.
+       -Path           string                 0          The path to search all the Spec assemblies. The default is spec.
+       -Example (-e)   string                 NA         The example to execute. This could be a spec, example group or an example.
+           --example                          NA
+       -Pattern (-P)   string                 NA         Load files matching pattern. The default is Specs.
+           --pattern                          NA
+       -Output (-o)    string                 NA         The output path of the test results. The default is test-results.xml.
+           --out                              NA
+       -Format (-f)    consoleformattertype   NA         Specifies what format to use for output.
+           --format                           NA
+       -DryRun (-d)    switch                 NA         Invokes formatters without executing the examples.
+           --dry-run                          NA
+       -Version (-v)   switch                 NA         Display the version.
+           --version                          NA
+       -Colour (-c)    switch                 NA         Enable colour in the output.
+           --colour                           NA
+       -Help (-h)      switch                 NA         You're looking at it.
+           --help                             NA
 
        EXAMPLE: spec.(exe|sh) spec
        Execute all the specs in the folder spec.
