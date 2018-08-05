@@ -128,4 +128,4 @@ From version 3.0 we have changed a few more things
 Future
 ------
 
-I have always been a fan of the [Jasmine](http://pivotal.github.com/jasmine/) so I will be following that design. If you have any suggestions please raise a request or issue or better yet fork and contribute.
+I have always been a fan of the [Jasmine](https://jasmine.github.io/) so I will be following that design. If you have any suggestions please raise a request or issue or better yet fork and contribute.
